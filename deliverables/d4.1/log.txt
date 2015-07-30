@@ -1,0 +1,10 @@
+2015-07-30: Patrik: check if the datatype context can be removed:
+
+  ghc-7.10 says:
+     -XDatatypeContexts is deprecated: It was widely considered a misfeature, and has been removed from the Haskell language.
+
+  Uses:
+
+data (Ord value) => Factor value  =  MkFactor Name (Maybe value)
+data (Ord value) => Criterion value  =
+      MkCriterion Name (Maybe value) (Predicate value)

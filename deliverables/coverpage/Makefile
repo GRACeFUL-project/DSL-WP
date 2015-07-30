@@ -1,0 +1,2 @@
+GRACeFUL_deliverable_coverpage.pdf: GRACeFUL_deliverable_coverpage.tex
+	latexmk -pdf GRACeFUL_deliverable_coverpage
