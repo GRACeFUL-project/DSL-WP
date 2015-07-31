@@ -38,8 +38,8 @@ global systems (FP7 CA GSDP).
 * T4.4 implement a middleware for connecting the DSL to the CFP layer
 * T4.5 build a testing and verification framework for RATs
 
-### Deliverables
-* D4.1 Formal description of concept map elements needed for CRUD case study (m6)
-* D4.2 DSL for description of concept maps, with formal semantics (m18)
-* D4.3 Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
-* D4.4 Testing and verification framework for RATs with applications to the CRUD case study (m36)
+### [Deliverables](deliverables/)
+* [D4.1](deliverables/d4.1/) Formal description of concept map elements needed for CRUD case study (m6)
+* [D4.2](deliverables/d4.2/) DSL for description of concept maps, with formal semantics (m18)
+* [D4.3](deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
+* [D4.4](deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)

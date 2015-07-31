@@ -45,3 +45,6 @@
 *.ilg
 *.ind
 *.ist
+
+#Backup-files (from emacs)
+*~
