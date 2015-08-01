@@ -43,3 +43,13 @@ global systems (FP7 CA GSDP).
 * [D4.2](deliverables/d4.2/) DSL for description of concept maps, with formal semantics (m18)
 * [D4.3](deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
 * [D4.4](deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
+
+## Abbreviations
+
+* [GRACeFUL](https://www.graceful-project.eu/) = Global systems Rapid Assessment tools through Constraint FUnctional Languages
+* DSL = Domain Specific Language
+* CFP = Constraint Functional Programming
+* CRUD = Climate Resilient Urban Design
+* RAT = Rapid Assessment Tool
+* GSDP = Global Systems Dynamics and Policy
+* GMB = Group Model Building
