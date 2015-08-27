@@ -18,3 +18,8 @@ The GRACeFUL project develops connections between functional and constraint prog
     * Tom Schrijvers, Fixing nondeterminsm (Wednesday, August 26, 2015, 9:04)
     * Jose N. Oliveira , Programming from Metaphorisms (Wednesdayday, August 26, 2015, 10:45)
     * Tom Schrijvers, From monoids to semirings (Wednesday, August 26, 2015, 11:39)
+* Day 4:
+    * Tarmo Uustalu, Semirings and weighted nondeterminism (Thursday, August 27, 2015, 9:09)
+    * Peter Höfner, Shapes (Thursday, August 27, 2015, 11:56)
+    * Florian Rabe, MMT Tutorial (Thursday, August 27, 2015, 14:00)
+    * Patrik Jansson, Open problems in GRACeFUL: causal loops and relational programming (Thursday, August 27, 2015, 16:00)
