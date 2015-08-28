@@ -29,3 +29,35 @@ The [GRACeFUL project](https://www.graceful-project.eu/) develops connections be
     * **Cezar Ionescu**, UniFormal: towards a European consortium
     * **Tom Schrijvers**, Syntax and semantics of hyper-distributions
     * **Patrik Jansson**, Report on GRACeFUL concept maps, causal loops and relational programming
+
+----------------------------------------------------------------
+
+Participant list:
+* Andrea Vezzosi
+* Andreas Abel
+* Andres Löh
+* Bernhard Möller
+* Bruno Oliveira
+* Carroll Morgan
+* **Cezar Ionescu**
+* Conor McBride
+* Doaitse Swierstra
+* Florian Rabe
+* Fritz Henglein
+* **Irene Lobo Valbuena**
+* Janis Voigtländer
+* Jeremy Gibbons
+* Johan Jeuring
+* Jose Oliveira
+* Lambert Meertens
+* Laura Kovács
+* Lennart Augustsson
+* Nicolas Wu
+* Nils Anders Danielsson
+* **Patrik Jansson**
+* Peter Höfner
+* Ralf Hinze
+* Roland Backhouse
+* Tarmo Uustalu
+* **Tom Schrijvers**
+* Walter Guttmann
