@@ -53,6 +53,8 @@ A concrete dynamical system will be described by a "GRACeFUL concept map":
 
 A policy is interpreted as a function (a "plan") from time and states to actions.
 
+![Small "toy" example concept map.](mini-sample-map.svg?raw=true)
+
 ----------------
 
 ## Initial problem analysis
