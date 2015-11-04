@@ -63,31 +63,32 @@ Key concepts to model:
 * Relations (in a qualitative setting) in the "GRACeFUL concept map"
 * Constraint programming and solving also relies on relations
 
-The DSL implementation will provide a layer-to-layer translation between
+The WP4-DSL implementation will provide a layer-to-layer translation between
 different encodings of relations to enable qualitative reasoning in the
 constraint solving phase.
 
 (DSL1 for the constraints expressed in GRACeFUL concept maps and DSL2 for the
-underlying constraint solving framework.)
+underlying constraint solving framework; or use DSL2 for parts?)
 
-A separate *policy description* DSL might become necessary. Policy actions will
-presumably be the basis of the questions posed during constraint solving (eg:
-when exploring combinations of actions that keep the system in a consistent
-state, that is, one that does not violate imposed constraints). Also considered
-relationally, their translation as constraints on factors will be implemented.
+A separate *policy description* DSL might become necessary (DSL3?):
+* policy actions as the basis of questions posed during constraint solving (eg:
+  when exploring combinations of actions keeping the system in a consistent state)
+* relationally, they could be translated as constraints on factors
 
-Additionally, it will be necessary to investigate how to account for and combine
-these features with *time-dependency* and *non-determinism*, which are
-characteristic of the systems the DSL is intended for.
+Dynamic systems => investigate how to account for characteristic properties
+affecting (several) elements in the maps:
+* *time-dependency*: need for precise units then? (TODO: fetch ICFP HSymposium paper)
+* *non-determinism*
 
 Different kinds of relations can already be observed:
-
-* natural, immutable pre-existing relations; further classified into deterministic and non-deterministic
+* natural, immutable pre-existing relations; further classified:
+  * deterministic
+  * non-deterministic
 * requirements, constraints over how it is desired a system evolves
 * atomic (and combined) actions one may take
 
-The question of which properties the DSL should guarantee for the compatibility
-and compositionality of these deserves further study too.
+TODO: which properties should the DSL guarantee for compatibility and
+compositionality of these relations?
 
 
 ## Concrete outcomes
