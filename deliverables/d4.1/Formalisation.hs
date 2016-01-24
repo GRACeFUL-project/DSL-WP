@@ -41,3 +41,7 @@ data ConceptMapConnection =  CC Connection           |
                              CriterionToGoal         |
                              StakeholderToGoal
 type ConceptMap value     =  Graph (ConceptMapNode value) ConceptMapConnection
+
+
+-- The type "Connection" may need to be labelled with delay and conversino factor or function
+--  If if comes from a Factor WaterLevel to a Factor FloodCost it might be a function WaterLevel -> FloodCost ?
