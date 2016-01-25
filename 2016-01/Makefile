@@ -4,6 +4,7 @@ default: ${NAME}.pdf
 
 ${NAME}.pdf: ${NAME}.md template.tex
 	pandoc -t beamer -H template.tex ${NAME}.md -o ${NAME}.pdf
+#	pandoc -t beamer --variable classoption="aspectratio=1610" -H template.tex ${NAME}.md -o ${NAME}.pdf
 
 ${NAME}.tex: ${NAME}.md template.tex
 	pandoc -t beamer -H template.tex ${NAME}.md -o ${NAME}.tex
