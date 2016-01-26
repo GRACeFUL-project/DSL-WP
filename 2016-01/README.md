@@ -2,7 +2,7 @@
 
 WP4: DSL workpackage overview
 
-Presentation: see [WP4_DSL_Y1.md](WP4_DSL_Y1.md) and [http://www.cse.chalmers.se/~patrikj/talks/GRACeFUL_WP4_DSL_Y1.pdf](WP4_DSL_Y1.pdf) for the actual presentation.
+Presentation: see [WP4_DSL_Y1.md](WP4_DSL_Y1.md) and [WP4_DSL_Y1.pdf](http://www.cse.chalmers.se/~patrikj/talks/GRACeFUL_WP4_DSL_Y1.pdf) for the actual presentation.
 
 The talk was placed last on a long day of presentations and
 discussions but by distributing "question tokens" and explicitly
