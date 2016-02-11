@@ -4,6 +4,10 @@ This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
+## 2016-01-25/26: GRACeFUL 12-month meeting
+
+See [2016-01/](2016-01) for source code and [http://www.cse.chalmers.se/~patrikj/talks/GRACeFUL_WP4_DSL_Y1.pdf](WP4_DSL_Y1.pdf) for the actual presentation.
+
 ## [ACCFun: Algorithmic Calculi for Constraint Functional Programming](http://wiki.portal.chalmers.se/cse/pmwiki.php/ST/ACCFun)
 (A "by invitation only"-workshop in the GRACeFUL project.)
 
@@ -27,7 +31,7 @@ to use a DSL for policy concept maps, logic and relations
 * to bridge between
     * the complexity of the CRUD case study from WP2 (visualised in WP3)
 * and
-    * the underlying science and technology of WP4.
+    * the underlying science and technology of WP5.
 
 In the longer term this will lead to a DSL aimed at building scalable
 RATs for collective policy making in Global Systems.
