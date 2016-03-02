@@ -1,7 +1,7 @@
 ACCFun 2015: Algorithmic Calculi for Constraint Functional Programming
 =================================================================
 
-## Overview
+## Overview
 
 The workshop was held at Göteborg (24<sup>th</sup> to 28<sup>th</sup> of August,
 2015). Organised by Patrik Jansson, Nils Anders Danielsson, Cezar Ionescu and
