@@ -102,28 +102,15 @@ Aim:
     * to adequate models for a constraint solver framework
         * to search for and characterise feasible policies to take.
 
-## Next actions (in the next few months)
+## Next actions (in year 2)
 
-* Read the final Deliverable 2.3 "CRUD RATs Key Requirements"
-* Identify the parts related to the "DSL for policy concept maps, logic and relations"
-* In parallel:
-    * Create a prototype DSL and iteratively refine it
-    * Write a draft of deliverable 4.2 and iteratively refine it
-    * Develop a few very simple examples (towards a Testing and verification framework for the DSL)
+* T4.2: Create a prototype DSL and iteratively refine it (in collab.\ with WP2)
+* T4.3: Provide a simple semantics for the elements of the DSL
+* T4.4: Connect the DSL layer to the CFP layer (WP 5)
+* T4.5: Develop simple examples and properties (towards the testing and verification framework)
 
 Also ongoing (and overlapping):
 
 * Finish the code + draft paper of the functional-feec project (a DSL for the Finite Element Exterior Calculus)
-* Teaching and course development of DSLsofMath (Domain Specific Languages of Mathematics)
-* Develop the connection to the Centre of excellence in Global Systems Science
-
-## Discussion (now)
-
-* Ways of working together
-    * (even) smaller cases to use as test cases for a prototype DSL
-    * set aside time for "code sprints" / "work sprints" (March/April, but plan now)
-    * other ideas?
-* External resources
-    * the CoSMo Company is really working on CRUD (and is in the CoeGSS project)
-    * Syntody (the PIK spinoff mind-mapping company Cezar mentioned)
-    * other?
+* Documenting the course "Domain Specific Languages of Mathematics" (DSLsofMath) as a book
+* Connect to the Centre of excellence in Global Systems Science (CoeGSS)
