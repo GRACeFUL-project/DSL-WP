@@ -37,7 +37,7 @@ scalability, verifiability and correctness of the models.
 
 * [Deliverables](../deliverables/)
     * [D4.1](../deliverables/d4.1/) **Done**: Formal description of concept map elements needed for CRUD case study (m6)
-    * [D4.2](../deliverables/d4.2/) **DSL for description of concept maps, with formal semantics (m18)**
+    * [D4.2](../deliverables/d4.2/) **DSL for description of concept maps, with formal semantics (m24)**
     * [D4.3](../deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
     * [D4.4](../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
 
