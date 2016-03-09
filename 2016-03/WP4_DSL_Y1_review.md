@@ -1,4 +1,4 @@
-## Personnel
+## Personnel at Chalmers
 
 * Site leader: Patrik Jansson, working 20% for GRACeFUL
 * Until 2015-09 (8 months) Cezar Ionescu was a PostDoc on the project. Now in Oxford (but remains co-supervisor of Irene).
@@ -43,14 +43,13 @@ scalability, verifiability and correctness of the models.
 
 ## Relation to the state of the art
 
-The research has been mainly focused on applying the state-of-the-art
-in Domain Specific Languages to the domain of Climate Resiliant Urban
-Design (CRUD). But we have also submitted a paper on "Contributions to
-a computational theory of policy advice and avoidability" [^policyadvice] which is
-clearly extending the state-of-the-art.
+* Main focus: applying the state-of-the-art in Domain Specific Languages to the domain of Climate Resiliant Urban Design (CRUD).
+* Submitted a paper on "Contributions to a computational theory of policy advice and avoidability" [^policyadvice] which is clearly extending the state-of-the-art.
+* Re-submitted paper: "Sequential decision problems, dependent types and generic solutions" [^SeqDecProb]
 
 [^policyadvice]: Paper submitted 2016-01-06 to the Journal of Functional Programming, Special Issue on Dependently typed Programming. [Full text pre-print available](http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JFP_2016_preprint.pdf). Uses dependent types to model constraints, while GRACeFUL uses relations
 
+[^SeqDecProb]: Preprint and associated source available at [github](https://github.com/nicolabotta/SeqDecProbs)
 
 ## Events and dissemination
 
@@ -85,8 +84,8 @@ clearly extending the state-of-the-art.
 
 ## IrLoVa Individual Study Plan:
 
-* Apply Functional Prog. (FP) and Software Tech. (ST) to hybrid modelling
-* Develop DSLs for system dynamics modelling
+* Apply Functional Programming and Software Technology to hybrid modelling
+* Develop Domain Specific Languages for system dynamics modelling
 * Example: modelling a water management system taking into account environmental factors influencing it, with the goal of decreasing risk and damage due to floods.
 
 * Hybrid modelling = must handle both discrete and continuous behaviour
@@ -94,8 +93,8 @@ clearly extending the state-of-the-art.
 
 Aim:
 
-* implement a DSL to qualitatively describe interactions or relations occurring in global systems
-* enable the definition and imposition of criteria expressing desired or acceptable states of a system
+* combine and extend functional and logic programming
+* formalise GSS-relevant application domains using embedded DSLs
 * provide support for policy making in the frame of global systems by
     * refining and translating the system and goal descriptions,
         * along with actions which could embody policies,
