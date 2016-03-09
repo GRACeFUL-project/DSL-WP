@@ -6,11 +6,11 @@
 
 ![GRACeFUL discussion at the ACCFun workshop](../img/GRACeFUL_crop.jpg)
 
-## Tasks
+## Main tasks of WP4 (the DSL work package)
 
-Main task: Build a Domain Specific Language (DSL) for translating the
-concept maps developed and manipulated during Group Model Building
-(GMB) sessions to system dynamics models adequate for the constraint
+Build a Domain Specific Language (DSL) for translating the concept
+maps developed and manipulated during Group Model Building (GMB)
+sessions to system dynamics models adequate for the constraint
 funcional programming (CFP) layer.
 
 The overall purpose of WP4 is to use a DSL for policy concept maps,
@@ -65,7 +65,7 @@ scalability, verifiability and correctness of the models.
 State   : (t : ℕ) -> Type
 Control : (t : ℕ) -> (x : X t) -> Type
 step    : (t : ℕ) -> (x : X t) -> (y : Y t x) -> M (X (S t))
-reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℕ
+reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℝ
 ```
 
 * The aim is to find a policy that maximises the accumulated reward for a finite time horizon.
@@ -120,14 +120,20 @@ Aim:
 Related work:
 
 * Connect to the Centre of excellence in Global Systems Science (CoeGSS)
-    * Patrik Jansson is also site-leader in CoeGSS: HPC and big data
-* Documenting the course "Domain Specific Languages of Mathematics" (DSLsofMath) as a book
+    * Patrik is site-leader in CoeGSS: working on DSLs for Synthetic Populations
+    * Potential access to HPC centres and big data expertise
+    * Pilot studies on "Global urbanisation" and "Green Growth"
+* New BSc course "Domain Specific Languages of Mathematics" (DSLsofMath)
+    * Write up lecture notes as a book
+    * Could lead to tutorial material for "DSLs for GSS"
 
-## Summary
+## Summary of Y1 (Chalmers site and WP4 on DSLs)
 
 * Capture the CRUD domain in a *Domain Specific Language*
 * Formalise and implement using *Typed Functional Programming*
 * Develop a theory of *policy advice and avoidability*
+
+\begin{center} \LARGE{Questions?} \end{center}
 
 ![ACCFun venue (near Marstrand, Sweden)](../img/Marstrand-PANO.jpg)
 
