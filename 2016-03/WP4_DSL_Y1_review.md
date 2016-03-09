@@ -53,6 +53,23 @@ scalability, verifiability and correctness of the models.
 
 [^SeqDecProb]: Preprint and associated source available at [github](https://github.com/nicolabotta/SeqDecProbs)
 
+## Theory example: Sequential Decision Problems
+
+* The starting point for the "theory of policy advice" paper is
+    * A time-dependent state space
+    * A time- and state-dependent control space
+    * A monadic step function
+    * A reward function
+
+```Haskell
+State   : (t : ℕ) -> Type
+Control : (t : ℕ) -> (x : X t) -> Type
+step    : (t : ℕ) -> (x : X t) -> (y : Y t x) -> M (X (S t))
+reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℕ
+```
+
+* The aim is to find a policy that maximises the accumulated reward for a finite time horizon.
+
 ## Events and dissemination
 
 * 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../deliverables/d4.1/)
