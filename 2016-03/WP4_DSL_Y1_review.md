@@ -43,6 +43,16 @@ scalability, verifiability and correctness of the models.
     * [D4.3](../deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
     * [D4.4](../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
 
+## Relation to the state of the art
+
+* Main focus: applying the state-of-the-art in Domain Specific Languages to the domain of Climate Resilient Urban Design (CRUD).
+* Submitted a paper on "Contributions to a computational theory of policy advice and avoidability" [^policyadvice] which is clearly extending the state-of-the-art.
+* (Re-submitted paper: "Sequential decision problems, dependent types and generic solutions" [^SeqDecProb])
+
+[^policyadvice]: Paper submitted 2016-01-06 to the Journal of Functional Programming, Special Issue on Dependently typed Programming. [Full text pre-print available](http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JFP_2016_preprint.pdf). Uses dependent types to model constraints, while GRACeFUL uses relations
+
+[^SeqDecProb]: Pre-print and associated source available at [github](https://github.com/nicolabotta/SeqDecProbs)
+
 ## Deliverable D4.1
 
 * 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../deliverables/d4.1/)
@@ -52,7 +62,7 @@ scalability, verifiability and correctness of the models.
         * an explanation of GRACeFUL as computer aided policy analysis,
         * and a formalisation of the core concepts in Haskell.
 
-## (History of) Functional Programming, Types and DSLs
+## (Brief history of) Functional Programming, Types and DSLs
 
 * An imperative language usually has "expressions" and "statements"
 * It turns out that "expressions" is enough!
@@ -69,16 +79,6 @@ data Expr  =  Lit Double  |  Add Expr Expr  |  Mul Expr Expr
 parse :: String -> Maybe Expr
 eval  :: Expr -> Double
 ```
-
-## Relation to the state of the art
-
-* Main focus: applying the state-of-the-art in Domain Specific Languages to the domain of Climate Resilient Urban Design (CRUD).
-* Submitted a paper on "Contributions to a computational theory of policy advice and avoidability" [^policyadvice] which is clearly extending the state-of-the-art.
-* (Re-submitted paper: "Sequential decision problems, dependent types and generic solutions" [^SeqDecProb])
-
-[^policyadvice]: Paper submitted 2016-01-06 to the Journal of Functional Programming, Special Issue on Dependently typed Programming. [Full text pre-print available](http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JFP_2016_preprint.pdf). Uses dependent types to model constraints, while GRACeFUL uses relations
-
-[^SeqDecProb]: Pre-print and associated source available at [github](https://github.com/nicolabotta/SeqDecProbs)
 
 ## Theory example: Sequential Decision Problems
 
@@ -109,25 +109,6 @@ reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℝ
 
 ![Cezar](../img/Cezar_crop.jpg)
 
-## Irene's Individual PhD Study Plan:
-
-* Apply Functional Programming and Software Technology to hybrid modelling
-* Develop Domain Specific Languages for system dynamics modelling
-* Example: Climate Resilient Urban Design (CRUD)
-
-* Hybrid modelling = must handle both discrete and continuous behaviour
-* Policy = a protocol or scheme of actions to take
-
-Aim:
-
-* combine and extend functional and logic programming
-* formalise GSS-relevant application domains using embedded DSLs
-* provide support for policy making in the frame of global systems by
-    * refining and translating the system and goal descriptions,
-        * along with actions which could embody policies,
-    * to adequate models for a constraint solver framework
-        * to search for and characterise feasible policies to take.
-
 ## Next actions (in year 2)
 
 * T4.2: Create a prototype DSL and iteratively refine it (in collab.\ with WP2)
@@ -154,6 +135,27 @@ Related work:
 \begin{center} \LARGE{Questions?} \end{center}
 
 ![ACCFun venue (near Marstrand, Sweden)](../img/Marstrand-PANO.jpg)
+
+
+## Extra slides: Irene's Individual PhD Study Plan:
+
+* Apply Functional Programming and Software Technology to hybrid modelling
+* Develop Domain Specific Languages for system dynamics modelling
+* Example: Climate Resilient Urban Design (CRUD)
+
+* Hybrid modelling = must handle both discrete and continuous behaviour
+* Policy = a protocol or scheme of actions to take
+
+Aim:
+
+* combine and extend functional and logic programming
+* formalise GSS-relevant application domains using embedded DSLs
+* provide support for policy making in the frame of global systems by
+    * refining and translating the system and goal descriptions,
+        * along with actions which could embody policies,
+    * to adequate models for a constraint solver framework
+        * to search for and characterise feasible policies to take.
+
 
 
 ## Extra slides: ACCFun as a "Measure to maximise impact"
