@@ -11,7 +11,7 @@
 Build a Domain Specific Language (DSL) for translating the concept
 maps developed and manipulated during Group Model Building (GMB)
 sessions to system dynamics models adequate for the constraint
-funcional programming (CFP) layer.
+functional programming (CFP) layer.
 
 The overall purpose of WP4 is to use a DSL for policy concept maps,
 logic and relations
@@ -43,15 +43,42 @@ scalability, verifiability and correctness of the models.
     * [D4.3](../deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
     * [D4.4](../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
 
+## Deliverable D4.1
+
+* 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../deliverables/d4.1/)
+    * The work towards the first WP4 deliverable helped clarifying the underlying theoretical basis and the terminology.
+    * It contains
+        * a short introduction to Functional Programming and DSLs,
+        * an explanation of GRACeFUL as computer aided policy analysis,
+        * and a formalisation of the core concepts in Haskell.
+
+## (History of) Functional Programming, Types and DSLs
+
+* An imperative language usually has "expressions" and "statements"
+* It turns out that "expressions" is enough!
+* Types are used to check that expressions "make sense"
+    * ```(1 :: Int)```{.haskell}, ```(1.0 :: Double)```{.haskell}, ```([1,7] :: [Int])```{.haskell}
+* Users defined types and function types
+```Haskell
+data Maybe a  =  Nothing  |  Just a
+fun :: Input -> Output
+```
+* Tiny "Domain Specific Language" for simple arithmetics
+```Haskell
+data Expr  =  Lit Double  |  Add Expr Expr  |  Mul Expr Expr
+parse :: String -> Maybe Expr
+eval  :: Expr -> Double
+```
+
 ## Relation to the state of the art
 
-* Main focus: applying the state-of-the-art in Domain Specific Languages to the domain of Climate Resiliant Urban Design (CRUD).
+* Main focus: applying the state-of-the-art in Domain Specific Languages to the domain of Climate Resilient Urban Design (CRUD).
 * Submitted a paper on "Contributions to a computational theory of policy advice and avoidability" [^policyadvice] which is clearly extending the state-of-the-art.
 * (Re-submitted paper: "Sequential decision problems, dependent types and generic solutions" [^SeqDecProb])
 
 [^policyadvice]: Paper submitted 2016-01-06 to the Journal of Functional Programming, Special Issue on Dependently typed Programming. [Full text pre-print available](http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JFP_2016_preprint.pdf). Uses dependent types to model constraints, while GRACeFUL uses relations
 
-[^SeqDecProb]: Preprint and associated source available at [github](https://github.com/nicolabotta/SeqDecProbs)
+[^SeqDecProb]: Pre-print and associated source available at [github](https://github.com/nicolabotta/SeqDecProbs)
 
 ## Theory example: Sequential Decision Problems
 
@@ -70,16 +97,7 @@ reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℝ
 
 * The aim is to find a policy that maximises the accumulated reward for a finite time horizon.
 
-## Events and dissemination
-
-* 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../deliverables/d4.1/)
-    * The work towards the first WP4 deliverable helped clarifying the underlying theoretical basis and the terminology.
-    * It contains
-        * a short introduction to Functional Programming and DSLs,
-        * an explanation of GRACeFUL as computer aided policy analysis,
-        * and a formalisation of the core concepts in Haskell.
-
-## Events and dissemination, part 2
+## ACCFun: the main event of the DSL work package in Y1
 
 * 2015-08: [ACCFun: Algorithmic Calculi for Constraint Functional Programming](ACCFun.md)
     * A 5-day "by invitation only"-workshop in the GRACeFUL project.
@@ -95,7 +113,7 @@ reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℝ
 
 * Apply Functional Programming and Software Technology to hybrid modelling
 * Develop Domain Specific Languages for system dynamics modelling
-* Example: Climate Resiliant Urban Design (CRUD)
+* Example: Climate Resilient Urban Design (CRUD)
 
 * Hybrid modelling = must handle both discrete and continuous behaviour
 * Policy = a protocol or scheme of actions to take
