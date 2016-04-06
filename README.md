@@ -4,6 +4,11 @@ This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
+## 2016-04-04: [Reproducibility, Proofs and Domain Specific Languages](http://www.cse.chalmers.se/~patrikj/talks/Jansson_Reproducibility_DSL.pdf)
+
+Invited presentation at [Alan Turing Institute](https://turing.ac.uk/) [Symposium on Reproducibility for Data Intensive Research](http://www.bodleian.ox.ac.uk/whats-on/upcoming-events/2016/april/reproducibility-symposium).
+
+
 ## 2016-03-10: GRACeFUL 1-year review meeting in Brussels
 
 See [2016-03/](2016-03) for the source code and
