@@ -37,8 +37,10 @@ Street address:
 * Rännvägen 6B, 412 58 Göteborg, Sweden
 * https://www.google.com/maps/place/Chalmers+Tekniska+H%C3%B6gskola/@57.6874953,11.9763696,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0xeee3d3162cfc5d3a
 
-Room: To be decided
+Room: EDIT-8103 (top floor)
 
-Hotel recommendations: TBD
+Hotel recommendations:
+* [Panorama](https://www.nordicchoicehotels.com/quality/quality-hotel-panorama1/)
+* [Onyxen](http://www.hotellonyxen.se/en/)
 
 Meals: TBD
