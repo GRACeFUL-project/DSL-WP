@@ -1,6 +1,7 @@
 # Graph description in haskell
 
-* https://hackage.haskell.org/package/fgl
+* [The haskell FGL library](https://hackage.haskell.org/package/fgl)
+* [Paper about the above library](http://web.engr.oregonstate.edu/~erwig/papers/InductiveGraphs_JFP01.pdf)
 
 # Using haskell to model geographical zones
 Ordered by importance
