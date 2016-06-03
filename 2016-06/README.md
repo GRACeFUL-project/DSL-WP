@@ -12,14 +12,18 @@ sprint will take place 2016-06-20 to 2016-06-22 (preliminarily:
 starting at/after lunch time Monday, ending also at lunch time on
 Wednesday). [...]
 
-Prel. list of participants (from the doodle):
+2016-06-03: Updated participant list based on emails + added [prel. agenda](agenda.md).
 
-* Tom Creemers
-* Patrik Jansson
-* Linda Nijland
-* Sadie
-* Klara Mar.
-* Irene Lobo Valbuena
+Prel. list of participants (based on the doodle):
+
+* Patrik Jansson, Chalmers [Chalmers site leader]
+* Maximilian Algehed, Chalmers [student research assistant]
+* Irene Lobo Valbuena, Chalmers [PhD student]
+* Klara Marntirosian, [PhD student]
+* Tom Creemers, UPC [GRACeFUL coordinator]
+* Jaana Takis-Yaldiz, Fraunhofer IAIS, [Data Integration Specialist]
+* Linda Nijland, Radboud University, [PostDoc]
+* Sadie McEvoy, Deltares, [PhD student]
 
 2016-04-13: Created this page to gather information about the work
 sprint.
