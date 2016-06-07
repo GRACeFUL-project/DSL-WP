@@ -20,8 +20,8 @@ We start from the following deliverable components:
 
 Within the GRACeFUL "stack" the focus of the work sprint is on DSL and
 upwards (towards Deltares, Radboud, Fraunhofer, etc. = WP2-3-4). We
-should also have another meeting focused on the CFP conenction (the
-GRACeFUL stack from DSL downwards) in the autumn (WP4-5).
+should also have another meeting focused on the CFP connection (the
+[GRACeFUL stack](https://www.graceful-project.eu/project-overview/methodology/) from DSL downwards) in the autumn (WP4-5).
 
 ## Aims
 

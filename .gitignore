@@ -48,3 +48,7 @@
 
 #Backup-files (from emacs)
 *~
+
+# vim swap files
+*.swp
+*.swo
