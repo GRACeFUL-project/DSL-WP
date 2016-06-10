@@ -23,6 +23,14 @@ upwards (towards Deltares, Radboud, Fraunhofer, etc. = WP2-3-4). We
 should also have another meeting focused on the CFP connection (the
 [GRACeFUL stack](https://www.graceful-project.eu/project-overview/methodology/) from DSL downwards) in the autumn (WP4-5).
 
+We will work mainly on a DSL for causal loop diagrams (CLDs - see the
+references to D4.1 and D2.2 above).  The CLD is intended to model
+"policy and system dynamics" and be the result of a GMB session with
+"high level stakeholders".
+
+We can also look a bit at the "local area planning support tool"
+(name to be decided - see D2.3 above).
+
 ## Aims
 
 From the grant agreement:
@@ -48,19 +56,20 @@ Next deliverable (for WP4):
 
 * 2016-06-20: DSL day 1
     * 12:00 start with optional lunch
-    * 13:00 Welcome + session 1
+    * 13:00 Welcome + session 1: Presentation round, aims, questions, grouping.
     * 15:00 Coffee
-    * 15:30 Session 2
+    * 15:30 Session 2: Haskell DSL demos [Chalmers] + CFP connection [Klara]
     * 17:30 End of day 1
     * 19:00 Joint dinner
 * 2016-06-21: DSL day 2
-    * 09:00 Session 3
+    * 09:00 Session 3: First implementation sprint.
     * 10:30 Coffee
+    * 11:00 Session 4: End with joint reporting.
     * 12:00 Lunch
-    * 13:30 Session 4
+    * 13:30 Session 4: Second implementation sprint. End with outlook towards GRACeFUL deliverables [Creemers]
     * 17:30 End of day 2
 * 2016-06-22: DSL day 3
-    * 09:00 Morning session
+    * 09:00 Session
     * 10:30 Coffee
     * end at 12.30
     * 12.30: optional joint lunch
