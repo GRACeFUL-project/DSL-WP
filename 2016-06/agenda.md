@@ -62,14 +62,17 @@ Next deliverable (for WP4):
     * 17:30 End of day 1
     * 19:00 Joint dinner
 * 2016-06-21: DSL day 2
-    * 09:00 Session 3: First implementation sprint.
+    * 09:00 Session 3: First implementation sprint, part 1.
     * 10:30 Coffee
-    * 11:00 Session 4: End with joint reporting.
+    * 11:00 Session 4: First implementation sprint, part 2. End with joint reporting.
     * 12:00 Lunch
-    * 13:30 Session 4: Second implementation sprint. End with outlook towards GRACeFUL deliverables [Creemers]
+    * 13:30 Session 5: Second implementation sprint, part 1.
+    * 15:30 Coffee
+    * 16:00 Session 6: Second implementation sprint, part 2. End with outlook towards GRACeFUL deliverables [Creemers]
     * 17:30 End of day 2
 * 2016-06-22: DSL day 3
-    * 09:00 Session
+    * 09:00 Session 7: Implementation wrap up
     * 10:30 Coffee
+    * 11:00 Session 8: Joint reporting + wrap up.
     * end at 12.30
     * 12.30: optional joint lunch
