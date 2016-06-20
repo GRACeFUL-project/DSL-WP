@@ -12,6 +12,9 @@ sprint will take place 2016-06-20 to 2016-06-22 (preliminarily:
 starting at/after lunch time Monday, ending also at lunch time on
 Wednesday). [...]
 
+2016-04-13: Created this page to gather information about the work
+sprint.
+
 2016-06-03: Updated participant list based on emails + added [prel. agenda](agenda.md).
 
 List of participants (based on the doodle):
@@ -24,9 +27,6 @@ List of participants (based on the doodle):
 * (Via skype: Jaana Takis-Yaldiz, Fraunhofer IAIS, [Data Integration Specialist])
 * (Via skype: Linda Nijland, Radboud University, [PostDoc])
 * (cancelled: Irene Lobo Valbuena, Chalmers [PhD student])
-
-2016-04-13: Created this page to gather information about the work
-sprint.
 
 Admin contact: Tiina Rankanen, https://www.chalmers.se/en/Staff/Pages/rankanen.aspx
 
