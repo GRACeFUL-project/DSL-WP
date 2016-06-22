@@ -52,27 +52,25 @@ Next deliverable (for WP4):
 
 ## Schedule
 
-(Details to be settled.)
-
 * 2016-06-20: DSL day 1
     * 12:00 start with optional lunch
-    * 13:00 Welcome + session 1: Presentation round, aims, VIS connection [presentation by Jaana] (around 13.40)
+    * 13:00 Welcome + session 1: Presentation round, aims [Tom], VIS connection [presentation by Jaana] (around 13.40)
     * 15:00 Coffee
     * 15:30 Session 2: CFP connection [Klara] + GMB connection [Sadie]
     * 17:30 End of day 1
     * 19:00 Joint dinner: http://www.smaka.se/ Location: https://goo.gl/maps/eaNKosxoi782
 * 2016-06-21: DSL day 2
-    * 09:00 Session 3: First implementation sprint, part 1. (Including Haskell DSL intro [Chalmers])
+    * 09:00 Session 3: First implementation sprint, part 1.
     * 10:30 Coffee
-    * 11:00 Session 4: First implementation sprint, part 2. End with joint reporting.
+    * 11:00 Session 4: First implementation sprint, part 2.
     * 12:00 Lunch
     * 13:30 Session 5: Second implementation sprint, part 1.
     * 15:30 Coffee
-    * 16:00 Session 6: Second implementation sprint, part 2. End with outlook towards GRACeFUL deliverables [Creemers]
+    * 16:00 Session 6: Second implementation sprint, part 2. Outlook towards GRACeFUL deliverables and meetings [Creemers].
     * 17:30 End of day 2
 * 2016-06-22: DSL day 3
     * 09:00 Session 7: Implementation wrap up
     * 10:30 Coffee
-    * 11:00 Session 8: Joint reporting + wrap up.
+    * 11:00 Session 8: Software packaging and future plans.
     * end at 12.30
     * 12.30: optional joint lunch
