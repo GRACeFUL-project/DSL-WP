@@ -74,3 +74,11 @@ Next deliverable (for WP4):
     * 11:00 Session 8: Software packaging and future plans.
     * end at 12.30
     * 12.30: optional joint lunch
+
+## Output
+
+The software developed during the sprint is now available under the new [GRACeFUL-project github org.](https://github.com/GRACeFUL-project)
+* [GraphDSL](https://github.com/GRACeFUL-project/GraphDSL)
+* [DSL-internal](https://github.com/GRACeFUL-project/DSL-internal)
+
+I have also renamed to previous patrikja/GRACeFUL to [GRACeFUL-project/DSL-WP](https://github.com/GRACeFUL-project/DSL-WP).
