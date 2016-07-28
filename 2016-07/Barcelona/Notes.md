@@ -38,6 +38,6 @@
         and try to figure out what it is in the context
         of what we are doing.
 
-* [CFP] Nicolas wants to work with me on using the formalisms
+* [CFP] Nicolas wants to work with on using the formalisms
         of functional programming in the context of his work
         on time series.
