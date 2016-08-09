@@ -81,3 +81,6 @@ Sub-bullets are later notes (2016-08-09).
 
 * [CFP] Nicolas wants to work on using the formalisms of functional
         programming in the context of his work on time series.
+    * Make constraint checking more efficient using laziness?
+    * Assure correctness by QuickCheck against a model in Haskell
+    * Use some functional meta-programming for the constraint models.
