@@ -7,6 +7,12 @@ the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 ## 2016-06-20/22: [DSL work sprint at Chalmers](2016-06)
 
 
+## 201-06-01: Maximilian Algehed starts working for GRACeFUL at Chalmers
+
+Maximilian holds a 20% position as student research assistant
+(Swedish: amanuens) in the GRACeFUL project (in parallel with
+university studies).
+
 ## 2016-04-06: [Reproducibility, Proofs and Domain Specific Languages](http://www.cse.chalmers.se/~patrikj/talks/Jansson_Reproducibility_DSL.pdf)
 
 Invited presentation at [Alan Turing Institute](https://turing.ac.uk/) [Symposium on Reproducibility for Data Intensive Research](http://www.bodleian.ox.ac.uk/whats-on/upcoming-events/2016/april/reproducibility-symposium).
