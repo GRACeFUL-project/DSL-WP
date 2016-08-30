@@ -69,6 +69,30 @@ scalability, verifiability and correctness of the models.
     * Presentations, discussion and implementation work.
     * Implemented a first DSL for GRACeFUL Concept Maps ([GraphDSL](https://github.com/GRACeFUL-project/GraphDSL))
 
+## Example: Coastal Management
+
+![Coastal Management Example](coastalManagement.pdf)
+
+## Example: Coastal Management: DSL textual input
+
+```Haskell
+coastalManagement = do               -- page 66 fig. 4.4
+  -- nodes
+  seaLevelRise    <- mkNode "sea level rise"
+  riskOfFlooding  <- mkNode "risk of flooding"
+  flooding        <- mkNode "flooding"
+  investments     <- mkNode "investments"
+  measuresToPreventFlooding <- mkNode "measures to prevent flooding"
+  ecologyInTheCoastalZone   <- mkNode "ecology in the coastal zone"
+  -- edges
+  link seaLevelRise >+> riskOfFlooding >+> flooding
+                    >+> measuresToPreventFlooding
+  link measuresToPreventFlooding >-> ecologyInTheCoastalZone
+  link measuresToPreventFlooding >-> riskOfFlooding
+  link investments >+> measuresToPreventFlooding
+```
+
+
 ## Next actions (in the next few months)
 
 TODO: continue writing
