@@ -4,7 +4,7 @@
 * PhD student: Irene Lobo Valbuena (started 2015-08-01, 80%)
 * Until 2015-09 (8 months) Cezar Ionescu was also working on the project. Now in Oxford (but remains co-supervisor of Irene).
 * From 2016-06 Maximilian Algehed is working 20% as a Student research assistant.
-* From 2016-10 one more Student research assistant will start [Position advertised until 2016-09-12](http://www.chalmers.se/en/about-chalmers/vacancies/Pages/default.aspx?rmpage=job&rmjob=4292)
+* From 2016-10 one more Student research assistant will start ([position advertised until 2016-09-12](http://www.chalmers.se/en/about-chalmers/vacancies/Pages/default.aspx?rmpage=job&rmjob=4292))
 
 ## Tasks
 
@@ -60,7 +60,7 @@ scalability, verifiability and correctness of the models.
 
 ## Events and dissemination, Y2
 
-* 2016-01: Botta, N., Jansson, P., Ionescu, C. et al work on
+* 2016: Papers: Botta, N., Jansson, P., Ionescu, C. et al work on
     * ["Contributions to a computational theory of policy advice and avoidability."](http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JFP_2016_preprint.pdf) (in submission to the Journal of Functional Programming)
     * ["Sequential decision problems, dependent types and generic solutions"](http://www.cse.chalmers.se/~patrikj/papers/SeqDecProbDepType_LMCS_2016-08_preprint.pdf)., Accept with revision to LMCS.
     * Use dependent types to model constraints, while GRACeFUL uses relations
@@ -71,12 +71,12 @@ scalability, verifiability and correctness of the models.
 
 ## Example: Coastal Management
 
-![Coastal Management Example](coastalManagement.pdf)
+![Coastal Management Example (Van Kouwen, 2007, p.68, Fig. 4.5)](coastalManagement.pdf)
 
 ## Example: Coastal Management: DSL textual input
 
 ```Haskell
-coastalManagement = do               -- page 66 fig. 4.4
+coastalManagement = do
   -- nodes
   seaLevelRise    <- mkNode "sea level rise"
   riskOfFlooding  <- mkNode "risk of flooding"
@@ -95,28 +95,28 @@ coastalManagement = do               -- page 66 fig. 4.4
 
 ## Next actions (in the next few months)
 
-TODO: continue writing
-
-* Read the final Deliverable 2.3 "CRUD RATs Key Requirements"
-* Identify the parts related to the "DSL for policy concept maps, logic and relations"
+* Local recruitment and introduction of new "amanuens"
+* Continue work on the "DSL for policy concept maps, logic and relations"
 * In parallel:
-    * Create a prototype DSL and iteratively refine it
+    * Iteratively refine the prototype DSL
     * Write a draft of deliverable 4.2 and iteratively refine it
-    * Develop a few very simple examples (towards a Testing and verification framework for the DSL)
+    * Develop a test suite (starting from very simple examples)
+    * Work on the semantics of QPNs
 
 Also ongoing (and overlapping):
 
-* Finish the code + draft paper of the functional-feec project (a DSL for the Finite Element Exterior Calculus)
-* Course development of DSLsofMath (Domain Specific Languages of Mathematics)
 * Develop the connection to the Centre of excellence in Global Systems Science
+    * Finalise the Avoidability paper ("Contributions to a computational theory of policy advice and avoidability.")
+* Course development of DSLsofMath (Domain Specific Languages of Mathematics)
+    * semantics, dissemination, ...
 
 ## Discussion (now)
 
-* Ways of working together
-    * (even) smaller cases to use as test cases for a prototype DSL
-    * set aside time for "code sprints" / "work sprints" (Oct/Nov/Dec, but plan now)
+* Connection to the CFP layer (WP5)
+    * Good collaboration going with Klara
+    * Maximilian visited Barcelona 2016-07
+* Connection to the VIS layer (WP3) and tool architecture
+    * Still unclear to me
+* Ways of working:
+    * "code sprint" / "work sprint" (Oct/Nov/Dec?, but plan now)
     * other ideas?
-* External resources
-    * the CoSMo Company is really working on CRUD (and is in the CoeGSS project)
-    * Syntody (the PIK spinoff mind-mapping company Cezar mentioned)
-    * other?
