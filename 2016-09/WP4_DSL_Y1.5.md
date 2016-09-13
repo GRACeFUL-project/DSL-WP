@@ -92,6 +92,13 @@ coastalManagement = do
   link investments >+> measuresToPreventFlooding
 ```
 
+## Software infrastructure (around the DSL)
+
+* (VIS layer)
+* GraphDSL: describe the graph (+ constraints: still ongoing work)
+* QPNModeler: encodes the Qualitative Probabilistic Network semantics
+* haskelzinc: Haskell interface to (and from) MiniZinc
+* (MiniZinc)
 
 ## Next actions (in the next few months)
 
@@ -118,5 +125,6 @@ Also ongoing (and overlapping):
 * Connection to the VIS layer (WP3) and tool architecture
     * Still unclear to me
 * Ways of working:
-    * "code sprint" / "work sprint" (Oct/Nov/Dec?, but plan now)
+    * WP5 "code sprint" / "work sprint" (Oct/Nov/Dec?, but plan now) at Chalmers
+    * WP3 "code sprint" / "work sprint" (Jan/Feb?, but plan soon)
     * other ideas?
