@@ -4,7 +4,7 @@
 * PhD student: Irene Lobo Valbuena (started 2015-08-01, 80%)
 * Until 2015-09 (8 months) Cezar Ionescu was also working on the project. Now in Oxford (but remains co-supervisor of Irene).
 * From 2016-06 Maximilian Algehed is working 20% as a Student research assistant.
-* From 2016-10 one more Student research assistant will start ([position advertised until 2016-09-12](http://www.chalmers.se/en/about-chalmers/vacancies/Pages/default.aspx?rmpage=job&rmjob=4292))
+* From 2016-10 Sólrún Einarsdóttir will start as Student research assistant
 
 ## Tasks
 

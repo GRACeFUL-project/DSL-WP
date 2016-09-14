@@ -4,6 +4,20 @@ This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
+## 2016-10-01: Sólrún Einarsdóttir starts working for GRACeFUL at Chalmers
+
+Sólrún holds a 20% position as student research assistant
+(Swedish: amanuens) in the GRACeFUL project (in parallel with
+university studies).
+
+## 2016-09-12: Deadline for application to become "Student research assistant"
+
+[Archived text from the advertisment](amanuens_2016-10.md)
+
+http://www.chalmers.se/en/about-chalmers/vacancies/Pages/default.aspx?rmpage=job&rmjob=4292)
+
+
+
 ## 2016-06-20/22: [DSL work sprint at Chalmers](2016-06)
 
 
