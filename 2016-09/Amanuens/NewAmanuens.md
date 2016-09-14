@@ -4,10 +4,38 @@ This document gives an overview of the important topics
 to become familiar with now that you are joining the
 Chalmers GRACeFUL group.
 
+## A GRACeFUL taxonomy of terms
+
+The aim of this subsection is to provide a taxonomy of terms
+to refer to in your continued reading. Good luck!
+
+* CLD:
+    Causal Loop Diagram.
+    A labeled graph where the 
+    vertecies represent some state (or projection...)
+    of the real world (e.g. "amount of rainfall" or "air temperature")
+    and the edges represent qualitative causal relationships
+    (e.g. "if the amount of rainfall increases, the waterlevel in the river does too").
+
+* RATs:
+    Rapid Assesment Tool. A tool
+    for assesing the viability of
+    some strategy in a comparatively
+    fast way (comparatively fast because
+    what you are comparing too is doing
+    computation/assesments by hand, which
+    will always be slow).
+
+* CRUD:
+    Climate Resilient Urban Design.
+    The topic of designing urban environments
+    to be less culnerable to things like
+    floods and hot weather etc.
+
 ## The work will involve
-* GraphDSL+constraints: development of a domain specific language embedded in Haskell,
-* Implementing examples in this language,
-* Interfacing with the software developed by the other project partners,
+* GraphDSL+constraints: development of a domain specific language embedded in Haskell
+* Implementing examples in this language
+* Interfacing with the software developed by the other project partners
 * Testing and verification of the tools and
 * Documentation in reports and scientific papers.
 
