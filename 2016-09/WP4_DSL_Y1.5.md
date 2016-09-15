@@ -95,20 +95,20 @@ coastalManagement = do
 ## Software infrastructure (around the DSL)
 
 * (VIS layer)
-* GraphDSL: describe the graph (+ constraints: still ongoing work)
+* GraphDSL (describe the graph) + ConstraintDSL (still ongoing work)
 * QPNModeler: encodes the Qualitative Probabilistic Network semantics
 * haskelzinc: Haskell interface to (and from) MiniZinc
 * (MiniZinc)
 
 ## Next actions (in the next few months)
 
-* Local recruitment and introduction of new "amanuens"
+* Local recruitment and [introduction of new "amanuens"](Amanuens/NewAmanuens.md)
 * Continue work on the "DSL for policy concept maps, logic and relations"
 * In parallel:
     * Iteratively refine the prototype DSL
     * Write a draft of deliverable 4.2 and iteratively refine it
     * Develop a test suite (starting from very simple examples)
-    * Work on the semantics of QPNs
+    * Work on the [semantics of QPNs](../semantics/)
 
 Also ongoing (and overlapping):
 
@@ -116,6 +116,8 @@ Also ongoing (and overlapping):
     * Finalise the Avoidability paper ("Contributions to a computational theory of policy advice and avoidability.")
 * Course development of DSLsofMath (Domain Specific Languages of Mathematics)
     * semantics, dissemination, ...
+    * (paper at [TyDe 2016 on a Formalisation of some Linear Algebra](https://github.com/DSLsofMath/FLABloM))
+
 
 ## Discussion (now)
 
