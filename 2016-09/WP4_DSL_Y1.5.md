@@ -64,7 +64,7 @@ scalability, verifiability and correctness of the models.
     * ["Contributions to a computational theory of policy advice and avoidability."](http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JFP_2016_preprint.pdf) (in submission to the Journal of Functional Programming)
     * ["Sequential decision problems, dependent types and generic solutions"](http://www.cse.chalmers.se/~patrikj/papers/SeqDecProbDepType_LMCS_2016-08_preprint.pdf)., Accept with revision to LMCS.
     * Use dependent types to model constraints, while GRACeFUL uses relations
-* [2016-06](../2016-06/README.md): GRACeFUL DSL work sprint at Chalmers (Gothenburg, Sweden)
+* [2016-06](https://github.com/GRACeFUL-project/DSL-WP/tree/master/2016-06): GRACeFUL DSL work sprint at Chalmers (Gothenburg, Sweden)
     * Participants: Patrik Jansson, Maximilian Algehed, Klara Marntirosian, Tom Creemers, Sadie McEvoy, (Via skype: Jaana Takis-Yaldiz, Linda Nijland)
     * Presentations, discussion and implementation work.
     * Implemented a first DSL for GRACeFUL Concept Maps ([GraphDSL](https://github.com/GRACeFUL-project/GraphDSL))
@@ -102,13 +102,13 @@ coastalManagement = do
 
 ## Next actions (in the next few months)
 
-* Local recruitment and [introduction of new "amanuens"](Amanuens/NewAmanuens.md)
+* Local recruitment and [introduction of new "amanuens"](https://github.com/GRACeFUL-project/DSL-WP/blob/master/2016-09/Amanuens/NewAmanuens.md)
 * Continue work on the "DSL for policy concept maps, logic and relations"
 * In parallel:
     * Iteratively refine the prototype DSL
     * Write a draft of deliverable 4.2 and iteratively refine it
     * Develop a test suite (starting from very simple examples)
-    * Work on the [semantics of QPNs](../semantics/)
+    * Work on the [semantics of QPNs](https://github.com/GRACeFUL-project/DSL-WP/tree/master/semantics/)
 
 Also ongoing (and overlapping):
 
