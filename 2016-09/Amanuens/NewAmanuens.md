@@ -91,6 +91,11 @@ Ordered by importance (and quality)
 
 ### Qualitative Probabilistic Networks
 * [Fundamentals of Qualitative Probabilistic Networks](http://cs.ru.nl/~peterl/BN/wellman.pdf)
+    This paper introduces the concept of
+    QPN:s as an abstraction of baysian
+    belief networks. Don't read it in great
+    detail, but try to get an idea of the
+    concepts involved.
 
 ### Official GRACeFUL documents
 * CRUD RATs Key Requirements
