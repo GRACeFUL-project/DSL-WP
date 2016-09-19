@@ -4,7 +4,7 @@
 * PhD student: Irene Lobo Valbuena (started 2015-08-01, 80%)
 * Until 2015-09 (8 months) Cezar Ionescu was also working on the project. Now in Oxford (but remains co-supervisor of Irene).
 * From 2016-06 Maximilian Algehed is working 20% as a Student research assistant.
-* From 2016-10 one more Student research assistant will start ([position advertised until 2016-09-12](http://www.chalmers.se/en/about-chalmers/vacancies/Pages/default.aspx?rmpage=job&rmjob=4292))
+* From 2016-10 Sólrún Einarsdóttir will start as Student research assistant
 
 ## Tasks
 
@@ -64,7 +64,7 @@ scalability, verifiability and correctness of the models.
     * ["Contributions to a computational theory of policy advice and avoidability."](http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JFP_2016_preprint.pdf) (in submission to the Journal of Functional Programming)
     * ["Sequential decision problems, dependent types and generic solutions"](http://www.cse.chalmers.se/~patrikj/papers/SeqDecProbDepType_LMCS_2016-08_preprint.pdf)., Accept with revision to LMCS.
     * Use dependent types to model constraints, while GRACeFUL uses relations
-* [2016-06](../2016-06/README.md): GRACeFUL DSL work sprint at Chalmers (Gothenburg, Sweden)
+* [2016-06](https://github.com/GRACeFUL-project/DSL-WP/tree/master/2016-06): GRACeFUL DSL work sprint at Chalmers (Gothenburg, Sweden)
     * Participants: Patrik Jansson, Maximilian Algehed, Klara Marntirosian, Tom Creemers, Sadie McEvoy, (Via skype: Jaana Takis-Yaldiz, Linda Nijland)
     * Presentations, discussion and implementation work.
     * Implemented a first DSL for GRACeFUL Concept Maps ([GraphDSL](https://github.com/GRACeFUL-project/GraphDSL))
@@ -95,20 +95,20 @@ coastalManagement = do
 ## Software infrastructure (around the DSL)
 
 * (VIS layer)
-* GraphDSL: describe the graph (+ constraints: still ongoing work)
+* GraphDSL (describe the graph) + ConstraintDSL (still ongoing work)
 * QPNModeler: encodes the Qualitative Probabilistic Network semantics
 * haskelzinc: Haskell interface to (and from) MiniZinc
 * (MiniZinc)
 
 ## Next actions (in the next few months)
 
-* Local recruitment and introduction of new "amanuens"
+* Local recruitment and [introduction of new "amanuens"](https://github.com/GRACeFUL-project/DSL-WP/blob/master/2016-09/Amanuens/NewAmanuens.md)
 * Continue work on the "DSL for policy concept maps, logic and relations"
 * In parallel:
     * Iteratively refine the prototype DSL
     * Write a draft of deliverable 4.2 and iteratively refine it
     * Develop a test suite (starting from very simple examples)
-    * Work on the semantics of QPNs
+    * Work on the [semantics of QPNs](https://github.com/GRACeFUL-project/DSL-WP/tree/master/semantics/)
 
 Also ongoing (and overlapping):
 
@@ -116,6 +116,8 @@ Also ongoing (and overlapping):
     * Finalise the Avoidability paper ("Contributions to a computational theory of policy advice and avoidability.")
 * Course development of DSLsofMath (Domain Specific Languages of Mathematics)
     * semantics, dissemination, ...
+    * (paper at [TyDe 2016 on a Formalisation of some Linear Algebra](https://github.com/DSLsofMath/FLABloM))
+
 
 ## Discussion (now)
 
