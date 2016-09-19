@@ -89,6 +89,9 @@ Our job is write a DSL for specifying
 ## Reading List
 Ordered by importance (and quality)
 
+### Qualitative Probabilistic Networks
+* [Fundamentals of Qualitative Probabilistic Networks](http://cs.ru.nl/~peterl/BN/wellman.pdf)
+
 ### Official GRACeFUL documents
 * CRUD RATs Key Requirements
 * CRUD Analysis report
