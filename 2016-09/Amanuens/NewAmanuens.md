@@ -98,9 +98,10 @@ Ordered by importance (and quality)
     concepts involved.
 
 ### Official GRACeFUL documents
-* CRUD RATs Key Requirements
-* CRUD Analysis report
-* Formal Concept Maps Elements Descriptions
+* [CRUD RATs Key Requirements](https://seafile.idmt.de/seafhttp/files/da3c113c-3bbd-4507-a1b2-d099293fff42/D2.3.pdf)
+* [CRUD Analysis report](https://seafile.idmt.de/seafhttp/files/5c5e4362-7eb1-4a16-8bc2-f3b8d3dab3e8/D2.2.pdf)
+* [Formal Concept Maps Elements Descriptions](https://seafile.idmt.de/seafhttp/files/ca726235-47d6-4052-b4c6-c4752449f6e9/D4.1.pdf)
+* [Domain-Specific Language for the Constraint Functional Programming Platform](https://seafile.idmt.de/seafhttp/files/f1cab64f-a7ca-48e5-9448-9c8ad0069bcc/D5.1.pdf)
 
 ### Constraint programming
 * Finite Domain Constraint Programming Systems (Schulte and Carlsson)
