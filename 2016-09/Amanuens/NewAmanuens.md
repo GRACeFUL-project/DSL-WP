@@ -76,8 +76,8 @@ by the following diagram
      +-----------------------------+
 
 Our job is write a DSL for specifying
-1. Causal Loop Diagrams (GraphDSL)
-2. Auxiliary constraints (ConstraintDSL)
+    1. Causal Loop Diagrams (GraphDSL)
+    2. Auxiliary constraints (ConstraintDSL)
 
 ## Current goals
 * Generalize GraphDSL.
