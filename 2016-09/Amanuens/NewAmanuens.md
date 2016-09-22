@@ -4,6 +4,18 @@ This document gives an overview of the important topics
 to become familiar with now that you are joining the
 Chalmers GRACeFUL group.
 
+## Overview
+
+One view of the full GRACeFUL project is as a four-layer stack:
+* GMB = Group Model Building and the CRUD = Climate Resiliant Urban Design case study
+* VIS = Visualisation
+* DSL = Domain Specific Languages
+* CFP = Constraint Functional Programming
+
+The Chalmers site is mainly working on DSLs but should also collborate
+with and contribute to all the other layers. Somewhat simplified we
+need to assign one "worker" as the contact towards each layer.
+
 ## A GRACeFUL taxonomy of terms
 
 The aim of this subsection is to provide a taxonomy of terms
@@ -11,7 +23,7 @@ to refer to in your continued reading. Good luck!
 
 * CLD:
     Causal Loop Diagram.
-    A labeled graph where the 
+    A labeled graph where the
     vertecies represent some state (or projection...)
     of the real world (e.g. "amount of rainfall" or "air temperature")
     and the edges represent qualitative causal relationships
@@ -45,15 +57,15 @@ by the following diagram
 
     +--------------------------------+
     |       DSL (this is us)         |
-    | +----------+ +---------------+ | 
+    | +----------+ +---------------+ |
     | | GraphDSL | | ConstraintDSL | |
     | +----------+ +---------------+ |
-    +--------------------------------+ 
+    +--------------------------------+
                  ||   /\
                  \/   ||
-              +------------+ 
+              +------------+
     DSL to CP | QPNModeler | CP to DSL
-              +------------+ 
+              +------------+
                  ||   /\
                  \/   ||
      +-----------------------------+
@@ -61,7 +73,7 @@ by the following diagram
      | +------------+ +----------+ |
      | | HaskelZinc | | MiniZinc | |
      | +------------+ +----------+ |
-     +-----------------------------+ 
+     +-----------------------------+
 
 Our job is write a DSL for specifying
 1. Causal Loop Diagrams (GraphDSL)
