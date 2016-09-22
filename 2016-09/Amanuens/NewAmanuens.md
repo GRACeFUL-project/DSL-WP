@@ -97,6 +97,9 @@ Our job is write a DSL for specifying
   in to one DSL nicely?
 
 * Find a semantic of Causal Loop Diagrams.
+    One way we have studied this is through
+    the lens of "Qualitative Probabilistic Networks",
+    see the reference below.
 
 ## Reading List
 Ordered by importance (and quality)
@@ -116,9 +119,12 @@ Ordered by importance (and quality)
 * [Domain-Specific Language for the Constraint Functional Programming Platform](https://seafile.idmt.de/seafhttp/files/f1cab64f-a7ca-48e5-9448-9c8ad0069bcc/D5.1.pdf)
 
 ### Constraint programming
-* Finite Domain Constraint Programming Systems (Schulte and Carlsson)
+* [Finite Domain Constraint Programming Systems](http://www.math.unipd.it/~frossi/SchulteCarlsson_CPH_2006.pdf)
+    This gives a, somewhat technical, overview of
+    constraint programming systems. Mostly relevant
+    for understanding the other collaborators.
 
-* Stochastic MiniZinc
+* [Stochastic MiniZinc](http://andrearendl.com/cp2014.pdf)
     This paper gives an idea of the kind of abstractions
     that could be constructed as a part of a DSL instead of
     as an extension of the MiniZinc compiler.
