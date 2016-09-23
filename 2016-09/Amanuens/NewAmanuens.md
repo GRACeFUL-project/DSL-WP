@@ -16,6 +16,18 @@ The Chalmers site is mainly working on DSLs but should also collborate
 with and contribute to all the other layers. Somewhat simplified we
 need to assign one "worker" as the contact towards each layer.
 
+Another view is looking at tools or topics (in the same order):
+* (C)AST = (Climate) Adaptation Support Tool (maps (2D graphics) + actions)
+* CLD-editor = Causal Loop Diagram editor
+* GraphDSL
+* MiniZinc
+
+The proposed matching is as follows:
+* OsAb: GMB, (C)AST
+* BjNo: VIS, CLD-editor, testing framework
+* MaAl: DSL, GraphDSL, system architecture
+* SoEi: CFP, MiniZinc, semantics
+
 ## A GRACeFUL taxonomy of terms
 
 The aim of this subsection is to provide a taxonomy of terms
