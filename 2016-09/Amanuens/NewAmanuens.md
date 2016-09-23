@@ -17,7 +17,7 @@ with and contribute to all the other layers. Somewhat simplified we
 need to assign one "worker" as the contact towards each layer.
 
 Another view is looking at tools or topics (in the same order):
-* (C)AST = (Climate) Adaptation Support Tool (maps (2D graphics) + actions)
+* (C)AST = maps (2D graphics) + actions
 * CLD-editor = Causal Loop Diagram editor
 * GraphDSL
 * MiniZinc
@@ -41,7 +41,13 @@ to refer to in your continued reading. Good luck!
     and the edges represent qualitative causal relationships
     (e.g. "if the amount of rainfall increases, the waterlevel in the river does too").
 
-* RATs:
+* (C)AST:
+    (Climate) Adaptation Support Tool
+    [Existing tool](https://www.deltares.nl/en/software/adaptation-support-tool-ast/)
+    at Deltares for actions and maps (2D graphics). May be used "as is" or
+    may need modification (to improve interoperability).
+
+* RAT:
     Rapid Assesment Tool. A tool
     for assesing the viability of
     some strategy in a comparatively
