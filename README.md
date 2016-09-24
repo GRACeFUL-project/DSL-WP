@@ -4,9 +4,15 @@ This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
-## 2016-10-01: Sólrún Einarsdóttir starts working for GRACeFUL at Chalmers
+## 2017-01-01: Alex Gerdes starts working for GRACeFUL at Chalmers
 
-Sólrún holds a 20% position as student research assistant
+Alex Gerdes is a junior lecturer at the CSE department and will work
+40% for GRACeFUL. He has a PhD from Utrecht University and several
+years of PostDoc and industrial research experience.
+
+## 2016-10-01: Sólrún Einarsdóttir, Oskar Abrahamsson and Björn Norgren start working for GRACeFUL at Chalmers
+
+Sólrún, Oskar and Björn hold three 20% positions as student research assistants
 (Swedish: amanuens) in the GRACeFUL project (in parallel with
 university studies).
 
