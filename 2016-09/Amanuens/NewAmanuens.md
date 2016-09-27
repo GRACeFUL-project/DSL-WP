@@ -28,6 +28,20 @@ The proposed matching is as follows:
 * MaAl: DSL, GraphDSL, system architecture
 * SoEi: CFP, MiniZinc, semantics
 
+## GRACeFUL sites and contacts
+
+The sites and some of the participants are listed in the order of the
+stack above.
+
+* Radboud University: Linda Nijland
+* Deltares: Michiel Blind (site leader), Sadie McEvoy (PhD student)
+* Fraunhofer IDMT: Martin Klewer
+* Fraunhofer IAIS: Georg Fuchs, Marie-Luise Christ-Neumann, Mohammad Saifullah, Hans Voss
+* Chalmers: Patrik Jansson (site leader), AlGe (lecturer), OsAb, BjNo, MaAl, SoEi (amanuens)
+* KU Leuven: Tom Schreijvers (site leader), Klara Marntirosian
+* UPC Barcelona: Tom Creemers (Coordinator): Contraint Programming
+* ARMINES: Nicolas Beldiceanu
+
 ## A GRACeFUL taxonomy of terms
 
 The aim of this subsection is to provide a taxonomy of terms
