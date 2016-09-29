@@ -16,6 +16,8 @@ Sólrún, Oskar and Björn hold three 20% positions as student research assistan
 (Swedish: amanuens) in the GRACeFUL project (in parallel with
 university studies).
 
+[Meetings/](Meetings/)
+
 ## 2016-09-12: Deadline for application to become "Student research assistant"
 
 [Archived text from the advertisment](amanuens_2016-10.md)
