@@ -35,12 +35,12 @@ stack above.
 
 * Radboud University: Linda Nijland
 * Deltares: Michiel Blind (site leader), Sadie McEvoy (PhD student)
-* Fraunhofer IDMT: Martin Klewer
-* Fraunhofer IAIS: Georg Fuchs, Marie-Luise Christ-Neumann, Mohammad Saifullah, Hans Voss
+* Fraunhofer IDMT: Martin Klewer, Peter Pharow
+* Fraunhofer IAIS: Georg Fuchs, Marie-Luise Christ-Neumann, Mohammad Saifullah
 * Chalmers: Patrik Jansson (site leader), AlGe (lecturer), OsAb, BjNo, MaAl, SoEi (amanuens)
 * KU Leuven: Tom Schreijvers (site leader), Klara Marntirosian
-* UPC Barcelona: Tom Creemers (Coordinator): Contraint Programming
-* ARMINES: Nicolas Beldiceanu
+* UPC Barcelona: Tom Creemers (Coordinator): Contraint Programming, Marti Rosas-Casals
+* ARMINES: Nicolas Beldiceanu (site leader), Ekaterina Arafailova
 
 ## A GRACeFUL taxonomy of terms
 
