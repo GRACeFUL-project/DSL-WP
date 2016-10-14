@@ -6,6 +6,9 @@
     * Decide travel / participation plans for the "RAT architecture work sprint"
     * Q&A session about the project and the contacts at different sites
 * Thu 2016-10-20 at 11:00 in EDIT-6128: Weekly Chalmers GRACeFUL
+    * Intro: Probabilistic semantics
+    * Decide the dates for the "DSL + CFP work sprint" [doodle](https://doodle.com/poll/67vdzvgim6rkyun2)
+    * Q&A session about the project and the contacts at different sites
 * (No meeting in the exam week)
 * Wed 2016-11-02 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon [PaJa tentative]
 * Thu 2016-11-03 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL [PaJa tentative]
