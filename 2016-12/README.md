@@ -47,5 +47,6 @@ Hotel recommendations:
 ## Participants:
 
 * Patrik Jansson (except for Th. 12-15)
+* Maximilian Algehed
 * Tom Creemers, (arrival: Wednesday evening, departure: after lunch on Friday), Panorama.
 * Nicolas Beldiceanu, (arrival Wed, leave Sat), Panorama
