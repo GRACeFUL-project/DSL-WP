@@ -43,3 +43,8 @@ Room: EDIT-8103
 Hotel recommendations:
 * [Panorama](https://www.nordicchoicehotels.com/quality/quality-hotel-panorama1/)
 * [Onyxen](http://www.hotellonyxen.se/en/)
+
+## Participants:
+
+* Tom Creemers, (arrival: Wednesday evening, departure: after lunch on Friday), Panorama.
+* Patrik Jansson (except for Th. 12-15)
