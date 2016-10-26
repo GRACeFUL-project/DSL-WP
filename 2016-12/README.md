@@ -48,3 +48,4 @@ Hotel recommendations:
 
 * Tom Creemers, (arrival: Wednesday evening, departure: after lunch on Friday), Panorama.
 * Patrik Jansson (except for Th. 12-15)
+* Maximilian Algehed
