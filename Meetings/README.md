@@ -11,7 +11,7 @@
     * Q&A session about the project and the contacts at different sites
 * (No meeting in the exam week)
 * Cancelled by Tom: (Wed 2016-11-02 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon)
-* Thu 2016-11-03 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL [PaJa tentative]
+* Thu 2016-11-03 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL [PaJa from home?]
     * Björn: Testing and verification (of the GraphDSL + CFP connection?)
     * Oskar+Maximilian: Plans for the RAT architecture work sprint
 * Thu 2016-11-10 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL [PaJa participates from Oxford]
@@ -21,10 +21,12 @@
     * Maximilian + Oskar in Delft
     * (Part of the time): the rest connect via Google Hangouts
 * (Thu 2016-11-17 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL)
-    * probably cancelled (already several GRACeFUL hours spent this week)
+    * probably cancelled (already several GRACeFUL hours spent earlier this week)
 * Thu 2016-11-24 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
     * Solrun+Maximilian: Semantics
+    * Björn: Testing and verification (cont.)
 * Thu 2016-12-01 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
+    * Draft of deliverable D4.2 (DSL for description of concept maps, with formal semantics)
 * Wed 2016-12-07 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon (PaJa cannot make it)
 * Thu 2016-12-08 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
 * Thu 2016-12-15/16 at 9.00-17.00 in EDIT-8103: [DSL + CFP work sprint (Chalmers)](../2016-12/)
