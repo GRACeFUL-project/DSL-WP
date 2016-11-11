@@ -21,7 +21,7 @@
     * Maximilian + Oskar in Delft
     * (Part of the time): the rest connect via Google Hangouts
 * (Thu 2016-11-17 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL)
-    * probably cancelled (already several GRACeFUL hours spent earlier this week)
+    * cancelled (already several GRACeFUL hours spent earlier this week)
 * Thu 2016-11-24 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
     * Solrun+Maximilian: Semantics
     * Björn: Testing and verification (cont.)
