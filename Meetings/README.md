@@ -23,16 +23,17 @@
 * (Thu 2016-11-17 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL)
     * cancelled (already several GRACeFUL hours spent earlier this week)
 * Thu 2016-11-24 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
-    * Solrun+Maximilian: Semantics
+    * Solrun+Maximilian: Semantics + plans for 2016-12 workshop
     * Oskar+Björn: gmb-tool status and WP2 workshop report
+* Wed 2016-11-30 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon
 * Thu 2016-12-01 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
     * Draft of deliverable D4.2 (DSL for description of concept maps, with formal semantics)
-    * Test & verification
-* Wed 2016-12-07 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon (PaJa cannot make it)
+    * Meeting planning (DSL+CFP and GRACeFUL Y2)
 * Thu 2016-12-08 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
 * Thu 2016-12-15/16 at 9.00-17.00 in EDIT-8103: [DSL + CFP work sprint (Chalmers)](../2016-12/)
 
-TODO(by Nov): Fill in Jan-Feb meeting slots
+TODO[AlGe](by end of Nov): Fill in Jan-Feb meeting slots
 TODO(after that): book meeting rooms
 
 * ? Wed 2017-01-11 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon
+* ? 2016-01-??: GRACeFUL Year 2 meeting (prel. at Chalmers)
