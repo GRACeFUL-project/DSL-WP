@@ -15,19 +15,20 @@ Admin contact: [Lotta Kegel](https://www.chalmers.se/en/Staff/Pages/kegel.aspx)
 ## Agenda
 
 List of topics
-1. Introduce the state of the DSL
+* Introduce the state of the DSL
     * Introduce the `GenericLibrary`
     * The connection between `GraphDSL` and `GenericLibrary`
     * The connection between `HaskelZinc` and `GenericLibrary`
-2. Semantics
+* Semantics
     * Translating concepts from `CLOCWISe`/`GenericLibrary` to `MiniZinc`
-3. Specification and testing
+    * Semantics of Causal Loop Diagrams
+      * Using "Qualitative Probabilistic Networks"
+      * Using "Difference equations"
+* Specification and testing
     * Make sure important properties are checked using property based tests
     * Document results (in preparation of deliverable D4.2 + future research papers)
     * Property based testing of semantic preservation between software layers
-4. Find a semantic of Causal Loop Diagrams
-    * Using "Qualitative Probabilistic Networks"?
-    * Using "Difference equations"
+
 
 ## Venue
 
