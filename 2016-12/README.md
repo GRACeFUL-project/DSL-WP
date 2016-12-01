@@ -1,7 +1,7 @@
 # 2016-12-15/16: GRACeFUL DSL+CFP work sprint at Chalmers (Gothenburg, Sweden)
 
-2016-10-19: Dates decided: December 15 and 16 (Th+Fr)
-2016-10-14: [Doodle invitiation](https://doodle.com/poll/67vdzvgim6rkyun2) from Patrik to determine suitable dates.
+* 2016-10-19: Dates decided: December 15 and 16 (Th+Fr)
+* 2016-10-14: [Doodle invitiation](https://doodle.com/poll/67vdzvgim6rkyun2) from Patrik to determine suitable dates.
 
 Admin contact: [Lotta Kegel](https://www.chalmers.se/en/Staff/Pages/kegel.aspx)
 
@@ -20,7 +20,7 @@ List of topics
     * The connection between `GraphDSL` and `GenericLibrary`
     * The connection between `HaskelZinc` and `GenericLibrary`
 * Semantics
-    * Translating concepts from `CLOCWISe`/`GenericLibrary` to `MiniZinc`
+    * Translating concepts from `GenericLibrary` to `MiniZinc` (inspired by `CLOCWISe`)
     * Semantics of Causal Loop Diagrams
       * Using "Qualitative Probabilistic Networks"
       * Using "Difference equations"
@@ -29,6 +29,24 @@ List of topics
     * Document results (in preparation of deliverable D4.2 + future research papers)
     * Property based testing of semantic preservation between software layers
 
+## Schedule
+
+* 2016-12-15:
+    * 09.00: Welcome
+    * tt:hh: session 1
+    * 12.00: lunch
+    * tt:hh: session 2
+    * 15.00: fika
+    * tt:hh: session 3
+    * 17.00: end of day one
+    * 19.00: dinner
+* 2016-12-16
+    * 09.00: Start of day 2
+    * tt:hh: session 4
+    * 12.00: lunch
+...
+    * 15.00: fika
+    * 17.00: end of the work sprint
 
 ## Venue
 
@@ -56,3 +74,5 @@ Hotel recommendations:
 * Oskar Abrahamsson
 * Sólrún Einarsdóttir
 * Maximilian Algehed
+* Björn Norgren
+* Alex Gerdes
