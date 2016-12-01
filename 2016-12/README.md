@@ -32,20 +32,19 @@ List of topics
 ## Schedule
 
 * 2016-12-15:
-    * 09.00: Welcome
-    * tt:hh: session 1
+    * 09.00: Welcome + session 1 (including "[fika](https://en.wikipedia.org/wiki/Fika_(Sweden))")
     * 12.00: lunch
-    * tt:hh: session 2
+    * 13.15: session 2
     * 15.00: fika
-    * tt:hh: session 3
+    * 15.30: session 3
     * 17.00: end of day one
     * 19.00: dinner
 * 2016-12-16
-    * 09.00: Start of day 2
-    * tt:hh: session 4
+    * 09.00: session 4
     * 12.00: lunch
-...
+    * 15.30: session 5
     * 15.00: fika
+    * 15.30: session 6
     * 17.00: end of the work sprint
 
 ## Venue
