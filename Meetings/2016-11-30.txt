@@ -1,0 +1,61 @@
+2016-11-30: Some informal notes from the GRACeFUL telconf
+
+Max        Chalmers
+Björn      Chalmers
+Oskar      Chalmers
+Patrik     Chalmers
+Solrun     Chalmers
+Tom        UPC
+Steffen    IAIS (new)
+Sadie      Deltares
+Michiel    Deltares
+Linda      Nijmegen
+Martin     IDMT
+Marie      IAIS
+Klara+Tom  KULeuven
+...
+
+----------------
+
+Steffen (new project leader at IAIS) describes the restructuring at
+IAIS. The previous group has dissolved and a new group is forming - a
+bit unclear yet who will work with Steffen on GRACeFUL from 2017.
+Requested help in collecting requirements for the manning.
+
+----
+
+Patrik: the main requirement from our side is experience with the
+declarative programming paradigm (functional-, logic-, constraint-
+programming). We use Haskell for the DSLs and the existing editor
+components are in Javascript.
+
+----
+
+Max.: we've started to implement a DSL for the "stock and flow"-like
+diagrams described during the Delft work meeting. See the github repo
+
+  https://github.com/GRACeFUL-project/GenericLibrary
+
+----
+
+Patrik: There are now plans for two upcoming meetings at Chalmers:
+
+DSL+CFP work sprint (with Solrun as main contact)
+
+  https://github.com/GRACeFUL-project/DSL-WP/tree/master/2016-12
+
+GRACeFUL Y2 meeting and General Assembly (with Alex as main contact)
+
+  https://github.com/GRACeFUL-project/DSL-WP/tree/master/2017-02
+
+----
+
+Discussion on the final touches for
+
+  D3.2 "VA EDA Requirements & Specifications Document rev.2"
+
+and
+
+  D2.4 "Prototype Status Report"
+
+----
