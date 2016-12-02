@@ -42,7 +42,7 @@ List of topics
 * 2016-12-16
     * 09.00: session 4
     * 12.00: lunch
-    * 15.30: session 5
+    * 13.15: session 5
     * 15.00: fika
     * 15.30: session 6
     * 17.00: end of the work sprint
