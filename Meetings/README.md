@@ -14,7 +14,7 @@ TODO[AlGe](by end of Nov): Fill in Jan-Feb meeting slots
 TODO(after that): book meeting rooms
 
 * ? Wed 2017-01-11 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon
-* ? 2016-01-??: [GRACeFUL Year 2 meeting](../2017-01/) (prel. at Chalmers)
+* 2016-02-02/03: [GRACeFUL Year 2 meeting](../2017-02/) (at Chalmers)
 
 ## Past meetings
 * Thu 2016-11-24 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
