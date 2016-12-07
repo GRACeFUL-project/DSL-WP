@@ -70,6 +70,7 @@ Hotel recommendations:
 * Tom Creemers, (arrival: Wednesday evening, departure: after lunch on Friday), Panorama.
 * Nicolas Beldiceanu, (arrival Wed, leave Sat), Panorama
 * Klara Marntirosian, (arrival Wed, leave Sat afternoon - flight at 18.15), Panorama
+* Ekaterina Arafailova (arrival Wed 15:05, leave Sat 15:45)
 * Oskar Abrahamsson
 * Sólrún Einarsdóttir
 * Maximilian Algehed
