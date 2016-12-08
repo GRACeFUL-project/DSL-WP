@@ -32,19 +32,20 @@ List of topics
 ## Schedule
 
 * 2016-12-15:
-    * 09.00: Welcome + session 1 (including "[fika](https://en.wikipedia.org/wiki/Fika_(Sweden))")
+    * 09.00: Welcome (including "[fika](https://en.wikipedia.org/wiki/Fika_(Sweden))")
+      + The current state of the DSL (introduction of 'Generic Library').
     * 12.00: lunch
-    * 13.15: session 2
+    * 13.15: Translating concepts from `GenericLibrary` to `MiniZinc`.
     * 15.00: fika
-    * 15.30: session 3
+    * 15.30: Semantics of CLDs.
     * 17.00: end of day one
     * 19.00: dinner
 * 2016-12-16
-    * 09.00: session 4
+    * 09.00: Specification and testing - property based testing of DSL.
     * 12.00: lunch
-    * 13.15: session 5
+    * 13.15: session 5 - TBA
     * 15.00: fika
-    * 15.30: session 6
+    * 15.30: session 6 - TBA
     * 17.00: end of the work sprint
 
 ## Venue
