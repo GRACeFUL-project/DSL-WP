@@ -7,7 +7,8 @@
     * Draft of deliverable D4.2 (DSL for description of concept maps, with formal semantics)
     * Meeting planning (DSL+CFP and GRACeFUL Y2)
 * Thu 2016-12-08 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
-    * Dry-runs of DSL+CFP work sprint presentations / demos
+    * Plan presentations/demos for DSL/CFP work sprint
+    * Assign tasks to be completed prior to work sprint
 * Thu 2016-12-15/16 at 9.00-17.00 in EDIT-8103: [DSL + CFP work sprint (Chalmers)](../2016-12/)
 
 TODO[AlGe](by end of Nov): Fill in Jan-Feb meeting slots
