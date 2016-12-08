@@ -1,4 +1,5 @@
 ## Upcoming meetings:
+
 * Thu 2016-12-15/16 at 9.00-17.00 in EDIT-8103: [DSL + CFP work sprint (Chalmers)](../2016-12/)
 
 TODO AlGe (by 2016-12-15): Fill in Jan-Feb GRACeFUL Chalmers meeting slots
