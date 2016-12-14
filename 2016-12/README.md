@@ -76,4 +76,4 @@ Hotel recommendations:
 * Sólrún Einarsdóttir
 * Maximilian Algehed
 * Björn Norgren
-* Alex Gerdes
+* Alex Gerdes (except for Th. 10-12)
