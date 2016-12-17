@@ -1,9 +1,19 @@
-# 2016-12-15/16: GRACeFUL DSL+CFP work sprint at Chalmers (Gothenburg, Sweden)
+# GRACeFUL DSL+CFP work sprint at Chalmers
 
-* 2016-10-19: Dates decided: December 15 and 16 (Th+Fr)
-* 2016-10-14: [Doodle invitiation](https://doodle.com/poll/67vdzvgim6rkyun2) from Patrik to determine suitable dates.
+Dates: **2016-12-15/16**
 
 Admin contact: [Lotta Kegel](https://www.chalmers.se/en/Staff/Pages/kegel.aspx)
+
+## Venue
+
+EDIT-8103,
+CSE department,
+[Campus Johanneberg](http://www.chalmers.se/en/about-chalmers/premises-and-campus/Pages/find-your-way-to-chalmers.aspx),
+Chalmers U. of Tech.
+
+Street address: [Rännvägen 6B, 412 58 Göteborg, Sweden](https://www.google.com/maps/place/Chalmers+Tekniska+H%C3%B6gskola/@57.6874953,11.9763696,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0xeee3d3162cfc5d3a)
+
+Hotel recommendations: [Panorama](https://www.nordicchoicehotels.com/quality/quality-hotel-panorama1/), [Onyxen](http://www.hotellonyxen.se/en/)
 
 ## Goals
 
@@ -15,6 +25,7 @@ Admin contact: [Lotta Kegel](https://www.chalmers.se/en/Staff/Pages/kegel.aspx)
 ## Agenda
 
 List of topics
+
 * Introduce the state of the DSL
     * Introduce the `GenericLibrary`
     * The connection between `GraphDSL` and `GenericLibrary`
@@ -32,48 +43,37 @@ List of topics
 ## Schedule
 
 * 2016-12-15:
-    * 09.00: Welcome (including "[fika](https://en.wikipedia.org/wiki/Fika_(Sweden))")
-      + The current state of the DSL (introduction of 'Generic Library').
+    * 09.00: Welcome by Patrik (including "[fika](https://en.wikipedia.org/wiki/Fika_(Sweden))")
+        * The current state of the DSL (introduction of 'Generic Library').
+		* presentation by Oskar + Maximilian
     * 12.00: lunch
     * 13.15: Translating concepts from `GenericLibrary` to `MiniZinc`.
     * 15.00: fika
     * 15.30: Semantics of CLDs.
+	    * presentation by Sólrún
     * 17.00: end of day one
-    * 19.00: dinner
+    * 19.00: workshop dinner at Restaurant Kraków
 * 2016-12-16
-    * 09.00: Specification and testing - property based testing of DSL.
-    * 12.00: lunch
-    * 13.15: session 5 - TBA
+    * 09.00: Specification and testing
+	    * presentation by Björn: QuickCheck + property based testing of the DSL.
+	    * parallell sessions: semantics, synergies, output parsing, units, qualitative modelling
+    * 12.20: lunch
+    * 13.30: session 5
+	    * All: reporting from the parallel sessions 11-12
     * 15.00: fika
-    * 15.30: session 6 - TBA
+    * 15.30: session 6
+	    * Patrik: property based testing tutorial, reporting
     * 17.00: end of the work sprint
-
-## Venue
-
-CSE department,
-Campus Johanneberg,
-Chalmers University of Technology,
-* http://www.chalmers.se/en/about-chalmers/premises-and-campus/Pages/find-your-way-to-chalmers.aspx
-
-Street address:
-* Rännvägen 6B, 412 58 Göteborg, Sweden
-* https://www.google.com/maps/place/Chalmers+Tekniska+H%C3%B6gskola/@57.6874953,11.9763696,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0xeee3d3162cfc5d3a
-
-Room: EDIT-8103
-
-Hotel recommendations:
-* [Panorama](https://www.nordicchoicehotels.com/quality/quality-hotel-panorama1/)
-* [Onyxen](http://www.hotellonyxen.se/en/)
 
 ## Participants:
 
-* Patrik Jansson (except for Th. 12-15)
-* Tom Creemers, (arrival: Wednesday evening, departure: after lunch on Friday), Panorama.
-* Nicolas Beldiceanu, (arrival Wed, leave Sat), Panorama
-* Klara Marntirosian, (arrival Wed, leave Sat afternoon - flight at 18.15), Panorama
-* Ekaterina Arafailova (arrival Wed 15:05, leave Sat 15:45)
-* Oskar Abrahamsson
-* Sólrún Einarsdóttir
-* Maximilian Algehed
-* Björn Norgren
-* Alex Gerdes (except for Th. 10-12)
+* UPC: Tom Creemers (arrival: Wed, departure: Fri afternoon)
+* Mines-Nantes: Nicolas Beldiceanu (arrival Wed, leave Sat)
+* Mines-Nantes: Ekaterina Arafailova (arrival Wed, leave Sat afternoon)
+* KULeuven: Klara Marntirosian (arrival Wed, leave Sat afternoon)
+* Chalmers: Sólrún Einarsdóttir
+* Chalmers: Patrik Jansson (except for Th. 12-15)
+* Chalmers: Oskar Abrahamsson
+* Chalmers: Maximilian Algehed
+* Chalmers: Björn Norgren
+* Chalmers: Alex Gerdes (except for Th. 10-12)
