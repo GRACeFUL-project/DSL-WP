@@ -20,7 +20,7 @@
 * Elicit some information on the kind of annotations that are in CLOCKWISe from Tom
 
 ## Semantics todos
-* Formalise the semantics of QPNs in Agda
+* Formalise the semantics of CLDs in Agda
 
 ## A DSL for actions
 * Some typical constructors
