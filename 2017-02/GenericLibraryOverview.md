@@ -65,3 +65,36 @@ Some features of such an editor which would be desirable are:
 * The ability to construct new components from existing ones and store them
   in a library.
 * Allow the user to execute a program and be presented with the result.
+
+## Storing auxiliary information with components
+To achieve some of the goals mentioned in the previous section it is necessary
+to store auxiliary information with `GL` components. We propose to do this
+using comments in the source file. We demonstrate how this could be done with
+the following example:
+```Haskell
+{-%
+    "name"     : "Pump",
+    "category" : "Type"
+%-}
+data Pump = Pump {inflow :: Port Float, outflow :: Port Float}
+
+{-%
+    "name"      : "pump",
+    "category"  : "component",
+    "interface" : ["Pump"],
+    "arguments" : [{"name" : "capacity", "type" : "Float"}],
+    "icon"      : "/path/to/icon.bmp"
+%-}
+pump :: Float -> GCM Pump
+pump capacity = do
+  inflow  <- createPort
+  outflow <- createPort
+  component $ do
+    iflow <- value inflow
+    oflow <- value outflow
+    assert $ iflow === oflow
+    assert $ iflow `inRange` (0, lit capacity)
+  return (Pump inflow outflow)
+```
+The idea is to treat `{-% %-}` blocks as JSON, thus providing the ability to
+extend the format indefinitely.
