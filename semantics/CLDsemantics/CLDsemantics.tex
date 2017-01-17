@@ -12,12 +12,14 @@
 A Causal Loop Diagram (CLD) is a directed graph used to display causal
 relationships between variables.
 %
-The nodes represent the variables and the edges represent qualitative
+The vertices represent the variables and the edges represent qualitative
 causal relationships, which can be positive or negative.
 
 We are interested in writing a DSL for CLDs in Haskell and propagating
 signs through CLDs using constraint programming, and would like to
 define a semantic that aids us in that.
+
+TODO: Clarify ``sign propagation''?
 
 We denote a positive causal relationship between $A$ and $B$ by
 $A\xrightarrow{+} B$ and a negative one by $A \xrightarrow{-} B$.
@@ -33,13 +35,17 @@ We denote the sign of the edge from $A$ to $B$ by $s_{AB}$, so
 $s_{AB}= +$ if $A\xrightarrow{+} B$ and $s_{AB}=-$ if
 $A\xrightarrow{-} B$.
 
-TODO: what about no arrow from A to B, what is $s_{AB}$ then?
+
+A vertex $A$ also has a sign $s_A$ that denotes the total influence on $A$, so
+$s_A=+$ if there is an increase in $A$, $s_A=-$ if there is a decrease, $s_A=0$
+if there is no change and $s_A=?$ if we cannot determine the change in $A$.
 
 \section{QPN approach}
 
-TODO: a bit abrupt - explain the relation somewhere
+One approach to modelling and reasoning about CLDs is by using qualitative
+probabilistic networks (QPNs).
 
-A qualitative probabilistic network (QPN) is defined as a directed
+A QPN is defined as a directed
 acyclic graph $G=(V,E)$ where the vertices, $V$, correspond to
 variables and the edges, $E$ to qualitative probabilistic influences.
 %
@@ -48,20 +54,21 @@ These influences can be positive (+) or negative (-).
 Later, when computing transitive influences we will also use (?) for
 ambiguous and (0) for probabilistic independence
 
-TODO: be consistent with either A, B or a, b?
-
-TODO: mention that this comes from CDF = Cumulative Distribution Function
-
 The meaning of signs on edges is defined according to first order
-stochastic dominance, that is $s_{ab}=+$ implies that for all
-$a_1,a_2$ where $a_1\geq a_2$, we must have
-\[P(b \leq b_0| a_1,x)\leq P(b\leq b_0| a_2,x)\]
-for all possible values $b_0$ of $b$ and all consistent contexts $x$.
-%
-The definition of $s_{ab}=-$ is the same but with $a_1\leq a_2$.
+stochastic dominance, as follows:
 
-TODO: what is a ``consistent context''?
-TODO: what if $a_1,x$ or $a_2,x$ is impossible? (so that the conditional prob. is undefined?)
+Let $F_B(\cdot|a_i, x)$ be the cumulative disribution function (CDF) for
+$B$ given $A=a_i$. Then $s_{AB}=+$ means that for all possible values
+$a_1,a_2$ of $A$ where $a_1\geq a_2$, we must have:
+\[F_B(b_0|a_1, x)\leq F_B(b_0|a_2, x),\]
+that is,
+\[P(B \leq b_0| A = a_1, x)\leq P(B\leq b_0| A = a_2, x)\]
+for all possible values $b_0$ of $B$ and any consistent context $x$.
+The context $x$ ranges over all possible assignments to the
+variables other than $A$ that influence $B$, that are consistent with both
+$A=a_1$ and $A=a_2$.
+%
+The definition of $s_{AB}=-$ is the same but with $a_1\leq a_2$.
 
 In simpler terms, $s_{ab} = +$ means that greater values of $a$ mean
 greater values of $b$ are more likely, and $s_{ab}=-$ means that
