@@ -80,7 +80,7 @@ data Pump = Pump {inflow :: Port Float, outflow :: Port Float}
 
 {-%
     "name"      : "pump",
-    "category"  : "component",
+    "category"  : "Component",
     "interface" : ["Pump"],
     "arguments" : [{"name" : "capacity", "type" : "Float"}],
     "icon"      : "/path/to/icon.bmp"
