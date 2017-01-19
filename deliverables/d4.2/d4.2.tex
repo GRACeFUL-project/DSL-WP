@@ -1,0 +1,820 @@
+\documentclass[]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Patrik Jansson et al.},
+            pdftitle={GRACeFUL D4.2: A Domain Specific Language (DSL) for GRACeFUL Concept Maps},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+%% Cezar
+\usepackage[margin=1.60in]{geometry}
+\usepackage[verbose]{wrapfig}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{framed}
+\definecolor{GRACeFULblue}{rgb}{0.20,0.60,0.86}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+\includegraphics[width=5cm]{../coverpage/GRACeFULlogo.png}
+
+\textcolor{GRACeFULblue}{Global systems Rapid Assessment tools\\
+through Constraint FUnctional Languages}
+
+\vspace{1cm}
+
+FETPROACT-1-2014 Grant Nº 640954
+
+\end{center}
+
+\begin{framed}
+\begin{center}
+\Large
+A Domain Specific Language (DSL) for \\
+GRACeFUL Concept Maps\\[1ex]
+
+D4.2\\[1ex]
+
+\end{center}
+\end{framed}
+
+\vspace{1cm}
+
+\noindent
+\begin{tabular}{@{}ll@{}}
+  Lead Participant:       & Chalmers (M. Algehed, S. Einarsdóttir, A. Gerdes, and P. Jansson)
+\\Partners Contributing:  & KU Leuven, UPC
+\\Dissemination Level:    & PU
+\\Document Version:       & Draft (version 2017-01-19)
+\\Date of Submission:     & 2017-01-31
+\\Due Date of Delivery:   & 2017-01-31
+\end{tabular}
+
+\newpage
+
+\section{A Domain Specific Language (DSL) for GRACeFUL Concept Maps}\label{DSL4GRACeFUL}
+
+\vfill
+
+\tableofcontents
+
+\vfill
+
+\newpage
+
+\subsection{Abstract}\label{abstract}
+
+This second deliverable of WP4 includes a short overview of a Domain
+Specific Language (DSL) for description of GRACeFUL concept maps, and
+a formal semantics in terms of types and functions. This is a
+continuation of the initial work described in "D4.1 Formal Concept
+Maps Elements Descriptions" delivered in project month 6. The actual
+source code implementing the DSL is freely available in the project
+repository on GitHub: \url{https://github.com/GRACeFUL-project/}.
+
+\subsection{1. Introduction}\label{introduction}
+
+The main task of Work Package 4 is to build a DSL for translating the
+causal loop diagrams developed and manipulated during Group Model
+Building (GMB) sessions to system dynamics models adequate for the
+Constraint Functional Programming (CFP) layer.
+
+The overall purpose of WP4 is to use a DSL for GRACeFUL concept maps,
+logic and relations to bridge between the complexity of the CRUD case
+study from WP2 and the underlying science and technology of WP5.  In
+the longer term this will lead to a DSL aimed at building scalable
+RATs for collective policy making in Global Systems.  During the
+project we work with embedded DSLs to improve scalability,
+verifiability and correctness of the models.
+
+Deliverable D4.1 reported on task T4.1 and this document mainly
+reports on the work in tasks T4.2 and T4.3 but also includes some
+initial results from T4.4 and T4.5.
+
+\begin{itemize}
+\item T4.1 identify key underlying concepts needed for the CRUD case study
+\item T4.2 develop a DSL to describe the concept maps developed during GMB sessions
+\item T4.3 provide a formal semantics for the elements of the DSL
+\item T4.4 implement a middleware for connecting the DSL to the CFP layer
+\item T4.5 build a testing and verification framework for RATs
+\end{itemize}
+
+\subsection{Background}
+
+TODO: write a short background about some of these concepts
+
+DSL?
+
+Semi-qualitative modelling
+
+Constraint programming
+
+Factors, Criteria, Actions
+
+Outcomes: help the stakeholders
+
+\begin{itemize}
+\item find alternative policies that can satisfy the goals,
+\item identify inconsistencies in the problem definition,
+\item  present visualisations of possible future trajectories.
+\end{itemize}
+
+The information from and for the stakeholders will go through at least
+two layers of the GRACeFUL system before it reaches the constraint
+solver. First, through the graphical visual interface, which will
+assist the stakeholders in building the problem definition, and which
+will present the results of the qualitative simulations, and second,
+the DSLs which will translate between these interfaces and the
+constraint programming layer.
+
+GRACeFUL concept maps
+
+TODO: use part of the commented text:
+
+% The description of the system is elicited from stakeholders
+% with help from the GRACeFUL system, which contains a library of relevant
+% factors, relating them to the concepts under discussion. Here, the term
+% \emph{factors} refers to \emph{characteristics of a system that can take
+% a value, either quantitative or qualitative, that can change over time}
+% (source: the \emph{GRACeFUL Glossary of Terms}). In mathematical system
+% theory, a collection of factors correspond to the \emph{state} of the
+% system. Similarly, \emph{external factors} correspond to \emph{inputs}
+% to the system. As such, factors are assumed to be associated with
+% measurable (if only in qualitative terms) values.
+%
+% As in systems theory, a distinction is made between inputs that are
+% beyond the control of the system, and which are potentially uncertain
+% (or even unknown), and \emph{actions} or combinations of actions, which
+% represent the system theoretical \emph{controls}, generally assumed to
+% be deterministic but with uncertain consequences.
+%
+% The interaction between the factors, and between the factors and the
+% criteria, represents a first description of the system (no alternatives
+% are present, or only the baseline policy is assumed to be active). This
+% description is in the form of a \emph{causal loop diagram}. A causal
+% loop diagram is a form of \emph{directed, simple, labelled graph}, i.e.:
+%
+% \begin{enumerate}
+% \def\labelenumi{\alph{enumi}.}
+% \item
+%   a link between two nodes has a well-defined source and a target (it is
+%   \emph{directed}); intuitively, the link represents a causal relation
+%   between the source (cause) and the target (effect);
+% \item
+%   there can be at most one connection from one node to another (the
+%   graph is \emph{simple}): either a causal relation exists, or it does
+%   not. Note, however, that since the graph is directed, there may be an
+%   inverse connection from the ``effect'' to the ``cause'', as in
+%   feedback loops;
+% \item
+%   the connections are either \emph{positive} (an increase in the value
+%   of the source causes an increase in the value of the target), or
+%   \emph{negative} (an increase causes a decrease), hence the graph is
+%   \emph{labelled}.
+% \end{enumerate}
+%
+% It can be seen from the last point that nodes \emph{must} represent
+% values that can be partially ordered. This rules out nodes that
+% represent, say, stakeholders.
+%
+% As an example, two such causal loop diagrams, produced in the
+% student sessions organised as part of the CRUD case study, can be
+% found in the Appendix.
+%
+% The GRACeFUL system can assist in building the causal loop diagram, for
+% example by suggesting connections, or by pointing out inconsistencies.
+%
+% At this stage, if we can attribute qualitative values to the various
+% nodes, the causal loop diagram describes a system that can make the
+% object of a qualitative simulation. The criteria play the roles of
+% constraints: the qualitative trajectories that lead outside the criteria
+% can be pruned by the constraint programming system.
+%
+% The causal loop diagram is enhanced to a GRACeFUL concept map by the
+% addition of extra nodes and non-causal links. The extra nodes represent
+% actions, goals, alternatives, and stakeholders.
+%
+% Like all previous elements, the actions are also obtained from the
+% stakeholders. As explained in the previous section, actions are the
+% components of alternatives, among which will be found the policy
+% solutions we are seeking. Alternatives are, according to the GRACeFUL
+% Glossary of Terms, ``action or combination of actions that influence the
+% values of criteria''. They correspond to Walker's ``alternative
+% policies'', where a \emph{policy} is defined ``loosely'' as ``a set of
+% actions taken to solve a problem''. As in the case of goal definition,
+% the GRACeFUL system can suggest such ``atomic actions'' that are useful
+% to the goals in the context of the problem at hand.
+%
+% The role of actions in the GRACeFUL concept maps is to give initial
+% values to the factors and criteria they influence. They do not link via
+% causal loops to these factors, since actions are not of the requisite
+% type (they do not represent values that can increase or decrease).
+% However, they will usually have non-causal links, representing
+% constraining relationships to the factors.
+%
+% In the other cases of extra nodes (goals, alternatives, and
+% stakeholders), the links represent primarily ``belongs to''
+% relationships: there are links from stakeholders to goals, indicating
+% which stakeholders have declared which goals; there are links from goals
+% to the criteria by which they are assessed; finally, there are links
+% between alternatives and the factors and criteria that they (i.e., their
+% constituent atomic actions) influence.
+%
+% Figure \ref{fig:cm} (drawn by Sadie McEvoy (Deltares)) shows a
+% graphical representation of the structure of a GRACeFUL concept map:
+%
+% \begin{figure}[!ht]%
+%   \centering
+%  {{\includegraphics[width=0.9\textwidth]{../s4.pdf} }}%
+%   \caption{The structure of a GRACeFUL concept map}%
+%   \label{fig:cm}%
+% \end{figure}
+
+\subsection{An overview of GenericLibrary}
+
+TODO: quote short parts of D4.1 and highlight similarities and differences
+
+% Let us start with concepts and factors, which are, in a sense, the
+% simplest elements of the GRACeFUL concept maps. Concepts are high-level
+% descriptions of the components of a system, and they are refined into
+% factors, which, as we have seen, determine the state of the system. The
+% most important feature of a factor is that it is \emph{measurable}: it
+% can take one value from a set of values. These values must be ordered,
+% otherwise we do not have a notion of increasing or decreasing, as
+% required by the use of factors in causal loop diagrams.
+%
+% Different factors can be associated with the same type of value. For
+% example, there might be factors that represent temperatures in different
+% parts of the system, such as ``water temperature'' and ``air
+% temperature''. Even if the values of water temperature and air
+% temperature happen to be equal, the two factors are still different.
+% That means that a defining component of a factor is its identifier, its
+% name. This suggests formalising the notion of a factor as a pair
+% consisting of a name and a value. Such a formalisation makes explicit
+% the part that stays the same, the name, in addition to the part that
+% changes, the value. This is a common way of modelling states in
+% functional programming.
+%
+% On the other hand, we can certainly create a causal loop diagram
+% without knowing the value associated to the factors. None of the
+% factors in the causal loops in Figures \ref{fig:cl1} and \ref{fig:cl2}
+% have values associated with them. Therefore, we must formalise factors
+% as pairs consisting of a name and \emph{potentially} of a value of an
+% ordered type:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \NormalTok{(}\DataTypeTok{Ord} \NormalTok{value) }\OtherTok{=>} \DataTypeTok{Factor} \NormalTok{value  }\FunctionTok{=}  \DataTypeTok{MkFactor} \DataTypeTok{Name} \NormalTok{(}\DataTypeTok{Maybe} \NormalTok{value)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% For the moment, we can take the names of factors to be just strings:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{type} \DataTypeTok{Name}  \FunctionTok{=}  \DataTypeTok{String}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Since we aim for a system based on qualitative reasoning, most of the
+% types of value we shall use are going to be finite types, consisting of
+% an enumeration of the symbols for possible landmark values and for the
+% intervals delimited by the landmark values. For example, a very common
+% type of qualitative values is:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{QualitativeValue}        \FunctionTok{=}  \DataTypeTok{Negative} \FunctionTok{|} \DataTypeTok{Zero} \FunctionTok{|} \DataTypeTok{Positive}
+%                                 \KeywordTok{deriving} \NormalTok{(}\DataTypeTok{Eq}\NormalTok{, }\DataTypeTok{Ord}\NormalTok{)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Here we have one landmark value, \VERB|\DecValTok{0}|, denoted by
+% \VERB|\DataTypeTok{Zero}|, and two intervals:
+% \VERB|\NormalTok{(}\FunctionTok{-}\NormalTok{inf, }\DecValTok{0}\NormalTok{)}|,
+% denoted \VERB|\DataTypeTok{Negative}|, and
+% \VERB|\NormalTok{(}\DecValTok{0}\NormalTok{, inf)}|, denoted
+% \VERB|\DataTypeTok{Positive}|.
+%
+% Continuing the example of temperature factors above, we can have:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \NormalTok{t1, t2}\OtherTok{                 ::}  \DataTypeTok{Factor} \DataTypeTok{QualitativeValue}
+% \NormalTok{t1                      }\FunctionTok{=}  \DataTypeTok{MkFactor} \StringTok{"Water Temperature"} \DataTypeTok{Nothing}
+% \NormalTok{t2                      }\FunctionTok{=}  \DataTypeTok{MkFactor} \StringTok{"Air Temperature"} \NormalTok{(}\DataTypeTok{Just} \DataTypeTok{Positive}\NormalTok{)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Here, \VERB|\NormalTok{t1}| represents the factor ``Water Temperature'',
+% which does not currently have a defined value, and \VERB|\NormalTok{t2}|
+% represents the factor ``Air Temperature'', whose current value is
+% \VERB|\DataTypeTok{Positive}|.
+%
+% Factors are introduced via the refinement of \emph{concepts}. However,
+% once the factors have been defined, concepts play no further role: in
+% fact, they do not even appear in the current versions of the GRACeFUL
+% concept maps. This is not surprising: concepts are high-level
+% descriptions of parts of systems. In mathematical systems theory, (parts
+% of) systems are \emph{defined} by their states, and so concepts are
+% defined by the factors that they are ``refined'' into in the course of
+% stakeholder interactions. Moreover, it is not clear that it is useful to
+% distinguish between two concepts that are refined in identical sets of
+% factors. Still, at this stage we think it useful to keep a record of the
+% concept name, for example for the purpose of looking it up in a database
+% of pre-defined (or pre-refined) concepts (thus creating re-usable
+% building blocks). Formally, we have:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Concept} \NormalTok{value        }\FunctionTok{=}  \DataTypeTok{MkConcept} \DataTypeTok{Name} \NormalTok{[}\DataTypeTok{Factor} \NormalTok{value]}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% For simplicity, we have assumed that all the factors defining a concept
+% have the same sets of possible values, in order to overcome some
+% limitations of our Haskell notation.
+%
+% We now move on to the formalisation of goals and criteria. Criteria are
+% similar to factors: they are part of the causal loop diagrams, hence
+% have values in an ordered set, names, and maybe a definite value.
+% Additionally, however, criteria are associated to \emph{predicates},
+% which tell us whether a given value satisfies a concrete criterion or
+% not:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{type} \DataTypeTok{Predicate} \NormalTok{a    }\FunctionTok{=}  \NormalTok{(a }\OtherTok{->} \DataTypeTok{Bool}\NormalTok{)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Therefore, we can formalise criteria as
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data}  \NormalTok{(}\DataTypeTok{Ord} \NormalTok{value) }\OtherTok{=>} \DataTypeTok{Criterion} \NormalTok{value  }\FunctionTok{=}
+%       \DataTypeTok{MkCriterion} \DataTypeTok{Name} \NormalTok{(}\DataTypeTok{Maybe} \NormalTok{value) (}\DataTypeTok{Predicate} \NormalTok{value)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% (Alternatively, we could have extended the type
+% \VERB|\DataTypeTok{Factor} \NormalTok{value}|.)
+%
+% For example:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% profit                  \OtherTok{::}  \DataTypeTok{Criterion} \DataTypeTok{QualitativeValue}
+% \NormalTok{profit                   }\FunctionTok{=}  \DataTypeTok{MkCriterion} \StringTok{"Profit"} \NormalTok{(}\DataTypeTok{Just} \DataTypeTok{Zero}\NormalTok{) isPositive}
+%                             \KeywordTok{where}
+%                             \NormalTok{isPositive x }\FunctionTok{=} \NormalTok{x }\FunctionTok{>} \DataTypeTok{Zero}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% introduces a criterion formalising ``profits should be (strictly)
+% positive'', where the current value, \VERB|\DataTypeTok{Zero}|, does not
+% satisfy the criterion.
+%
+% Criteria result from the refinement of goals, just as factors result
+% from the refinement of concepts. It is no surprise, therefore, that the
+% formalisation of goals will be just like that of concepts:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Goal} \NormalTok{value        }\FunctionTok{=}  \DataTypeTok{MkGoal} \DataTypeTok{Name} \NormalTok{[}\DataTypeTok{Criterion} \NormalTok{value]}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% At this point, it is useful to briefly discuss an essential difference
+% between \emph{formalisation} and \emph{implementation}. The
+% implementation of goals in the GRACeFUL system will very likely be much
+% more complex than the formalisation presented here. We mentioned the
+% possibility of looking up goals in a library of pre-defined goals, in
+% order to assist the stakeholders in their search for adequate criteria.
+% We might have various kinds of pre-defined goals, which might themselves
+% be related in complicated ways, for example in order to assess
+% inconsistencies between them. We could use \emph{ontologies} for the
+% representation of goals, (and, for that matter, also concepts, factors,
+% criteria, etc.), linking to Haskell RDF libraries, etc. Therefore, the
+% implementation of \VERB|\DataTypeTok{Goal}| will likely result in a more
+% complex datatype, such as:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Goal}            \FunctionTok{=}  \DataTypeTok{GoalRDF} \DataTypeTok{Triple}
+%                      \FunctionTok{|}  \DataTypeTok{G1} \DataTypeTok{PreDefinedG1}
+%                      \FunctionTok{|}  \DataTypeTok{G2} \DataTypeTok{PreDefinedG2}
+%                      \FunctionTok{|}  \FunctionTok{...}
+%                      \FunctionTok{|}  \DataTypeTok{FreeFormGoal} \DataTypeTok{String}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Here, we are only concerned with \emph{understanding} as clearly as
+% possible the notion of goal, factor, etc. as pertaining to their use in
+% the GRACeFUL concept maps. We do not search for the most efficient
+% representation in computational terms. We are also stripping away
+% anything that does not belong to the essence of these notions \emph{as
+% used in the concept maps}. One reason for this is that the formalisation
+% undertaken here will be part of the \emph{specifications} to the
+% implementations carried out in the course of the project. The simpler
+% the specification, the likelier it is that it will be correctly
+% understood and implemented. Moreover, since the specification is that
+% against which we measure the correctness of the implementation, it is
+% important that we do not overly constrain this implementation, for
+% example by deciding that goals are going to be represented via RDF
+% triples. At this stage, such a decision would be largely arbitrary.
+%
+% Now that we have formalised factors and criteria, the nodes of the
+% causal loop diagrams, we can formalise these diagrams themselves. As
+% mentioned above, these are instances of simple, directed graphs with
+% labelled connections. The following datatype represents a simple
+% directed graph, parametrised on the types of nodes and connections:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Graph} \NormalTok{node conn  }\FunctionTok{=}  \DataTypeTok{MkGraph} \NormalTok{((node, node) }\OtherTok{->} \DataTypeTok{Maybe} \NormalTok{conn)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% In (other) words, a graph is given by a function which, to every ordered
+% pair of nodes (a source and a target), associates either no connection,
+% or just one connection.
+%
+% The connections in a causal loop diagram are labelled either with a
+% plus, or a minus:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Connection}       \FunctionTok{=}  \DataTypeTok{Plus} \FunctionTok{|} \DataTypeTok{Minus}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% The nodes of our causal loop diagrams are either factors or criteria:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{type} \DataTypeTok{Node} \NormalTok{value       }\FunctionTok{=}  \DataTypeTok{Either} \NormalTok{(}\DataTypeTok{Criterion} \NormalTok{value) (}\DataTypeTok{Factor} \NormalTok{value)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Therefore, we can formalise a causal loop as
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{type} \DataTypeTok{CausalLoop} \NormalTok{value  }\FunctionTok{=}  \DataTypeTok{Graph} \NormalTok{(}\DataTypeTok{Node} \NormalTok{value) }\DataTypeTok{Connection}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% GRACeFUL concept maps represent an enrichment of the causal loops with
+% nodes representing the possible (atomic) actions and with nodes and
+% links representing constraints between actions and factors.
+%
+% Actions can influence the nodes of a causal loop diagram, by changing
+% the value associated with that node. We can formalise such an influence
+% as a function that can return a new value for a given node (or
+% \VERB|\DataTypeTok{Nothing}| in the case of ``no influence'').
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{type} \DataTypeTok{Influence} \NormalTok{value  }\FunctionTok{=}  \DataTypeTok{Node} \NormalTok{value }\OtherTok{->} \DataTypeTok{Maybe} \NormalTok{value}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% An action is then defined as a named influence:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Action} \NormalTok{value     }\FunctionTok{=}  \DataTypeTok{MkAction} \DataTypeTok{Name} \NormalTok{(}\DataTypeTok{Influence} \NormalTok{value)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% An alternative policy is, similar to a goal or a concept, a named set of
+% actions:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Alternative}  \NormalTok{value    }\FunctionTok{=}  \DataTypeTok{MkAlternative} \DataTypeTok{Name} \NormalTok{[}\DataTypeTok{Action} \NormalTok{value]}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% One of the major outputs of the GRACeFUL system will be a list of
+% alternatives which meet the goals and the constraints; we could define
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{type} \DataTypeTok{GRACeFUL_Solution} \NormalTok{value  }\FunctionTok{=}  \NormalTok{[}\DataTypeTok{Alternative} \NormalTok{value]}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% As we have seen in the previous section, actions can be constrained by
+% factors (e.g., investments are constrained by the available capital).
+% This is common in systems theory, where the set of controls that can be
+% used when the system is in a given state depend on that state.
+%
+% Similarly, there can be constraint relations between the factors
+% themselves. These constraints can either be associated with concepts, as
+% in the case in which the constraints relate factors stemming from the
+% refinement of the same concept, or with interactions between concepts.
+%
+% The constraint relations are, in general, non-causal, and are thus
+% genuine enhancements over a causal loop diagram. They can sometimes be
+% represented by directed links, for example, ``source value may not
+% exceed target value'', but in general they will require the introduction
+% of a new kind of node. It is easy to see that a constraint such as
+% ``only one of these three factors may be negative'' is not expressible
+% as a link between two factors.
+%
+% Constraints that can be expressed as links can be formalised as
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{ConstraintLink} \NormalTok{value  }\FunctionTok{=}  \DataTypeTok{MkConstraintLink} \NormalTok{(}\DataTypeTok{Predicate} \NormalTok{(value, value))}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% This corresponds to the intuition that we can model a constraint as a
+% link only if it is a binary relation.
+%
+% For example:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% doesNotExceed             \OtherTok{::}  \DataTypeTok{Ord} \NormalTok{value }\OtherTok{=>} \DataTypeTok{ConstraintLink} \NormalTok{value}
+% \NormalTok{doesNotExceed              }\FunctionTok{=}  \DataTypeTok{MkConstraintLink} \NormalTok{gt}
+%                               \KeywordTok{where}
+%                               \NormalTok{gt (v1, v2) }\FunctionTok{=} \NormalTok{v1 }\FunctionTok{<=} \NormalTok{v2}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Constraints between more than two factors cannot be modelled as links.
+% For these, we need to introduce nodes which collect the values of
+% several factors or actions, and check if these values satisfy the
+% constraint, operating in a similar way to the criteria. As opposed to
+% the criteria, the value associated to a constraint is either true, or
+% false.
+%
+% In a binary relation such as \VERB|\NormalTok{doesNotExceed}|, we can
+% distinguish between the two elements (``what does not exceed what?'')
+% based on the source and target order of a directed link. This is not
+% possible in the case of a constraint represented by a node. Therefore,
+% the various roles of the related values must be indicated by the links.
+% As an example, consider the constraint given by
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% inBetweenPred             \OtherTok{::}  \DataTypeTok{Ord} \NormalTok{value }\OtherTok{=>} \DataTypeTok{Predicate} \NormalTok{(value, value, value)}
+% \NormalTok{inBetweenPred (v1, v2, v3) }\FunctionTok{=}  \NormalTok{v1 }\FunctionTok{<=} \NormalTok{v2 }\FunctionTok{&&} \NormalTok{v2 }\FunctionTok{<=} \NormalTok{v3}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% This constraint will be represented by a node. There will be three links
+% into this node, representing the three arguments. These links will need
+% to be labelled, in order for the constraint node to be able to tell
+% which one of the arguments is associated to each link. We can introduce
+% a type for these labels:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Role}                  \FunctionTok{=}  \DataTypeTok{V1} \FunctionTok{|} \DataTypeTok{V2} \FunctionTok{|} \DataTypeTok{V3}
+%                               \KeywordTok{deriving} \DataTypeTok{Eq}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% A role link will connect nodes to a constraint node, specifying their
+% role:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{RoleLink} \NormalTok{role         }\FunctionTok{=}  \DataTypeTok{MkRoleLink} \NormalTok{role}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Finally, a constraint node will be represented by a predicate on a list
+% of role-value pairs:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{ConstraintNode} \NormalTok{role val  }\FunctionTok{=}  \DataTypeTok{MkConstraintNode} \NormalTok{(}\DataTypeTok{Predicate} \NormalTok{[(role, val)])}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% For example, we can define the node associated to the
+% \VERB|\NormalTok{inBetweenPred}| above by
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% inBetweenC                \OtherTok{::}  \DataTypeTok{Ord} \NormalTok{value }\OtherTok{=>} \DataTypeTok{ConstraintNode} \DataTypeTok{Role} \NormalTok{value}
+% \NormalTok{inBetweenC                 }\FunctionTok{=}  \DataTypeTok{MkConstraintNode} \NormalTok{p}
+%                               \KeywordTok{where}
+%                               \NormalTok{p as }\FunctionTok{=} \NormalTok{inBetweenPred (toTriple as)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% (we omit the implementation of \VERB|\NormalTok{toTriple}|).
+%
+% There is one remaining element of the GRACeFUL concept map as presented
+% above, namely the nodes representing the stakeholders. These are meant
+% to relate the stakeholders to their goals, thus we can formalise them
+% as:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{Stakeholder} \NormalTok{value  }\FunctionTok{=}  \DataTypeTok{MkStakeholder} \DataTypeTok{Name} \NormalTok{[}\DataTypeTok{Goal} \NormalTok{value]}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% The nodes of the GRACeFUL concept maps are therefore:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{ConceptMapNode} \NormalTok{role value  }\FunctionTok{=}  \DataTypeTok{CN} \NormalTok{(}\DataTypeTok{Node} \NormalTok{value)}
+%                                 \FunctionTok{|}  \DataTypeTok{AN} \NormalTok{(}\DataTypeTok{Action} \NormalTok{value)}
+%                                 \FunctionTok{|}  \DataTypeTok{GN} \NormalTok{(}\DataTypeTok{Goal} \NormalTok{value)}
+%                                 \FunctionTok{|}  \DataTypeTok{CO} \NormalTok{(}\DataTypeTok{ConstraintNode} \NormalTok{role value)}
+%                                 \FunctionTok{|}  \DataTypeTok{SN} \NormalTok{(}\DataTypeTok{Stakeholder} \NormalTok{value)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% Besides the causal connections in the causal loop diagram, we also have
+% links from actions to the factors and criteria they influence, from the
+% criteria to the goals they assess, from stakeholders to the goals they
+% ``own'', constraint links, and role links.
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{data} \DataTypeTok{ConceptMapConnection} \NormalTok{role value  }\FunctionTok{=}  \DataTypeTok{CC} \DataTypeTok{Connection}
+%                                       \FunctionTok{|}  \DataTypeTok{ActionToNode}
+%                                       \FunctionTok{|}  \DataTypeTok{CriterionToGoal}
+%                                       \FunctionTok{|}  \DataTypeTok{CL} \NormalTok{(}\DataTypeTok{ConstraintLink} \NormalTok{value)}
+%                                       \FunctionTok{|}  \DataTypeTok{RL} \NormalTok{(}\DataTypeTok{RoleLink} \NormalTok{role)}
+%                                       \FunctionTok{|}  \DataTypeTok{StakeholderToGoal}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% We can now define the GRACeFUL concept map as a simple, directed graph:
+%
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \KeywordTok{type} \DataTypeTok{ConceptMap} \NormalTok{role value  }\FunctionTok{=}  \DataTypeTok{Graph} \NormalTok{(}\DataTypeTok{ConceptMapNode} \NormalTok{role value)}
+%                                      \NormalTok{(}\DataTypeTok{ConceptMapConnection} \NormalTok{role value)}
+% \end{Highlighting}
+% \end{Shaded}
+%
+% A concept map
+% \VERB|\NormalTok{cm }\FunctionTok{=} \DataTypeTok{MkGraph} \NormalTok{f}|
+% is \emph{valid} if:
+%
+% \begin{itemize}
+% \item
+%   \VERB|\NormalTok{f (cn1, cn2) }\FunctionTok{=} \DataTypeTok{ActionToNode}|
+%   iff \VERB|\NormalTok{cn1}| is of the form
+%   \VERB|\DataTypeTok{AN} \NormalTok{(}\DataTypeTok{MkAction} \NormalTok{name infl)}|,
+%   \VERB|\NormalTok{cn2}| is of the form
+%   \VERB|\DataTypeTok{CN} \NormalTok{node}|, and
+%   \VERB|\NormalTok{infl node}| is not \VERB|\DataTypeTok{Nothing}|.
+% \item
+%   \VERB|\NormalTok{f (cn1, cn2) }\FunctionTok{=} \DataTypeTok{CriterionToGoal}|
+%   iff \VERB|\NormalTok{cn1}| is of the form
+%   \VERB|\DataTypeTok{CN} \NormalTok{(}\DataTypeTok{Left} \NormalTok{crit)}|,
+%   \VERB|\NormalTok{c2}| is of the form
+%   \VERB|\DataTypeTok{GN} \NormalTok{(}\DataTypeTok{MkGoal} \NormalTok{name crits)}|,
+%   and \VERB|\NormalTok{crit}| is an element of \VERB|\NormalTok{crits}|.
+% \item
+%   \VERB|\NormalTok{f (cn1, cn2) }\FunctionTok{=} \DataTypeTok{StakeholderToGoal}|
+%   iff \VERB|\NormalTok{cn1}| is of the form
+%   \VERB|\DataTypeTok{SN} \NormalTok{(}\DataTypeTok{MkStakeholder} \NormalTok{sname goals)}|,
+%   \VERB|\NormalTok{cn2}| is of the form
+%   \VERB|\DataTypeTok{GN} \NormalTok{goal}|, and \VERB|\NormalTok{goal}|
+%   is an element of \VERB|\NormalTok{goals}|.
+% \item
+%   \VERB|\NormalTok{f (cn1, cn2) }\FunctionTok{=} \DataTypeTok{CC} \NormalTok{plusOrMinus}|
+%   only if \VERB|\NormalTok{cn1}| is of the form
+%   \VERB|\DataTypeTok{CN} \NormalTok{node1}| and \VERB|\NormalTok{cn2}|
+%   is of the form \VERB|\DataTypeTok{CN} \NormalTok{node2}|.
+% \item
+%   \VERB|\NormalTok{f (cn1, cn2) }\FunctionTok{=} \DataTypeTok{RL} \NormalTok{r}|
+%   only if \VERB|\NormalTok{cn1}| is a factor node or an action node, and
+%   \VERB|\NormalTok{cn2}| is a constraint node.
+% \item
+%   \VERB|\NormalTok{f (cn1, cn2) }\FunctionTok{=} \DataTypeTok{CL} \NormalTok{cl}|
+%   only if \VERB|\NormalTok{cn1}| and \VERB|\NormalTok{cn2}| are factors
+%   or actions.
+% \end{itemize}
+
+GenericLibrary, henceforth abbreviated to GL, is a DSL for descriptions
+of GRACeFUL concept map components in Haskell. The DSL is divided in to
+two parts. The first part, \texttt{GCM}, allows the user to describe the
+interactions of GRACeFUL concept map components and has facilities for
+constructing new components from existing ones. The second part,
+\texttt{CP}, features primitives for constructing constraint programs
+which describe the behaviour of an individual components.
+
+TODO: This section needs clarification The architecture is demonstrated
+in the example below. A \texttt{GCM} component exposing a single port is
+defined, it contains a small \texttt{CP} program (in the
+\texttt{component} block) which describes the local behaviour of the
+component and features a local variable which is unreachable from the
+outer, structural, description.
+
+\begin{verbatim}
+gcmComponent :: GCM (Port Float)
+gcmComponent = do
+  externalPort <- createPort
+  component $ do
+   variable <- createLVar
+   assert (externalPort === variable + 1)
+  return externalPort
+\end{verbatim}
+
+\subsubsection{Example: Runoff flow}\label{example-runoff-flow}
+
+TODO: Maybe we should use the ``rain and pump'' example from the work
+sprint instead?
+
+TODO: Insert figure showing a graphical view
+
+\subsubsection{Example: Runoff flow: DSL textual
+input}\label{example-runoff-flow-dsl-textual-input}
+
+\begin{verbatim}
+-- Small example
+example :: GCM ()
+example = do
+
+  -- Instantiate components
+  r <- rain 20
+  pmp <- pump 2
+  (inf, out, ovf, cap) <- storage 4
+  (floodFlow, isFlooded) <- floodingOfSquare
+
+  -- Instantiate actions
+  pumpAction <- increasePumpCapacityAction (capacity pmp)
+
+  -- Link ports
+  link inf r
+  link (inflow pmp) out
+  link ovf floodFlow
+
+  -- Make sure there is no flooding
+  set isFlooded False
+\end{verbatim}
+
+\subsection{Software infrastructure (around the
+DSL)}\label{software-infrastructure-around-the-dsl}
+
+TODO: Replace by a more current description of the software status
+
+TODO: Should we even describe the two different software stacks?
+
+\begin{itemize}
+\item
+  (VIS layer)
+\item
+  GenericLibrary
+\item
+  (MiniZinc)
+\item
+  (VIS layer)
+\item
+  GraphDSL (describe the graph) + ConstraintDSL (still ongoing work)
+\item
+  QPNModeler: encodes the Qualitative Probabilistic Network semantics
+\item
+  haskelzinc: Haskell interface to (and from) MiniZinc
+\item
+  (MiniZinc)
+\end{itemize}
+
+\subsubsection{Install script and
+requirements}\label{install-script-and-requirements}
+
+TODO{[}OsAb{]}: insert from the other repo.
+
+\subsection{Semantics}\label{semantics}
+
+TODO{[}Solrun{]}: write a few pages about semantics
+
+\end{document}
