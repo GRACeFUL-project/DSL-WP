@@ -98,3 +98,7 @@ pump capacity = do
 ```
 The idea is to treat `{-% %-}` blocks as JSON, thus providing the ability to
 extend the format indefinitely.
+
+## Interfacing the `GL` runtime system with the VIS layer
+
+## Future work
