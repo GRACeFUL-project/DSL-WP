@@ -46,7 +46,7 @@ component3 = do
   link p2 q2
 
 ```
-Assuming `constraints1, constraints2` are defined somewhere else.
+Assuming `constraints1, constraints2` are functions defined somewhere else.
 
 ## Requirements for the interface between `GL` and the VIS layer
 While `GL` is a powerful language for expressing

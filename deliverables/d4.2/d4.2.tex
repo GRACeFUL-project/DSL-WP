@@ -1,4 +1,5 @@
 \documentclass[]{article}
+\usepackage{todonotes}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -124,7 +125,7 @@ initial results from T4.4 and T4.5.
 
 \subsection{Background}
 
-TODO: write a short background about some of these concepts
+\todo{write a short background about some of these concepts}
 
 DSL?
 
@@ -732,13 +733,14 @@ constructing new components from existing ones. The second part,
 \texttt{CP}, features primitives for constructing constraint programs
 which describe the behaviour of an individual components.
 
-TODO: This section needs clarification The architecture is demonstrated
+\todo{This section needs clarification} The architecture is demonstrated
 in the example below. A \texttt{GCM} component exposing a single port is
 defined, it contains a small \texttt{CP} program (in the
 \texttt{component} block) which describes the local behaviour of the
 component and features a local variable which is unreachable from the
 outer, structural, description.
 
+\todo{if possible, make this example nicer}
 \begin{verbatim}
 gcmComponent :: GCM (Port Float)
 gcmComponent = do
@@ -751,43 +753,67 @@ gcmComponent = do
 
 \subsubsection{Example: Runoff flow}\label{example-runoff-flow}
 
-TODO: Maybe we should use the ``rain and pump'' example from the work
-sprint instead?
-
-TODO: Insert figure showing a graphical view
+\todo{Insert figure showing a graphical view?}
 
 \subsubsection{Example: Runoff flow: DSL textual
 input}\label{example-runoff-flow-dsl-textual-input}
 
+We show a small `GL` program which models a rain runoff area,
+like a town square, which has been provided with a pump to
+alleviate possible flooding issues (this is a common procedure
+in countries like the Netherlands). We omit the definition of the
+more complicated parts of the example for brevity. 
 \begin{verbatim}
--- Small example
+data Pump = Pump {inflowP, outflowP :: Port Float}
+
+pump :: Float -> GCM Pump
+pump capacity = do
+  inPort  <- createPort
+  outPort <- createPort
+  component $ do
+    i <- value inPort
+    o <- value outPort
+    assert $ i `inRange` (0, lit capacity)
+    assert $ i === o
+  return $ Pump inPort outPort
+
+rain :: Float -> GCM (Port Float)
+rain flow = do
+  rainP <- createPort
+  set rainP flow
+
+data Storage = Storage {inflowS, outflowS, overflowS :: Port Float}
+
+storage :: Float -> GCM Storage
+storage = ... -- The implementation of storage is quite involved
+
 example :: GCM ()
 example = do
+  p <- pump 5
+  s <- storage 4
+  r <- rain 10
 
-  -- Instantiate components
-  r <- rain 20
-  pmp <- pump 2
-  (inf, out, ovf, cap) <- storage 4
-  (floodFlow, isFlooded) <- floodingOfSquare
+  link (inflowP p) (outflowS s)
+  link (inflowS s) r
 
-  -- Instantiate actions
-  pumpAction <- increasePumpCapacityAction (capacity pmp)
+  output "Overflow" (overflowS s)
+  \end{verbatim}
 
-  -- Link ports
-  link inf r
-  link (inflow pmp) out
-  link ovf floodFlow
+When we run the above program we get the output
 
-  -- Make sure there is no flooding
-  set isFlooded False
+\begin{verbatim}
+ghci> runGCM example
+{"Overflow" : 0}
 \end{verbatim}
+
+\todo{Maybe we should have a more elaborate example which utlises actions?}
 
 \subsection{Software infrastructure (around the
 DSL)}\label{software-infrastructure-around-the-dsl}
 
-TODO: Replace by a more current description of the software status
+\todo{Replace by a more current description of the software status}
 
-TODO: Should we even describe the two different software stacks?
+\todo{Should we even describe the two different software stacks}
 
 \begin{itemize}
 \item
