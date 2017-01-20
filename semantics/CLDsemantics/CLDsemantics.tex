@@ -133,7 +133,8 @@ where $F$ is a monotone increasing function (monotone decreasing for negative
 causality, $s_{xy}=-$).
 
 If the node $y$ has multiple parent nodes $x_1,\ldots,x_n$, then
-$\frac{\partial y}{\partial t}$ depends on all the parent nodes.
+$\frac{\partial y}{\partial t}$ depends on all the parent nodes. We can
+isolate the effect of a single parent node $x$ on $y$ by differentiation.
 
 In general we can then describe the causal relationship from $x$ to
 $y$ as
@@ -175,11 +176,9 @@ but it could be extended to quantitative reasoning by solving
 appropriate differential equations.
 
 \subsection{Simple qualitative model}
-
+TODO: Extend/clarify this section
 We consider a qualitative discrete time system where all values of
 node variables are either +, -, 0, or ? (ambiguous).
-
-TODO: meaning of +, -, 0 and ? as values on nodes (not just edges) [probably earlier]
 
 For simplicity we can consider the case where all initial values are
 set to zero and $F_i(0)=0$ for all edges.
