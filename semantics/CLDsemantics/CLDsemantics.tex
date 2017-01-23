@@ -15,12 +15,13 @@ relationships between variables.
 The vertices represent the variables and the edges represent qualitative
 causal relationships, which can be positive or negative.
 
-We are interested in writing a DSL for CLDs in Haskell and propagating
-signs through CLDs using constraint programming, and would like to
-define a semantic that aids us in that.
+%We are interested in writing a DSL for CLDs in Haskell and propagating signs
+%through CLDs using constraint programming, and would like to define a semantic that aids us in that.
 
-TODO: Clarify ``sign propagation''?
+We would like to define a semantic that aids us in reasoning about CLDs and will
+describe two such semantics here.
 
+\section{Notation}
 We denote a positive causal relationship between $A$ and $B$ by
 $A\xrightarrow{+} B$ and a negative one by $A \xrightarrow{-} B$.
 %
@@ -34,7 +35,6 @@ increase in $B$).
 We denote the sign of the edge from $A$ to $B$ by $s_{AB}$, so
 $s_{AB}= +$ if $A\xrightarrow{+} B$ and $s_{AB}=-$ if
 $A\xrightarrow{-} B$.
-
 
 A vertex $A$ also has a sign $s_A$ that denotes the total influence on $A$, so
 $s_A=+$ if there is an increase in $A$, $s_A=-$ if there is a decrease, $s_A=0$
@@ -57,7 +57,7 @@ ambiguous and (0) for probabilistic independence
 The meaning of signs on edges is defined according to first order
 stochastic dominance, as follows:
 
-Let $F_B(\cdot|a_i, x)$ be the cumulative disribution function (CDF) for
+Let $F_B(\cdot|a_i, x)$ be the cumulative distribution function (CDF) for
 $B$ given $A=a_i$. Then $s_{AB}=+$ means that for all possible values
 $a_1,a_2$ of $A$ where $a_1\geq a_2$, we must have:
 \[F_B(b_0|a_1, x)\leq F_B(b_0|a_2, x),\]
@@ -129,7 +129,7 @@ variable, such as a time variable $t$.
 If we have a graph with two nodes, $x$ and $y$, and one edge from $x$
 to $y$, then $s_{xy}=+$ implies that
 \[\frac{\partial y}{\partial t} = F(x(t)),\]
-where $F$ is a monotone increasing function (monotone decreasing for negative
+where $F$ is a monotonically increasing function (monotonically decreasing for negative
 causality, $s_{xy}=-$).
 
 If the node $y$ has multiple parent nodes $x_1,\ldots,x_n$, then
@@ -141,8 +141,8 @@ $y$ as
 \[\frac{\partial\left( \frac{\partial y(t)}{\partial t} \right)}{\partial x(t)} =
   f(x(t)),\]
 
-where $f$ has a primitive function $F$ such that $F$ is monotone
-increasing if $s_{xy}=+$ and monotone decreasing if $s_{xy}= -$.
+where $f$ has a primitive function $F$ such that $F$ is monotonically
+increasing if $s_{xy}=+$ and monotonically decreasing if $s_{xy}= -$.
 
 This is somewhat more nuanced than $CLDs$ as they are described above,
 where $s_{xy}=+$ implies that an increase in $x$ leads to an increase
@@ -153,14 +153,14 @@ above which $x$ causes an increase in $y$, but an increase in $x$
 causes a faster rate of increase in $y$ and a decrease in $x$ causes a
 slowed rate of increase in $y$, and vice versa.
 
-Note that though $F(x)$ is monotone increasing, it may not be strictly
+Note that though $F(x)$ is monotonically increasing, it may not be strictly
 increasing, so we could for instance have $F(x) = 0$ for all $x < C$
 for some threshold value $C$.
 
 If the $y$ has parent nodes $x_1,\ldots,x_n$, then we have something
 like
 \[\frac{\partial y}{\partial t} = \sum_{i=1}F_i(x_i),\]
-where $F_i$ is monotone increasing if $s_{x_iy}=+$ but monotone
+where $F_i$ is monotonically increasing if $s_{x_iy}=+$ but monotonically
 decreasing if $s_{x_iy}=-$.
 
 In a discrete time system we consider $\Delta(x_t) = x_t - x_{t-1}$
@@ -176,53 +176,78 @@ but it could be extended to quantitative reasoning by solving
 appropriate differential equations.
 
 \subsection{Simple qualitative model}
-TODO: Extend/clarify this section
+
 We consider a qualitative discrete time system where all values of
-node variables are either +, -, 0, or ? (ambiguous).
+node variables are either +, -, 0, or ? (where ? is an ambiguous value assigned
+to a variable whose value cannot be deduced). These values have the partial
+ordering $- < 0 < +$, but ? cannot be compared to the other values. In place of
+addition and multiplication we have the operations $\oplus$ and $\otimes$, whose
+behavior can be seen in the following tables:
+\begin{center}
+\begin{tabular}{c|cccc}
+$\oplus$ & + & - & 0 & ?\\
+\hline
+  +   & +  & ? & + & ?\\
+  -   & ?  & - & - & ?\\
+  0   & +  & - & 0 & ?\\
+  ?   & ?  & ? & ? & ?\\
+\end{tabular}
+\quad
+\begin{tabular}{c|cccc}
+$\otimes$ & + & - & 0 & ?\\
+\hline
+  +   & +  & - & 0 & ?\\
+  -   & -  & + & 0 & ?\\
+  0   & 0  & 0 & 0 & 0\\
+  ?   & ?  & ? & 0 & ?\\
+\end{tabular}
+\end{center}
+The only
+strictly increasing function in this system is the identity function $id(x) =
+x$, and the only strictly decreasing function is the negation function $neg(x) =-\otimes x$.
 
-For simplicity we can consider the case where all initial values are
-set to zero and $F_i(0)=0$ for all edges.
+For simplicity we consider the case where all initial values are
+set to zero and $F_i(0)=0$, for all edges $i$. We only consider edge functions
+$F_i$ where $F_i(?) = ?$, since we shouldn't be able to make unambiguous
+deductions based on ambiguous values.
 %
-If $F$ is monotone increasing and $G$ monotone decreasing we then
-write $F(+) = +$, $F(-) = -$, $G(+)=-$, and $G(-)=+$.
-
-TODO: use id and neg(ate)?
 
 This is convenient for qualitative reasoning since then we are only
 concerned with increases and decreases rather than numerical values.
 %
-The final values of the variables then tell us whether there was a net
-increase or decrease for each variable.
+The value of variable $x$ at time $t$, which we denote by $x_t$, then tells us whether there has been a net
+increase or decrease in $x$.
 
 Consider a graph with three nodes, a node $z$ and its two parent nodes
 $x$ and $y$, $x\xrightarrow{s_{xz}} z$ and $y\xrightarrow{s_{yz}} z$.
 %
 Then we have
 \[\Delta(z_t) = F_{xz}(x_{t-1}) \oplus F_{yz}(y_{t-1}),\]
-where $F_{xz}$ and $F_{yz}$ are monotone increasing or decreasing in
+where $F_{xz}$ and $F_{yz}$ are monotonically increasing or decreasing in
 accordance with $s_{xz}$ and $s_{yz}$.
 %
-Then we can say the total effect on $z$ is $s_{xz}\oplus s_{yz}$.
+If we only allow strictly increasing/decreasing functions we then have
+\[\Delta(z_t) = (s_{xz}\otimes x_{t-1})\oplus (s_{yz}\otimes y_{t-1}).\]
 
 Consider a graph with three nodes $a$, $b$ and $c$ and two edges,
 $a\xrightarrow{s_{ab}} b$ and $b\xrightarrow{s_{bc}} c$. Then we have
 \begin{align*}
 \Delta(c_t) &= F_{bc}(b_{t-1})\\
-&= F_{bc}(b_{t-2}) \oplus \Delta(b_{t-1})\\
+&= F_{bc}(b_{t-2} \oplus \Delta(b_{t-1}))\\
 &= F_{bc}(b_{t-2}  \oplus F_{ab}(a_{t-2}))\\
 \end{align*}
-TODO: clarify what is a definition, what is a deduction from earlier definitions
-TODO: perhaps revise the notation for function arguments (t-1, etc.)
 
-If $b_{t-2} = 0$, for instance if $t-2$ is the initial time value,
-then we have
-\[\Delta(c_t) = F_{bc}\circ F_{ab}(a_{t-2}),\]
-and the effect of $a$ on $c$ is $s_{ab}\otimes s_{bc}$.
+If $F_{bc}$ is linear, as is the case when we restrict the available functions
+to the strictly increasing/decreasing $id$ and $neg$,
+we then have
+\[\Delta(c_t) = F_{bc}(b_{t-2})\oplus F_{bc}\circ F_{ab}(a_{t-2}).\]
 
-\section{Next steps}
-We will attempt to model CLDs within the \verb|GenericLibrary|.\\
+If we only allow strictly increasing/decreasing functions we then have
+\[\Delta(c_t) = (s_{bc}\otimes b_{t-2})\oplus (s_{bc}\otimes s_{ab}\otimes a_{t-2}),\]
 
-We will also formalize the semantics of \verb|GenericLibrary|, perhaps
-using the difference equation approach described above.
+\section{Relation to Generic Library}
+We have modelled CLDs within the \verb|GenericLibrary|, the code for this model
+can be seen in the file \verb|QualitativeExample.hs|. \\
 
+% Say something further about formalizing semantics of GL using difference equations?
 \end{document}
