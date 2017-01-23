@@ -123,50 +123,50 @@ Inspired by a system of tanks with water flowing from one to another,
 and in search of semantics that might also be extended to quantitative
 reasoning, we came up with the following approach.
 
-We consider the value nodes of the graph to be functions of the same
+We consider the values of the graph's vertices to be functions of the same
 variable, such as a time variable $t$.
 
-If we have a graph with two nodes, $x$ and $y$, and one edge from $x$
-to $y$, then $s_{xy}=+$ implies that
-\[\frac{\partial y}{\partial t} = F(x(t)),\]
-where $F$ is a monotonically increasing function (monotonically decreasing for negative
-causality, $s_{xy}=-$).
+If we have a graph with two vertices, $X$ and $Y$, and one edge from $X$
+to $Y$, then $s_{XY}=+$ implies that
+\[\frac{\partial Y}{\partial t} = G(X(t)),\]
+where $G$ is a monotonically increasing function (monotonically decreasing for negative
+causality, $s_{XY}=-$).
 
-If the node $y$ has multiple parent nodes $x_1,\ldots,x_n$, then
-$\frac{\partial y}{\partial t}$ depends on all the parent nodes. We can
-isolate the effect of a single parent node $x$ on $y$ by differentiation.
+If the vertex $Y$ has multiple parent vertices $X_1,\ldots,X_n$, then
+$\frac{\partial Y}{\partial t}$ depends on all the parent vertices. We can
+isolate the effect of a single parent vertex
+ $X$ on $Y$ by differentiation.
 
-In general we can then describe the causal relationship from $x$ to
-$y$ as
-\[\frac{\partial\left( \frac{\partial y(t)}{\partial t} \right)}{\partial x(t)} =
-  f(x(t)),\]
+In general we can then describe the causal relationship from $X$ to
+$Y$ as
+\[\frac{\partial\left( \frac{\partial Y(t)}{\partial t} \right)}{\partial Y(t)} =
+  f(X(t)),\]
 
 where $f$ has a primitive function $F$ such that $F$ is monotonically
-increasing if $s_{xy}=+$ and monotonically decreasing if $s_{xy}= -$.
+increasing if $s_{XY}=+$ and monotonically decreasing if $s_{XY}= -$.
 
 This is somewhat more nuanced than $CLDs$ as they are described above,
-where $s_{xy}=+$ implies that an increase in $x$ leads to an increase
-in $y$, and a decrease in $x$ to a decrease in $y$.
+where $s_{XY}=+$ implies that an increase in $X$ leads to an increase
+in $Y$, and a decrease in $X$ to a decrease in $Y$.
 %
-Here we may have some threshold value $x_0$ for which $F(x_0) = 0$,
-above which $x$ causes an increase in $y$, but an increase in $x$
-causes a faster rate of increase in $y$ and a decrease in $x$ causes a
-slowed rate of increase in $y$, and vice versa.
+Here we may have some threshold value $x_0$ for $X$, where $F(x_0) = 0$,
+above which $X$ always causes an increase in $Y$, but an increase in $X$
+causes a faster rate of increase in $Y$ and a decrease in $X$ causes a
+slowed rate of increase in $Y$, and vice versa.
 
-Note that though $F(x)$ is monotonically increasing, it may not be strictly
-increasing, so we could for instance have $F(x) = 0$ for all $x < C$
+Note that though $F(X)$ is monotonically increasing, it may not be strictly
+increasing, so we could for instance have $F(X) = 0$ for all $X < C$
 for some threshold value $C$.
 
-If the $y$ has parent nodes $x_1,\ldots,x_n$, then we have something
-like
-\[\frac{\partial y}{\partial t} = \sum_{i=1}F_i(x_i),\]
-where $F_i$ is monotonically increasing if $s_{x_iy}=+$ but monotonically
-decreasing if $s_{x_iy}=-$.
+If the vertex $Y$ has parent vetices $X_1,\ldots,X_n$, then we have
+\[\frac{\partial Y}{\partial t} = \sum_{i=1}F_i(X_i),\]
+where $F_i$ is monotonically increasing if $s_{X_iY}=+$ but monotonically
+decreasing if $s_{X_iY}=-$.
 
-In a discrete time system we consider $\Delta(x_t) = x_t - x_{t-1}$
-instead of $\frac{\partial x}{\partial t}$, and write
-$\Delta(x_t) = F(y_{t-1})$ instead of
-$\frac{\partial x}{\partial t} = F(y(t))$.
+In a discrete time system we consider $\Delta(X_t) = X_t - X_{t-1}$
+instead of $\frac{\partial X}{\partial t}$, and write
+$\Delta(X_t) = F(Y_{t-1})$ instead of
+$\frac{\partial X}{\partial t} = F(Y(t))$.
 %
 In simple cases we may only consider one time step with two values of
 $t$, $t_{start}$ and $t_{end}$.
@@ -178,7 +178,7 @@ appropriate differential equations.
 \subsection{Simple qualitative model}
 
 We consider a qualitative discrete time system where all values of
-node variables are either +, -, 0, or ? (where ? is an ambiguous value assigned
+vertex variables are either +, -, 0, or ? (where ? is an ambiguous value assigned
 to a variable whose value cannot be deduced). These values have the partial
 ordering $- < 0 < +$, but ? cannot be compared to the other values. In place of
 addition and multiplication we have the operations $\oplus$ and $\otimes$, whose
@@ -215,35 +215,35 @@ deductions based on ambiguous values.
 This is convenient for qualitative reasoning since then we are only
 concerned with increases and decreases rather than numerical values.
 %
-The value of variable $x$ at time $t$, which we denote by $x_t$, then tells us whether there has been a net
-increase or decrease in $x$.
+The value of variable $X$ at time $t$, which we denote by $X_t$, then tells us whether there has been a net
+increase or decrease in $X$.
 
-Consider a graph with three nodes, a node $z$ and its two parent nodes
-$x$ and $y$, $x\xrightarrow{s_{xz}} z$ and $y\xrightarrow{s_{yz}} z$.
+Consider a graph with three vertices, $Z$ and its two parents
+$X$ and $Y$, $X\xrightarrow{s_{XZ}} Z$ and $Y\xrightarrow{s_{YZ}} Z$.
 %
 Then we have
-\[\Delta(z_t) = F_{xz}(x_{t-1}) \oplus F_{yz}(y_{t-1}),\]
-where $F_{xz}$ and $F_{yz}$ are monotonically increasing or decreasing in
-accordance with $s_{xz}$ and $s_{yz}$.
+\[\Delta(Z_t) = F_{XZ}(X_{t-1}) \oplus F_{YZ}(Y_{t-1}),\]
+where $F_{XZ}$ and $F_{YZ}$ are monotonically increasing or decreasing in
+accordance with $s_{XZ}$ and $s_{YZ}$.
 %
 If we only allow strictly increasing/decreasing functions we then have
-\[\Delta(z_t) = (s_{xz}\otimes x_{t-1})\oplus (s_{yz}\otimes y_{t-1}).\]
+\[\Delta(Z_t) = (s_{XZ}\otimes X_{t-1})\oplus (s_{YZ}\otimes Y_{t-1}).\]
 
-Consider a graph with three nodes $a$, $b$ and $c$ and two edges,
-$a\xrightarrow{s_{ab}} b$ and $b\xrightarrow{s_{bc}} c$. Then we have
+Consider a graph with three vertices $A$, $B$ and $C$ and two edges,
+$A\xrightarrow{s_{AB}} B$ and $B\xrightarrow{s_{BC}} C$. Then we have
 \begin{align*}
-\Delta(c_t) &= F_{bc}(b_{t-1})\\
-&= F_{bc}(b_{t-2} \oplus \Delta(b_{t-1}))\\
-&= F_{bc}(b_{t-2}  \oplus F_{ab}(a_{t-2}))\\
+\Delta(C_t) &= F_{BC}(B_{t-1})\\
+&= F_{BC}(B_{t-2} \oplus \Delta(B_{t-1}))\\
+&= F_{BC}(B_{t-2}  \oplus F_{AB}(A_{t-2}))\\
 \end{align*}
 
-If $F_{bc}$ is linear, as is the case when we restrict the available functions
+If $F_{BC}$ is linear, as is the case when we restrict the available functions
 to the strictly increasing/decreasing $id$ and $neg$,
 we then have
-\[\Delta(c_t) = F_{bc}(b_{t-2})\oplus F_{bc}\circ F_{ab}(a_{t-2}).\]
+\[\Delta(C_t) = F_{BC}(B_{t-2})\oplus F_{BC}\circ F_{AB}(A_{t-2}).\]
 
 If we only allow strictly increasing/decreasing functions we then have
-\[\Delta(c_t) = (s_{bc}\otimes b_{t-2})\oplus (s_{bc}\otimes s_{ab}\otimes a_{t-2}),\]
+\[\Delta(C_t) = (s_{BC}\otimes B_{t-2})\oplus (s_{BC}\otimes s_{AB}\otimes A_{t-2}),\]
 
 \section{Relation to Generic Library}
 We have modelled CLDs within the \verb|GenericLibrary|, the code for this model
