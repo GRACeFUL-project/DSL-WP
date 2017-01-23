@@ -70,11 +70,13 @@ $A=a_1$ and $A=a_2$.
 %
 The definition of $s_{AB}=-$ is the same but with $a_1\leq a_2$.
 
-In simpler terms, $s_{ab} = +$ means that greater values of $a$ mean
-greater values of $b$ are more likely, and $s_{ab}=-$ means that
-greater values of $a$ mean smaller values of $b$ are more likely.
+In simpler terms, $s_{AB} = +$ means that greater values of $A$ mean
+greater values of $B$ are more likely, and $s_{AB}=-$ means that
+greater values of $A$ mean smaller values of $B$ are more likely.
 
-These influences are symmetric, that is, $s_{xy}=s_{yx}$.
+These influences are symmetric, that is, if the edge from $X$ to $Y$ is reversed
+we must have $s_{XY} = s_{YX}$.
+
 %
 Due to this symmetry it is possible to propagate an observed increase
 or decrease of one variable around the graph and find whether other
@@ -140,33 +142,33 @@ isolate the effect of a single parent vertex
 In general we can then describe the causal relationship from $X$ to
 $Y$ as
 \[\frac{\partial\left( \frac{\partial Y(t)}{\partial t} \right)}{\partial Y(t)} =
-  f(X(t)),\]
+  g(X(t)),\]
 
-where $f$ has a primitive function $F$ such that $F$ is monotonically
+where $g$ has a primitive function $G$ such that $G$ is monotonically
 increasing if $s_{XY}=+$ and monotonically decreasing if $s_{XY}= -$.
 
 This is somewhat more nuanced than $CLDs$ as they are described above,
 where $s_{XY}=+$ implies that an increase in $X$ leads to an increase
 in $Y$, and a decrease in $X$ to a decrease in $Y$.
 %
-Here we may have some threshold value $x_0$ for $X$, where $F(x_0) = 0$,
+Here we may have some threshold value $x_0$ for $X$, where $G(x_0) = 0$,
 above which $X$ always causes an increase in $Y$, but an increase in $X$
 causes a faster rate of increase in $Y$ and a decrease in $X$ causes a
 slowed rate of increase in $Y$, and vice versa.
 
-Note that though $F(X)$ is monotonically increasing, it may not be strictly
-increasing, so we could for instance have $F(X) = 0$ for all $X < C$
+Note that though $G(X)$ is monotonically increasing, it may not be strictly
+increasing, so we could for instance have $G(X) = 0$ for all $X < C$
 for some threshold value $C$.
 
 If the vertex $Y$ has parent vetices $X_1,\ldots,X_n$, then we have
-\[\frac{\partial Y}{\partial t} = \sum_{i=1}F_i(X_i),\]
-where $F_i$ is monotonically increasing if $s_{X_iY}=+$ but monotonically
+\[\frac{\partial Y}{\partial t} = \sum_{i=1}G_i(X_i),\]
+where $G_i$ is monotonically increasing if $s_{X_iY}=+$ but monotonically
 decreasing if $s_{X_iY}=-$.
 
 In a discrete time system we consider $\Delta(X_t) = X_t - X_{t-1}$
 instead of $\frac{\partial X}{\partial t}$, and write
-$\Delta(X_t) = F(Y_{t-1})$ instead of
-$\frac{\partial X}{\partial t} = F(Y(t))$.
+$\Delta(X_t) = G(Y_{t-1})$ instead of
+$\frac{\partial X}{\partial t} = G(Y(t))$.
 %
 In simple cases we may only consider one time step with two values of
 $t$, $t_{start}$ and $t_{end}$.
@@ -207,8 +209,8 @@ strictly increasing function in this system is the identity function $id(x) =
 x$, and the only strictly decreasing function is the negation function $neg(x) =-\otimes x$.
 
 For simplicity we consider the case where all initial values are
-set to zero and $F_i(0)=0$, for all edges $i$. We only consider edge functions
-$F_i$ where $F_i(?) = ?$, since we shouldn't be able to make unambiguous
+set to zero and $G_e(0)=0$, for all edges $e$. We only consider edge functions
+$G_e$ where $G_e(?) = ?$, since we shouldn't be able to make unambiguous
 deductions based on ambiguous values.
 %
 
@@ -222,8 +224,8 @@ Consider a graph with three vertices, $Z$ and its two parents
 $X$ and $Y$, $X\xrightarrow{s_{XZ}} Z$ and $Y\xrightarrow{s_{YZ}} Z$.
 %
 Then we have
-\[\Delta(Z_t) = F_{XZ}(X_{t-1}) \oplus F_{YZ}(Y_{t-1}),\]
-where $F_{XZ}$ and $F_{YZ}$ are monotonically increasing or decreasing in
+\[\Delta(Z_t) = G_{XZ}(X_{t-1}) \oplus G_{YZ}(Y_{t-1}),\]
+where $G_{XZ}$ and $G_{YZ}$ are monotonically increasing or decreasing in
 accordance with $s_{XZ}$ and $s_{YZ}$.
 %
 If we only allow strictly increasing/decreasing functions we then have
@@ -232,15 +234,15 @@ If we only allow strictly increasing/decreasing functions we then have
 Consider a graph with three vertices $A$, $B$ and $C$ and two edges,
 $A\xrightarrow{s_{AB}} B$ and $B\xrightarrow{s_{BC}} C$. Then we have
 \begin{align*}
-\Delta(C_t) &= F_{BC}(B_{t-1})\\
-&= F_{BC}(B_{t-2} \oplus \Delta(B_{t-1}))\\
-&= F_{BC}(B_{t-2}  \oplus F_{AB}(A_{t-2}))\\
+\Delta(C_t) &= G_{BC}(B_{t-1})\\
+&= G_{BC}(B_{t-2} \oplus \Delta(B_{t-1}))\\
+&= G_{BC}(B_{t-2}  \oplus G_{AB}(A_{t-2}))\\
 \end{align*}
 
-If $F_{BC}$ is linear, as is the case when we restrict the available functions
+If $G_{BC}$ is linear, as is the case when we restrict the available functions
 to the strictly increasing/decreasing $id$ and $neg$,
 we then have
-\[\Delta(C_t) = F_{BC}(B_{t-2})\oplus F_{BC}\circ F_{AB}(A_{t-2}).\]
+\[\Delta(C_t) = G_{BC}(B_{t-2})\oplus G_{BC}\circ G_{AB}(A_{t-2}).\]
 
 If we only allow strictly increasing/decreasing functions we then have
 \[\Delta(C_t) = (s_{BC}\otimes B_{t-2})\oplus (s_{BC}\otimes s_{AB}\otimes A_{t-2}),\]
