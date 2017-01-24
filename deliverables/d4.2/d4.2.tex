@@ -76,7 +76,7 @@ D4.2\\[1ex]
 
 \newpage
 
-\section{A Domain Specific Language (DSL) for GRACeFUL Concept Maps}\label{DSL4GRACeFUL}
+\section*{A Domain Specific Language (DSL) for\\GRACeFUL Concept Maps}\label{DSL4GRACeFUL}
 
 \vfill
 
@@ -86,17 +86,17 @@ D4.2\\[1ex]
 
 \newpage
 
-\subsection{Abstract}\label{abstract}
+\section*{Abstract}\label{abstract}
 
 This second deliverable of WP4 includes a short overview of a Domain
 Specific Language (DSL) for description of GRACeFUL concept maps, and
 a formal semantics in terms of types and functions. This is a
-continuation of the initial work described in "D4.1 Formal Concept
-Maps Elements Descriptions" delivered in project month 6. The actual
+continuation of the initial work described in ``D4.1 Formal Concept
+Maps Elements Descriptions'' delivered in project month 6. The actual
 source code implementing the DSL is freely available in the project
 repository on GitHub: \url{https://github.com/GRACeFUL-project/}.
 
-\subsection{1. Introduction}\label{introduction}
+\section{Introduction}\label{introduction}
 
 The main task of Work Package 4 is to build a DSL for translating the
 causal loop diagrams
@@ -125,7 +125,7 @@ initial results from T4.4 and T4.5.
 \item T4.5 build a testing and verification framework for RATs
 \end{itemize}
 
-\subsection{Background}
+\section{Background}
 
 \todo{write a short background about some of these concepts}
 
@@ -256,7 +256,7 @@ TODO: use part of the commented text:
 %   \label{fig:cm}%
 % \end{figure}
 
-\subsection{An overview of GenericLibrary}
+\section{GenericLibrary: a DSL for GCMs}
 
 TODO: quote short parts of D4.1 and highlight similarities and differences
 
@@ -753,11 +753,11 @@ gcmComponent = do
   return externalPort
 \end{verbatim}
 
-\subsubsection{Example: Runoff flow}\label{example-runoff-flow}
+\subsection{Example: Runoff flow}\label{example-runoff-flow}
 
 \todo{Insert figure showing a graphical view?}
 
-\subsubsection{Example: Runoff flow: DSL textual
+\subsection{Example: Runoff flow: DSL textual
 input}\label{example-runoff-flow-dsl-textual-input}
 
 We show a small `GL` program which models a rain runoff area,
@@ -841,7 +841,7 @@ requirements}\label{install-script-and-requirements}
 
 TODO{[}OsAb{]}: insert from the other repo.
 
-\subsection{Semantics}\label{semantics}
+\section{Semantics}\label{semantics}
 \todo{Add something about semantics of GenericLibrary?}
 \todo{Flesh out this section/transition, refer to D4.1 (or section above describing
   differences from D4.1)}
@@ -852,7 +852,7 @@ formal semantics that could aid in reasoning about CLDs.
 We have modelled CLDs within the \verb|GenericLibrary|, the code for this model
 can be seen in the file \verb|QualitativeExample.hs|. \\
 
-\subsubsection{Causal loop diagrams}
+\subsection{Causal loop diagrams}
 
 A causal loop diagram (CLD) is a directed graph used to display causal
 relationships between variables.
@@ -882,7 +882,7 @@ A vertex $A$ also has a sign $s_A$ that denotes the total influence on $A$, so
 $s_A=+$ if there is an increase in $A$, $s_A=-$ if there is a decrease, $s_A=0$
 if there is no change and $s_A=?$ if we cannot determine the change in $A$.
 
-\subsubsection{QPN approach}
+\subsection{QPN approach}
 
 One approach to modelling and reasoning about CLDs is by using qualitative
 probabilistic networks (QPNs).
