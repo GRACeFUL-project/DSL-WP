@@ -232,6 +232,7 @@ TODO: use part of the commented text:
 \section{GenericLibrary: a DSL for GCMs}
 
 TODO: quote short parts of D4.1 and highlight similarities and differences
+\input{GLOverview}
 
 % Let us start with concepts and factors, which are, in a sense, the
 % simplest elements of the GRACeFUL concept maps. Concepts are high-level
@@ -699,32 +700,6 @@ TODO: quote short parts of D4.1 and highlight similarities and differences
 %   only if \VERB|\NormalTok{cn1}| and \VERB|\NormalTok{cn2}| are factors
 %   or actions.
 % \end{itemize}
-
-GenericLibrary, henceforth abbreviated to GL, is a DSL for descriptions
-of GRACeFUL concept map components in Haskell. The DSL is divided in to
-two parts. The first part, \texttt{GCM}, allows the user to describe the
-interactions of GRACeFUL concept map components and has facilities for
-constructing new components from existing ones. The second part,
-\texttt{CP}, features primitives for constructing constraint programs
-which describe the behaviour of an individual components.
-
-\todo{This section needs clarification} The architecture is demonstrated
-in the example below. A \texttt{GCM} component exposing a single port is
-defined, it contains a small \texttt{CP} program (in the
-\texttt{component} block) which describes the local behaviour of the
-component and features a local variable which is unreachable from the
-outer, structural, description.
-
-\todo{if possible, make this example nicer}
-\begin{verbatim}
-gcmComponent :: GCM (Port Float)
-gcmComponent = do
-  externalPort <- createPort
-  component $ do
-   variable <- createLVar
-   assert (externalPort === variable + 1)
-  return externalPort
-\end{verbatim}
 
 \subsection{Example: Runoff flow}\label{example-runoff-flow}
 
