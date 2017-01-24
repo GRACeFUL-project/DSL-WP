@@ -29,3 +29,21 @@ gcmComponent = do
 \end{verbatim}
 
 \todo{How do we describe the available language constructs?}
+
+\subsection{The language}\todo{Something about Haskell metaprogramming}
+\todo{flesh out?}
+As noted earlier, the GL language is primarily constructed from two different languages,
+GCM and CP.
+
+\todo{Something about how to include a CP component in a GCM one?}
+The GCM language supports reasoning about components and the interfaces between components,
+with language constructs such as \texttt{createPort} for creating interfaces and \texttt{link}
+as well as \texttt{linkBy} for connecting interfaces to each other.
+
+The CP language supports reasoning about integer and floating-point arithmetic, boolean expressions,
+and arrays. It has constructions like \texttt{createLVar} and \texttt{assert} for reasoning about
+constraint variables.
+
+As can be seen there is a clear separation of concerns in GL between the high-level primitives
+for constructing complicated components from simpler ones, represented in GCM, and the low level
+implementation details with which the CP language is concerned.
