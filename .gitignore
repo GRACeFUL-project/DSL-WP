@@ -52,3 +52,6 @@
 # vim swap files
 *.swp
 *.swo
+
+# Some deliverable-specific stuff
+d4.2.pdf
