@@ -13,11 +13,11 @@ This document reports on second deliverable (D4.2) of work package 4 of the
 \grace project. The main task of this work package is to build a \emph{Domain
 Specific Language} (DSL) for \acp{GCM}. A \ac{GCM} is a representation of policy
 analysis that contains all the elements of a policy problem definition, such as
-goals, criteria, and a description of the system as a stock-and-flow diagram. A
-GCM is developed and manipulated by stakeholders during Group Model Building
-(GMB) sessions. Ultimately a GCM is translated via a DSL to a \emph{constraint
-functional program}, which is analysed by a constraint solver. The results of
-the constraint solver is presented to the stakeholders.
+goals, criteria, and a description of the system. A GCM is developed and
+manipulated by stakeholders during Group Model Building (GMB) sessions.
+Ultimately a GCM is translated via a DSL to a \emph{constraint functional
+program}, which is analysed by a constraint solver. The results of the
+constraint solver is presented to the stakeholders.
 
 The DSL can be regarded as an intermediate layer between the visual
 representation of a \grace concept map and a corresponding constraint program.
@@ -25,19 +25,17 @@ Translating the visual representation directly to a constraint program is
 difficult, because it is hard to check if the generated program is correct. A
 DSL alleviates this problem and us to validate the correctness of a model. In
 addition, a DSL improves the scalability by abstracting away from the constraint
-solver. Figure~\ref{} 
-
-
+solver. In the longer term this will lead to a DSL aimed at building scalable
+RATs for collective policy making in Global Systems.  
 
 % How have the definitions from D4.1 changed
 
-In the previous deliverable we have formalised the different elements of \grace
-concept maps. Progressive insight learned us that causal loop diagrams are not
-adequate to model the systems we are envi 
-
-which allows for a more detailed (semi-)quantative analysis.
-
-
+In the previous deliverable~\cite{d4.1} we have formalised the various elements
+of \acp{GCM}. Progressive insight learned us that causal loop diagrams are not
+adequate to model the systems the project is envisioning, such as for the CRUD
+case study. Instead of using causal loop diagrams we now use
+\emph{stock-and-flow} diagram to model the system dynamics. Stock-and-flow
+diagrams allows for a more detailed (semi-)quantative analysis.
 
 % We have constructed a DSL, link to github
 
@@ -45,17 +43,15 @@ which allows for a more detailed (semi-)quantative analysis.
 
 
 
-The overall purpose of WP4 is to use a DSL for GRACeFUL concept maps,
-logic and relations to bridge between the complexity of the CRUD case
-study from WP2 and the underlying science and technology of WP5.  In
-the longer term this will lead to a DSL aimed at building scalable
-RATs for collective policy making in Global Systems.  During the
-project we work with embedded DSLs to improve scalability,
-verifiability and correctness of the models.
+%The overall purpose of WP4 is to use a DSL for GRACeFUL concept maps,
+%logic and relations to bridge between the complexity of the CRUD case
+%study from WP2 and the underlying science and technology of WP5.   During the
+%project we work with embedded DSLs to improve scalability,
+%verifiability and correctness of the models.
 
-Deliverable D4.1 reported on task T4.1 and this document mainly
-reports on the work in tasks T4.2 and T4.3 but also includes some
-initial results from T4.4 and T4.5.
+%Deliverable D4.1 reported on task T4.1 and this document mainly
+%reports on the work in tasks T4.2 and T4.3 but also includes some
+%initial results from T4.4 and T4.5.
 
 %\begin{itemize}
 %\item T4.1 identify key underlying concepts needed for the CRUD case study
