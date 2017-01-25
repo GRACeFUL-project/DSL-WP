@@ -1,32 +1,68 @@
 %% -- Installation instructions -----------------------------------------------
 %% ----------------------------------------------------------------------------
 
+The purpose of this section is to outline the process of installing the
+GenericLibrary software and its require dependencies. 
+Section~\ref{install-overview} provides an overview of the software dependencies 
+required for development using GenericLibrary. Section~\ref{install-docker} 
+provides installation instructions for a platform-independent package utilising 
+the \href{https://www.docker.com/}{Docker} software. Section~\ref{install-minizinc} 
+provides instructions for installing and running the GenericLibrary software on 
+UNIX-like platforms, for users with an existing Haskell toolchain.
+
+%% -- Software dependencies ---------------------------------------------------
+
+\subsection{Software dependencies}
+\label{install-overview}
+
 The GenericLibrary language is implemented in the 
 \href{https://www.haskell.org/}{Haskell} programming language and utilises the 
-solver tools from the \href{http://www.minizinc.org/}{MiniZinc} software
-distribution. We provide a platform-independent package utilising 
-\href{https://www.docker.com/}{Docker}. We also provide instructions for 
-installing and running the GenericLibrary software on the macOS and Linux 
-platforms for users with an existing Haskell toolchain.
+solver tools from the \href{http://www.minizinc.org/}{MiniZinc} software 
+distribution. Specifically, development and execution of GenericLibrary programs
+requires the following software dependencies to be met:
+
+\begin{itemize}
+  \item The MiniZinc and Gecode solver software. These can be found in the 
+    MiniZinc software bundle. Section~\ref{install-minizinc} outlines the 
+    process of installing these tools on UNIX-like systems.
+  \item A complete Haskell toolchain able to download packages from
+    \href{https://hackage.haskell.org/}{Hackage}. Both Stack and Cabal are
+    suitable for this purpose, and are provided by 
+    \href{https://www.haskell.org/platform/}{the Haskell Platform}.
+\end{itemize}
+
+Alternatively, for those who only wish to run the GenericLibrary examples, we 
+provide an alternative solution in the following section.
 
 %% -- Using Docker ------------------------------------------------------------
 
-\paragraph{Installation using Docker.} Download and install the Docker app from
-\url{https://www.docker.com/products/overview}. Open a terminal (or the 
-\emph{command prompt} under Windows) and execute 
+\subsection{Installation using Docker} 
+\label{install-docker}
+
+Download and install the Docker app from \url{https://www.docker.com/products/%
+overview}. Open a terminal (or the \emph{command prompt} under Windows) and 
+execute 
 
     \begin{verbatim}
       docker pull eugraceful/generic-library
       docker run --rm eugraceful/generic-library
     \end{verbatim}
 
-This will download and execute the example located at
-\url{https://github.com/GRACeFUL-project/GenericLibrary/blob/master/examples/%
-Examples.hs}.
+This will download and execute the example located at \href{https://github.com/%
+GRACeFUL-project/GenericLibrary/blob/master/examples/Examples.hs}%
+{examples/Examples.hs}.
+
+\subsection{Installation with an existing toolchain}
+\label{install-minizinc}
+
+This section provides instructions for installing the MiniZinc/Gecode software
+dependencies on macOS and Linux systems. Moreover, we provide instructions for
+building and running GenericLibrary software using one of the existing
+toolchains mentioned in Section~\ref{install-overview}.
 
 %% -- Install MiniZinc: macOS -------------------------------------------------
 
-\paragraph{Installating MiniZinc/Gecode: macOS.} 
+\subsubsection{Installating MiniZinc/Gecode: macOS} 
 
 \begin{enumerate}
   \item Download the complete MiniZinc distribution from \url{https://%
@@ -44,18 +80,18 @@ Examples.hs}.
 
 %% -- Install MiniZinc: Linux -------------------------------------------------
 
-\paragraph{Installating MiniZinc/Gecode: Linux.} 
+\subsubsection{Installating MiniZinc/Gecode: Linux} 
 
 \begin{enumerate}
   \item Download and install the complete MiniZinc distribution from
     \url{https://github.com/MiniZinc/MiniZincIDE/releases/download/2.1.0/%
-    MiniZincIDE-2.1.0-bundle-linux-x86_64.tgz}. Extract this file in a suitable
-    directory.
-  \item Copy the solver tools from the extracted archive to somewhere on your
+    MiniZincIDE-2.1.0-bundle-linux-x86_64.tgz}. Place the contents of this file 
+    in a suitable directory, i.e.\ \verb+~/MY_MZ_DIR/+.
+  \item Copy the solver tools from the extracted archive to a location on your
     path using
 
     \begin{verbatim}
-      cd ~/YOUR_MINIZINC_DIR/
+      cd ~/MY_MZ_DIR/
       cp solns2out mzn2fzn fzn-gecode mzn-gecode minizinc \
          ~/.local/bin
     \end{verbatim}
@@ -63,15 +99,18 @@ Examples.hs}.
   \item Set the \verb+MZN_STDLIB_DIR+ environment variable:
 
     \begin{verbatim}
-      export MZN_STDLIB_DIR=~/YOUR_MINIZINC_DIR/share/minizinc
+      echo export MZN_STDLIB_DIR=~/MY_MZ_DIR/share/minizinc \
+          >> ~/.bashrc
+      source ~/.bashrc
     \end{verbatim}
 \end{enumerate}
 
 %% -- Running a constraint program --------------------------------------------
 
-\paragraph{Running a constraint program} This section assumes that the user has
-an existing Haskell toolchain consisting of the GHC 8 and either
-\verb+cabal-install+ or \verb+stack+. First, clone the Generic Library source 
+\subsubsection{Running a constraint program} 
+
+With the MiniZinc/Gecode software dependencies met, we are now able to build and
+execute GenericLibrary programs. First, clone the GenericLibrary source 
 repository. From a terminal, run
 
 \begin{verbatim}
@@ -105,4 +144,4 @@ repository. From a terminal, run
 
 This will build and execute the examples located in \href{https://github.com/%
 GRACeFUL-project/GenericLibrary/blob/master/examples/%
-Examples.hs}{src/examples/Examples.hs} source file of the repository.
+Examples.hs}{examples/Examples.hs} source file of the repository.
