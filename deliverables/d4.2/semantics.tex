@@ -1,26 +1,33 @@
 \section{Semantics}\label{semantics}
-\todo{Add something about semantics of GenericLibrary?}
-\todo{Flesh out this section/transition, refer to D4.1 (or section above describing
-  differences from D4.1)}
-Originally our main focus was writing a DSL to describe causal loop diagrams (CLDs) and
-translate them to system dynamics models, and we spent some time considering
-formal semantics that could aid in reasoning about CLDs.
+% stock & flow - CLD simplification (specialization/simplification of GCM)
+% Why formalize?
+We would like to define formal semantics for our DSL in order to be able to
+reason formally about it. By formal reasoning we can confirm the DSL's
+robustness and gain further insight into it.
+
+We started by considering causal loop diagrams, a specialization of the GCMs our
+DSL describes. This was done to simplify the initial scope of the work, with the
+expectation that the semantics defined for CLDs could then be extended to the
+more general GCMs. Work to extend and generalize these semantics to describe
+stock-and-flow diagrams, and thereby them more consistent with the current
+implementation of the DSL, is ongoing.
 
 We have modelled CLDs within the \verb|GenericLibrary|, the code for this model
-can be seen in the file \verb|QualitativeExample.hs|. \\
-
+can be seen in the file \verb|QualitativeExample.hs|.\todo{does this belong here?}
 \subsection{Causal loop diagrams}
-
+\todo{Are CLDs described elsewhere? If so, make sure this is consistent.}
 A causal loop diagram (CLD) is a directed graph used to display causal
 relationships between variables.
 %
 The vertices represent the variables and the edges represent qualitative
 causal relationships, which can be positive or negative.
 
-We would like to define a semantic that aids us in reasoning about CLDs and will
-describe two such semantics here.
+Different approaches can be taken in defining formal semantics to aid
+us in reasoning about CLDs. We have considered two such approaches, one is based
+on qualitative probabilistic networks and the other on difference equations. We
+describe and compare these two approaches in the following sections.
 
-\paragraph{Notation}
+\subsubsection{Notation}
 We denote a positive causal relationship between $A$ and $B$ by
 $A\xrightarrow{+} B$ and a negative one by $A \xrightarrow{-} B$.
 %
@@ -40,7 +47,6 @@ $s_A=+$ if there is an increase in $A$, $s_A=-$ if there is a decrease, $s_A=0$
 if there is no change and $s_A=?$ if we cannot determine the change in $A$.
 
 \subsection{QPN approach}
-
 One approach to modelling and reasoning about CLDs is by using qualitative
 probabilistic networks (QPNs).
 
@@ -48,10 +54,9 @@ A QPN is defined as a directed
 acyclic graph $G=(V,E)$ where the vertices, $V$, correspond to
 variables and the edges, $E$ to qualitative probabilistic influences.
 %
-These influences can be positive (+) or negative (-).
-%
-Later, when computing transitive influences we will also use (?) for
-ambiguous and (0) for probabilistic independence
+These influences can be positive (+) or negative (-). The signs (?), for
+ambiguous influence, and (0), for probabilistic independence, can also be used
+to describe probabilistic relationships.
 
 The meaning of signs on edges is defined according to first order
 stochastic dominance, as follows:
@@ -80,42 +85,35 @@ Due to this symmetry it is possible to propagate an observed increase
 or decrease of one variable around the graph and find whether other
 variables are then likely to have increased or decreased.
 
-TODO: cite Wellman etc.
-
-This definition is broad enough to
-apply to many different systems and
+This definition is broad enough to apply to many different systems and
 be applicable to various real world situations.
 
-We found some issues with QPNs that lead us to explore other
-approaches.
-%
+\subsubsection{Issues} \label{qpnIssues}
+We found some issues with QPNs that lead us to explore other approaches.
+
 First of all, since QPNs were originally defined for acyclic graphs
 and the theory on them relies on acyclicity, they may not be the best
 fit to describe CLDs, in which cycles (feedback loops) are an important
-feature.
-%
-Inference on QPNs containing loops is difficult to implement and can
+feature. Inference on QPNs containing loops is difficult to implement, and can
 lead to ambiguous results.
 
-Second, the formal semantics of inference on QPNs is difficult to
-formalize since it relies heavily on not-so-simple probability theory.
-%
-(And stakeholder sessions will not produce data on probability
-distributions.)
+Second, the formal semantics of inference on QPNs is difficult to formalize
+since it relies heavily on not-so-simple probability theory.
+Additionally, QPNs are defined solely based on qualitative relationships and
+there is no obvious way to expand them to also describe quantitative
+relationships unless we have information about the probability distributions and
+conditional probabilities involved. GMB sessions will not produce data on
+probability distributions and estimating such probabilities in a reliable manner
+requires a sizable dataset that may not be available for a given GCM, as well as
+statistical expertise.
 
-Additionally, as QPNs are defined solely based on qualitative
-relationships there is no obvious way to expand them to also describe
-quantitative relationships.
+Lastly, since all inference in QPNs is probabilistic it leads to results that
+may not be as meaningful or concrete as we would like, such as
+``there is a heightened probability that $x$ has increased'',
+rather than ``$x$ has increased''. For instance, a variable may decrease even
+though the cumulative probabilistic influence on it is positive.
 
-Lastly, since all inference in QPNs is probabilistic it leads to
-results that may not be as meaningful or concrete as we would like,
-such as ``there is a heightened probability that $x$ has increased'',
-rather than ``$x$ has increased''.
-%
-For instance, a variable may decrease even though the cumulative
-probabilistic influence on it is positive.
-
-\subsubsection{Difference equation approach}
+\subsection{Difference equation approach}
 
 Inspired by a system of tanks with water flowing from one to another,
 and in search of semantics that might also be extended to quantitative
@@ -170,10 +168,10 @@ In simple cases we may only consider one time step with two values of
 $t$, $t_{start}$ and $t_{end}$.
 
 Here we explore how this approach relates to qualitative reasoning,
-but it could be extended to quantitative reasoning by solving
+but it could be extended to quantitative reasoning by solving the
 appropriate differential equations.
 
-\paragraph{Simple qualitative model}
+\subsubsection{Simple qualitative model}
 
 We consider a qualitative discrete time system where all values of
 vertex variables are either +, -, 0, or ? (where ? is an ambiguous value assigned
@@ -242,3 +240,7 @@ we then have
 
 If we only allow strictly increasing/decreasing functions we then have
 \[\Delta(C_t) = (s_{BC}\otimes B_{t-2})\oplus (s_{BC}\otimes s_{AB}\otimes A_{t-2}),\]
+
+\subsection{Comparison of approaches}
+The difficulties we found in working with the QPN approach are outlined in
+section \ref{qpnIssues}.
