@@ -9,11 +9,11 @@
 
 % Overview of Graceful, at least the bit of our concern, place the DSL in context
 
-This document reports on second deliverable (D4.2) of work package 4 of the
+This document reports on the second deliverable (D4.2) of work package 4 of the
 \grace project. The main task of this work package is to build a \emph{\ac{DSL}}
 for \acp{GCM}. A \ac{GCM} is a representation of policy analysis that contains
 all the elements of a policy problem definition, such as goals, criteria, and
-a description of the system. A \ac{GCM} is developed and manipulated by
+  a description of the system. A \ac{GCM} is developed and manipulated by
 stakeholders during \ac{GMB} sessions. Ultimately a \ac{GCM} is translated
 (via the \ac{DSL}) to a \ac{CFP}, which is analysed by a constraint solver. The
 results of the constraint solver are presented to the stakeholders.
@@ -22,19 +22,19 @@ The \ac{DSL} can be regarded as an intermediate layer between the visual
 representation of a \acf{GCM} and a corresponding constraint program.
 Translating the visual representation directly to a constraint program is
 difficult, because it is hard to check if the generated program is correct. A
-DSL alleviates this problem and us to validate the correctness of a model. In
+DSL alleviates this problem and allows us to validate the correctness of a model. In
 addition, a \ac{DSL} improves the scalability by abstracting away from the
 constraint solver. In the longer term this will lead to a \ac{DSL} aimed at
-building scalable \acp{RAT} for collective policy making in Global Systems.  
+building scalable \acp{RAT} for collective policy making in Global Systems.
 
 % How have the definitions from D4.1 changed
 
 In the previous deliverable~\cite{d4.1} we have formalised the various elements
-of \acp{GCM}. Progressive insight learned us that \acp{CLD} are not
+of \acp{GCM}. Progressive insight showed us that \acp{CLD} are not
 adequate to model the systems the project is envisioning, such as for the \ac{CRUD}
 case study. Instead of using \aclp{CLD} we now use
-\emph{stock-and-flow} diagram to model the system dynamics. Stock-and-flow
-diagrams allow for a more detailed (semi-)quantative analysis.
+\emph{stock-and-flow} diagrams to model the system dynamics. Stock-and-flow
+diagrams allow for a more detailed (semi-)quantitative analysis.
 
 % We have constructed a DSL, link to github
 
@@ -53,6 +53,6 @@ We continue this document by giving the necessary background information, in
 Section~\ref{sec:background}, for making the remaining sections more accessible.
 We present the details of the \ac{DSL} for \acp{GCM} including some examples in
 Section~\ref{sec:gl}. Section~\ref{install-and-reqs} provides installation- and
-usage instructions for the \ac{DSL} implementation, as well as an overview of 
-the required software dependencies. Finally, we give the formal semantics of 
+usage instructions for the \ac{DSL} implementation, as well as an overview of
+the required software dependencies. Finally, we give the formal semantics of
 the \ac{DSL} in Section~\ref{sec:semantics}.
