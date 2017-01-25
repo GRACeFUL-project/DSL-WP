@@ -21,9 +21,14 @@ GCM and CP.
 \todo{Something about how to include a CP component in a GCM one?}
 \todo{\texttt{component :: CP a -> GCM ()}, the \texttt{GCM ()} type ensures nothing directly escapes from the scope of \texttt{CP} to \texttt{GCM}}
 The GCM language supports constructing interfaces between components,
-with language constructs such as \texttt{createPort} for creating interfaces, and has support for
-connecting the interface of different components using the \texttt{link}
-as well as \texttt{linkBy} primitives.
+and has support for connecting the interface of different components.
+The core abstraction in GL is that of the \texttt{Port}, a port is an
+entity which represents the way two components interact. A component
+exposes some information about the system, a pump may present one port
+representing the amount of water being pumped through the pump and another
+port representing the maximum flow the pump is able to produce. Ports
+may be connected to each other through the \texttt{link} function.
+\todo{something about the way in which relationships between factors are represented, i.e. \texttt{linkBy}}
 
 The CP language supports reasoning about integer and floating-point arithmetic, boolean expressions,
 and arrays. It has constructions like \texttt{createLVar} and \texttt{assert} for reasoning about
