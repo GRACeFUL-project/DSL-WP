@@ -1,32 +1,15 @@
 \todo{Make nicer}
 GenericLibrary, henceforth abbreviated to GL, is a DSL for descriptions
-of GRACeFUL concept map components in Haskell. The DSL addresses the issue
-of bridging the gap between constraint programming and the visualisation
-layer by providing abstractions for modular constraint programming.
+of GRACeFUL concept map components embedded in the Haskell programming language.
+The DSL addresses the issue of bridging the gap between constraint programming
+and the visualisation layer by providing abstractions for modular constraint programming.
+These abstractions are targeted at simplifying the description of GRACeFUL concept maps.
 
-The DSL is divided in to two parts. The first part, \texttt{GCM}, allows the user to describe the
-interactions of GRACeFUL concept map components and has facilities for
-constructing new components from existing ones. The second part,
-\texttt{CP}, features primitives for constructing constraint programs
+The DSL is divided in to two parts. The first part, \texttt{GCM} \todo{GCM is a monad},
+allows the user to describe the interactions of GRACeFUL concept map components
+and has facilities for constructing new components from existing ones \todo{Also known as monadic bind}. The second part,
+\texttt{CP} \todo{CP is also a monad}, features primitives for constructing constraint programs
 which describe the behaviour of an individual components.
-
-\todo{This section needs clarification}
-The architecture is demonstrated by the example below. A \texttt{GCM}
-component exposing a single port is defined, it contains a small \texttt{CP} program (in the
-\texttt{component} block) which describes the local behaviour of the
-component and features a local variable which is unreachable from the
-outer, structural, description.
-
-\todo{if possible, make this example nicer}
-\begin{verbatim}
-gcmComponent :: GCM (Port Float)
-gcmComponent = do
-  externalPort <- createPort
-  component $ do
-   variable <- createLVar
-   assert (externalPort === variable + 1)
-  return externalPort
-\end{verbatim}
 
 \todo{How do we describe the available language constructs?}
 
@@ -36,14 +19,20 @@ As noted earlier, the GL language is primarily constructed from two different la
 GCM and CP.
 
 \todo{Something about how to include a CP component in a GCM one?}
-The GCM language supports reasoning about components and the interfaces between components,
-with language constructs such as \texttt{createPort} for creating interfaces and \texttt{link}
-as well as \texttt{linkBy} for connecting interfaces to each other.
+\todo{\texttt{component :: CP a -> GCM ()}, the \texttt{GCM ()} type ensures nothing directly escapes from the scope of \texttt{CP} to \texttt{GCM}}
+The GCM language supports constructing interfaces between components,
+with language constructs such as \texttt{createPort} for creating interfaces, and has support for
+connecting the interface of different components using the \texttt{link}
+as well as \texttt{linkBy} primitives.
 
 The CP language supports reasoning about integer and floating-point arithmetic, boolean expressions,
 and arrays. It has constructions like \texttt{createLVar} and \texttt{assert} for reasoning about
-constraint variables.
+the internal behaviour of a GRACeFUL concept map component.
 
 As can be seen there is a clear separation of concerns in GL between the high-level primitives
 for constructing complicated components from simpler ones, represented in GCM, and the low level
 implementation details with which the CP language is concerned.
+
+\subsection{Factors, Actions, and Goals}
+The GL languages features primitives for expressing factors, actions, and goals. However, all these are
+generalised by the concept of a \texttt{GCM} component.
