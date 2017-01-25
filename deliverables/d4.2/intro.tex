@@ -1,22 +1,5 @@
 \section{Introduction}\label{introduction}
 
-This document reports on second deliverable (D4.2) of work package 4 of the
-\grace project. The main task of this work package is to build a \emph{Domain
-Specific Language} (DSL) for \grace Concept Maps (GCMs). A GCM is a
-representation of policy analysis that contains all the elements of a policy
-problem definition, such as goals, criteria, and a description of the system as
-a stock-and-flow diagram. A GCM is developed and manipulated by stakeholders
-during Group Model Building (GMB) sessions. Ultimately a GCM is translated via a
-DSL to a \emph{constraint functional program}, which is analysed by a constraint
-solver. The results of the constraint solver is presented to the stakeholders.
-
-
-The DSL can be regarded as an intermediate layer between the visual representation
-of a \grace concept map and a corresponding constraint program. Translating the
-visual representation directly to a constraint program is difficult \todo{ref}.
-A DSL enables alleviates this problem and 
-us to , and abstract away from the constraint solver.
-
 % explain what we mean with an GCM, restricted version: semi-qualitative version
 % of CLDs
 
@@ -26,7 +9,25 @@ us to , and abstract away from the constraint solver.
 
 % Overview of Graceful, at least the bit of our concern, place the DSL in context
 
-insert graph
+This document reports on second deliverable (D4.2) of work package 4 of the
+\grace project. The main task of this work package is to build a \emph{Domain
+Specific Language} (DSL) for \acp{GCM}. A \ac{GCM} is a representation of policy
+analysis that contains all the elements of a policy problem definition, such as
+goals, criteria, and a description of the system as a stock-and-flow diagram. A
+GCM is developed and manipulated by stakeholders during Group Model Building
+(GMB) sessions. Ultimately a GCM is translated via a DSL to a \emph{constraint
+functional program}, which is analysed by a constraint solver. The results of
+the constraint solver is presented to the stakeholders.
+
+The DSL can be regarded as an intermediate layer between the visual
+representation of a \grace concept map and a corresponding constraint program.
+Translating the visual representation directly to a constraint program is
+difficult, because it is hard to check if the generated program is correct. A
+DSL alleviates this problem and us to validate the correctness of a model. In
+addition, a DSL improves the scalability by abstracting away from the constraint
+solver. Figure~\ref{} 
+
+
 
 % How have the definitions from D4.1 changed
 
