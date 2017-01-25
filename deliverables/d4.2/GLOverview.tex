@@ -33,6 +33,11 @@ As can be seen there is a clear separation of concerns in GL between the high-le
 for constructing complicated components from simpler ones, represented in GCM, and the low level
 implementation details with which the CP language is concerned.
 
-\subsection{Factors, Actions, and Goals}
-The GL languages features primitives for expressing factors, actions, and goals. However, all these are
-generalised by the concept of a \texttt{GCM} component.
+\subsection{Expressing GRACeFUL concept map elements in GL}\todo{Relate to d4.1}
+Many of the elements of GRACeFUL concept maps identified in \cite{d4.1} can be modeled in
+GL using language primitives such as \texttt{linkBy} (for connections),
+\texttt{createAction} (for actions), \texttt{assert} (for constraints) etc.
+GL being an \textit{embedded} domain specific language featuring a rich set of primitive
+operations for reasoning in the target domain allows the programmer to construct
+abstractions which capture behaviour which generalises many of the concepts described
+in \cite{d4.1}.
