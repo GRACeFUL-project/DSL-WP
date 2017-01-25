@@ -51,7 +51,7 @@ if there is no change and $s_A=?$ if we cannot determine the change in $A$.
 One approach to modelling and reasoning about CLDs is by using qualitative
 probabilistic networks (QPNs).
 
-A QPN is defined as a directed
+A QPN \cite{Wellman} is defined as a directed
 acyclic graph $G=(V,E)$ where the vertices, $V$, correspond to
 variables and the edges, $E$ to qualitative probabilistic influences.
 %
@@ -243,5 +243,14 @@ If we only allow strictly increasing/decreasing functions we then have
 \[\Delta(C_t) = (s_{BC}\otimes B_{t-2})\oplus (s_{BC}\otimes s_{AB}\otimes A_{t-2}),\]
 
 \subsection{Comparison of approaches}
-The difficulties we found in working with the QPN approach are outlined in
-section \ref{qpnIssues}.
+We achieve the same results when inferring on CLDs no matter whether we use the
+QPN approach or the difference equation approach to describe the underlying
+semantics. Which method is simpler to understand and reason about is a matter of
+opinion, but we encountered some difficulties when working with the QPN approach
+that are outlined in section \ref{qpnIssues}, which make us skeptical of the
+extensibility of that approach to quantitative analysis.
+
+We believe the difference equation method is well suited to describing
+stock-and-flow diagrams as the approach was originally inspired by considering
+stock-and-flow systems, and we are working towards extending from CLDs to the
+more general GCMs.
