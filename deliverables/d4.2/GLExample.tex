@@ -21,7 +21,19 @@ in CRUD.
 \subsubsection{DSL textual input}
 \label{example-runoff-flow-dsl-textual-input}
 
-\todo{some explaining text?}
+We omit the definition of the more complicated parts of the example
+for brevity.
+\todo{Brevity is not a good argument in a deliverable without a page limit ...}
+%
+Fig. \ref{fig:RunoffEx} shows a graphical view of how the components
+are connected.
+%
+\begin{figure}[htbp]
+  \centering
+\includegraphics[width=0.5\textwidth]{fig/RunoffExample.jpg}
+  \caption{Runoff example structure}
+  \label{fig:RunoffEx}
+\end{figure}
 
 \begin{verbatim}
 pump :: Float -> GCM (Port Float, Port Float)
@@ -60,6 +72,7 @@ example = do
 \end{verbatim}
 
 Our example is compiled and run using the \texttt{runGCM} command.
+%
 The constraint programming runtime, \texttt{MiniZinc}, informs us
 that with the numbers in our example the overflow will be zero.
 
@@ -69,7 +82,8 @@ ghci> runGCM example
 \end{verbatim}
 
 While this example is easily calculated by hand GL is capable of
-expressing more complicated, and less self-contained, GRACeFUL
-concept maps including actions and optimization problems. As these
-examples are somewhat larger we omit them in this document and
-refer to the online resources mentioned earlier.
+expressing more complicated, and less self-contained, GRACeFUL concept
+maps including actions and optimization problems.
+%
+As these examples are somewhat larger we omit them in this document
+and refer to the online resources mentioned earlier.
