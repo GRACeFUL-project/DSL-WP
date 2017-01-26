@@ -80,10 +80,10 @@ D4.2\\[1ex]
 
 \noindent
 \begin{tabular}{@{}ll@{}}
-  Lead Participant:       & Chalmers (M. Algehed, S. Einarsdóttir, A. Gerdes, and P. Jansson)
+  Lead Participant:       & Chalmers (WP leader: P. Jansson)
 \\Partners Contributing:  & KU Leuven, UPC
 \\Dissemination Level:    & PU
-\\Document Version:       & Draft (version 2017-01-19)
+\\Document Version:       & Draft (version 2017-01-26)
 \\Date of Submission:     & 2017-01-31
 \\Due Date of Delivery:   & 2017-01-31
 \end{tabular}
@@ -92,8 +92,12 @@ D4.2\\[1ex]
 
 \section*{A Domain Specific Language (DSL) for\\GRACeFUL Concept Maps}\label{DSL4GRACeFUL}
 
+Contributions by: Oskar Abrahamsson, Maximilian Algehed, Sólrún
+Einarsdóttir, Alex Gerdes, and Patrik Jansson.
+
 \vfill
 
+\setcounter{tocdepth}{2}
 \tableofcontents
 
 \vfill
@@ -102,17 +106,29 @@ D4.2\\[1ex]
 
 \section*{Abstract}\label{abstract}
 
-This second deliverable of WP4 includes a short overview of a Domain
-Specific Language (DSL) for description of GRACeFUL concept maps, and
-a formal semantics in terms of types and functions. This is a
-continuation of the initial work described in ``D4.1 Formal Concept
-Maps Elements Descriptions'' delivered in project month 6. 
+This second deliverable (D4.2) of work package 4 presents a Domain
+Specific Language (DSL) for describing GRACeFUL concept maps.
+%
+This is a continuation of the initial work described in ``D4.1 Formal
+Concept Maps Elements Descriptions'' delivered in project month 6.
+%
+The full source code of the language implementation is available on
+github and installation instructions are included in this deliverable.
+%
+The implementation in Haskell can be seen as a formal semantics in
+terms of types and functions and this means that GRACeFUL has reached
+milestone M4.1 ``DSL with formal semantics v1.0 ready''.
+%
+In addition we include a section comparing different approaches to
+modelling some of the formal semantics concepts relevant for GRACeFUL
+concept maps: causal loop diagrams, qualitative probabilistic
+networks, and difference equations.
 
 \input{intro.tex}
 
 \input{background.tex}
 
-\section{GenericLibrary: a DSL for GCMs}
+\section{GenericLibrary: a DSL for GRACeFUL Concept Maps}
 \label{sec:gl}
 
 
