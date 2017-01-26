@@ -1,15 +1,23 @@
 \subsection{Example: Runoff flow}\label{example-runoff-flow}
-We show a small GL program which models a rain runoff area,
-like a town square, which has been provided with a pump to
-alleviate possible flooding issues (this is a common procedure
-in countries like the Netherlands). This example is a small part of
-a larger model used in the CRUD case study meant to show how GL can be
-employed to model concrete problems in CRUD.
+
+We show a small GL program which models a rain runoff area, like a
+town square, which has been provided with a pump to alleviate possible
+flooding issues (this is a common procedure in countries like the
+Netherlands).
+%
+This example is a small part of a larger model used in the CRUD case
+study meant to show how GL can be employed to model concrete problems
+in CRUD.
 
 \subsubsection{DSL textual input}\label{example-runoff-flow-dsl-textual-input}
 
-We omit the definition of the
-more complicated parts of the example for brevity.
+We omit the definition of the more complicated parts of the example
+for brevity.
+
+\todo{The \verb+pump+ and \verb+rain+ components are so close the the
+  examples above that it would be good to make them identical and skip
+  them here (just refer to the previous subsection).}
+
 \begin{verbatim}
 data Pump = Pump {inflowP, outflowP :: Port Float}
 
@@ -52,5 +60,6 @@ When we run the above program we get the output
 ghci> runGCM example
 {"Overflow" : 0}
 \end{verbatim}
+\todo{More explanation needed!}
 
 \todo{Maybe we should have a more elaborate example which utlises actions?}
