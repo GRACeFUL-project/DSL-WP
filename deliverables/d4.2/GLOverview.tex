@@ -1,44 +1,61 @@
-\todo{Make nicer}
 GenericLibrary, henceforth abbreviated to GL, is a DSL for descriptions
 of GRACeFUL concept map components embedded in the Haskell programming language.
 The DSL addresses the issue of bridging the gap between constraint programming
 and the visualisation layer by providing abstractions for modular constraint programming.
 These abstractions are targeted at simplifying the description of GRACeFUL concept maps.
 
-The DSL is divided in to two parts. The first part, \texttt{GCM} \todo{GCM is a monad},
+The DSL is divided in to two parts. The first part, \texttt{GCM},
 allows the user to describe the interactions of GRACeFUL concept map components
-and has facilities for constructing new components from existing ones \todo{Also known as monadic bind}. The second part,
-\texttt{CP} \todo{CP is also a monad}, features primitives for constructing constraint programs
+and has facilities for constructing new components from existing ones. The second part,
+\texttt{CP}, features primitives for constructing constraint programs
 which describe the behaviour of an individual components.
 
-\todo{How do we describe the available language constructs?}
-
-\subsection{The language}\todo{Something about Haskell metaprogramming}
-\todo{flesh out?}
-As noted earlier, the GL language is primarily constructed from two different languages,
-GCM and CP.
-
-\todo{Something about how to include a CP component in a GCM one?}
-\todo{\texttt{component :: CP a -> GCM ()}, the \texttt{GCM ()} type ensures nothing directly escapes from the scope of \texttt{CP} to \texttt{GCM}}
+\subsection{The language}
 The GCM language supports constructing interfaces between components,
 and has support for connecting the interface of different components.
 The core abstraction in GL is that of the \texttt{Port}, a port is an
 entity which represents the way two components interact. A component
 exposes some information about the system, a pump may present one port
 representing the amount of water being pumped through the pump and another
-port representing the maximum flow the pump is able to produce. Ports
-may be connected to each other through the \texttt{link} function.
-\todo{something about the way in which relationships between factors are represented, i.e. \texttt{linkBy}}
+port representing the maximum flow the pump is able to produce.
+
+We show a somewhat simpler example, a \texttt{GCM} component modelling
+a fixed amount of rain falling from the sky.
+\begin{verbatim}
+rain :: Float -> GCM (Port Float)
+rain amount = do
+  port <- createPort
+  set port amount
+  return port
+\end{verbatim}
 
 The CP language supports reasoning about integer and floating-point arithmetic, boolean expressions,
-and arrays. It has constructions like \texttt{createLVar} and \texttt{assert} for reasoning about
-the internal behaviour of a GRACeFUL concept map component.
+and arrays. It has constructions like \texttt{value}, which reads the value from a port, and \texttt{assert} for
+expression constraints on the behaviour of a component. Computations in \texttt{CP} can be
+embedded in \texttt{GCM} using the \texttt{component} primitive.
+
+We can now return to our pump, which is a \texttt{GCM} component parameterised over the maximum
+flow through the pump
+\begin{verbatim}
+pump :: Float -> GCM (Port Float, Port Float)
+pump maxCap = do
+  inPort  <- createPort
+  outPort <- createPort
+  component $ do -- This is in CP
+    inflow  <- value inPort
+    outflow <- value outPort
+    assert $ inflow === outflow
+    assert $ inflow `inRange` (0, lit maxCap)
+  return (inPort, outPort)
+\end{verbatim}
+Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which is a value in Haskell,
+in to GL.
 
 As can be seen there is a clear separation of concerns in GL between the high-level primitives
-for constructing complicated components from simpler ones, represented in GCM, and the low level
-implementation details with which the CP language is concerned.
+for constructing complicated components from simpler ones, expressed in \texttt{GCM}, and the low level
+implementation details with which the \texttt{CP} language is concerned.
 
-\subsection{Expressing GRACeFUL concept map elements in GL}\todo{Relate to d4.1}
+\subsection{Expressing GRACeFUL concept map elements in GL}
 Many of the elements of GRACeFUL concept maps identified in \cite{D4.1} can be modeled in
 GL using language primitives such as \texttt{linkBy} (for connections),
 \texttt{createAction} (for actions), \texttt{assert} (for constraints) etc.

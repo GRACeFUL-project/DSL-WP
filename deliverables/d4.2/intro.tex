@@ -16,19 +16,23 @@ and a description of the system.
 A \ac{GCM} is developed and manipulated by stakeholders during
 \ac{GMB} sessions.
 %
-Ultimately a \ac{GCM} is translated (via the \ac{DSL}) to a \ac{CFP},
-which is analysed by a constraint solver.
+The information from and for the stakeholders will go through at least
+two layers of the \grace system before it reaches the constraint
+solver.
 %
-The results of the constraint solver are presented to the
-stakeholders.
+First, through the graphical visual interface, which will assist the
+stakeholders in building the problem definition, and which will
+present the results of the simulations, and second, the \ac{DSL} that
+will translate between the visual interface and the constraint
+programming layer.
 
 The \ac{DSL} can be regarded as an intermediate layer between the
 visual representation of a \acf{GCM} and a corresponding constraint
 program.
 %
 Translating the visual representation directly to a constraint program
-is difficult, and it would be hard to check if the generated program
-was correct.
+would be difficult, and it would be hard to check if the generated
+program was correct.
 %
 A DSL alleviates this problem and allows us to validate the
 correctness of a model.
