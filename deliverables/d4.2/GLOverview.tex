@@ -25,12 +25,10 @@ The GCM language describes components and how they are connected.
 %
 The core abstraction in GL is that of the \texttt{Port}.
 %
-\todo{please relate this to ``contraint variable'' in the CFP
-  direction and ``factor'' in the GCM direction}
-%
 A port is an entity which represents the way two components interact,
 it generalises the way factors from \cite{D4.1} can interact with each
-other.
+other. Ports can also be viwed as an abstraction of the concept of
+constraint variables from CFP.\todo{elaborate?}
 %
 Each component exposes some information about the system through
 ports.
@@ -79,7 +77,29 @@ Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which
 is a value in the host language Haskell, into the embeddedd langauge
 GL.
 
-As can be seen there is a clear separation of concerns in GL between
+Finally we show a more complicated component, a water storage with
+an \texttt{inflow}, an \texttt{outlet} to which we may connect e.g. a pump,
+and an \texttt{overflow}.
+\begin{verbatim}
+storage :: Float -> GCM (Port Float, Port Float, Port Float)
+storage cap = do
+  inflow   <- createPort
+  outlet   <- createPort
+  overflow <- createPort
+  component $ do
+    currentStored <- createVariable
+    inf <- value inflow
+    out <- value outlet
+    ovf <- value overflow
+    sto <- value currentStored
+    assert $ sto === inf - out - ovf
+    assert $ sto `inRange` (0, lit cap)
+    assert $ (ovf .> 0) ==> (sto === lit cap)
+    assert $ ovf .>= 0
+  return (inflow, outlet, overflow)
+\end{verbatim}
+
+In conclusion, we have seen that there is a clear separation of concerns in GL between
 the high level primitives for constructing complicated components from
 simpler ones, expressed in \texttt{GCM}, and the low level
 implementation details with which the \texttt{CP} language is
