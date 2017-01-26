@@ -1,50 +1,76 @@
 \section{Background}
 \label{sec:background}
 
-We provide some background information about several aspects we use in later
-sections, such that they become more accessible. Whenever possible we give links 
-for further reading as well.
+We provide some background information about several aspects we use in
+later sections, such that they become more accessible.
+%
+Whenever possible we give links for further reading as well.
 
 \paragraph{\acl{DSL}} \citet{fowler} defines a \ac{DSL} as follows:
-\emph{a computer programming language of limited expressiveness focussed on a
-particular domain}. A \ac{DSL} is targetted at a specific class of programming
-tasks. By restricting scope to a particular domain, one can tailor the language
-specifically for that domain. There are two main approaches to implementing
-\acp{DSL}: 
+%
+\emph{a computer programming language of limited expressiveness
+  focussed on a particular domain}.
+%
+A \ac{DSL} is targetted at a specific class of programming tasks.
+%
+By restricting scope to a particular domain, one can tailor the
+language specifically for that domain.
+%
+There are two main approaches to implementing \acp{DSL}:
 \begin{description}
-  \item[standalone] A language with their own specialised syntax and parser to
-  translate programs written in the \ac{DSL} into the host language. An
-  advantage is that the syntax can be tailor made for the target audience, and
-  does not have to resemble the host language. However, creating such a \ac{DSL}
-  is labour intensive and it cannot easily reuse features, such as variables and
-  conditionals, from the host language. 
- \item[embedded] An embedded language tries to offer a convenient syntax and
-   abstraction mechanisms, but is offered as a library written in the host 
-   language. This means that all the existing facilities, such as abstractions 
-   standard libraries, are directly available. A disadvantage of an embedded 
-   \ac{DSL} is that the users may be unfamiliar with the host language. 
+\item[standalone] A language with their own specialised syntax and
+  parser to translate programs written in the \ac{DSL} into the host
+  language.
+%
+  An advantage is that the syntax can be tailor made for the target
+  audience, and does not have to resemble the host language.
+%
+  However, creating such a \ac{DSL} is labour intensive and it cannot
+  easily reuse features, such as variables and conditionals, from the
+  host language.
+\item[embedded] An embedded language tries to offer a convenient
+  syntax and abstraction mechanisms, but is offered as a library
+  written in the host language.
+%
+  This means that all the existing facilities, such as abstractions
+  standard libraries, are directly available.
+%
+  A disadvantage of an embedded \ac{DSL} is that the users may be
+  unfamiliar with the host language.
 \end{description}
-\citet{Gibbons2015} gives a good overview of implementing \acp{DSL} using
-functional programming.
+\citet{Gibbons2015} gives a good overview of implementing \acp{DSL}
+using functional programming.
 
-\paragraph{Semi-qualitative modelling} \todo{don't know if we should explain
-this here}
+% \paragraph{Semi-qualitative modelling} \todo{don't know if we should explain
+% this here}
 
-\paragraph{Constraint programming} Similar to functional and logic programming,
-constraint programming is a declarative programming paradigm, which means that
-the order of processing is not fixed. A constraint program is formulated in
-terms of a number of constraints. Such constraints are different from the common
-primitives of imperative programming languages in that they do not specify a
-step or sequence of steps to execute, but rather the properties of a solution to
-be found. The program that identifies the solutions (there might be none, one,
-or many such solutions) satisfying these constraints is called a onstraint
-solver.
+\paragraph{Constraint programming} Similar to functional and logic
+programming, constraint programming is a declarative programming
+paradigm, which means that the order of processing is not fixed.
+%
+A constraint program is formulated in terms of a number of
+constraints.
+%
+Such constraints are different from the common primitives of
+imperative programming languages in that they do not specify a step or
+sequence of steps to execute, but rather the properties of a solution
+to be found.
+%
+The program that identifies the solutions satisfying these constraints
+is called a onstraint solver.
+%
+In general there might be none, one, or many solutions to a particular
+contraint problem.
 
-The constraint programming approach is to search for a state in which a large
-number of constraints are satisfied at the same time. A problem is typically
-stated as a state containing a number of unknown variables. The constraint
-program searches for values for all the variables. For more information, see,
-e.g., \url{http://constraint.org}.
+The constraint programming approach is to search for a state in which
+a large number of constraints are satisfied at the same time.
+%
+A problem is typically expressed as a state containing a number of
+unknown variables.
+%
+The constraint solver searches for values for all the variables.
+%
+For more information, see, e.g., \url{http://constraint.org}.
 
 \paragraph{\acfp{GCM}}
 
@@ -58,26 +84,37 @@ e.g., \url{http://constraint.org}.
 %\item  present visualisations of possible future trajectories.
 %\end{itemize}
 
-In a \acl{GMB} session stakeholders perform a policy analysis that results
-in the form of a \acl{GCM}. This concept map contains all the elements of a
-policy problem definition: goals, criteria for assessing the achievement of
-those goals, a description of the system involving factors and criteria, and the
-competing alternatives. 
+In a \acl{GMB} session stakeholders perform a policy analysis that
+results in the form of a \acl{GCM}.
+%
+This concept map contains important elements of a policy problem
+definition: goals, criteria for assessing the achievement of those
+goals, a description of the system involving factors and criteria, and
+the competing alternatives.
 
-The term \emph{factors} refers to characteristics of a system that can take a
-value, either quantitative or qualitative, that can change over time (source:
-the \emph{GRACeFUL Glossary of Terms}). Similarly, \emph{external factors}
-correspond to \emph{inputs} to the system. As such, factors are assumed to be
-associated with measurable values. As in systems theory, a distinction is made
-between inputs that are beyond the control of the system, and which are
-potentially uncertain (or even unknown), and \emph{actions} or combinations of
-actions, which represent the system theoretical \emph{controls}.
+The term \emph{factors} refers to characteristics of a system that can
+take a value, either quantitative or qualitative, that can change over
+time (source: the \emph{GRACeFUL Glossary of Terms}).
+%
+Similarly, \emph{external factors} correspond to \emph{inputs} to the
+system.
+%
+As such, factors are assumed to be associated with measurable
+values.
+%
+As in systems theory, a distinction is made between inputs that are
+beyond the control of the system, and which are potentially uncertain
+(or even unknown), and \emph{actions} or combinations of actions,
+which represent the system theoretical \emph{controls}.
 
 The interaction between the factors, and between the factors and the
-criteria, represents a first description of the system. This
-description is in the form of a stock-and-flow diagram (which are a generalisation
-of \aclp{CLD}~\cite{burns}). A causal
-loop diagram is a form of \emph{directed, simple, labelled graph}, i.e.:
+criteria, represents a first description of the system.
+%
+This description is in the form of a stock-and-flow diagram (which is
+a generalisation of \aclp{CLD}~\cite{burns}).
+%
+A causal loop diagram is a form of \emph{directed, simple, labelled
+  graph}, i.e.:
 
 TODO: AG: I have come this far.
 
