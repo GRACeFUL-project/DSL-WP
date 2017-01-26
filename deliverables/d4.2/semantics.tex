@@ -2,38 +2,53 @@
 \label{sec:semantics}
 % stock & flow - CLD simplification (specialization/simplification of GCM)
 % Why formalize?
-We would like to define formal semantics for our DSL in order to be able to
-reason formally about it. By formal reasoning we can confirm the DSL's
-robustness and gain further insight into it.
+We would like to define formal semantics for our DSL in order to be
+able to reason formally about it.
+%
+By formal reasoning we can confirm the DSL's robustness and gain
+further insight into it.
 
-We started by considering causal loop diagrams, a specialization of the GCMs our
-DSL describes. This was done to simplify the initial scope of the work, with the
-expectation that the semantics defined for CLDs could then be extended to the
-more general GCMs. Work to extend and generalize these semantics to describe
-stock-and-flow diagrams, and thereby them more consistent with the current
-implementation of the DSL, is ongoing.
+We started by considering causal loop diagrams, a specialization of
+the GCMs our DSL describes.
+%
+This was done to simplify the initial scope of the work, with the
+expectation that the semantics defined for CLDs could then be extended
+to the more general GCMs.
+%
+Work to extend and generalize these semantics to describe
+stock-and-flow diagrams, and thereby them more consistent with the
+current implementation of the DSL, is ongoing.
 
-We have modelled CLDs within the \verb|GenericLibrary|, the code for this model
-can be seen in the file \verb|QualitativeExample.hs|.\todo{does this belong here?}
+We have modelled CLDs within the \verb|GenericLibrary|, the code for
+this model can be seen in the file \verb|QualitativeExample.hs|.
+%
+\todo{does this belong here? PaJa: perhaps not - I added a TODO in GLExamples.}
+
 \subsection{Causal loop diagrams}
-\todo{Are CLDs described elsewhere? If so, make sure this is consistent.}
+\todo{AlGe: Are CLDs described elsewhere? If so, make sure this is consistent.}
+%
 A causal loop diagram (CLD) is a directed graph used to display causal
 relationships between variables.
 %
-The vertices represent the variables and the edges represent qualitative
-causal relationships, which can be positive or negative.
+The vertices represent the variables and the edges represent
+qualitative causal relationships, which can be positive or negative.
 
 Different approaches can be taken in defining formal semantics to aid
-us in reasoning about CLDs. We have considered two such approaches, one is based
-on qualitative probabilistic networks and the other on difference equations. We
-describe and compare these two approaches in the following sections.
+us in reasoning about CLDs.
+%
+We have considered two such approaches: one based on qualitative
+probabilistic networks and the other on difference equations.
+%
+We describe and compare these two approaches in the following
+sections.
 
 \subsubsection{Notation}
 We denote a positive causal relationship between $A$ and $B$ by
 $A\xrightarrow{+} B$ and a negative one by $A \xrightarrow{-} B$.
 %
-Then $A \xrightarrow{+} B$ means that an increase in $A$ causes an
-increase in $B$, while a decrease in $A$ causes a decrease in $B$.
+Then $A \xrightarrow{+} B$ informally means that an increase in $A$
+causes an increase in $B$ (and a decrease in $A$ causes a decrease in
+$B$).
 %
 On the other hand, $A\xrightarrow{-} B$ means that an increase in $A$
 causes a decrease in $B$ (and conversely a decrease in $A$ causes an
@@ -43,34 +58,44 @@ We denote the sign of the edge from $A$ to $B$ by $s_{AB}$, so
 $s_{AB}= +$ if $A\xrightarrow{+} B$ and $s_{AB}=-$ if
 $A\xrightarrow{-} B$.
 
-A vertex $A$ also has a sign $s_A$ that denotes the total influence on $A$, so
-$s_A=+$ if there is an increase in $A$, $s_A=-$ if there is a decrease, $s_A=0$
-if there is no change and $s_A=?$ if we cannot determine the change in $A$.
+A vertex $A$ also has a sign $s_A$ that denotes the total influence on
+$A$, so $s_A=+$ if there is an increase in $A$, $s_A=-$ if there is a
+decrease, $s_A=0$ if there is no change and $s_A=?$ if we cannot
+determine the change in $A$.
 
-\subsection{QPN approach}
-One approach to modelling and reasoning about CLDs is by using qualitative
-probabilistic networks (QPNs).
+\subsection{Qualitative Probabilistic Networks}
+One approach to modelling and reasoning about CLDs is by using
+qualitative probabilistic networks (QPNs).
 
-A QPN \cite{Wellman} is defined as a directed
-acyclic graph $G=(V,E)$ where the vertices, $V$, correspond to
-variables and the edges, $E$ to qualitative probabilistic influences.
+A QPN \cite{Wellman} is defined as a directed acyclic graph $G=(V,E)$
+where the vertices, $V$, correspond to variables and the edges, $E$ to
+qualitative probabilistic influences.
 %
-These influences can be positive (+) or negative (-). The signs (?), for
-ambiguous influence, and (0), for probabilistic independence, can also be used
-to describe probabilistic relationships.
+These influences can be positive (+) or negative (-).
+%
+The signs (?), for ambiguous influence, and (0), for probabilistic
+independence, can also be used to describe probabilistic
+relationships.
 
 The meaning of signs on edges is defined according to first order
 stochastic dominance, as follows:
 
-Let $F_B(\cdot|a_i, x)$ be the cumulative distribution function (CDF) for
-$B$ given $A=a_i$. Then $s_{AB}=+$ means that for all possible values
-$a_1,a_2$ of $A$ where $a_1\geq a_2$, we must have:
+Let $F_B(\cdot|a_i, x)$ be the cumulative distribution function (CDF)
+for $B$ given $A=a_i$.
+%
+Then $s_{AB}=+$ means that for all possible values $a_1,a_2$ of $A$
+where $a_1\geq a_2$, we must have:
+%
 \[F_B(b_0|a_1, x)\leq F_B(b_0|a_2, x),\]
+%
 that is,
+%
 \[P(B \leq b_0| A = a_1, x)\leq P(B\leq b_0| A = a_2, x)\]
+%
 for all possible values $b_0$ of $B$ and any consistent context $x$.
-The context $x$ ranges over all possible assignments to the
-variables other than $A$ that influence $B$, that are consistent with both
+%
+The context $x$ ranges over all possible assignments to the variables
+other than $A$ that influence $B$, that are consistent with both
 $A=a_1$ and $A=a_2$.
 %
 The definition of $s_{AB}=-$ is the same but with $a_1\leq a_2$.
@@ -79,40 +104,49 @@ In simpler terms, $s_{AB} = +$ means that greater values of $A$ mean
 greater values of $B$ are more likely, and $s_{AB}=-$ means that
 greater values of $A$ mean smaller values of $B$ are more likely.
 
-These influences are symmetric, that is, if the edge from $X$ to $Y$ is reversed
-we must have $s_{XY} = s_{YX}$.
+These influences are symmetric, that is, if the edge from $X$ to $Y$
+is reversed we must have $s_{XY} = s_{YX}$.
 %
 Due to this symmetry it is possible to propagate an observed increase
-or decrease of one variable around the graph and find whether other
-variables are then likely to have increased or decreased.
+or decrease of one variable around the graph and find if other
+variables are likely to have increased or decreased.
 
 This definition is broad enough to apply to many different systems and
-be applicable to various real world situations.
+to be applicable to various real world situations.
 
 \subsubsection{Issues} \label{qpnIssues}
-We found some issues with QPNs that lead us to explore other approaches.
+
+We found some issues with QPNs that lead us to explore other
+approaches.
 
 First of all, since QPNs were originally defined for acyclic graphs
 and the theory on them relies on acyclicity, they may not be the best
-fit to describe CLDs, in which cycles (feedback loops) are an important
-feature. Inference on QPNs containing loops is difficult to implement, and can
+fit to describe CLDs, in which cycles (feedback loops) are an
+important feature.
+%
+Inference on QPNs containing loops is difficult to implement, and can
 lead to ambiguous results.
 
-Second, the formal semantics of inference on QPNs is difficult to formalize
-since it relies heavily on not-so-simple probability theory.
-Additionally, QPNs are defined solely based on qualitative relationships and
-there is no obvious way to expand them to also describe quantitative
-relationships unless we have information about the probability distributions and
-conditional probabilities involved. GMB sessions will not produce data on
-probability distributions and estimating such probabilities in a reliable manner
-requires a sizable dataset that may not be available for a given GCM, as well as
+Second, the formal semantics of inference on QPNs is difficult to
+formalize since it relies heavily on not-so-simple probability theory.
+%
+Additionally, QPNs are defined solely based on qualitative
+relationships and there is no obvious way to expand them to also
+describe quantitative relationships unless we have information about
+the probability distributions and conditional probabilities involved.
+%
+GMB sessions will not produce data on probability distributions and
+estimating such probabilities in a reliable manner requires a sizable
+dataset (that may not be available for a given GCM) as well as
 statistical expertise.
 
-Lastly, since all inference in QPNs is probabilistic it leads to results that
-may not be as meaningful or concrete as we would like, such as
-``there is a heightened probability that $x$ has increased'',
-rather than ``$x$ has increased''. For instance, a variable may decrease even
-though the cumulative probabilistic influence on it is positive.
+Lastly, since all inference in QPNs is probabilistic it leads to
+results that may not be as meaningful or concrete as we would like,
+such as ``there is a heightened probability that $x$ has increased'',
+rather than ``$x$ has increased''.
+%
+For instance, a variable may decrease even though the cumulative
+probabilistic influence on it is positive.
 
 \subsection{Difference equation approach}
 
@@ -120,25 +154,29 @@ Inspired by a system of tanks with water flowing from one to another,
 and in search of semantics that might also be extended to quantitative
 reasoning, we came up with the following approach.
 
-We consider the values of the graph's vertices to be functions of the same
-variable, such as a time variable $t$.
+We consider the values of the graph's vertices to be functions of the
+same variable, such as a time variable $t$.
 
-If we have a graph with two vertices, $X$ and $Y$, and one edge from $X$
-to $Y$, then $s_{XY}=+$ implies that
+If we have a graph with two vertices, $X$ and $Y$, and one edge from
+$X$ to $Y$, then $s_{XY}=+$ implies that
+%
 \[\frac{\partial Y}{\partial t} = G(X(t)),\]
+%
 where $G$ is a monotonically increasing function (monotonically decreasing for negative
 causality, $s_{XY}=-$).
 
 If the vertex $Y$ has multiple parent vertices $X_1,\ldots,X_n$, then
-$\frac{\partial Y}{\partial t}$ depends on all the parent vertices. We can
-isolate the effect of a single parent vertex
- $X$ on $Y$ by differentiation.
+$\frac{\partial Y}{\partial t}$ depends on all the parent vertices.
+%
+We can isolate the effect of a single parent vertex $X$ on $Y$ by
+differentiation.
 
 In general we can then describe the causal relationship from $X$ to
 $Y$ as
+%
 \[\frac{\partial\left( \frac{\partial Y(t)}{\partial t} \right)}{\partial Y(t)} =
   g(X(t)),\]
-
+%
 where $g$ has a primitive function $G$ such that $G$ is monotonically
 increasing if $s_{XY}=+$ and monotonically decreasing if $s_{XY}= -$.
 
@@ -146,16 +184,16 @@ This is somewhat more nuanced than $CLDs$ as they are described above,
 where $s_{XY}=+$ implies that an increase in $X$ leads to an increase
 in $Y$, and a decrease in $X$ to a decrease in $Y$.
 %
-Here we may have some threshold value $x_0$ for $X$, where $G(x_0) = 0$,
-above which $X$ always causes an increase in $Y$, but an increase in $X$
-causes a faster rate of increase in $Y$ and a decrease in $X$ causes a
-slowed rate of increase in $Y$, and vice versa.
+Here we may have some threshold value $x_0$ for $X$, where
+$G(x_0) = 0$, above which $X$ always causes an increase in $Y$, but an
+increase in $X$ causes a faster rate of increase in $Y$ and a decrease
+in $X$ causes a slowed rate of increase in $Y$, and vice versa.
 
-Note that though $G(X)$ is monotonically increasing, it may not be strictly
-increasing, so we could for instance have $G(X) = 0$ for all $X < C$
-for some threshold value $C$.
+Note that though $G(X)$ is monotonically increasing, it may not be
+strictly increasing, so we could for instance have $G(X) = 0$ for all
+$X < C$ for some threshold value $C$.
 
-If the vertex $Y$ has parent vetices $X_1,\ldots,X_n$, then we have
+If the vertex $Y$ has parent vertices $X_1,\ldots,X_n$, then we have
 \[\frac{\partial Y}{\partial t} = \sum_{i=1}G_i(X_i),\]
 where $G_i$ is monotonically increasing if $s_{X_iY}=+$ but monotonically
 decreasing if $s_{X_iY}=-$.
@@ -166,7 +204,7 @@ $\Delta(X_t) = G(Y_{t-1})$ instead of
 $\frac{\partial X}{\partial t} = G(Y(t))$.
 %
 In simple cases we may only consider one time step with two values of
-$t$, $t_{start}$ and $t_{end}$.
+$t$: $t_{start}$ and $t_{end}$.
 
 Here we explore how this approach relates to qualitative reasoning,
 but it could be extended to quantitative reasoning by solving the
@@ -175,11 +213,15 @@ appropriate differential equations.
 \subsubsection{Simple qualitative model}
 
 We consider a qualitative discrete time system where all values of
-vertex variables are either +, -, 0, or ? (where ? is an ambiguous value assigned
-to a variable whose value cannot be deduced). These values have the partial
-ordering $- < 0 < +$, but ? cannot be compared to the other values. In place of
-addition and multiplication we have the operations $\oplus$ and $\otimes$, whose
-behavior can be seen in the following tables:
+vertex variables are either +, -, 0, or ? (where ? is an ambiguous
+value assigned to a variable whose value cannot be deduced).
+%
+These values have the partial ordering $- < 0 < +$, but ? cannot be
+compared to the other values.
+%
+In place of addition and multiplication we have the operations
+$\oplus$ and $\otimes$, whose behavior can be seen in the following
+tables:
 \begin{center}
 \begin{tabular}{c|cccc}
 $\oplus$ & + & - & 0 & ?\\
@@ -199,58 +241,72 @@ $\otimes$ & + & - & 0 & ?\\
   ?   & ?  & ? & 0 & ?\\
 \end{tabular}
 \end{center}
-The only
-strictly increasing function in this system is the identity function $id(x) =
-x$, and the only strictly decreasing function is the negation function $neg(x) =-\otimes x$.
+The only strictly increasing function in this system is the identity
+function $id(x) = x$, and the only strictly decreasing function is the
+negation function $neg(x) =-\otimes x$.
 
-For simplicity we consider the case where all initial values are
-set to zero and $G_e(0)=0$, for all edges $e$. We only consider edge functions
-$G_e$ where $G_e(?) = ?$, since we shouldn't be able to make unambiguous
-deductions based on ambiguous values.
+For simplicity we consider the case where all initial values are set
+to zero and $G_e(0)=0$, for all edges $e$.
+%
+We only consider edge functions $G_e$ where $G_e(?) = ?$, since we
+shouldn't be able to make unambiguous deductions based on ambiguous
+values.
 %
 
 This is convenient for qualitative reasoning since then we are only
 concerned with increases and decreases rather than numerical values.
 %
-The value of variable $X$ at time $t$, which we denote by $X_t$, then tells us whether there has been a net
-increase or decrease in $X$.
+The value of variable $X$ at time $t$, which we denote by $X_t$, then
+tells us whether there has been a net increase or decrease in $X$.
 
-Consider a graph with three vertices, $Z$ and its two parents
-$X$ and $Y$, $X\xrightarrow{s_{XZ}} Z$ and $Y\xrightarrow{s_{YZ}} Z$.
+Consider a graph with three vertices, $Z$ and its two parents $X$ and
+$Y$, $X\xrightarrow{s_{XZ}} Z$ and $Y\xrightarrow{s_{YZ}} Z$.
 %
 Then we have
+%
 \[\Delta(Z_t) = G_{XZ}(X_{t-1}) \oplus G_{YZ}(Y_{t-1}),\]
-where $G_{XZ}$ and $G_{YZ}$ are monotonically increasing or decreasing in
-accordance with $s_{XZ}$ and $s_{YZ}$.
+%
+where $G_{XZ}$ and $G_{YZ}$ are monotonically increasing or decreasing
+in accordance with $s_{XZ}$ and $s_{YZ}$.
 %
 If we only allow strictly increasing/decreasing functions we then have
+%
 \[\Delta(Z_t) = (s_{XZ}\otimes X_{t-1})\oplus (s_{YZ}\otimes Y_{t-1}).\]
 
 Consider a graph with three vertices $A$, $B$ and $C$ and two edges,
-$A\xrightarrow{s_{AB}} B$ and $B\xrightarrow{s_{BC}} C$. Then we have
+$A\xrightarrow{s_{AB}} B$ and $B\xrightarrow{s_{BC}} C$.
+%
+Then we have
 \begin{align*}
 \Delta(C_t) &= G_{BC}(B_{t-1})\\
 &= G_{BC}(B_{t-2} \oplus \Delta(B_{t-1}))\\
-&= G_{BC}(B_{t-2}  \oplus G_{AB}(A_{t-2}))\\
+&= G_{BC}(B_{t-2} \oplus G_{AB}(A_{t-2}))\\
 \end{align*}
 
-If $G_{BC}$ is linear, as is the case when we restrict the available functions
-to the strictly increasing/decreasing $id$ and $neg$,
-we then have
+If $G_{BC}$ is linear, as is the case when we restrict the available
+functions to the strictly increasing/decreasing $id$ and $neg$, we
+then have
+%
 \[\Delta(C_t) = G_{BC}(B_{t-2})\oplus G_{BC}\circ G_{AB}(A_{t-2}).\]
 
 If we only allow strictly increasing/decreasing functions we then have
-\[\Delta(C_t) = (s_{BC}\otimes B_{t-2})\oplus (s_{BC}\otimes s_{AB}\otimes A_{t-2}),\]
+%
+\[\Delta(C_t) = (s_{BC}\otimes B_{t-2})\oplus (s_{BC}\otimes
+  s_{AB}\otimes A_{t-2}),\]
 
 \subsection{Comparison of approaches}
-We achieve the same results when inferring on CLDs no matter whether we use the
-QPN approach or the difference equation approach to describe the underlying
-semantics. Which method is simpler to understand and reason about is a matter of
-opinion, but we encountered some difficulties when working with the QPN approach
-that are outlined in section \ref{qpnIssues}, which make us skeptical of the
-extensibility of that approach to quantitative analysis.
+
+We achieve the same results when inferring on CLDs no matter whether
+we use the QPN approach or the difference equation approach to
+describe the underlying semantics.
+%
+Which method is simpler to understand and reason about is a matter of
+opinion, but we encountered some difficulties when working with the
+QPN approach that are outlined in section \ref{qpnIssues}, which make
+us skeptical of the extensibility of that approach to quantitative
+analysis.
 
 We believe the difference equation method is well suited to describing
-stock-and-flow diagrams as the approach was originally inspired by considering
-stock-and-flow systems, and we are working towards extending from CLDs to the
-more general GCMs.
+stock-and-flow diagrams as the approach was originally inspired by
+considering stock-and-flow systems, and we are working towards
+extending from CLDs to the more general GCMs.
