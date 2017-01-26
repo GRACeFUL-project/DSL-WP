@@ -59,12 +59,17 @@ example = do
   output "Overflow" overflowS
 \end{verbatim}
 
-When we run the above program we get the output
+Our example is compiled and run using the \texttt{runGCM} command.
+The constraint programming runtime, \texttt{MiniZinc}, informs us
+that with the numbers in our example the overflow will be zero.
 
 \begin{verbatim}
 ghci> runGCM example
 {"Overflow" : 0}
 \end{verbatim}
-\todo{More explanation needed!}
 
-\todo{Say something about actions!}
+While this example is easily calculated by hand GL is capable of
+expressing more complicated, and less self-contained, GRACeFUL
+concept maps including actions and optimization problems. As these
+examples are somewhat larger we omit them in this document and
+refer to the online resources mentioned earlier.
