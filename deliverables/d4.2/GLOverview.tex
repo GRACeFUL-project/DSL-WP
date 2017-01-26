@@ -1,26 +1,44 @@
-GenericLibrary, henceforth abbreviated to GL, is a DSL for descriptions
-of GRACeFUL concept map components embedded in the Haskell programming language.
-The DSL addresses the issue of bridging the gap between constraint programming
-and the visualisation layer by providing abstractions for modular constraint programming.
-These abstractions are targeted at simplifying the description of GRACeFUL concept maps.
+GenericLibrary, henceforth abbreviated to GL, is a DSL for
+descriptions of GRACeFUL concept map components embedded in the
+Haskell programming language.
+%
+The DSL addresses the issue of bridging the gap between constraint
+programming and the visualisation layer by providing abstractions for
+modular constraint programming.
+%
+These abstractions are targeted at simplifying the description of
+GRACeFUL concept maps.
 
-The DSL is divided in to two parts. The first part, \texttt{GCM},
-allows the user to describe the interactions of GRACeFUL concept map components
-and has facilities for constructing new components from existing ones. The second part,
-\texttt{CP}, features primitives for constructing constraint programs
-which describe the behaviour of an individual components.
+The DSL is divided into two parts.
+%
+The first part, \texttt{GCM}, allows the user to describe the
+interactions of GRACeFUL concept map components and has facilities for
+constructing new components from existing ones.
+%
+The second part, \texttt{CP}, features primitives for constructing
+constraint programs which describe the behaviour of an individual
+component.
 
 \subsection{The language}
-The GCM language supports constructing interfaces between components,
-and has support for connecting the interface of different components.
-The core abstraction in GL is that of the \texttt{Port}, a port is an
-entity which represents the way two components interact. A component
-exposes some information about the system, a pump may present one port
-representing the amount of water being pumped through the pump and another
-port representing the maximum flow the pump is able to produce.
 
-We show a somewhat simpler example, a \texttt{GCM} component modelling
-a fixed amount of rain falling from the sky.
+The GCM language describes components and how they are connected.
+%
+The core abstraction in GL is that of the \texttt{Port}.
+%
+\todo{please relate this to ``contraint variable'' in the CFP
+  direction and ``factor'' in the GCM direction}
+%
+A port is an entity which represents the way two components interact.
+%
+Each component exposes some information about the system through
+ports.
+%
+As an example, a pump component may present one port for the current
+flow of water being pumped and another port for the maximum flow of
+the pump.
+
+We first show the code for a somewhat simpler example: a \texttt{GCM}
+component modelling a fixed amount of rain falling from the sky.
 \begin{verbatim}
 rain :: Float -> GCM (Port Float)
 rain amount = do
@@ -29,37 +47,50 @@ rain amount = do
   return port
 \end{verbatim}
 
-The CP language supports reasoning about integer and floating-point arithmetic, boolean expressions,
-and arrays. It has constructions like \texttt{value}, which reads the value from a port, and \texttt{assert} for
-expression constraints on the behaviour of a component. Computations in \texttt{CP} can be
-embedded in \texttt{GCM} using the \texttt{component} primitive.
+The CP language supports reasoning about integer and floating-point
+arithmetic, boolean expressions, and arrays.
+%
+It has constructions like \texttt{value}, which reads the value from a
+port, and \texttt{assert} for expression constraints on the behaviour
+of a component.
+%
+Computations in \texttt{CP} can be embedded in \texttt{GCM} using the
+\texttt{component} primitive.
 
-We can now return to our pump, which is a \texttt{GCM} component parameterised over the maximum
-flow through the pump
+We can now return to our pump, which is a \texttt{GCM} component
+parameterised over the maximum flow through the pump:
+%
 \begin{verbatim}
 pump :: Float -> GCM (Port Float, Port Float)
 pump maxCap = do
   inPort  <- createPort
   outPort <- createPort
-  component $ do -- This is in CP
+  component $ do             -- This is in CP
     inflow  <- value inPort
     outflow <- value outPort
-    assert $ inflow === outflow
-    assert $ inflow `inRange` (0, lit maxCap)
+    assert $  inflow === outflow
+    assert $  inflow `inRange` (0, lit maxCap)
   return (inPort, outPort)
 \end{verbatim}
-Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which is a value in Haskell,
-in to GL.
+%
+Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which
+is a value in the host language Haskell, into the embeddedd langauge
+GL.
 
-As can be seen there is a clear separation of concerns in GL between the high-level primitives
-for constructing complicated components from simpler ones, expressed in \texttt{GCM}, and the low level
-implementation details with which the \texttt{CP} language is concerned.
+As can be seen there is a clear separation of concerns in GL between
+the high level primitives for constructing complicated components from
+simpler ones, expressed in \texttt{GCM}, and the low level
+implementation details with which the \texttt{CP} language is
+concerned.
 
 \subsection{Expressing GRACeFUL concept map elements in GL}
-Many of the elements of GRACeFUL concept maps identified in \cite{D4.1} can be modeled in
-GL using language primitives such as \texttt{linkBy} (for connections),
-\texttt{createAction} (for actions), \texttt{assert} (for constraints) etc.
-GL being an \textit{embedded} domain specific language featuring a rich set of primitive
-operations for reasoning in the target domain allows the programmer to construct
-abstractions which capture behaviour which generalises many of the concepts described
-in \cite{D4.1}.
+Many of the elements of GRACeFUL concept maps identified in
+\cite{D4.1} can be modeled in GL using language primitives such as
+\texttt{linkBy} (for connections), \texttt{createAction} (for
+actions), \texttt{assert} (for constraints) etc.
+%
+GL being an \textit{embedded} domain specific language featuring a
+rich set of primitive operations for reasoning in the target domain
+allows the programmer to construct abstractions which capture
+behaviour which generalises many of the concepts described in
+\cite{D4.1}.
