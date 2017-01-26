@@ -1,10 +1,3 @@
-\todo{Say something about more the collection of examples available online: }
-The collection of examples is available in the \verb+examples/+ directory of the GitHub repository \href{https://github.com/GRACeFUL-project/GenericLibrary}{GenericLibrary}:
-
-% -- A GCM representing a simluation of the swedish energy system
-% energySystem :: GCM ()
-% SmallExample.hs
-
 \subsection{Example: Runoff flow}
 \label{example-runoff-flow}
 
@@ -16,22 +9,10 @@ Netherlands).
 This example is a small part of a larger model used in the CRUD case
 study meant to show how GL can be employed to model concrete problems
 in CRUD.
-
-
-\subsubsection{DSL textual input}
-\label{example-runoff-flow-dsl-textual-input}
-
-Here we show a complete example with three components.
 %
-Fig. \ref{fig:RunoffEx} shows a graphical view of how the components
-are connected.
+The program has three components and Fig. \ref{fig:RunoffEx} shows a
+graphical view of how the components are connected.
 %
-\begin{figure}[htbp]
-  \centering
-\includegraphics[width=0.5\textwidth]{fig/RunoffExample.jpg}
-  \caption{Runoff example structure}
-  \label{fig:RunoffEx}
-\end{figure}
 
 \begin{verbatim}
 pump :: Float -> GCM (Port Float, Port Float)
@@ -84,4 +65,10 @@ expressing more complicated, and less self-contained, GRACeFUL concept
 maps including actions and optimization problems.
 %
 As these examples are somewhat larger we omit them in this document
-and refer to the online resources mentioned earlier.
+and refer to the online resources\footnote{See the examples directory
+  of the GitHub repository for
+  \href{https://github.com/GRACeFUL-project/GenericLibrary}{GenericLibrary}.}.
+
+% -- A GCM representing a simluation of the swedish energy system
+% energySystem :: GCM ()
+% SmallExample.hs
