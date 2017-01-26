@@ -21,51 +21,42 @@ in CRUD.
 \subsubsection{DSL textual input}
 \label{example-runoff-flow-dsl-textual-input}
 
-We omit the definition of the more complicated parts of the example
-for brevity.
-
-\todo{The pump and rain components are so close the the examples above
-  that it would be good to make them identical and skip them here
-  (just refer to the previous subsection).}
-
-\todo{I'm not sure it is a good idea to omit the storage component.}
-
-\todo{The rain component here has no return, but above it has that.}
+\todo{some explaining text?}
 
 \begin{verbatim}
-data Pump = Pump {inflowP, outflowP :: Port Float}
-
-pump :: Float -> GCM Pump
-pump capacity = do
-  inPort  <- createPort
-  outPort <- createPort
-  component $ do
-    i <- value inPort
-    o <- value outPort
-    assert $ i `inRange` (0, lit capacity)
-    assert $ i === o
-  return $ Pump inPort outPort
+pump :: Float -> GCM (Port Float, Port Float)
+pump ... -- As before
 
 rain :: Float -> GCM (Port Float)
-rain flow = do
-  rainP <- createPort
-  set rainP flow
+rain ... -- As before
 
-data Storage = Storage {inflowS, outflowS, overflowS :: Port Float}
-
-storage :: Float -> GCM Storage
-storage = ... -- The implementation of storage is omitted for brevity
+storage :: Float -> GCM (Port Float, Port Float, Port Float)
+storage cap = do
+  inflow   <- createPort
+  outlet   <- createPort
+  overflow <- createPort
+  component $ do
+    currentStored <- createVariable
+    inf <- value inflow
+    out <- value outlet
+    ovf <- value overflow
+    sto <- value currentStored
+    assert $ sto === inf - out - ovf
+    assert $ sto `inRange` (0, lit cap)
+    assert $ (ovf .> 0) ==> (sto === lit cap)
+    assert $ ovf .>= 0
+  return (inflow, outlet, overflow)
 
 example :: GCM ()
 example = do
-  p <- pump 5
-  s <- storage 4
-  r <- rain 10
+  (inflowP, outflowP) <- pump 5
+  (inflowS, outletS, overflowS) <- storage 4
+  rainflow <- rain 10
 
-  link (inflowP p) (outflowS s)
-  link (inflowS s) r
+  link inflowP outletS
+  link inflowS rainflow
 
-  output "Overflow" (overflowS s)
+  output "Overflow" overflowS
 \end{verbatim}
 
 When we run the above program we get the output
@@ -76,4 +67,4 @@ ghci> runGCM example
 \end{verbatim}
 \todo{More explanation needed!}
 
-\todo{Maybe we should have a more elaborate example which utlises actions?}
+\todo{Say something about actions!}
