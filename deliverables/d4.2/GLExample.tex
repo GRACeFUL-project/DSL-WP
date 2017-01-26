@@ -14,9 +14,13 @@ in CRUD.
 We omit the definition of the more complicated parts of the example
 for brevity.
 
-\todo{The \verb+pump+ and \verb+rain+ components are so close the the
-  examples above that it would be good to make them identical and skip
-  them here (just refer to the previous subsection).}
+\todo{The pump and rain components are so close the the examples above
+  that it would be good to make them identical and skip them here
+  (just refer to the previous subsection).}
+
+\todo{I'm not sure it is a good idea to omit the storage component.}
+
+\todo{The rain component here has no return, but above it has that.}
 
 \begin{verbatim}
 data Pump = Pump {inflowP, outflowP :: Port Float}
@@ -40,7 +44,7 @@ rain flow = do
 data Storage = Storage {inflowS, outflowS, overflowS :: Port Float}
 
 storage :: Float -> GCM Storage
-storage = ... -- The implementation of storage is quite involved
+storage = ... -- The implementation of storage is omitted for brevity
 
 example :: GCM ()
 example = do
