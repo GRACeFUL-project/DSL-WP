@@ -4,10 +4,18 @@ This document reports on the second deliverable (D4.2) of work package 4 of the
 \grace project. The main task of this work package is to build a \emph{\ac{DSL}}
 for \acp{GCM}. A \ac{GCM} is a representation of policy analysis that contains
 all the elements of a policy problem definition, such as goals, criteria, and
-  a description of the system. A \ac{GCM} is developed and manipulated by
-stakeholders during \ac{GMB} sessions. Ultimately a \ac{GCM} is translated
-(via the \ac{DSL}) to a \ac{CFP}, which is analysed by a constraint solver. The
-results of the constraint solver are presented to the stakeholders.
+a description of the system. A \ac{GCM} is developed and manipulated by
+stakeholders during \ac{GMB} sessions. The information from and for the
+stakeholders will go through at least two layers of the \grace system before
+it reaches the constraint solver. First, through the graphical visual
+interface, which will assist the stakeholders in building the problem
+definition, and which will present the results of the simulations, and second,
+the \ac{DSL} that will translate between these interfaces and the constraint
+programming layer. 
+  
+%Ultimately a \ac{GCM} is translated (via the \ac{DSL}) to
+%a \ac{CFP}, which is analysed by a constraint solver.  The results of the
+%constraint solver are presented to the stakeholders.
 
 The \ac{DSL} can be regarded as an intermediate layer between the visual
 representation of a \acf{GCM} and a corresponding constraint program.
