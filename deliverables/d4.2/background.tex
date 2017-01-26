@@ -73,17 +73,6 @@ The constraint solver searches for values for all the variables.
 For more information, see, e.g., \url{http://constraint.org}.
 
 \paragraph{\acfp{GCM}}
-
-%Factors, Criteria, Actions
-
-%Outcomes: help the stakeholders
-
-%\begin{itemize}
-%\item find alternative policies that can satisfy the goals,
-%\item identify inconsistencies in the problem definition,
-%\item  present visualisations of possible future trajectories.
-%\end{itemize}
-
 In a \acl{GMB} session stakeholders perform a policy analysis that
 results in the form of a \acl{GCM}.
 %
@@ -112,43 +101,42 @@ criteria, represents a first description of the system.
 %
 This description is in the form of a stock-and-flow diagram (which is
 a generalisation of \aclp{CLD}~\cite{burns}).
-%
-A causal loop diagram is a form of \emph{directed, simple, labelled
-  graph}, i.e.:
+A stocks-and-flow diagram represents the structural 
+understanding of a system - the causal structures that
+produces the observed behavior. It reveals information about the rates of change
+of system elements and the measures of the variables of the system. A diagram
+consists of the folowing elements:
+\begin{description}
+  \item[Stocks] A stock represent a part of a system whose value at any given
+  instant in time depends on the systems past behavior. The value of the stocks
+  at a particular instant in time cannot simply be determined by measuring the
+  value of the other parts of the system at that instant in time – the only way
+  you can calculate it is by measuring how it changes at every instant and
+  adding up all these changes.
+  \item[Flows] Flows represent the rate at which the stock is changing at any
+  given instant, they either flow into a stock (causing it to increase) or flow
+  out of a stock (causing it to decrease).
+  \item[Converters] Converters either represent parts at the boundary of the
+  system (i.e. parts whose value is not determined by the behaviour of the
+  system itself) or they represent parts of a system whose value can be derived
+  from other parts of the system at any time through some computational
+  procedure
+  \item[Connectors] Much like in causal loop diagrams the connectors of a system
+  show how the parts of a system influence each other. Stocks can only be
+  influenced by flows (i.e. there can be no connector that connects into a
+  stock), flows can be influenced by stocks, other flows, and by converters.
+  Converters either are not influenced at all (i.e. they are at the systems
+  boundary) or are influenced by stocks, flows and other converters.
+  \item[Source/Sink] Souces and sinks are stocks that lie outside of the models
+  boundary – they are used to show that a stock is flowing from a source or into
+  a sink that lies outside of the models boundary.
+\end{description}
 
-TODO: AG: I have come this far.
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  a link between two nodes has a well-defined source and a target (it is
-  \emph{directed}); intuitively, the link represents a causal relation
-  between the source (cause) and the target (effect);
-\item
-  there can be at most one connection from one node to another (the
-  graph is \emph{simple}): either a causal relation exists, or it does
-  not. Note, however, that since the graph is directed, there may be an
-  inverse connection from the ``effect'' to the ``cause'', as in
-  feedback loops;
-\item
-  the connections are either \emph{positive} (an increase in the value
-  of the source causes an increase in the value of the target), or
-  \emph{negative} (an increase causes a decrease), hence the graph is
-  \emph{labelled}.
-\end{enumerate}
-
-It can be seen from the last point that nodes \emph{must} represent
-values that can be partially ordered. This rules out nodes that
-represent, say, stakeholders.
-
-The GRACeFUL system can assist in building the causal loop diagram, for
-example by suggesting connections, or by pointing out inconsistencies.
-
-At this stage, if we can attribute qualitative values to the various
-nodes, the causal loop diagram describes a system that can make the
-object of a qualitative simulation. The criteria play the roles of
-constraints: the qualitative trajectories that lead outside the criteria
-can be pruned by the constraint programming system.
+At this stage, if we can attribute qualitative values to the various nodes, the
+causal loop diagram describes a system that can make the object of a qualitative
+simulation. The criteria play the roles of constraints: the qualitative
+trajectories that lead outside the criteria can be pruned by the constraint
+programming system.
 
 The causal loop diagram is enhanced to a GRACeFUL concept map by the
 addition of extra nodes and non-causal links. The extra nodes represent
