@@ -99,71 +99,71 @@ which represent the system theoretical \emph{controls}.
 The interaction between the factors, and between the factors and the
 criteria, represents a first description of the system.
 %
-This description is in the form of a stock-and-flow diagram (which is
-a generalisation of \aclp{CLD}~\cite{burns}).
-A stocks-and-flow diagram represents the structural 
-understanding of a system - the causal structures that
+This description is in the form of a stock-and-flow diagram (which is a
+generalisation of \aclp{CLD}~\cite{burns}). A stocks-and-flow diagram
+represents the structural understanding of a system - the causal structures that
 produces the observed behavior. It reveals information about the rates of change
 of system elements and the measures of the variables of the system. A diagram
 consists of the folowing elements:
 \begin{description}
   \item[Stocks] A stock represent a part of a system whose value at any given
-  instant in time depends on the systems past behavior. The value of the stocks
-  at a particular instant in time cannot simply be determined by measuring the
-  value of the other parts of the system at that instant in time – the only way
-  you can calculate it is by measuring how it changes at every instant and
-  adding up all these changes.
+    instant in time depends on the systems past behavior. 
   \item[Flows] Flows represent the rate at which the stock is changing at any
-  given instant, they either flow into a stock (causing it to increase) or flow
-  out of a stock (causing it to decrease).
+    given instant, they either flow into a stock (causing it to increase) or flow
+    out of a stock (causing it to decrease).
   \item[Converters] Converters either represent parts at the boundary of the
-  system (i.e. parts whose value is not determined by the behaviour of the
-  system itself) or they represent parts of a system whose value can be derived
-  from other parts of the system at any time through some computational
-  procedure
+    system (i.e. parts whose value is not determined by the behaviour of the
+    system itself) or they represent parts of a system whose value can be derived
+    from other parts of the system at any time through some computational
+    procedure.
   \item[Connectors] Much like in causal loop diagrams the connectors of a system
-  show how the parts of a system influence each other. Stocks can only be
-  influenced by flows (i.e. there can be no connector that connects into a
-  stock), flows can be influenced by stocks, other flows, and by converters.
-  Converters either are not influenced at all (i.e. they are at the systems
-  boundary) or are influenced by stocks, flows and other converters.
+    show how the parts of a system influence each other. Stocks can only be
+    influenced by flows (i.e. there can be no connector that connects into a
+    stock), flows can be influenced by stocks, other flows, and by converters.
+    Converters either are not influenced at all (i.e. they are at the systems
+    boundary) or are influenced by stocks, flows and other converters.
   \item[Source/Sink] Souces and sinks are stocks that lie outside of the models
   boundary – they are used to show that a stock is flowing from a source or into
   a sink that lies outside of the models boundary.
 \end{description}
+The elements of a policy problem are described in terms of stock-and-flow
+diagram elements, for example \emph{factors} are represented by \emph{stocks}.
 
-At this stage, if we can attribute qualitative values to the various nodes, the
-causal loop diagram describes a system that can make the object of a qualitative
-simulation. The criteria play the roles of constraints: the qualitative
-trajectories that lead outside the criteria can be pruned by the constraint
-programming system.
+TODO: explain this in much more detail.
 
-The causal loop diagram is enhanced to a GRACeFUL concept map by the
-addition of extra nodes and non-causal links. The extra nodes represent
-actions, goals, alternatives, and stakeholders.
 
-Like all previous elements, the actions are also obtained from the
-stakeholders. As explained in the previous section, actions are the
-components of alternatives, among which will be found the policy
-solutions we are seeking. Alternatives are, according to the GRACeFUL
-Glossary of Terms, ``action or combination of actions that influence the
-values of criteria''. They correspond to Walker's ``alternative
-policies'', where a \emph{policy} is defined ``loosely'' as ``a set of
-actions taken to solve a problem''. As in the case of goal definition,
-the GRACeFUL system can suggest such ``atomic actions'' that are useful
-to the goals in the context of the problem at hand.
+%At this stage, if we can attribute qualitative values to the various nodes, the
+%causal loop diagram describes a system that can make the object of a qualitative
+%simulation. The criteria play the roles of constraints: the qualitative
+%trajectories that lead outside the criteria can be pruned by the constraint
+%programming system.
 
-The role of actions in the GRACeFUL concept maps is to give initial
-values to the factors and criteria they influence. They do not link via
-causal loops to these factors, since actions are not of the requisite
-type (they do not represent values that can increase or decrease).
-However, they will usually have non-causal links, representing
-constraining relationships to the factors.
+%The causal loop diagram is enhanced to a GRACeFUL concept map by the
+%addition of extra nodes and non-causal links. The extra nodes represent
+%actions, goals, alternatives, and stakeholders.
 
-In the other cases of extra nodes (goals, alternatives, and
-stakeholders), the links represent primarily ``belongs to''
-relationships: there are links from stakeholders to goals, indicating
-which stakeholders have declared which goals; there are links from goals
-to the criteria by which they are assessed; finally, there are links
-between alternatives and the factors and criteria that they (i.e., their
-constituent atomic actions) influence.
+%Like all previous elements, the actions are also obtained from the
+%stakeholders. As explained in the previous section, actions are the
+%components of alternatives, among which will be found the policy
+%solutions we are seeking. Alternatives are, according to the GRACeFUL
+%Glossary of Terms, ``action or combination of actions that influence the
+%values of criteria''. They correspond to Walker's ``alternative
+%policies'', where a \emph{policy} is defined ``loosely'' as ``a set of
+%actions taken to solve a problem''. As in the case of goal definition,
+%the GRACeFUL system can suggest such ``atomic actions'' that are useful
+%to the goals in the context of the problem at hand.
+
+%The role of actions in the GRACeFUL concept maps is to give initial
+%values to the factors and criteria they influence. They do not link via
+%causal loops to these factors, since actions are not of the requisite
+%type (they do not represent values that can increase or decrease).
+%However, they will usually have non-causal links, representing
+%constraining relationships to the factors.
+
+%In the other cases of extra nodes (goals, alternatives, and
+%stakeholders), the links represent primarily ``belongs to''
+%relationships: there are links from stakeholders to goals, indicating
+%which stakeholders have declared which goals; there are links from goals
+%to the criteria by which they are assessed; finally, there are links
+%between alternatives and the factors and criteria that they (i.e., their
+%constituent atomic actions) influence.
