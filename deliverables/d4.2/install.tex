@@ -11,10 +11,6 @@ Section~\ref{install-docker} provides installation instructions for a
 platform-independent package utilising the
 \href{https://www.docker.com/}{Docker}
 platform.
-%
-Section~\ref{install-minizinc} provides instructions for installing
-and running the GenericLibrary software on UNIX-like platforms, for
-users with an existing Haskell toolchain.
 
 %% -- Software dependencies ---------------------------------------------------
 
@@ -26,7 +22,7 @@ The GenericLibrary language is implemented in
 from the \href{http://www.minizinc.org/}{MiniZinc} software
 distribution.
 %
-Specifically, development and execution of GenericLibrary programs
+Specifically, development and execution of \mbox{GenericLibrary} programs
 requires the following software dependencies to be met:
 
 \begin{itemize}
@@ -34,8 +30,6 @@ requires the following software dependencies to be met:
 %
   These can be found in the MiniZinc software bundle.
 %
-  Section~\ref{install-minizinc} outlines the process of installing
-  these tools on UNIX-like systems.
 \item A complete Haskell toolchain able to download packages from
   \href{https://hackage.haskell.org/}{Hackage}.
 %
@@ -44,8 +38,12 @@ requires the following software dependencies to be met:
   \href{https://www.haskell.org/platform/}{the Haskell Platform}.
 \end{itemize}
 
+Instructions for installing and using these components are available in the
+\mbox{GenericLibrary} repository on \href{https://github.com/GRACeFUL-project/%
+GenericLibrary/blob/master/doc/INSTALL.md}{GitHub}.
+%
 Alternatively, for those who only wish to run the GenericLibrary
-examples, we provide an alternative solution in the following section.
+examples, we provide instructions in the following section.
 
 %% -- Using Docker ------------------------------------------------------------
 
@@ -64,107 +62,3 @@ execute
 This will download and execute the example located at
 \href{https://github.com/GRACeFUL-project/GenericLibrary/blob/master/examples/Examples.hs}{examples/Examples.hs}.
 
-\subsection{Installation with an existing toolchain}
-\label{install-minizinc}
-
-This section provides instructions for installing the MiniZinc/Gecode
-software dependencies on macOS and Linux systems.
-%
-Moreover, we provide instructions for building and running
-GenericLibrary software using one of the existing toolchains mentioned
-in Section~\ref{install-overview}.
-
-%% -- Install MiniZinc: macOS -------------------------------------------------
-
-\subsubsection{Installing MiniZinc/Gecode: macOS}
-
-\begin{enumerate}
-\item Download the complete MiniZinc
-  distribution\footnote{\url{https://github.com/MiniZinc/MiniZincIDE/releases/download/2.1.2/MiniZincIDE-2.1.2-bundled.dmg}},
-  and follow its installation instructions.
-\item The MiniZinc/Gecode binaries will need to be added to your
-  environment \verb+PATH+. From a terminal, run
-%
-    \begin{verbatim}
-      export MZ=/Applications/MiniZincIDE.app/Contents/Resources
-      echo export PATH=\"$MZ:\$PATH\" >> ~/.bashrc
-      source ~/.bashrc
-    \end{verbatim}
-\end{enumerate}
-
-%% -- Install MiniZinc: Linux -------------------------------------------------
-
-\subsubsection{Installing MiniZinc/Gecode: Linux}
-
-\begin{enumerate}
-\item Download and install the complete MiniZinc
-  distribution\footnote{\url{https://github.com/MiniZinc/MiniZincIDE/releases/download/2.1.0/MiniZincIDE-2.1.0-bundle-linux-x86_64.tgz}}.
-%
-  Place the contents of this file in a suitable directory, i.e.\
-  \verb+~/MY_MZ_DIR/+.
-\item Copy the solver tools from the extracted archive to a location
-  on your path using
-%
-\begin{verbatim}
-  cd ~/MY_MZ_DIR/
-  cp solns2out mzn2fzn fzn-gecode mzn-gecode minizinc \
-     ~/.local/bin
-\end{verbatim}
-
-\item Set the \verb+MZN_STDLIB_DIR+ environment variable:
-%
-\begin{verbatim}
-  echo export MZN_STDLIB_DIR=~/MY_MZ_DIR/share/minizinc \
-      >> ~/.bashrc
-  source ~/.bashrc
-\end{verbatim}
-\end{enumerate}
-
-%% -- Running a constraint program --------------------------------------------
-
-\subsubsection{Running a constraint program}
-
-With the MiniZinc/Gecode software dependencies met, we are now able to
-build and execute GenericLibrary programs.
-%
-First, clone the GenericLibrary source repository.
-%
-From a terminal, run
-
-\begin{verbatim}
-  git clone https://github.com/GRACeFUL-project/GenericLibrary/
-\end{verbatim}
-
-\begin{itemize}
-\item \textbf{Using cabal sandboxes}.
-%
-  Create a new sandbox and install the required dependencies with
-%
-\begin{verbatim}
-  cabal sandbox init
-  cabal install --dependencies-only
-\end{verbatim}
-
-  Build and execute the examples with
-
-\begin{verbatim}
-  cabal build
-  cabal run examples
-\end{verbatim}
-
-\item \textbf{Using stack}.
-%
-  Stack will automatically take care of dependencies and
-  sandboxing.
-%
-  Build and execute the examples with
-
-\begin{verbatim}
-  stack build
-  stack exec examples
-\end{verbatim}
-\end{itemize}
-
-This will build and execute the examples located in the
-\href{https://github.com/GRACeFUL-project/GenericLibrary/blob/master/examples/Examples.hs}{examples/Examples.hs}
-source file of the repository.
