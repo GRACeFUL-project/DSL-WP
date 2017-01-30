@@ -8,7 +8,7 @@ able to reason formally about it.
 By formal reasoning we can confirm the DSL's robustness and gain
 further insight into it.
 
-We started by considering causal loop diagrams, a specialization of
+We started by considering Causal Loop Diagrams, a specialization of
 the GCMs our DSL describes.
 %
 This was done to simplify the initial scope of the work, with the
@@ -23,9 +23,9 @@ We have also modelled CLDs \emph{within} the \verb|GenericLibrary|:
 the code for this model can be found in the file
 \verb|QualitativeExample.hs|.
 
-\subsection{Causal loop diagrams}
+\subsection{Causal Loop Diagrams}
 %
-A causal loop diagram (CLD) is a directed graph used to display causal
+A Causal Loop Diagram (CLD) is a directed graph used to display causal
 relationships between variables.
 %
 The vertices represent the variables and the edges represent
@@ -120,10 +120,13 @@ approaches.
 First of all, since QPNs were originally defined for acyclic graphs
 and the theory on them relies on acyclicity, they may not be the best
 fit to describe CLDs, in which cycles (feedback loops) are an
-important feature.
-%
-Inference on QPNs containing loops is difficult to implement, and can
-lead to ambiguous results.
+important feature. However, it is possible to implement algorithms for inference
+on QPNs containing loops, as is discussed in \cite{vanKouwen}.
+
+% Comment from TC:
+%It's not a matter of difficulty to implement.
+%The key is the conditions under which the results are valid. I would include a
+%reference to Van Kouwen
 
 Second, the formal semantics of inference on QPNs is difficult to
 formalize since it relies heavily on not-so-simple probability theory.
@@ -285,7 +288,7 @@ If $G_{BC}$ is linear, as is the case when we restrict the available
 functions to the strictly increasing/decreasing $id$ and $neg$, we
 then have
 %
-\[\Delta(C_t) = G_{BC}(B_{t-2})\oplus G_{BC}\circ G_{AB}(A_{t-2}).\]
+/\[\Delta(C_t) = G_{BC}(B_{t-2})\oplus G_{BC}\circ G_{AB}(A_{t-2}).\]
 
 If we only allow strictly increasing/decreasing functions we then have
 %
