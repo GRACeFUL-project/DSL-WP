@@ -16,16 +16,14 @@ expectation that the semantics defined for CLDs could then be extended
 to the more general GCMs.
 %
 Work to extend and generalize these semantics to describe
-stock-and-flow diagrams, and thereby them more consistent with the
-current implementation of the DSL, is ongoing.
+stock-and-flow diagrams, and thereby make them more consistent with
+the current implementation of the DSL, is ongoing.
 
-We have modelled CLDs within the \verb|GenericLibrary|, the code for
-this model can be seen in the file \verb|QualitativeExample.hs|.
-%
-\todo{does this belong here? PaJa: perhaps not - I added a TODO in GLExamples.}
+We have also modelled CLDs \emph{within} the \verb|GenericLibrary|:
+the code for this model can be found in the file
+\verb|QualitativeExample.hs|.
 
 \subsection{Causal loop diagrams}
-\todo{AlGe: Are CLDs described elsewhere? If so, make sure this is consistent.}
 %
 A causal loop diagram (CLD) is a directed graph used to display causal
 relationships between variables.
@@ -136,7 +134,7 @@ describe quantitative relationships unless we have information about
 the probability distributions and conditional probabilities involved.
 %
 GMB sessions will not produce data on probability distributions and
-estimating such probabilities in a reliable manner requires a sizable
+estimating such probabilities in a reliable manner requires a sizeable
 dataset (that may not be available for a given GCM) as well as
 statistical expertise.
 
@@ -220,7 +218,7 @@ These values have the partial ordering $- < 0 < +$, but ? cannot be
 compared to the other values.
 %
 In place of addition and multiplication we have the operations
-$\oplus$ and $\otimes$, whose behavior can be seen in the following
+$\oplus$ and $\otimes$, whose behaviour can be seen in the following
 tables:
 \begin{center}
 \begin{tabular}{c|cccc}
@@ -303,7 +301,7 @@ describe the underlying semantics.
 Which method is simpler to understand and reason about is a matter of
 opinion, but we encountered some difficulties when working with the
 QPN approach that are outlined in section \ref{qpnIssues}, which make
-us skeptical of the extensibility of that approach to quantitative
+us sceptical of the extensibility of that approach to quantitative
 analysis.
 
 We believe the difference equation method is well suited to describing
