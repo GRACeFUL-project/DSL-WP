@@ -1,5 +1,5 @@
 GenericLibrary, henceforth abbreviated to GL, is a DSL for
-descriptions of GRACeFUL concept map components embedded in the
+descriptions of GRACeFUL Concept Map components embedded in the
 Haskell programming language.
 %
 The DSL addresses the issue of bridging the gap between constraint
@@ -7,15 +7,15 @@ programming and the visualisation layer by providing abstractions for
 modular constraint programming.
 %
 These abstractions are targeted at simplifying the description of
-GRACeFUL concept maps.
+GRACeFUL Concept Maps.
 
 The DSL is divided into two parts.
 %
 The first part, \texttt{GCM}, allows the user to describe the
-interactions of GRACeFUL concept map components and has facilities for
+interactions of GRACeFUL Concept Map components and has facilities for
 constructing new components from existing ones.
 %
-The second part, \texttt{CP}, features primitives for constructing
+The second part of our language, \texttt{CP}, features primitives for constructing
 constraint programs which describe the behaviour of an individual
 component.
 
@@ -79,12 +79,12 @@ Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which
 is a value in the host language Haskell, into the embeddedd langauge
 GL.
 
-Finally we show a more complicated component, a water storage with
+Finally we show a more complicated component, a water runoff area with
 an \texttt{inflow}, an \texttt{outlet} to which we may connect e.g. a pump,
 and an \texttt{overflow}.
 \begin{verbatim}
-storage :: Float -> GCM (Port Float, Port Float, Port Float)
-storage cap = do
+runoffArea :: Float -> GCM (Port Float, Port Float, Port Float)
+runoffArea cap = do
   inflow   <- createPort
   outlet   <- createPort
   overflow <- createPort
@@ -107,8 +107,8 @@ simpler ones, expressed in \texttt{GCM}, and the low level
 implementation details with which the \texttt{CP} language is
 concerned.
 
-\subsection{Expressing GRACeFUL concept map elements in GL}
-Many of the elements of GRACeFUL concept maps identified in
+\subsection{Expressing GRACeFUL Concept Map elements in GL}
+Many of the elements of GRACeFUL Concept Maps identified in
 \cite{D4.1} can be modeled in GL using language primitives such as
 \texttt{linkBy} (for connections), \texttt{createAction} (for
 actions), \texttt{assert} (for constraints) etc.

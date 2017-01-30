@@ -14,13 +14,13 @@ The program has three components and Fig. \ref{fig:RunoffEx} shows a
 graphical view of how the components are connected.
 %
 
-Given the components defined earlier, \texttt{pump}, \texttt{rain}, and \texttt{storage},
+Given the components defined earlier, \texttt{pump}, \texttt{rain}, and \texttt{runoffArea},
 we may express Fig. \ref{fig:RunoffEx} as:
 \begin{verbatim}
 example :: GCM ()
 example = do
   (inflowP, outflowP) <- pump 5
-  (inflowS, outletS, overflowS) <- storage 4
+  (inflowS, outletS, overflowS) <- runoffArea 4
   rainflow <- rain 10
 
   link inflowP outletS
