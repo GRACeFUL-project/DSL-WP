@@ -1,4 +1,4 @@
-GenericLibrary, henceforth abbreviated to GL, is a DSL for
+GRACe is a DSL for
 descriptions of GRACeFUL Concept Map components embedded in the
 Haskell programming language.
 %
@@ -23,7 +23,7 @@ component.
 
 The GCM language describes components and how they are connected.
 %
-The core abstraction in GL is that of the \texttt{Port}.
+The core abstraction in GRACe is that of the \texttt{Port}.
 %
 A port is an entity which represents the way two components interact,
 it generalises the way factors from \cite{D4.1} can interact with each
@@ -77,7 +77,7 @@ pump maxCap = do
 %
 Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which
 is a value in the host language Haskell, into the embedded language
-GL.
+GRACe.
 
 Finally we show a more complicated component, a water runoff area with
 an \texttt{inflow}, an \texttt{outlet} to which we may connect e.g. a pump,
@@ -101,18 +101,18 @@ runoffArea cap = do
   return (inflow, outlet, overflow)
 \end{verbatim}
 
-In conclusion, we have seen that there is a clear separation of concerns in GL between
+In conclusion, we have seen that there is a clear separation of concerns in GRACe between
 the high level primitives for constructing complicated components from
 simpler ones, expressed in \texttt{GCM}, and the low level
 implementation details with which the \texttt{CP} language is
 concerned.
 
-\subsection{Expressing GRACeFUL Concept Map elements in GL}
+\subsection{Expressing GRACeFUL Concept Map elements in GRACe}
 Many of the elements of GRACeFUL Concept Maps identified in
-\cite{D4.1} can be modeled in GL using language primitives such as
+\cite{D4.1} can be modeled in GRACe using language primitives such as
 \texttt{linkBy} (for connections), \texttt{createAction} (for
 actions), \texttt{assert} (for constraints) etc.
-GL being an \textit{embedded} domain specific language featuring a
+GRACe being an \textit{embedded} domain specific language featuring a
 rich set of primitive operations for reasoning in the target domain
 allows the programmer to construct abstractions which capture
 behaviour which generalises many of the concepts described in

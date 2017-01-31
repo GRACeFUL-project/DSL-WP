@@ -19,7 +19,7 @@ Work to extend and generalize these semantics to describe
 stock-and-flow diagrams, and thereby make them more consistent with
 the current implementation of the DSL, is ongoing.
 
-We have also modelled CLDs \emph{within} the \verb|GenericLibrary|:
+We have also modelled CLDs \emph{within} the \verb|GRACe|:
 the code for this model can be found in the file
 \verb|QualitativeExample.hs|.
 
@@ -288,7 +288,7 @@ If $G_{BC}$ is linear, as is the case when we restrict the available
 functions to the strictly increasing/decreasing $id$ and $neg$, we
 then have
 %
-/\[\Delta(C_t) = G_{BC}(B_{t-2})\oplus G_{BC}\circ G_{AB}(A_{t-2}).\]
+\[\Delta(C_t) = G_{BC}(B_{t-2})\oplus G_{BC}\circ G_{AB}(A_{t-2}).\]
 
 If we only allow strictly increasing/decreasing functions we then have
 %
