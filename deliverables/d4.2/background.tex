@@ -40,6 +40,8 @@ the causal structures that produces the observed behaviour.
 It reveals information about the rates of change of system elements
 and the measures of the variables of the system.
 %
+(In the case of pure \ac{CLD}'s the ``rate of change'' is just the
+sign of the change.)
 %A diagram consists of the following elements:
 %\begin{description}
 %\item[Stocks] A stock represent a part of a system whose value at any
@@ -108,9 +110,9 @@ There are two main approaches to implementing \acp{DSL}:
   unfamiliar with the host language.
 \end{description}
 %
-We have chosen for the latter approach because it is better suited
+We have chosen the latter approach because it is better suited
 to incorporate changes. Using the `embedded' approach we can quickly
-add new features and modify existing functionality. We highlight the 
+add new features and modify existing functionality. We highlight the
 details of our implementation in Section~\ref{sec:gl}.
 
 
@@ -142,8 +144,8 @@ The constraint solver searches for values for all the variables.
 %
 For more information, see, e.g., \url{http://constraint.org}.
 
-The various concepts in a \ac{GCM}, such as factors, are translated 
-to constraints in a constraint programming language via the \ac{DSL}. 
+The various concepts in a \ac{GCM} are translated to constraints in a
+constraint programming language via the \ac{DSL}.
 
 
 
