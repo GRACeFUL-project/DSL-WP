@@ -16,6 +16,9 @@ A \ac{DSL} is targeted at a specific class of programming tasks.
 By restricting scope to a particular domain, one can tailor the
 language specifically for that domain.
 %
+\citet{Gibbons2015} gives a good overview of implementing \acp{DSL}
+using functional programming.
+%
 There are two main approaches to implementing \acp{DSL}:
 \begin{description}
 \item[standalone] A language with their own specialised syntax and
@@ -38,8 +41,11 @@ There are two main approaches to implementing \acp{DSL}:
   A disadvantage of an embedded \ac{DSL} is that the users may be
   unfamiliar with the host language.
 \end{description}
-\citet{Gibbons2015} gives a good overview of implementing \acp{DSL}
-using functional programming.
+%
+We have chosen for the latter approach because it is better suited
+to incorporate changes. Using the `embedded' approach we can quickly
+add new features and modify existing functionality. We highlight the 
+details of our implementation in Section~\ref{sec:gl}.
 
 \paragraph{Constraint programming} Similar to functional and logic
 programming, constraint programming is a declarative programming
