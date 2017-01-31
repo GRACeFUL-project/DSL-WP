@@ -6,6 +6,72 @@ later sections, such that they become more accessible.
 %
 Whenever possible we give links for further reading as well.
 
+\paragraph{\acfp{GCM}}
+In a \acl{GMB} session stakeholders perform a policy analysis that
+results in the form of a \acl{GCM}.
+%
+This concept map contains important elements of a policy problem
+definition: goals, criteria for assessing the achievement of those
+goals, a description of the system involving factors and criteria, and
+the competing alternatives.
+
+The term \emph{factors} refers to characteristics of a system that can
+take a value, either quantitative or qualitative, that can change over
+time (source: the \emph{GRACeFUL Glossary of Terms}).
+%
+Similarly, \emph{external factors} correspond to \emph{inputs} to the
+system.
+%
+As such, factors are assumed to be associated with measurable
+values.
+%
+As in systems theory, a distinction is made between inputs that are
+beyond the control of the system, and which are potentially uncertain
+(or even unknown), and \emph{actions} or combinations of actions,
+which represent the system theoretical \emph{controls}.
+
+The interaction between the factors, and between the factors and the
+criteria, represents a first description of the system.
+%
+This description cam be modelled as a hybrid stock-and-flow diagram and 
+represents the structural understanding of a
+system --- the causal structures that produces the observed behaviour.
+%
+It reveals information about the rates of change of system elements
+and the measures of the variables of the system.
+%
+%A diagram consists of the following elements:
+%\begin{description}
+%\item[Stocks] A stock represent a part of a system whose value at any
+  %given instant in time depends on the systems past behaviour.
+%\item[Flows] Flows represent the rate at which the stock is changing
+  %at any given instant, they either flow into a stock (causing it to
+  %increase) or flow out of a stock (causing it to decrease).
+%\item[Converters] Converters either represent parts at the boundary of
+  %the system (i.e. parts whose value is not determined by the
+  %behaviour of the system itself) or they represent parts of a system
+  %whose value can be derived from other parts of the system at any
+  %time through some computational procedure.
+%\item[Connectors] Much like in causal loop diagrams the connectors of
+  %a system show how the parts of a system influence each other.
+%%
+  %Stocks can only be influenced by flows (i.e. there can be no
+  %connector that connects into a stock), flows can be influenced by
+  %stocks, other flows, and by converters.
+%%
+  %Converters either are not influenced at all (i.e. they are at the
+  %systems boundary) or are influenced by stocks, flows and other
+  %converters.
+%\item[Source/Sink] Sources and sinks are stocks that lie outside of
+  %the models boundary --- they are used to show that a stock is
+  %flowing from a source or into a sink that lies outside of the models
+  %boundary.
+%\end{description}
+%The elements of a policy problem are described in terms of
+%stock-and-flow diagram elements, for example \emph{factors} are
+%represented by \emph{stocks}.
+
+
 \paragraph{\acl{DSL}} \citet{fowler} defines a \ac{DSL} as follows:
 %
 \emph{a computer programming language of limited expressiveness
@@ -47,6 +113,7 @@ to incorporate changes. Using the `embedded' approach we can quickly
 add new features and modify existing functionality. We highlight the 
 details of our implementation in Section~\ref{sec:gl}.
 
+
 \paragraph{Constraint programming} Similar to functional and logic
 programming, constraint programming is a declarative programming
 paradigm, which means that the order of processing is not fixed.
@@ -75,77 +142,10 @@ The constraint solver searches for values for all the variables.
 %
 For more information, see, e.g., \url{http://constraint.org}.
 
-\paragraph{\acfp{GCM}}
-In a \acl{GMB} session stakeholders perform a policy analysis that
-results in the form of a \acl{GCM}.
-%
-This concept map contains important elements of a policy problem
-definition: goals, criteria for assessing the achievement of those
-goals, a description of the system involving factors and criteria, and
-the competing alternatives.
+The various concepts in a \ac{GCM}, such as factors, are translated 
+to constraints in a constraint programming language via the \ac{DSL}. 
 
-The term \emph{factors} refers to characteristics of a system that can
-take a value, either quantitative or qualitative, that can change over
-time (source: the \emph{GRACeFUL Glossary of Terms}).
-%
-Similarly, \emph{external factors} correspond to \emph{inputs} to the
-system.
-%
-As such, factors are assumed to be associated with measurable
-values.
-%
-As in systems theory, a distinction is made between inputs that are
-beyond the control of the system, and which are potentially uncertain
-(or even unknown), and \emph{actions} or combinations of actions,
-which represent the system theoretical \emph{controls}.
 
-The interaction between the factors, and between the factors and the
-criteria, represents a first description of the system.
-%
-This description is in the form of a stock-and-flow diagram (which is
-a generalisation of \aclp{CLD}~\cite{burns}).
-%
-A stocks-and-flow diagram represents the structural understanding of a
-system --- the causal structures that produces the observed behaviour.
-%
-It reveals information about the rates of change of system elements
-and the measures of the variables of the system.
-%
-A diagram consists of the following elements:
-\begin{description}
-\item[Stocks] A stock represent a part of a system whose value at any
-  given instant in time depends on the systems past behaviour.
-\item[Flows] Flows represent the rate at which the stock is changing
-  at any given instant, they either flow into a stock (causing it to
-  increase) or flow out of a stock (causing it to decrease).
-\item[Converters] Converters either represent parts at the boundary of
-  the system (i.e. parts whose value is not determined by the
-  behaviour of the system itself) or they represent parts of a system
-  whose value can be derived from other parts of the system at any
-  time through some computational procedure.
-\item[Connectors] Much like in causal loop diagrams the connectors of
-  a system show how the parts of a system influence each other.
-%
-  Stocks can only be influenced by flows (i.e. there can be no
-  connector that connects into a stock), flows can be influenced by
-  stocks, other flows, and by converters.
-%
-  Converters either are not influenced at all (i.e. they are at the
-  systems boundary) or are influenced by stocks, flows and other
-  converters.
-\item[Source/Sink] Sources and sinks are stocks that lie outside of
-  the models boundary --- they are used to show that a stock is
-  flowing from a source or into a sink that lies outside of the models
-  boundary.
-\end{description}
-The elements of a policy problem are described in terms of
-stock-and-flow diagram elements, for example \emph{factors} are
-represented by \emph{stocks}.
-
-TODO: explain this in much more detail.
-
-(PaJa: no need to have ``much more detail'' for this deliverable. But
-we need to connect the sections a bit better. )
 
 %At this stage, if we can attribute qualitative values to the various nodes, the
 %causal loop diagram describes a system that can make the object of a qualitative
