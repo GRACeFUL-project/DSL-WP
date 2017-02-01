@@ -1,11 +1,11 @@
-# An overview of `GL`
+# An overview of `GRACe`
 
-`GL` is a Haskell library / DSL for doing constraint programming
+`GRACe` is a Haskell library / DSL for doing constraint programming
 with the goal of capturing the idea of "GRACeFUL concept maps".
-In `GL`, a concept, henceforth referred to as a component, can be _loosely_
+In `GRACe`, a concept, henceforth referred to as a component, can be _loosely_
 defined as an interface coupled with a behaviour (decoupling interfaces
 from behaviours in a general way is a work in progress). The programming
-model of `GL` can be understood as the translation of the following image:
+model of `GRACe` can be understood as the translation of the following image:
 ```
 
   +--------------------------------------------------------+
@@ -20,8 +20,8 @@ model of `GL` can be understood as the translation of the following image:
   |  +-------------------+            +------------------+ |
   +--------------------------------------------------------+
 
-``` 
-To the following `GL` programs:
+```
+To the following `GRACe` programs:
 ```Haskell
 
 component1 :: GCM (Port a, Port a)
@@ -46,20 +46,20 @@ component3 = do
   link p2 q2
 
 ```
-Assuming `constraints1, constraints2` are functions defined somewhere else.
+Assuming `constraints1` and `constraints2` are functions defined somewhere else.
 
-## Requirements for the interface between `GL` and the VIS layer
-While `GL` is a powerful language for expressing
-constraints and the relationship between components it is desirable  
+## Requirements for the interface between `GRACe` and the VIS layer
+While `GRACe` is a powerful language for expressing
+constraints and the relationship between components it is desirable
 to provide a graphical editing tool in which the user may
-construct complicated `GL` components and programs from simpler ones.
-Some features of such an editor which would be desirable are: 
+construct complicated `GRACe` components and programs from simpler ones.
+Some features of such an editor which would be desirable are:
 
 * The ability to link existing components to each other in a type-safe
   way. That is, if component `a` provides a `Port Int` but component
   `b` provides a `Port Float` it should not be possible to link the two.
   In an ideal world this would include _polymorphic_ types.
-* The ability to utilise the fact that `GL` is a language _embedded_ in Haskell.
+* The ability to utilise the fact that `GRACe` is a language _embedded_ in Haskell.
   That is, it should be possible to take advantage of the fact that a component
   may be _parametrised_  on a Haskell value: `component :: Int -> GCM (Port x)`.
 * The ability to construct new components from existing ones and store them
@@ -68,7 +68,7 @@ Some features of such an editor which would be desirable are:
 
 ## Storing auxiliary information with components
 To achieve some of the goals mentioned in the previous section it is necessary
-to store auxiliary information with `GL` components. We propose to do this
+to store auxiliary information with `GRACe` components. We propose to do this
 using comments in the source file. We demonstrate how this could be done with
 the following example:
 ```Haskell
@@ -99,6 +99,6 @@ pump capacity = do
 The idea is to treat `{-% %-}` blocks as JSON, thus providing the ability to
 extend the format indefinitely.
 
-## Interfacing the `GL` runtime system with the VIS layer
+## Interfacing the `GRACe` runtime system with the VIS layer
 
 ## Future work
