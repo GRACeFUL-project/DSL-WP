@@ -37,7 +37,7 @@ Time  | Topic            | Who
 15:15 | <ul><li>Generic Library</li><li>WP4 focus on review</li></ul> |
 16:00 | WP2-3-4 Tool chain hands-on technical session | all
 17:00 | End of day 1 |
-19:00 | Dinner |
+18:00 | Dinner |
 
 
 ### Day 2
@@ -57,7 +57,7 @@ Time  | Topic            | Who
 ## List of participants (preliminary)
 
 ### UPC
-Tom Creemers (TC), Martí Rosas (MR)
+Tom Creemers (TC), Martí Rosas (MR)
 
 ### Deltares
 Sadie McEvoy (SM), Michiel Blind (MB)
