@@ -1,0 +1,173 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,graphicx,color,enumerate,hyperref}
+
+\title{Formal semantics of GRACe}
+\author{Sólrún Halla Einarsdóttir}
+\institute{Chalmers University of Technology}
+\date{2/2/2017}
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+\begin{frame}
+\frametitle{Motivation/Background}
+\begin{itemize}
+  \item We would like to define formal semantics for our DSL
+  \begin{itemize}
+    \item Formal reasoning
+    \item Robustness
+    \item Gain further insights
+  \end{itemize}
+
+  \item We started by considering Causal Loop Diagrams, a specialisation of
+the GCMs our DSL describes.
+
+\item Work to extend and generalize these semantics is ongoing.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Causal Loop Diagrams (CLDs)}
+\begin{itemize}
+\item A Causal Loop Diagram (CLD) is a directed graph used to display causal
+relationships between variables.
+%
+\item Vertices represent variables, edges represent
+qualitative causal relationships, which can be positive or negative.
+
+\item CLDs have been modelled within GRACe.
+%:see code file %\verb|QualitativeExample.hs|.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\frametitle{Notation}
+\begin{itemize}
+\item We denote a positive causal relationship between $A$ and $B$ by
+$A\xrightarrow{+} B$ and a negative one by $A \xrightarrow{-} B$.
+%
+\item We denote the sign of the edge from $A$ to $B$ by $s_{AB}$, so
+$s_{AB}= +$ if $A\xrightarrow{+} B$ and $s_{AB}=-$ if
+$A\xrightarrow{-} B$.
+
+\item A vertex $A$ has a sign $s_A$ that denotes the total influence on
+$A$, so $s_A=+$ if there is an increase in $A$, $s_A=-$ if there is a
+decrease, $s_A=0$ if there is no change and $s_A=?$ if we cannot
+determine the change.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Qualitative Probabilistic Networks (QPNs)}
+\begin{itemize}
+
+\item A graph where vertices correspond to variables and edges to qualitative probabilistic influences.
+
+\item $s_{AB} = +$ means that greater values of $A$ mean
+greater values of $B$ are more likely, and $s_{AB}=-$ means that
+greater values of $A$ mean smaller values of $B$ are more likely.
+
+\item Possible to propagate an observed increase
+or decrease of one variable around the graph and find if other
+variables are likely to have increased or decreased.
+
+\item Broad enough to apply to many different systems and
+to be applicable to various real world situations.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{QPN Issues}
+\begin{itemize}
+\item QPNs were originally defined for acyclic graphs, theory relies on
+  acyclicity, perhaps not the best
+fit to describe CLDs, in which cycles (feedback loops) are an important feature.
+
+\item Semantics of inference on QPNs is difficult to
+formalize since it relies heavily on not-so-simple probability theory.
+
+\item Can't be expanded to describe quantitative relationships unless we have information about
+the probability distributions and conditional probabilities involved.
+
+\item All inference in QPNs is probabilistic, may lead to
+results that are not as meaningful or concrete as we would like,
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Difference equations}
+\begin{itemize}
+\item Inspired by a system of tanks with water flowing from one to another.
+
+\item We consider the values of the graph's vertices to be functions of the
+same variable, such as a time variable $t$.
+
+\item We can describe the causal relationship from $X$ to $Y$ with
+
+\[\frac{\partial\left( \frac{\partial Y(t)}{\partial t} \right)}{\partial Y(t)} = g(X(t)),\]
+where $g$ has a primitive function $G$ such that $G$ is monotonically increasing if $s_{XY}=+$ and monotonically decreasing if $s_{XY}= -$.
+\item If the vertex $Y$ has parent vertices $X_1,\ldots,X_n$, we have
+\[\frac{\partial Y}{\partial t} = \sum_{i=1}G_i(X_i(t)).\]
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+\frametitle{Difference equations}
+\begin{itemize}
+\item More nuanced than classical CLDs, can have threshold values, rates of
+  increase/decrease rather tahn just increase/decrease.
+
+\item Monotonically increasing mustn't necessarily be strictly increasing.
+
+\item In a discrete time system we consider $\Delta(X_t) = X_t - X_{t-1}$
+instead of $\frac{\partial X}{\partial t}$, and write
+$\Delta(X_t) = G(Y_{t-1})$ instead of
+$\frac{\partial X}{\partial t} = G(Y(t))$.
+
+\item Extend to quantitative reasoning by solving the
+appropriate differential equations.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simplified qualitative difference equations}
+We consider a qualitative discrete time system where all values of
+vertex variables are either +, -, 0, or ?.
+\begin{itemize}
+\item Values have partial ordering $- < 0 < +$, but ? cannot be
+compared to the other values.
+
+\item The only strictly increasing function in this system is the identity
+function, the only strictly decreasing function is the
+negation function.
+
+\item For simplicity we consider the case where all initial values are set
+to zero.
+
+\item The value of variable $X$ at time $t$, which we denote by $X_t$, then
+tells us whether there has been a net increase or decrease in $X$.
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+\frametitle{Comparison of approaches}
+\begin{itemize}
+\item Same results when inferring on CLDs no matter which approach is used to
+describe the underlying semantics, which method is simpler to understand and reason about is a matter of
+opinion.
+\item Difficulties when working with the
+QPN approach described earlier, we are skeptical about its extensibility.
+
+\item Difference equation method was inspired by stock-and-flow-like systems,
+  should extend well.
+\end{itemize}
+\end{frame}
+
+\end{document}
+\begin{frame}
+\frametitle{}
+\end{frame}
