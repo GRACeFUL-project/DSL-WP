@@ -105,9 +105,8 @@ results that are not as meaningful or concrete as we would like,
 same variable, such as a time variable $t$.
 
 \item We can describe the causal relationship from $X$ to $Y$ with
-
-\[\frac{\partial\left( \frac{\partial Y(t)}{\partial t} \right)}{\partial Y(t)} = g(X(t)),\]
-where $g$ has a primitive function $G$ such that $G$ is monotonically increasing if $s_{XY}=+$ and monotonically decreasing if $s_{XY}= -$.
+\[\frac{\partial Y}{\partial t} = G(X(t)),\]
+where $G$ is monotonically increasing if $s_{XY}=+$ and monotonically decreasing if $s_{XY}= -$.
 \item If the vertex $Y$ has parent vertices $X_1,\ldots,X_n$, we have
 \[\frac{\partial Y}{\partial t} = \sum_{i=1}G_i(X_i(t)).\]
 
@@ -122,10 +121,10 @@ where $g$ has a primitive function $G$ such that $G$ is monotonically increasing
 
 \item Monotonically increasing mustn't necessarily be strictly increasing.
 
-\item In a discrete time system we consider $\Delta(X_t) = X_t - X_{t-1}$
-instead of $\frac{\partial X}{\partial t}$, and write
-$\Delta(X_t) = G(Y_{t-1})$ instead of
-$\frac{\partial X}{\partial t} = G(Y(t))$.
+%\item In a discrete time system we consider $\Delta(X_t) = X_t - X_{t-1}$
+%instead of $\frac{\partial X}{\partial t}$, and write
+%$\Delta(X_t) = G(Y_{t-1})$ instead of
+%$\frac{\partial X}{\partial t} = G(Y(t))$.
 
 \item Extend to quantitative reasoning by solving the
 appropriate differential equations.
