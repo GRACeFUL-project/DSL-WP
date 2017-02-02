@@ -20,7 +20,7 @@ we may express Fig. \ref{fig:RunoffEx} as:
 example :: GCM ()
 example = do
   (inflowP, outflowP) <- pump 5
-  (inflowS, outletS, overflowS) <- runoffArea 4
+  (inflowS, outletS, overflowS) <- runoffArea 5
   rainflow <- rain 10
 
   link inflowP outletS
@@ -38,7 +38,7 @@ that with the numbers in our example the overflow will be zero.
 
 \begin{verbatim}
 ghci> runGCM example
-{"Overflow" : 1.0}
+{"Overflow" : 0.0}
 \end{verbatim}
 
 While this example is easily calculated by hand GRACe is capable of
