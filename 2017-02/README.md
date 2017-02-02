@@ -13,7 +13,7 @@ The meeting will take place
 ## Venue
 
 The meeting will be in [Ågrenska
-Villan](https://www.google.se/maps/place/Ågrenska+villan+-+Göteborgs+universitet/@57.6955731,11.9812602,15z/data=!4m5!3m4!1s0x0:0x2aa8e456a7417c48!8m2!3d57.6955731!4d11.9812602). 
+Villan](https://www.google.se/maps/place/Ågrenska+villan+-+Göteborgs+universitet/@57.6955731,11.9812602,15z/data=!4m5!3m4!1s0x0:0x2aa8e456a7417c48!8m2!3d57.6955731!4d11.9812602).
 
 Here is a list of hotels not too far from the venue:
 
@@ -23,7 +23,7 @@ Here is a list of hotels not too far from the venue:
 
 ## Agenda
 
-### Day 1 
+### Day 1
 
 Time  | Topic            | Who
 ------|------------------|-----
@@ -34,7 +34,7 @@ Time  | Topic            | Who
 12:30 | Lunch            |
 13:30 | WP4: DSL <ul><li>Overview and state of WP4</li><li>D4.2 DSL for Concept Map description</li></ul> | PJ et al.
 15:00 | Coffee break |
-15:15 | <ul><li>Generic Library</li><li>WP4 focus on review</li></ul> |
+15:15 | <ul><li>GRACe</li><li>WP4 focus on review</li></ul> |
 16:00 | WP2-3-4 Tool chain hands-on technical session | all
 17:00 | End of day 1 |
 18:00 | Dinner |
@@ -75,8 +75,8 @@ Nicolas Beldiceanu (NB)
 Klara Marntirosian (KM), Ruben Pieters (RP)
 
 ### Radboud
-Linda Nijland (LN)
+Flight cancelled, remote participation: Linda Nijland (LN)
 
 ### Chalmers
 Patrik Jansson (PJ), Alex Gerdes (AG), Maximilian Algehed (MA), Oskar Abrahamsson (OA),
-Sólrún Halla Einarsdóttir (SHE), Björn Norgren (BN)
+Sólrún Halla Einarsdóttir (SHE)
