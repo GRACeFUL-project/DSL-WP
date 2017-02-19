@@ -107,4 +107,4 @@ http://www.cse.chalmers.se/~patrikj/papers/CompTheoryPolicyAdviceAvoidability_JF
 
 # Appendix 2: More event details
 
-See [Y2/Agendas/](Y2/Agendas/) for the agendas of the meetings.
+See [Agendas/](Agendas/) for the agendas of the meetings.
