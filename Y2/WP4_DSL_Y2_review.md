@@ -6,6 +6,9 @@
     * Maximilian Algehed; Sólrún Einarsdóttir, Oskar Abrahamsson
 * (PhD student: Irene Lobo Valbuena, until 2016-05.)
 
+![GRACeFUL Chalmers team](../img/GRACeFUL_Chalmers_2017-03.jpg)
+
+
 ## Technical achievements
 
 We have worked mainly on T4.2 and T4.3 of the DSL work package:
@@ -49,6 +52,91 @@ ghci> runGCM example
 {"Overflow" : 0.0}
 ```
 
+## Runoff example structure
+
+![Runoff example structure](../deliverables/d4.2/fig/RunoffExample.png)
+
+## GRACe code: `rain`
+
+A "rainfall" component.
+
+```haskell
+rain :: Float -> GCM (Port Float)
+rain amount = do
+  port <- createPort
+  set port amount
+  return port
+```
+
+The example again (for reference):
+
+```haskell
+example :: GCM ()
+example = do
+  (inflowP, outflowP) <- pump 5
+  (inflowS, outletS, overflowS) <- runoffArea 5
+  rainflow <- rain 10
+
+  link inflowP outletS
+  link inflowS rainflow
+
+  output overflowS "Overflow"
+```
+
+
+## GRACe code: `pump`
+
+We can now return to our pump, which is a `GCM` component
+parametrised over the maximum flow through the pump:
+
+```haskell
+pump :: Float -> GCM (Port Float, Port Float)
+pump maxCap = do
+  inPort  <- createPort
+  outPort <- createPort
+  component $ do             -- This is in CP
+    inflow  <- value inPort
+    outflow <- value outPort
+    assert $  inflow === outflow
+    assert $  inflow `inRange` (0, lit maxCap)
+  return (inPort, outPort)
+```
+
+Note that we need to use `lit` to lift `maxCap`, which is a value in
+the host language Haskell, into the embedded language GRACe.
+
+## GRACe code: `runoffArea`
+
+Finally we show a more complicated component, a water runoff area with
+an `inflow`, an `outlet` to which we may connect e.g. a pump,
+and an `overflow`.
+
+```haskell
+runoffArea :: Float -> GCM (Port Float, Port Float, Port Float)
+runoffArea cap = do
+  inflow   <- createPort
+  outlet   <- createPort
+  overflow <- createPort
+  component $ do
+    currentStored <- createVariable
+    inf <- value inflow
+    out <- value outlet
+    ovf <- value overflow
+    sto <- value currentStored
+    assert $ sto === inf - out - ovf
+    assert $ sto `inRange` (0, lit cap)
+    assert $ (ovf .> 0) ==> (sto === lit cap)
+    assert $ ovf .>= 0
+  return (inflow, outlet, overflow)
+```
+
+## GRACe summary
+
+* GRACe is a Domain Specific Language, embedded in Haskell
+* Can express library components (like `rain`, `pump`, `runoffArea`) ...
+* ... and their connections (via ports).
+* Frontend: VisualEditor (GUI layer, WP3)
+* Backend: MiniZinc and Gecode (CFP solver software, WP5)
 
 
 
