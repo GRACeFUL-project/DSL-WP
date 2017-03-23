@@ -1,48 +1,39 @@
-## Organization and personnel
-
-* Site leader: Prof. Patrik Jansson, working 20% for GRACeFUL
-* Lecturer: Dr. Alex Gerdes, working 40% for GRACeFUl from 2017-01
-* Student research assistants (at 20% each):
-    * Maximilian Algehed; Sólrún Einarsdóttir, Oskar Abrahamsson
-* (PhD student: Irene Lobo Valbuena, until 2016-05.)
-
-![GRACeFUL Chalmers team](../img/GRACeFUL_Chalmers_2017-03.jpg)
-
-
-## Technical achievements
-
-We have worked mainly on T4.2 and T4.3 of the DSL work package:
-
-* T4.2 develop a **DSL** to describe the concept maps dev. during GMB sessions
-* T4.3 provide a formal semantics for the elements of the DSL
-
-This resulted in one deliverable which was handed in on time:
-
-* [D4.2](deliverables/d4.2/): A Domain Specific Language (DSL) for GRACeFUL Concept Maps
-
-and associated
-[open source code on GitHub](https://github.com/GRACeFUL-project/GRACe) including
-examples and install instructions (through a Docker image).
-
-KULeuven has also contributed by initial work on T4.4
-
-* T4.4 implement a middleware for connecting the DSL to the CFP layer
-
-which will be the main focus after this Y2 review.
-
 ## Deliverable 4.2 ~= a DSL called "GRACe"
+
+* GRACe is a Domain Specific Language, embedded in Haskell
+* Can express library components (like `rain`, `pump`, `runoffArea`) ...
+* ... and their connections (via ports).
+* Frontend: VisualEditor (GUI layer, WP3)
+* Backend: MiniZinc language + CFP solver (WP5)
+
+TODO: include a screenshot of the VisualEditor
+
+## Software technology used
+
+![Software stack](SWarch.pdf)
+
+* Frontend in Javascript, Node.js library
+* DSL in Haskell - a functional programming language (4000 LoC)
+* Both are set up as RESTful Web services (REST = REpresentational State Transfer)
+* Format: JSON = JavaScript Object Notation
+* Backend: MiniZinc language (CFP solver software, WP5)
+* Distribution: Docker component
+
+TODO: include something from slide 10-11 in Sadie's presentation (Criteria, stakeholder weights, ...)
+
+## Deliverable 4.2 code
 
 ```haskell
 example :: GCM ()
 example = do
   (inflowP, outflowP) <- pump 5
-  (inflowS, outletS, overflowS) <- runoffArea 5
+  (inflowR, outletR, overflowR) <- runoffArea 5
   rainflow <- rain 10
 
-  link inflowP outletS
-  link inflowS rainflow
+  link inflowP outletR
+  link inflowR rainflow
 
-  output overflowS "Overflow"
+  output overflowR "Overflow"
 ```
 
 which results in the following output when running the solver:
@@ -74,13 +65,11 @@ The example again (for reference):
 example :: GCM ()
 example = do
   (inflowP, outflowP) <- pump 5
-  (inflowS, outletS, overflowS) <- runoffArea 5
+  (inflowR, outletR, overflowR) <- runoffArea 5
   rainflow <- rain 10
-
-  link inflowP outletS
-  link inflowS rainflow
-
-  output overflowS "Overflow"
+  link inflowP outletR
+  link inflowR rainflow
+  output overflowR "Overflow"
 ```
 
 
@@ -130,14 +119,38 @@ runoffArea cap = do
   return (inflow, outlet, overflow)
 ```
 
-## GRACe summary
 
-* GRACe is a Domain Specific Language, embedded in Haskell
-* Can express library components (like `rain`, `pump`, `runoffArea`) ...
-* ... and their connections (via ports).
-* Frontend: VisualEditor (GUI layer, WP3)
-* Backend: MiniZinc and Gecode (CFP solver software, WP5)
+## Organization and personnel
 
+* Site leader: Prof. Patrik Jansson, working 20% for GRACeFUL
+* Lecturer: Dr. Alex Gerdes, working 40% for GRACeFUL from 2017-01
+* Student research assistants (at 20% each):
+    * Maximilian Algehed; Sólrún Einarsdóttir, Oskar Abrahamsson
+* (PhD student: Irene Lobo Valbuena, until 2016-05.)
+
+![GRACeFUL Chalmers team](../img/GRACeFUL_Chalmers_2017-03.jpg)
+
+
+## Technical achievements
+
+We have worked mainly on T4.2 and T4.3 of the DSL work package:
+
+* T4.2 develop a **DSL** to describe the concept maps dev. during GMB sessions
+* T4.3 provide a formal semantics for the elements of the DSL
+
+This resulted in one deliverable which was handed in on time:
+
+* [D4.2](deliverables/d4.2/): A Domain Specific Language (DSL) for GRACeFUL Concept Maps
+
+and associated
+[open source code on GitHub](https://github.com/GRACeFUL-project/GRACe) including
+examples and install instructions (through a Docker image).
+
+KULeuven has also contributed by initial work on T4.4
+
+* T4.4 implement a middleware for connecting the DSL to the CFP layer
+
+which will be the main focus after this Y2 review.
 
 
 ## Research publications

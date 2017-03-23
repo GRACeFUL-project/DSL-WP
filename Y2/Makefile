@@ -2,7 +2,10 @@ NAME = WP4_DSL_Y2_review
 
 default: ${NAME}.pdf
 
-${NAME}.pdf: ${NAME}.md template.tex
+SWarch.pdf: SWarch.dot
+	dot -Tpdf SWarch.dot > SWarch.pdf
+
+${NAME}.pdf: ${NAME}.md template.tex SWarch.pdf
 	pandoc -t beamer -H template.tex ${NAME}.md -o ${NAME}.pdf
 #	pandoc -t beamer --variable classoption="aspectratio=1610" -H template.tex ${NAME}.md -o ${NAME}.pdf
 
