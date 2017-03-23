@@ -1,4 +1,29 @@
-## Deliverable 4.2 ~= a DSL called "GRACe"
+## Going "behind the scenes" of the VisualEditor demo
+
+![Demo screenshot: Javascript, GRACe, Haskell, MiniZinc, ...](../img/visualeditor.png)
+
+## Software architecture
+
+![Software stack](SWarch.pdf)
+
+## Software technology used
+
+* Frontend in Javascript: VisualEditor [WP3]
+    * Javascript is an untyped functional language
+	* We use the Node.js runtime & D3.js Data Driven Documents
+* GRACe DSL embedded in Haskell [WP4]
+    * Haskell is a strongly typed functional language
+	* GRACe programs describe components, contraints, actions
+* GRACe server in Haskell (talks to VisualEditor)
+    * RESTful Web service (REST = REpresentational State Transfer)
+    * Exchange format: JSON = JavaScript Object Notation
+* Backend: MiniZinc language
+    * encapsulates CFP solver software [WP5]
+* Distribution:
+    * Source code on Github
+	* Binaries as docker containers
+
+## WP4: Deliverable 4.2 ~= a DSL called "GRACe"
 
 * GRACe is a Domain Specific Language, embedded in Haskell
 * Can express library components (like `rain`, `pump`, `runoffArea`) ...
@@ -6,22 +31,21 @@
 * Frontend: VisualEditor (GUI layer, WP3)
 * Backend: MiniZinc language + CFP solver (WP5)
 
-TODO: include a screenshot of the VisualEditor
+GRACe code for a trivial "rainfall" component.
 
-## Software technology used
+```haskell
+rain :: Float -> GCM (Port Float)
+rain amount = do
+  port <- createPort
+  set port amount
+  return port
+```
 
-![Software stack](SWarch.pdf)
+## Runoff example structure
 
-* Frontend in Javascript, Node.js library
-* DSL in Haskell - a functional programming language (4000 LoC)
-* Both are set up as RESTful Web services (REST = REpresentational State Transfer)
-* Format: JSON = JavaScript Object Notation
-* Backend: MiniZinc language (CFP solver software, WP5)
-* Distribution: Docker component
+![Runoff example structure](../deliverables/d4.2/fig/RunoffExample.png)
 
-TODO: include something from slide 10-11 in Sadie's presentation (Criteria, stakeholder weights, ...)
-
-## Deliverable 4.2 code
+## Deliverable 4.2: glue code for the runoff example
 
 ```haskell
 example :: GCM ()
@@ -43,40 +67,10 @@ ghci> runGCM example
 {"Overflow" : 0.0}
 ```
 
-## Runoff example structure
-
-![Runoff example structure](../deliverables/d4.2/fig/RunoffExample.png)
-
-## GRACe code: `rain`
-
-A "rainfall" component.
-
-```haskell
-rain :: Float -> GCM (Port Float)
-rain amount = do
-  port <- createPort
-  set port amount
-  return port
-```
-
-The example again (for reference):
-
-```haskell
-example :: GCM ()
-example = do
-  (inflowP, outflowP) <- pump 5
-  (inflowR, outletR, overflowR) <- runoffArea 5
-  rainflow <- rain 10
-  link inflowP outletR
-  link inflowR rainflow
-  output overflowR "Overflow"
-```
-
-
 ## GRACe code: `pump`
 
-We can now return to our pump, which is a `GCM` component
-parametrised over the maximum flow through the pump:
+We model a pump as a `GCM` component parametrised over the maximum
+flow through the pump:
 
 ```haskell
 pump :: Float -> GCM (Port Float, Port Float)
@@ -96,9 +90,9 @@ the host language Haskell, into the embedded language GRACe.
 
 ## GRACe code: `runoffArea`
 
-Finally we show a more complicated component, a water runoff area with
-an `inflow`, an `outlet` to which we may connect e.g. a pump,
-and an `overflow`.
+A slightly more complicated component, a water runoff area with an
+`inflow`, an `outlet` to which we may connect e.g. a pump, and an
+`overflow`.
 
 ```haskell
 runoffArea :: Float -> GCM (Port Float, Port Float, Port Float)
@@ -119,6 +113,13 @@ runoffArea cap = do
   return (inflow, outlet, overflow)
 ```
 
+## GRACe summary
+
+* GRACe is a Domain Specific Language, embedded in Haskell
+* Can express library components (like `rain`, `pump`, `runoffArea`) ...
+* ... and their connections (via ports).
+* Frontend: VisualEditor (GUI layer, WP3)
+* Backend: MiniZinc language + CFP solver (WP5)
 
 ## Organization and personnel
 
@@ -130,6 +131,7 @@ runoffArea cap = do
 
 ![GRACeFUL Chalmers team](../img/GRACeFUL_Chalmers_2017-03.jpg)
 
+# Extra slides
 
 ## Technical achievements
 
