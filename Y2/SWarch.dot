@@ -1,0 +1,13 @@
+digraph GRACeFUL {
+
+
+  VisualEditor:sw -> GRACe:nw   [xlabel = " RESTful API call "];
+  GRACe:ne -> VisualEditor:se   [xlabel = " and reply using JSON "];
+  GRACe:sw -> CFP:nw      [xlabel = " file I/O in MiniZinc "];
+  CFP:ne -> GRACe:se      [xlabel = " MiniZinc output "];
+
+  VisualEditor [label="VisualEditor [WP3]",  color=black];
+  GRACe        [label="GRACe server [WP4]",  color=black];
+  CFP          [label="CFP solver(s) [WP5]", color=black];
+
+}
