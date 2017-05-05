@@ -14,7 +14,7 @@
     * Implement this functionality in GRACe
     * Something like:
       ```Haskell
-      mport :: ([a] -> b) -> GCM (MPort a b)
+      mport :: ([CPExp a] -> CPExp b) -> GCM (MPort a b)
       connect :: Port a -> MPort a b -> GCM ()
       poll :: MPort a b -> GCM (Port b)
       ```
