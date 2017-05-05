@@ -5,3 +5,11 @@
 * Implement a `cardinality` variable for ports, how many ports can be connected
   to this port?
   * Implement this functionality in GRACe
+
+* Tutorial for writing GRACe components
+
+* Newtypes
+
+* Subtyping, an `Inflow` is a `Flow` etc.
+
+* Arbitrary key-value tagging of things in a `Library`
