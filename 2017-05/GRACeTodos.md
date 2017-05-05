@@ -1,15 +1,17 @@
 # GRACe TODOs from the Delft worksprintx 2017-05-03/04/05
 
-* Implement the `linkAppropriate` flag for components, "this component can be used as a link"
+1. Clean up module structure
 
-* Implement a `cardinality` variable for ports, how many ports can be connected
-  to this port?
-  * Implement this functionality in GRACe
+2. Tutorial for writing GRACe components
 
-* Tutorial for writing GRACe components
+3. Arbitrary key-value tagging of things in a `Library`
 
-* Newtypes
+4. Implement the `linkAppropriate` flag for components, "this component can be used as a link"
 
-* Subtyping, an `Inflow` is a `Flow` etc.
+5. Implement a `cardinality` variable for ports, how many ports can be connected
+   to this port?
+    * Implement this functionality in GRACe
 
-* Arbitrary key-value tagging of things in a `Library`
+6. Newtypes
+
+7. Subtyping, an `Inflow` is a `Flow` etc.
