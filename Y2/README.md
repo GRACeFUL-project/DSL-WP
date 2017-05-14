@@ -2,4 +2,7 @@
 
 WP4: DSL workpackage overview
 
-Presentation: see [WP4_DSL_Y2_review.md](WP4_DSL_Y2_review.md)
+Presentation:
+
+* [Source: WP4_DSL_Y2_review.md](WP4_DSL_Y2_review.md)
+* [PDF](http://www.cse.chalmers.se/~patrikj/talks/GRACeFUL_WP4_DSL_Y2_review.pdf)
