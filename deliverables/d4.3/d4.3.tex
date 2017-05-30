@@ -1,0 +1,180 @@
+\documentclass{article}
+\usepackage{todonotes}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Patrik Jansson et al.},
+            pdftitle={GRACeFUL D4.3: Translation of GRACeFUL concept maps to the Constraint Functional Programming layer},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+%% Cezar
+\usepackage[margin=1.60in]{geometry}
+\usepackage[verbose]{wrapfig}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{framed}
+\usepackage{xspace}
+\usepackage{acronym}
+\usepackage[square,numbers]{natbib}
+
+\definecolor{GRACeFULblue}{rgb}{0.20,0.60,0.86}
+
+\newcommand{\grace}{GRACeFUL\xspace}
+\acrodef{GCM}{\grace Concept Map}
+\acrodef{GMB}{Group Model Building}
+\acrodef{DSL}{Domain Specific Language}
+\acrodef{CFP}{Constraint Functional Program}
+\acrodef{RAT}{Rapid Assessment Tool}
+\acrodef{CRUD}{Climate Resilient Urban Design}
+\acrodef{CLD}{Causal Loop Diagram}
+\hyphenation{GRACeFUL}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+\includegraphics[width=5cm]{../coverpage/GRACeFULlogo.png}
+
+\textcolor{GRACeFULblue}{Global systems Rapid Assessment tools\\
+through Constraint FUnctional Languages}
+
+\vspace{1cm}
+
+FETPROACT-1-2014 Grant Nº 640954
+
+\end{center}
+
+\begin{framed}
+\begin{center}
+\Large
+Translation of GRACeFUL concept maps\\
+to the Constraint Functional Programming layer\\[1ex]
+
+D4.3\\[1ex]
+
+\end{center}
+\end{framed}
+
+\vspace{1cm}
+
+\noindent
+\begin{tabular}{@{}ll@{}}
+  Lead Participant:       & Chalmers (WP leader: P. Jansson)
+\\Partners Contributing:  & KU Leuven
+\\Dissemination Level:    & PU
+\\Document Version:       & Draft
+\\Date of Submission:     & 2017-07-07?
+\\Due Date of Delivery:   & 2017-07-31
+\end{tabular}
+
+\newpage
+
+\section*{Translation of GRACeFUL concept maps to the Constraint Functional Programming layer}\label{DSL4GRACeFUL}
+
+Contributions by: Oskar Abrahamsson, Maximilian Algehed, Sólrún
+Einarsdóttir, Alex Gerdes, and Patrik Jansson.
+
+\vfill
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\vfill
+
+\newpage
+
+\section*{Abstract}\label{abstract}
+
+This third deliverable (D4.3) of work package 4 presents the
+translation of GRACeFUL concept maps (expressed as GRACe programs) to
+the Constraint Functional Programming (CFP) layer.
+%
+This report builds on the description of GRACe in ``D4.2: A Domain
+Specific Language (DSL) for GRACeFUL Concept Maps'' (delivered in
+project month 24) and the third release of the CFP layer ``haskelzinc''.
+%
+(The first release was described in ``D5.1: Domain-Specific Language
+for the Constraint Functional Programming Platform'' and the latest
+version is available from
+\url{https://hackage.haskell.org/package/haskelzinc}.)
+%
+
+The work leading up to this deliverable is within Task 4.3 ``implement
+a middleware for connecting the DSL to the CFP layer'' and he full
+source code of the implementation is available on github.
+
+
+\section{Introduction}
+
+
+TODO:
+\begin{verbatim}
+* Introduction explaining the title: What exactly does the title mean?
+    * A GRACeFUL concept map is described in D4.2 (basically a GRACe program)
+    * The CFP layer is (some version) of the HaskelZinc backend
+    * Include (small part of) examples of GRACe code and translation (back and forth)
+* Some background about the terminology
+\end{verbatim}
+
+\section{A GRACe-ful translation}
+
+\subsection{Examples of GRACe programs and the way they are translated}
+
+\subsection{Software architecture}
+
+\subsection{Properties and tests}
+
+\section{Conclusion}
+
+We have designed and implemented a translation from the DSL called
+GRACe (describing GRACeFUL concept maps) to the underlying Constraint
+Functional Programming layer.
+%
+We have presented code examples, the software architecture, and
+automatically checked properties of the translation.
+%
+The source code is available on GitHub.
+
+The next actions in work package 4 is
+\begin{itemize}
+\item build a testing and verification framework for RATs,
+\item assist WP3 in implementing the graphical user interface, and
+\item assist WP2 in building up a library of GRACeFUL Concept Map
+  components expressed in GRACe.
+\end{itemize}
+%
+In parallel, the translation, including the source and target DSLs
+will gradually evolve to handle more and more of the requirements
+extractable from GMB sessions with stakeholders.
+
+
+\appendix
+\section{Installation and usage}
+
+% ----------------------------------------------------------------
+
+\bibliographystyle{unsrtnat}
+\bibliography{d4.3}
+
+\end{document}
