@@ -4,6 +4,37 @@ This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
+## 2017-07-0?: Deliverable D4.3
+
+**Title**: Translation of concept map descriptions to system dynamics models for the CFP layer
+
+[Source](deliverables/d4.3/)
+
+
+## 2017-02-03: Deliverable [D4.2 uploaded](deliverables/d4.2.pdf)
+
+**Title**: GRACeFUL D4.2: A Domain Specific Language (DSL) for GRACeFUL Concept Maps
+
+**Contributions by**: Oskar Abrahamsson, Maximilian Algehed, Sólrún
+  Einarsdóttir, Alex Gerdes, Björn Norgren, and Patrik Jansson.
+
+**Abstract**:
+
+This second deliverable (D4.2) of work package 4
+presents [GRACe](https://github.com/GRACeFUL-project/GRACe) — a Domain
+Specific Language (DSL) for describing GRACeFUL Concept Maps
+(GCMs). This is a continuation of the initial work described in
+“[D4.1 Formal Concept Maps Elements Descriptions](https://github.com/GRACeFUL-project/DSL-WP/blob/master/deliverables/d4.1.pdf)”
+delivered in project month 6. The full source code of the language
+implementation is available on github and installation instructions
+are included in this deliverable. The implementation in Haskell can be
+seen as a formal semantics in terms of types and functions and this
+means that GRACeFUL has reached milestone MS8 “DSL with formal
+semantics v1.0 ready”. In addition we include a section comparing
+different approaches to modelling some of the formal semantics
+concepts relevant for GRACeFUL concept maps: causal loop diagrams,
+qualitative probabilistic networks, and difference equations.
+
 ## 2017-01-01: Alex Gerdes starts working for GRACeFUL at Chalmers
 
 Alex Gerdes is a junior lecturer at the CSE department and will work
