@@ -10,6 +10,11 @@ the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
 [Source](deliverables/d4.3/)
 
+## 2017-07-01: Current GRACeFUL team at Chalmers
+
+From July 2017 the Chalmers GRACeFUL team consists of Sólrún
+Einarsdóttir (100%), Maximilian Algehed (50%), Alex Gerdes (40%), and
+Patrik Jansson (20%).
 
 ## 2017-02-03: Deliverable [D4.2 uploaded](deliverables/d4.2.pdf)
 
