@@ -22,8 +22,13 @@ Outline:
 Timeline
 ----------
 * 2017-07-31: Final deadline
-* 2017-06-30: Ready for submission
+* 2017-07-09: Upload [SoEi sends the final PDF to ToCr]
+* 2017-07-03/04: Nantes meeting: collect project feedback
+* 2017-06-30: Almost ready for submission
+* 2017-06-26: Chalmers GRACeFUL work day
 * 2017-06-22: Send draft out to GRACeFUL list for comments
+* 2017-06-21: Chalmers GRACeFUL work day
 * 2017-06-13: Draft ready to discuss at weekly meeting
+* 2017-06-12: Chalmers GRACeFUL work day
 * 2017-06-05: Flesh out the outline to a few paragraphs per section
 * 2017-05-05: Start the collaboration with the CFP team [examples of programs in GRACe by Leuven and programs in HaskelZinc by Chalmers]
