@@ -36,6 +36,10 @@
 \usepackage{acronym}
 \usepackage[square,numbers]{natbib}
 
+%% Max
+\usepackage{minted}
+\usepackage{todonotes}
+
 \definecolor{GRACeFULblue}{rgb}{0.20,0.60,0.86}
 
 \newcommand{\grace}{GRACeFUL\xspace}
@@ -126,7 +130,7 @@ source code of the implementation is available on github.
 
 
 \section{Introduction}
-
+\todo{Alex}
 
 TODO:
 \begin{verbatim}
@@ -140,8 +144,33 @@ TODO:
 \section{A GRACe-ful translation}
 
 \subsection{Examples of GRACe programs and the way they are translated}
+\todo{Max}
+
+\begin{minted}{haskell}
+  example :: GCM ()
+  example = do
+    a <- createPort
+    b <- createPort
+    component $ do
+      av <- value a
+      bv <- value b
+      assert $ av === bv + 1
+    output "a" a
+    output "b" b
+\end{minted}
+
+\begin{verbatim}
+  var -10000000..10000000: v1;
+  var -10000000..10000000: v0;
+
+  constraint ((v0) == ((v1) + (1)));
+
+  solve satisfy;
+  output ["{\"a\" : \(v0),\n\"b\" : \(v1)}"];
+\end{verbatim}
 
 \subsection{Software architecture}
+\todo{Solrun}
 
 \subsection{Properties and tests}
 
