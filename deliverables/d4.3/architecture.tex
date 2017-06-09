@@ -1,0 +1,30 @@
+\subsubsection{Visual Editor}
+The top layer of the software architecture is the visual editor. Written in
+JavaScript, it provides a graphical user interface where the user can build
+GCMs as a graphical map from available components.
+
+\subsubsection{Communication with visual editor}
+Communication between the visual editor and the GRACe layer takes place through
+a web service written in Haskell. JSON objects are sent between the two layers
+via requests to this service and handled on both ends.  
+
+\subsubsection{GCM component libraries}
+The visual interface allows the user to access a chosen library of GCM
+components. These components are written in GRACe, and each component has
+a corresponding JSON interface which is sent to the visual editor when the
+user requests the library in question.
+
+\subsubsection{GRACe}
+GRACe is a domain specific language for expressing GRACeFUL concept maps,
+embedded in Haskell.
+
+The GRACe program representing a GCM is compiled to a haskelzinc constraint
+program.
+
+\subsubsection{Haskelzinc}
+Haskelzinc is a Haskell interface to the MiniZinc constraint programming language.
+It provides an abstract syntax tree for MiniZinc, with which MiniZinc models can
+be represented in Haskell.
+
+\subsubsection{MiniZinc}
+Should we say something about MiniZinc?
