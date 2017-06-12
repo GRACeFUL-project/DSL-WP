@@ -120,8 +120,8 @@ project month 24) and the third release of the CFP layer ``haskelzinc''.
 %
 (The first release was described in ``D5.1: Domain-Specific Language
 for the Constraint Functional Programming Platform'' and the latest
-version is available from
-\url{https://hackage.haskell.org/package/haskelzinc}.)
+version is available from the Haskell package repository
+\href{https://hackage.haskell.org/package/haskelzinc}{Hackage}.)
 %
 The work leading up to this deliverable is within Task 4.3 ``implement
 a middleware for connecting the DSL to the CFP layer'' and the full
@@ -147,21 +147,33 @@ This section covers how the GRACe language is translated to MiniZinc
 %
 
 \subsection{Examples of GRACe programs and the way they are translated}
-\todo{Max}
 
-\begin{minted}{haskell}
+We start with a trivial example to explain the syntax of both GRACe
+and MiniZinc.
+%
+The |example| component has two ports, |a| and |b|, whose values are
+constrained (on line 8) to stay one apart.
+%
+The last two lines decide what we want to see as results from the
+constraint solver.
+%
+\begin{minted}[linenos]{haskell}
   example :: GCM ()
   example = do
     a <- createPort
     b <- createPort
+
     component $ do
       av <- value a
       bv <- value b
       assert $ av === bv + 1
+
     output "a" a
     output "b" b
 \end{minted}
 
+When we run the GRACe translator we get the following MiniZinc code:
+%
 \begin{verbatim}
   var -10000000..10000000: v1;
   var -10000000..10000000: v0;
@@ -171,12 +183,30 @@ This section covers how the GRACe language is translated to MiniZinc
   solve satisfy;
   output ["{\"a\" : \(v0),\n\"b\" : \(v1)}"];
 \end{verbatim}
+%
+From the output statement on the last line we can see that \texttt{a} has
+been mapped to \texttt{v0} and \texttt{b} to \texttt{v1}.
+%
+In the middle we see the constraint and in the beginning the
+variables' ranges are defined.
+%
+(TODO: The default range can be adjusted by ...)
+
+\todo{Max?: More complex example (connecting 2-3 components) showing parts of the output.}
+
 
 \subsection{Software architecture}
 
 \input{architecture}
 
 \subsection{Properties and tests}
+
+As a first step towards a testing and verification framework for
+GRACeFUL Rapid Assessment Tools we have instrumented the GRACe
+implementation with properties and tests.
+%
+
+\todo{explain QuickCheck, Fill in properties and tests, next steps}
 
 \section{Conclusion}
 
