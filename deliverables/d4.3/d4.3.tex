@@ -50,6 +50,8 @@
 \acrodef{RAT}{Rapid Assessment Tool}
 \acrodef{CRUD}{Climate Resilient Urban Design}
 \acrodef{CLD}{Causal Loop Diagram}
+\acrodef{JSON}{JavaScript Object Notation}
+\acrodef{CP}{Constraint Program}
 \hyphenation{GRACeFUL}
 
 \author{}
@@ -129,7 +131,46 @@ source code of the implementation is available on github.
 
 
 \section{Introduction}
-\todo{Alex}
+
+This report describes the third deliverable (D4.3) of work package 4 of the
+\grace project. The software we present in this document can be downloaded
+from GitHub\footnote{\url{https://github.com/GRACeFUL-project/}}.
+
+The main task of work package 4 is to build a \emph{\ac{DSL}} for \acp{GCM}. A
+\ac{GCM} is a representation of policy analysis that contains the main elements
+of a policy problem definition, such as goals, criteria, and a description of
+the system. It is common practice to simulate a model described by a \ac{GCM},
+however, this process is unfortunately both time consuming and expensive. The
+\grace project tries to aleviate this problem by expressing a \ac{GCM} as a
+\emph{constraint program}, which should reduce the analysis time considerably.
+
+A \ac{GCM} is created by stakeholders in a so-called \ac{GMB} session using a
+visual editor. Once the \ac{GCM} is complete, the visual editor submits a
+representation\footnote{We use \ac{JSON} as an exchange format} of the \ac{GCM}
+to our \ac{DSL} layer, described in deliverable D4.2~\cite{D4.2}, which in turn
+passes on the \ac{GCM} to the \ac{CP} layer. The \ac{DSL} can be regarded as an
+intermediate layer between the visual editor and the \ac{CP} layer, which
+increases modularity and reduces the depency on a particular constraint solver. 
+
+The main challenge for work package 4 is to create a \ac{DSL} that is expressive
+enough to model \acp{GCM} as envisaged by the stakeholders, while still being
+able to translate to a contraint program. A constraint programming is a
+collection of (unknown) variables and constraints, for which a constraint solver
+tries to find a solution (values for the unknown variables) that satisfies as
+many of those constraints as possible. 
+
+% structure of document
+
+In this document we explain how we 
+translate a program in terms of our \ac{DSL} to a constraint program using the
+\ac{CP} interface provided by work pacakge 5, see deliverable~\cite{}.
+Section~\ref{} introduces ...
+
+
+
+- translation to cp and back again
+
+
 
 \begin{verbatim}
 TODO:
