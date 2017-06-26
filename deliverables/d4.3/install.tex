@@ -1,0 +1,71 @@
+%% -- Installation instructions -----------------------------------------------
+%% ----------------------------------------------------------------------------
+
+\todo{What exactly do we want to provide installation/usage instructions for?
+Should we include the front-end, the web service?}
+
+The purpose of this section is to outline the process of installing
+the GRACe software and its required dependencies.
+%
+Section~\ref{install-overview} provides an overview of the software
+dependencies required for development using GRACe.
+%
+Section~\ref{install-docker} provides installation instructions for a
+platform-independent package built on the
+\href{https://www.docker.com/}{Docker} platform.
+
+%% -- Software dependencies ---------------------------------------------------
+
+\subsection{Software dependencies}
+\label{install-overview}
+
+The GRACe language is implemented in
+\href{https://www.haskell.org/}{Haskell} and uses the solver tools
+from the \href{http://www.minizinc.org/}{MiniZinc} software
+distribution.
+%
+Specifically, development and execution of GRACe programs requires the
+following software dependencies to be met:
+
+\begin{itemize}
+\item The MiniZinc and Gecode solver software.
+%
+  These can be found in the MiniZinc software bundle.
+%
+\item A complete Haskell toolchain able to download packages from
+  \href{https://hackage.haskell.org/}{Hackage}.
+%
+  Two alternative tools (Stack and Cabal) are suitable for this
+  purpose, and both are provided by
+  \href{https://www.haskell.org/platform/}{the Haskell Platform}.
+\end{itemize}
+
+Instructions for installing and using these components are available
+in the {GRACe} repository on
+\href{https://github.com/GRACeFUL-project/%
+  GRACe/blob/master/doc/INSTALL.md}{GitHub}.
+
+\todo{update the instructions on Github}
+%
+Alternatively, for those who only wish to run the GRACe
+examples, we provide instructions in the following section.
+
+%% -- Using Docker ------------------------------------------------------------
+
+\subsection{Installation using Docker}
+\label{install-docker}
+
+Download and install the Docker app from \url{https://www.docker.com/products/docker}.
+%
+
+\todo{Create a new docker image, update addresses here.}
+
+Open a terminal (or the \emph{command prompt} under Windows) and
+execute
+\begin{verbatim}
+  docker pull eugraceful/grace-examples
+  docker run --rm eugraceful/grace-examples
+\end{verbatim}
+
+This will download and execute the example located at
+\href{https://github.com/GRACeFUL-project/GRACe/blob/master/examples/Examples.hs}{examples/Examples.hs}.
