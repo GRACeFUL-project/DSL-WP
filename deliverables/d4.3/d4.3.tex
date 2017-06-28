@@ -154,34 +154,23 @@ increases modularity and reduces the depency on a particular constraint solver.
 
 The main challenge for work package 4 is to create a \ac{DSL} that is expressive
 enough to model \acp{GCM} as envisaged by the stakeholders, while still being
-able to translate to a contraint program. A constraint programming is a
+able to translate to a contraint program. A constraint program is a
 collection of (unknown) variables and constraints, for which a constraint solver
 tries to find a solution (values for the unknown variables) that satisfies as
 many of those constraints as possible. 
 
-% structure of document
+In this document we explain how we translate a program in terms of our \ac{DSL} 
+to a constraint program using the \ac{CP} interface provided by work pacakge 5, 
+see deliverable~\cite{}. In Section~\ref{sec:translate} give a short summary
+of our \ac{DSL} and show how the main concepts, such as pports and parameters,
+are expressed in terms of a constraint program. We continue with an explanation
+of the software architecture in Section~\ref{sec:architecture}. We end this 
+report with some concluding remarks in Section~\ref{sec:conclusion}.
 
-In this document we explain how we 
-translate a program in terms of our \ac{DSL} to a constraint program using the
-\ac{CP} interface provided by work pacakge 5, see deliverable~\cite{}.
-Section~\ref{} introduces ...
-
-
-
-- translation to cp and back again
-
-
-
-\begin{verbatim}
-TODO:
-* Introduction explaining the title: What exactly does the title mean?
-    * A GRACeFUL concept map is described in D4.2 (basically a GRACe program)
-    * The CFP layer is (some version) of the HaskelZinc backend
-    * Include (small part of) examples of GRACe code and translation (back and forth)
-* Some background about the terminology
-\end{verbatim}
 
 \section{A GRACe-ful translation}
+\label{sec:translate}
+
 
 This section covers how the GRACe language is translated to MiniZinc
 \cite{MiniZinc} by first translating to HaskelZinc \cite{HaskelZinc}.
@@ -236,11 +225,13 @@ variables' ranges are defined.
 \todo{Max?: More complex example (connecting 2-3 components) showing parts of the output.}
 
 
-\subsection{Software architecture}
+\section{Software architecture}
+\label{sec:architecture}
 
 \input{architecture}
 
-\subsection{Properties and tests}
+
+\section{Properties and tests}
 
 As a first step towards a testing and verification framework for
 GRACeFUL Rapid Assessment Tools we have instrumented the GRACe
@@ -250,6 +241,7 @@ implementation with properties and tests.
 \todo{explain QuickCheck, Fill in properties and tests, next steps}
 
 \section{Conclusion}
+\label{sec:conclusion}
 
 We have designed and implemented a translation from the DSL called
 GRACe (describing GRACeFUL concept maps) to the underlying Constraint
