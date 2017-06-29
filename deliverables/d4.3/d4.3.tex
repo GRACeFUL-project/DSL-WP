@@ -171,22 +171,18 @@ report with some concluding remarks in Section~\ref{sec:conclusion}.
 \section{A GRACe-ful translation}
 \label{sec:translate}
 
+This section covers how a model written in our DSL, called GRACe, is translated
+to a constraint program. This translation is done in several stages. First we
+translate a GRACe program to HaskellZinc~\cite{}, which is developed in work
+package 5. In the next stage the program is compiled from the HaskellZinc
+interemediate representation to a particular constraint programming language,
+which in our case is MiniZinc~\cite{MiniZinc}.
 
-This section covers how the GRACe language is translated to MiniZinc
-\cite{MiniZinc} by first translating to HaskelZinc \cite{HaskelZinc}.
-%
+WWe start with a small example to explain the syntax and elements of a GRACe
+program. A central element of a GRACe program is a \emph{component}, in fact a
+GRACe program is a collection of components that can be connected to each other.
+The following example defines two components:
 
-\subsection{Examples of GRACe programs and the way they are translated}
-
-We start with a trivial example to explain the syntax of both GRACe
-and MiniZinc.
-%
-The |example| component has two ports, |a| and |b|, whose values are
-constrained (on line 8) to stay one apart.
-%
-The last two lines decide what we want to see as results from the
-constraint solver.
-%
 \begin{minted}[linenos]{haskell}
   example :: GCM ()
   example = do
@@ -201,6 +197,11 @@ constraint solver.
     output "a" a
     output "b" b
 \end{minted}
+
+of both GRACe and
+MiniZinc. The |example| component has two ports, |a| and |b|, whose values are
+constrained (on line 8) to stay one apart. The last two lines decide what we
+want to see as results from the constraint solver.
 
 When we run the GRACe translator we get the following MiniZinc code:
 %
