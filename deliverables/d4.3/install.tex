@@ -1,71 +1,73 @@
-%% -- Installation instructions -----------------------------------------------
+%% -- APPENDIX: Installation instructions -------------------------------------
 %% ----------------------------------------------------------------------------
 
-\todo{What exactly do we want to provide installation/usage instructions for?
-Should we include the front-end, the web service?}
-
-The purpose of this section is to outline the process of installing
-the GRACe software and its required dependencies.
+\section{Installation and usage}
+\label{appendix-install}
 %
-Section~\ref{install-overview} provides an overview of the software
-dependencies required for development using GRACe.
-%
-Section~\ref{install-docker} provides installation instructions for a
-platform-independent package built on the
-\href{https://www.docker.com/}{Docker} platform.
+In this section we outline the process of installing the GRACe software and its
+required dependencies. We start with an overview of the software dependencies
+required for developing GRACe programs (Appendix~\ref{install-overview}).
+Following this, we provide installation instructions for a platform-independent
+package built on the \href{https://www.docker.com/}{Docker} platform, intended
+for users who only wish to execute a pre-existing example
+(Appendix~\ref{install-docker}).
 
-%% -- Software dependencies ---------------------------------------------------
+%% -- A: Software dependencies ------------------------------------------------
 
 \subsection{Software dependencies}
 \label{install-overview}
-
-The GRACe language is implemented in
-\href{https://www.haskell.org/}{Haskell} and uses the solver tools
-from the \href{http://www.minizinc.org/}{MiniZinc} software
-distribution.
 %
-Specifically, development and execution of GRACe programs requires the
+The GRACe language is an embedded domain-specific language implemented in the
+\href{https://www.haskell.org/}{Haskell} programming language, and uses the
+solver tools from the \href{http://www.minizinc.org/}{MiniZinc} software
+distribution. Hence, development and execution of GRACe programs requires the
 following software dependencies to be met:
-
+%
 \begin{itemize}
-\item The MiniZinc and Gecode solver software.
-%
-  These can be found in the MiniZinc software bundle.
-%
-\item A complete Haskell toolchain able to download packages from
-  \href{https://hackage.haskell.org/}{Hackage}.
-%
-  Two alternative tools (Stack and Cabal) are suitable for this
-  purpose, and both are provided by
-  \href{https://www.haskell.org/platform/}{the Haskell Platform}.
+  \item[(i)] The MiniZinc and Gecode solver software.
+  \item[(ii)] A Haskell toolchain able to download packages from
+    \href{https://hackage.haskell.org/}{Hackage}, for instance
+    \href{https://www.haskell.org/platform/}{the Haskell Platform}.
 \end{itemize}
 
-Instructions for installing and using these components are available
-in the {GRACe} repository on
-\href{https://github.com/GRACeFUL-project/%
-  GRACe/blob/master/doc/INSTALL.md}{GitHub}.
+Detailed instructions for installing the Haskell Platform is available at
+\url{https://www.haskell.org/platform/}. The preferred way of installing the
+MiniZinc and Gecode components is by way of the bundled binary packages
+available at \url{http://www.minizinc.org/software.html}.
 
-\todo{update the instructions on Github}
-%
-Alternatively, for those who only wish to run the GRACe
-examples, we provide instructions in the following section.
+\subsubsection{Development in GRACe}
 
-%% -- Using Docker ------------------------------------------------------------
+\todo{Here state how to get the GRACe source code, build and execute it.}
+
+%% -- A: Using Docker ---------------------------------------------------------
 
 \subsection{Installation using Docker}
 \label{install-docker}
 
-Download and install the Docker app from \url{https://www.docker.com/products/docker}.
+In addition to the installation instructions for the GRACe development tools
+(Appendix~\ref{install-overview}) we also provide a platform-independent Docker
+image containing an executable for the \verb!OilCrops! example, written in
+GRACe.
+
+The \verb!OilCrops! example contains a small optimization problem in which the
+objective is to dedicate a set amount of farmland area to three different crops,
+with the goal of maximizing the yield of vegetable oil produced from these 
+crops. A full description of the example can be found at \url{url.here}. 
+\todo{Link to OilCrops.hs `explanation'.}
+The GRACe source code of the example can be found at \url{url.here}.
+\todo{Link to OilCrops.hs source code.}
+
+Running the \verb!OilCrops! example requires the Docker Community Edition (CE)
+to be installed. Docker CE, as well as installation instructions are available
+at \url{https://www.docker.com/products/docker}. Once Docker CE is installed,
+the example can be executed using the Docker application as follows. Open a
+terminal (the command prompt for Windows users) and execute the commands
 %
-
-\todo{Create a new docker image, update addresses here.}
-
-Open a terminal (or the \emph{command prompt} under Windows) and
-execute
 \begin{verbatim}
-  docker pull eugraceful/grace-examples
-  docker run --rm eugraceful/grace-examples
+  docker pull eugraceful/grace-examples:latest
+  docker run --rm eugraceful/grace-examples:latest
 \end{verbatim}
 
-This will download and execute the example located at
-\href{https://github.com/GRACeFUL-project/GRACe/blob/master/examples/Examples.hs}{examples/Examples.hs}.
+\noindent
+This will run the \verb!OilCrops! example and write the problem solution to
+standard output.
