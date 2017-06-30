@@ -140,12 +140,12 @@ after all constraints have been solved.
 As an example we consider a simple optimization problem.
 
 We have a set amount of farmland and three available crops, and would like to
-know much of each crop to grow on the land to maximize our vegetable oil
+know how much of each crop to grow on the land to maximize our vegetable oil
 production.
 
-Each crop has parameters that state the yield of the crop, in tons, from one hectare of
-growing land, the amount of water required per hectare to grow the crop, and how
-much oil can be produced from one ton of the crop.
+Each crop has parameters that state the yield of the crop, in tonnes, from one 
+hectare of growing land, the amount of water required per hectare to grow the 
+crop, and how much oil can be produced from one tonne of the crop.
 
 We define a component for each crop, using these parameters, with ports
 expressing the number of hectares, the oil yield, and the water consumption.
@@ -262,7 +262,7 @@ minimize :: Port Int -> GCM ()
 \end{minted}
 
 While the \texttt{link} command asserts that two values must be equal, the
-\texttt{linkby} command takes a function as a parameter to express a more
+\texttt{linkBy} command takes a function as a parameter to express a more
 complex constraint on the values.
 
 The full code for the vegetable oil example can be seen in Appendix~\ref{oilcode}
