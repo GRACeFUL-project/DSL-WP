@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass[a4paper]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \fontencoding{T1}
@@ -6,34 +6,17 @@
 \usepackage{minted}
 \usepackage{todonotes}
 \title{GRACe tutorial}
-\author{Sólrún Halla Einarsdóttir}
+\author{}
 \date{\today}
 
 \begin{document}
 \maketitle
-\begin{verbatim}
-TODO:
-In this tutorial we will demonstrate the following with examples:
-* How to write new GRACe library components
-* How to write GRACe programs using those components
-* How to define a library to send to the visual editor?
-  (Maybe later, the connection to and status of the viseditor is very unclear atm )
+%TODO:
+% * How to define a library to send to the visual editor?
+%   (add once the connection to and status of the viseditor is clearer )
+% * Discuss actions and params
+% * Say something about how to run programs?
 
-We need to explain the following (at least briefly how they are used):
-Ports
---Params (maybe not - are they used only for actions)?
--- omit actions for now
-The GCM and CP monads (avoid the word monad?)
-How to define constraints - assert, set
-goals
-The component primitive
-How to run programs?
-
-Oil production linear programming example.
-
-Another simpler example also? Classic rain/pump example to illustrate 
-definitions.
-\end{verbatim}
 In this tutorial we introduce the GRACe DSL and demonstrate how to define
 GRACe components and write programs using those components.
 
@@ -157,9 +140,133 @@ after all constraints have been solved.
 As an example we consider a simple optimization problem.
 
 We have a set amount of farmland and three available crops, and would like to
-know much of each crop to grow on the land to maximize our vegetable oil production.
+know much of each crop to grow on the land to maximize our vegetable oil
+production.
 
+Each crop has parameters that state the yield of the crop, in tons, from one hectare of
+growing land, the amount of water required per hectare to grow the crop, and how
+much oil can be produced from one ton of the crop.
+
+We define a component for each crop, using these parameters, with ports
+expressing the number of hectares, the oil yield, and the water consumption.
+
+\begin{minted}[linenos]{haskell}
+-- | GCM component for a single crop.
+--
+-- The component is parametrized on the crop's parameters and computes the
+-- oil yield (in l) and water consumption (in Ml), given that we grow
+-- so-and-so many ha of this crop.
+crop :: CropParams -> GCM (Port Area, Port Water, Port Oil)
+crop (y,w,o) = do
+  -- Area (in ha) used to grow crop.
+  areaPort  <- createPort
+
+  -- Amount of water used by crop.
+  waterPort <- createPort
+  -- Amount of oil produced from crop.
+  oilPort   <- createPort
+
+  -- Constrain the values at the ports.
+  component $ do
+    areaValue  <- value areaPort
+    oilValue   <- value oilPort
+    waterValue <- value waterPort
+
+    -- Calculate values from data.
+    assert $ oilValue   === lit y * lit o * areaValue
+    assert $ waterValue === lit w * areaValue
+
+  return (areaPort, waterPort, oilPort)
+\end{minted}
+
+We also define components for the available farmland and water supply, and the
+oil production, which all have ports to link to each crop. We parametrize them
+on the number of different crops for the sake of generality.
+
+\begin{minted}[linenos]{haskell}
+-- | GCM component for farmland.
+--
+-- The component is parametrized on the available amount of land (in ha)
+-- and the number of different crops available to grow, and has ports
+-- describing how the land is divided between the crops.
+farm :: Area -> Int -> GCM [Port Area]
+farm land numCrops = do
+  -- Create a port for each crop.
+  areaPorts <- mapM (\_ -> createPort) (take numCrops (repeat 0))
+  component $ do
+    areaVals <- sequence [value ap | ap <- areaPorts]
+    --  The total area of crops is non-negative and is bounded by the available
+    --  farmland. Each crop area is also non-negative.
+    assert $ sum areaVals `inRange` (0, lit land)
+    mapM_ (\x -> assert $ 0 .<= x) areaVals
+  return areaPorts
+
+-- | GCM component for water usage.
+--
+-- The component is parametrized on the available amount of water (in Ml)
+-- and the number of different crops available to grow, and has ports
+-- describing how the water is divided between the crops.
+reservoir :: Water -> Int -> GCM [Port Water]
+reservoir waterSource numCrops = do
+  -- Create a port for each crop.
+  waterPorts <- mapM (\_ -> createPort) (take numCrops (repeat 0))
+  component $ do
+    waterVals <- sequence [value wp | wp <- waterPorts]
+    -- The total amount of water used is non-negative and is bounded by the
+    -- available water reservoir. The amount for each crop is also non-negative.
+    assert $ sum waterVals `inRange` (0, lit waterSource)
+    mapM_ (\x -> assert $ 0 .<= x) waterVals
+  return waterPorts
+
+-- | GCM component for oil production.
+--
+-- The component is parametrized on the number of different crops available
+-- to grow, and has a list of ports describing how much oil is produced by
+-- each crop as well as a port containing the total amount of oil produced.
+oilProduction :: Int -> GCM ([Port Oil], Port Oil)
+oilProduction numCrops = do
+  -- Create a port for each crop.
+  oilCrops <- mapM (\_ -> createPort) (take numCrops (repeat 0))
+  oilOut <- createPort
+  component $ do
+    oilProduced <- value oilOut
+    oilSources <- mapM value oilCrops
+    -- The total amount of oil is the sum of the amounts from each crop.
+    assert $ oilProduced === sum oilSources
+  return (oilCrops, oilOut)
+\end{minted}
+
+Our goal is to maximize the amount of oil produced, and we define the helper
+function \texttt{maximize} to help us express this:
+\begin{minted}{haskell}
+maximize :: Port Int -> GCM ()
+maximize p = do
+  g <- createGoal
+  link p g
+\end{minted}
+
+The command \texttt{createGoal} instantiates a GCM goal, which the constraint
+solver will attempt to maximize. Using this helper function we can simply write
+\begin{minted}{haskell}
+maximize p
+\end{minted}
+to state that we would like to maximize the value at port \texttt{p}.
+
+Conversely, if our goal is to minimize a certain value we can define a similar
+helper function \texttt{minimize}
+\begin{minted}{haskell}
+minimize :: Port Int -> GCM ()
+	minimize p = do
+	  g <- createGoal
+	  linkBy (fun negate) p g
+\end{minted}
+
+While the \texttt{link} command asserts that two values must be equal, the
+\texttt{linkby} command takes a function as a parameter to express a more
+complex constraint on the values.
+
+The full code for the vegetable oil example can be seen in Appendix~\ref{oilcode}
 \appendix
-\section{Vegetable Oil Production - Full code}
+\section{Vegetable Oil Production - Full code}\label{oilcode}
 \inputminted[linenos]{haskell}{examples/OilCrops.hs}
 \end{document}
