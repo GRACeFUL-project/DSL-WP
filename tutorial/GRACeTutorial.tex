@@ -1,0 +1,137 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\fontencoding{T1}
+\usepackage{amsmath,amssymb,graphicx,color,enumerate,hyperref}
+\usepackage{minted}
+\usepackage{todonotes}
+\title{GRACe tutorial}
+\author{Sólrún Halla Einarsdóttir}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{verbatim}
+TODO:
+In this tutorial we will demonstrate the following with examples:
+* How to write new GRACe library components
+* How to write GRACe programs using those components
+* How to define a library to send to the visual editor?
+  (Maybe later, the connection to and status of the viseditor is very unclear atm )
+
+We need to explain the following (at least briefly how they are used):
+Ports
+--Params (maybe not - are they used only for actions)?
+-- omit actions for now
+The GCM and CP monads (avoid the word monad?)
+How to define constraints - assert, set
+goals
+The component primitive
+How to run programs?
+
+Oil production linear programming example.
+
+Another simpler example also? Classic rain/pump example to illustrate 
+definitions.
+\end{verbatim}
+In this tutorial we introduce the GRACe DSL and demonstrate how to define
+GRACe components and write programs using those components.
+
+GRACe is divided into two modules, GCM and CP. The GCM module allows the user
+to define GRACeFUL Concept Map components and describe how they are connected.
+The CP module contains primitives for constructing constraint programs which
+describe the behavior of an individual component.
+
+\section{GCM components and ports}
+We model a \texttt{GCM} component by defining the ports it exposes.
+
+A \texttt{Port} contains a value that can be constrained.
+Two ports can be linked together to describe the connection between their
+respective components.
+Information contained in a component that we want to access in other parts
+of our program can be exposed through the component's ports.
+
+For instance, consider the following definition of a component which models
+a fixed amount of rain falling from the sky.
+It is parametrized on the amount of rain and has a port to expose that value
+to another component.
+\begin{minted}[linenos]{haskell}
+rain :: Float -> GCM (Port Float)
+rain amount = do
+  p <- createPort
+  set p amount
+  return p
+\end{minted}
+Since the GRACe language is monadic we can use \textbf{do} notation and define our
+component in a sequential manner.
+The \texttt{createPort} command creates a new port, and the \texttt{set} command
+constrains the value of the port \texttt{p} to be equal to \texttt{amount}.
+
+\section{CP}
+The \texttt{CP} module of GRACe supports reasoning about integer and floating-point arithmetic,
+boolean expressions, and arrays.
+
+Computations in \texttt{CP} can be embedded in \texttt{GCM} using the
+\texttt{component} primitive. In this way we can embed constraints on a
+component's ports in the definition of the component.
+
+Consider a \texttt{GCM} component representing a pump
+parametrised over the maximum flow through the pump:
+%
+\begin{minted}[linenos]{haskell}
+pump :: Float -> GCM (Port Float, Port Float)
+pump maxCap = do
+  inPort  <- createPort
+  outPort <- createPort
+  component $ do             -- This is in CP
+    inflow  <- value inPort
+    outflow <- value outPort
+    assert $  inflow === outflow
+    assert $  inflow `inRange` (0, lit maxCap)
+  return (inPort, outPort)
+\end{minted}
+We define ports for the inflow and outflow, assert that their values must
+be equal, and that their values cannot exceed the pump's maximum capacity.
+%
+The \texttt{value} construction reads the value from a port,
+and the \texttt{assert} construction allows us to express constraints.
+%
+Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which
+is a value in the host language Haskell, into the embedded language
+GRACe.
+
+Finally we show a more complicated component, a water runoff area with
+an \texttt{inflow}, an \texttt{outlet} to which we may connect e.g. a pump,
+and an \texttt{overflow}.
+
+Here we can see various different kinds of constraints
+that are supported by the \texttt{CP} module.
+\begin{minted}[linenos]{haskell}
+runoffArea :: Float -> GCM (Port Float, Port Float, Port Float)
+runoffArea cap = do
+  inflow   <- createPort
+  outlet   <- createPort
+  overflow <- createPort
+  component $ do
+    currentStored <- createVariable
+    inf <- value inflow
+    out <- value outlet
+    ovf <- value overflow
+    sto <- value currentStored
+    assert $ sto === inf - out - ovf
+    assert $ sto `inRange` (0, lit cap)
+    assert $ (ovf .> 0) ==> (sto === lit cap)
+    assert $ ovf .>= 0
+  return (inflow, outlet, overflow)
+\end{minted}
+
+\section{GCM programs}
+Show a program defined using the components from above, talk about goals
+
+\section{Example: Vegetable Oil Production}
+As an example we consider a simple optimization problem. 
+
+\appendix
+\section{Vegetable Oil Production - Full code}
+\inputminted[linenos]{haskell}{examples/OilCrops.hs}
+\end{document}
