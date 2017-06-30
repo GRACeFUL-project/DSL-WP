@@ -64,6 +64,7 @@ rain amount = do
 \end{minted}
 Since the GRACe language is monadic we can use \textbf{do} notation and define our
 component in a sequential manner.
+
 The \texttt{createPort} command creates a new port, and the \texttt{set} command
 constrains the value of the port \texttt{p} to be equal to \texttt{amount}.
 
@@ -92,10 +93,10 @@ pump maxCap = do
 \end{minted}
 We define ports for the inflow and outflow, assert that their values must
 be equal, and that their values cannot exceed the pump's maximum capacity.
-%
-The \texttt{value} construction reads the value from a port,
-and the \texttt{assert} construction allows us to express constraints.
-%
+
+The \texttt{value} command reads the value from a port,
+and the \texttt{assert} command allows us to express constraints.
+
 Note that we need to use \texttt{lit} to lift \texttt{maxCap}, which
 is a value in the host language Haskell, into the embedded language
 GRACe.
@@ -125,11 +126,38 @@ runoffArea cap = do
   return (inflow, outlet, overflow)
 \end{minted}
 
-\section{GCM programs}
-Show a program defined using the components from above, talk about goals
+\section{GRACe programs}
+In a GRACe program we define instances of available components and
+define their connections by linking their ports.
+
+As an example, here is a small GRACe program using the components defined
+earlier. We can think of it as modeling a rain runoff area, like a
+town square, which has been provided with a pump to alleviate possible
+flooding issues.
+%
+\begin{minted}[linenos]{haskell}
+example :: GCM ()
+example = do
+  (inflowP, outflowP) <- pump 3
+  (inflowS, outletS, overflowS) <- runoffArea 5
+  rainflow <- rain 10
+
+  link inflowP outletS
+  link inflowS rainflow
+
+  output overflowS "Overflow"
+\end{minted}
+The \texttt{link} command links two ports together and asserts that their values
+must be equal.
+
+The \texttt{output} command lets us inspect the resulting value at a \texttt{Port}
+after all constraints have been solved.
 
 \section{Example: Vegetable Oil Production}
-As an example we consider a simple optimization problem. 
+As an example we consider a simple optimization problem.
+
+We have a set amount of farmland and three available crops, and would like to
+know much of each crop to grow on the land to maximize our vegetable oil production.
 
 \appendix
 \section{Vegetable Oil Production - Full code}
