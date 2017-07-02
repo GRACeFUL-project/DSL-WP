@@ -131,48 +131,52 @@ after all constraints have been solved.
 
 
 \section{Component library}
-We can build a component library from the components we have defined.
-This library can be sent to the visual editor front-end where the user can then
-build a GCM by connecting the ports of component instances and giving values to
-their parameters. The library contains the components along with annotations of
-information to display in the visual editor and type annotations to preserve
-information about the components' types.
 
-Here you can see the library |exampleLib| which contains the three components
-defined above, defined using the |Library| type.
+Although it is possible to define a GRACeFUL Concept Map directly using the
+GRACe DSL, most users will use the visual editor that is developed in work
+package 2. Using this visual editor users can draw concept maps using a palette
+of predefined components from a particular library. These components are as well
+defined using the GRACe DSL. To create a library of components, we need to
+\emph{annotate} them with some information, which is used by the visual editor
+to present the components in a proper way. For example, the |rain|, |pump|, and
+|runoffArea| defined above, can be annotated as follows:
 \begin{haskellcode}
 exampleLib :: Library
 exampleLib = Library "crud"
     [ item "rain" "Rain" "path_to_images/rain.png" $
-        rain ::: "amount" #
-          tFloat .-> tGCM          (tPort $ "rainfall" # tFloat)
+        rain ::: "amount" # tFloat .-> 
+                   tGCM (tPort $ "rainfall" # tFloat)
     , item "pump" "Pump" "path_to_images/pump.png" $
-        pump ::: "capacity" #
-          tFloat .-> tGCM (tPair   (tPort $ "inflow"   # tFloat)
-                                   (tPort $ "outflow"  # tFloat))
+        pump ::: "capacity" # tFloat .-> 
+                   tGCM (tPair (tPort $ "inflow"   # tFloat)
+                               (tPort $ "outflow"  # tFloat))
     , item "runoff area" "Runoff" "path_to_images/runOffArea.png" $
-        runoffArea ::: "storage capacity" #
-          tFloat .-> tGCM (tTuple3 (tPort $ "inflow"   # tFloat)
-                                   (tPort $ "outlet"   # tFloat)
-                                   (tPort $ "overflow" # tFloat))
-    ]
+        runoffArea ::: "storage capacity" # tFloat .-> 
+                         tGCM (tTuple3 (tPort $ "inflow"   # tFloat)
+                                       (tPort $ "outlet"   # tFloat)
+                                       (tPort $ "overflow" # tFloat))
+    ] 
 \end{haskellcode}
-A |Library| has a string representing its ID, in this case |"crud"|, followed by
-a list of items. An |Item| contains a component with a type annotation,
-along with strings representing its ID, a comment to display when hovering over
-an instance of the corresponding component in the visual editor, and the path to
-an image that can be used to visually represent the component.
+The example above creates a library called |exampleLib|. A library consists of
+an identifier, in this case |"crud"|, and a list of component items. Each |Item|
+has an unique identifier, some meta data describing the component, and the
+actual component paired with a type annotation. The meta data is used by the
+visual edtor for textual and visual descriptions, such as hover text.
 
-A type annotation for a component looks like the component's type signature
-but with slightly different syntax, namely |:::| instead of |::|, |.->| instead
-of |->|, and a |t| in front of the original type names (i.e. |tPort| to
-represent |Port|). Note also that tuples need special handling: 2-tuples are
-annotated by |tPair| and 3-tuples by |tTuple3|. Type annotations can also have
-tags, where a string ID is tagged to a type annotation with a |#| symbol. For
-instance, in line 7 above, the string ID |"capacity"| is tagged to the following
-|tFloat| annotation, implying that the |Float| in question has the ID
-|capacity|. These type annotations are used to keep track of type information
-when the library components are sent back and forth via JSON.
+A type annotation of a component resembels a component's type signature, but has
+a slightly different syntax, namely |:::| instead of |::|, |.->| instead of
+|->|, and a |t| in front of the original type names (i.e. |tPort| to represent
+|Port|). Note that tuples need special handling: 2-tuples are annotated by
+|tPair| and 3-tuples by |tTuple3|. Type annotations can be tagged with a string,
+using the |#| charachter, to give that entity an identifier.  For example, on
+line 7 of above code snippet, the identifier |"capacity"| is tagged to the
+|tFloat| type annotation, meaning that the first parameter of the pump component
+is identified by |capacity|. 
+
+The annotations in a library definition are used to automate the communication
+with the visual editor. These annotations contain all the necessary information
+that our web service needs to offer a library to the visual editor. 
+
 
 \section{Example: Vegetable Oil Production}
 
