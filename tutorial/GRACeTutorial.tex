@@ -28,7 +28,7 @@ components and write programs using those components. The GRACe DSL is divided
 into two Haskell modules: |GCM| and |CP|. The |GCM| module allows the user to
 define GRACeFUL Concept Map components and connect them to each other. The |CP|
 module contains primitives for constructing constraint programs, which describe
-the behavior of an individual component.
+the behaviour of an individual component.
 
 
 \section{GCM components and ports}
@@ -39,7 +39,7 @@ the connection between their respective components. Information contained in a
 component that we want to access in other parts of our model can be exposed
 through the component's ports. For instance, consider the following definition
 of a component that models a fixed amount of rain falling from the sky.  It is
-parametrized on the amount of rain and has a port to expose that value to other
+parametrised on the amount of rain and has a port to expose that value to other
 components.
 \begin{haskellcode}
 rain :: Float -> GCM (Port Float)
@@ -48,17 +48,18 @@ rain amount = do
   set p amount
   return p
 \end{haskellcode}
-The GRACe language is monadic we can therefor use the
-|do|\footnote{\url{https://en.wikibooks.org/wiki/Haskell/do_notation}} notation
-and define our component in a sequential manner. The |createPort| command
-creates a new port, and the |set| command constrains the value of the port
-|p| to be equal to |amount|.
+The GRACe language is monadic which here means that we can use the
+|do|\footnote{\url{https://en.wikibooks.org/wiki/Haskell/do_notation}}
+notation to define our component in a manner which resembles a
+sequential program. The |createPort| command creates a new port, and
+the |set| command constrains the value of the port |p| to be equal to
+|amount|.
 
 
 \section{CP}
 
 The |CP| module of GRACe supports reasoning about integer and floating-point
-arithmetic, boolean expressions, and arrays. Computations in |CP| can be
+arithmetic, Boolean expressions, and arrays. Computations in |CP| can be
 embedded in |GCM| using the |component| primitive. In this way we can embed
 constraints on a component's ports in the definition of the component.
 
@@ -72,10 +73,11 @@ pump maxCap = do
   component $ do             -- This is in CP
     inflow  <- value inPort
     outflow <- value outPort
-    assert $ inflow === outflow
-    assert $ inflow `inRange` (0, lit maxCap)
+    assert $ inflow === outflow                -- no leakage
+    assert $ inflow `inRange` (0, lit maxCap)  -- no back-flow, limited capacity
   return (inPort, outPort)
 \end{haskellcode}
+
 We define ports for the inflow and outflow of the pump, assert that their values
 must be equal, and that their values cannot exceed the pump's maximum capacity.
 The |value| command reads the value from a port, and the |assert| command allows
@@ -84,8 +86,7 @@ which is a value in the host language Haskell, into the embedded language GRACe.
 
 Finally we show a more complicated component, a water runoff area with an
 inflow, an outlet to which we may connect e.g. a pump, and an overflow. Here we
-can see various different kinds of constraints that are supported by the |CP|
-module.
+can see some different constraints that are supported by the |CP| module.
 \begin{haskellcode}
 runoffArea :: Float -> GCM (Port Float, Port Float, Port Float)
 runoffArea cap = do
@@ -104,7 +105,6 @@ runoffArea cap = do
     assert $ ovf .>= 0
   return (inflow, outlet, overflow)
 \end{haskellcode}
-
 
 \section{GRACe programs}
 
@@ -157,20 +157,20 @@ exampleLib = Library "crud"
                                    (tPort $ "overflow" # tFloat))
     ]
 \end{haskellcode}
-A |Library| has a string representing its id, in this case |"crud"|, followed by
+A |Library| has a string representing its ID, in this case |"crud"|, followed by
 a list of items. An |Item| contains a component with a type annotation,
-along with strings representing its id, a comment to display when hovering over
+along with strings representing its ID, a comment to display when hovering over
 an instance of the corresponding component in the visual editor, and the path to
-an image that can be used to visually represent the component. 
+an image that can be used to visually represent the component.
 
 A type annotation for a component looks like the component's type signature
 but with slightly different syntax, namely |:::| instead of |::|, |.->| instead
 of |->|, and a |t| in front of the original type names (i.e. |tPort| to
-represent |Port|). Note also that tuples need special handling, 2-tuples are
+represent |Port|). Note also that tuples need special handling: 2-tuples are
 annotated by |tPair| and 3-tuples by |tTuple3|. Type annotations can also have
-tags, where a string id is tagged to a type annotation with a |#| symbol. For
-instance, in line 7 above, the string id |"capacity"| is tagged to the following
-|tFloat| annotation, implying that the |Float| in question has the id
+tags, where a string ID is tagged to a type annotation with a |#| symbol. For
+instance, in line 7 above, the string ID |"capacity"| is tagged to the following
+|tFloat| annotation, implying that the |Float| in question has the ID
 |capacity|. These type annotations are used to keep track of type information
 when the library components are sent back and forth via JSON.
 
@@ -186,6 +186,11 @@ oil production. Each crop has parameters that state the yield of the crop, in
 tonnes, from one hectare of growing land, the amount of water required per
 hectare to grow the crop, and how much oil can be produced from one tonne of the
 crop.
+%
+This example has been chosen because it is easy to imagine different
+stakeholders having different interests: one may strive to maximise
+production, another may aim to minimize water use, etc.
+
 
 To model this problem in GRACe we define a component for each crop, using these
 parameters, with ports expressing the number of hectares, the oil yield, and the
@@ -193,7 +198,7 @@ water consumption.
 \begin{haskellcode}
 -- | GCM component for a single crop.
 --
--- The component is parametrized on the crop's parameters and computes the
+-- The component is parametrised on the crop's parameters and computes the
 -- oil yield (in l) and water consumption (in Ml), given that we grow
 -- so-and-so many ha of this crop.
 crop :: CropParams -> GCM (Port Area, Port Water, Port Oil)
@@ -219,12 +224,12 @@ crop (y,w,o) = do
   return (areaPort, waterPort, oilPort)
 \end{haskellcode}
 We also define components for the available farmland and water supply, and the
-oil production, which all have ports to link to each crop. We parametrize them
+oil production, which all have ports to link to each crop. We parametrised them
 on the number of different crops for the sake of generality.
 \begin{haskellcode}
 -- | GCM component for farmland.
 --
--- The component is parametrized on the available amount of land (in ha)
+-- The component is parametrised on the available amount of land (in ha)
 -- and the number of different crops available to grow, and has ports
 -- describing how the land is divided between the crops.
 farm :: Area -> Int -> GCM [Port Area]
@@ -241,7 +246,7 @@ farm land numCrops = do
 
 -- | GCM component for water usage.
 --
--- The component is parametrized on the available amount of water (in Ml)
+-- The component is parametrised on the available amount of water (in Ml)
 -- and the number of different crops available to grow, and has ports
 -- describing how the water is divided between the crops.
 reservoir :: Water -> Int -> GCM [Port Water]
@@ -258,7 +263,7 @@ reservoir waterSource numCrops = do
 
 -- | GCM component for oil production.
 --
--- The component is parametrized on the number of different crops available
+-- The component is parametrised on the number of different crops available
 -- to grow, and has a list of ports describing how much oil is produced by
 -- each crop as well as a port containing the total amount of oil produced.
 oilProduction :: Int -> GCM ([Port Oil], Port Oil)
