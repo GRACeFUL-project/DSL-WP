@@ -47,7 +47,7 @@ scalability, verifiability and correctness of the models.
 
 ![Demo screenshot: Javascript, GRACe, Haskell, MiniZinc, ...](../img/visualeditor.png)
 
-## Recent: Software technology used
+## Recent: Software technology used in demo
 
 * Frontend in Javascript: VisualEditor [WP3]
     * Javascript is an untyped functional language
@@ -66,115 +66,53 @@ scalability, verifiability and correctness of the models.
 
 ## Recent: Deliverable 4.2 ~= a DSL called "GRACe"
 
-* GRACe is a Domain Specific Language, embedded in Haskell
-* Can express library components (like `rain`, `pump`, `runoffArea`) ...
-* ... and their connections (via ports).
-* Frontend: VisualEditor (GUI layer, WP3)
-* Backend: MiniZinc language + CFP solver (WP5)
-
-GRACe code for a trivial "rainfall" component.
-
-```haskell
-rain :: Float -> GCM (Port Float)
-rain amount = do
-  port <- createPort
-  set port amount
-  return port
-```
-
-## GRACe: Runoff example structure
-
-![Runoff example structure](../deliverables/d4.2/fig/RunoffExample.png)
-
-## Deliverable 4.2: glue code for the runoff example
-
-```haskell
-example :: GCM ()
-example = do
-  (inflowP, outflowP) <- pump 5
-  (inflowR, outletR, overflowR) <- runoffArea 5
-  rainflow <- rain 10
-
-  link inflowP outletR
-  link inflowR rainflow
-
-  output overflowR "Overflow"
-```
-
-which results in the following output when running the solver:
-
-```
-ghci> runGCM example
-{"Overflow" : 0.0}
-```
-
-## GRACe code: `pump`
-
-We model a pump as a `GCM` component parametrised over the maximum
-flow through the pump:
-
-```haskell
-pump :: Float -> GCM (Port Float, Port Float)
-pump maxCap = do
-  inPort  <- createPort
-  outPort <- createPort
-  component $ do             -- This is in CP
-    inflow  <- value inPort
-    outflow <- value outPort
-    assert $  inflow === outflow
-    assert $  inflow `inRange` (0, lit maxCap)
-  return (inPort, outPort)
-```
-
-Note that we need to use `lit` to lift `maxCap`, which is a value in
-the host language Haskell, into the embedded language GRACe.
-
-## GRACe code: `runoffArea`
-
-A slightly more complicated component, a water runoff area with an
-`inflow`, an `outlet` to which we may connect e.g. a pump, and an
-`overflow`.
-
-```haskell
-runoffArea :: Float -> GCM (Port Float, Port Float, Port Float)
-runoffArea cap = do
-  inflow   <- createPort
-  outlet   <- createPort
-  overflow <- createPort
-  component $ do
-    currentStored <- createVariable
-    inf <- value inflow
-    out <- value outlet
-    ovf <- value overflow
-    sto <- value currentStored
-    assert $ sto === inf - out - ovf
-    assert $ sto `inRange` (0, lit cap)
-    assert $ (ovf .> 0) ==> (sto === lit cap)
-    assert $ ovf .>= 0
-  return (inflow, outlet, overflow)
-```
-
-## GRACe summary
+GRACe summary
 
 * GRACe is a Domain Specific Language, embedded in Haskell
 * Can express library components (like `rain`, `pump`, `runoffArea`) ...
 * ... and their connections (via ports).
 * Frontend: VisualEditor (GUI layer, WP3)
 * Backend: MiniZinc language + CFP solver (WP5)
+
+## Recent: GRACe tutorial
+We have created a tutorial on how to use the GRACe DSL, where we explain the following:
+ 
+* What are GRACe components, how are they defined
+* How to write GRACe programs written using predefined components
+* How to define component libraries to send to the VisualEditor frontend
+
+We will continue to improve the documentation for GRACe to make it more usable.
+
+## Ongoing: Deliverable 4.3 ~= Translation between GRACe and the CFP layer
+* Translation of GCM models written in GRACe to constraint programs
+
+ Status:
+ 
+* Writing work is ongoing, soon-to-be complete
+* Draft version will be sent out to GRACeFul partners for comments soon (within the next week)
+* On track to be handed in before end-of-July deadline
+
+## Contents of Deliverable 4.3
+* Translation of GRACe programs to constraint programs in the MiniZinc language via WP5's haskelzinc DSL
+* How GRACe components and their connections are expressed in terms of constraint programming
+* The layers of the GRACeFUL software stack and how they are connected
+
 
 ## Ongoing and next actions (in the next few months)
 
-* Finalise D4.3 (GRACe -> CFP)
+* Finalize D4.3 (GRACe -> CFP)
 * Dissemination: Participate in the International Conference on Functional Programming (Oxford, 2017-09)
 * Dissemination: Write papers on DSLs etc.
 * Iteratively refine the GRACe DSL
 * Develop a test suite: examples + QuickCheck-based automated testing
-* Assist WP3 in implementing the graphical user interface, and
+
+## Ongoing and next actions (in the next few months)
+* Assist WP3 in implementing the graphical user interface and connecting it to GRACe.
 * Assist WP2 in building up a library of GRACeFUL Concept Map components expressed in GRACe.
 
 Also ongoing (and overlapping):
 
-* Develop the connection to the Centre of excellence in Global Systems Science
+*  Develop the connection to the Centre of excellence in Global Systems Science
     * Open conference 2017-10-24/25 in Lucca
 * Course development of DSLsofMath (Domain Specific Languages of Math's)
     * DSLs, Syntax, Semantics, Proofs, Dissemination, ...
