@@ -131,25 +131,48 @@ after all constraints have been solved.
 
 
 \section{Component library}
+We can build a component library from the components we have defined.
+This library can be sent to the visual editor front-end where the user can then
+build a GCM by connecting the ports of component instances and giving values to
+their parameters. The library contains the components along with annotations of
+information to display in the visual editor and type annotations to preserve
+information about the components' types.
 
+Here you can see the library |exampleLib| which contains the three components
+defined above, defined using the |Library| type.
 \begin{haskellcode}
-library :: Library
-library = Library "crud"
-    [ item "rain" $
+exampleLib :: Library
+exampleLib = Library "crud"
+    [ item "rain" "Rain" "path_to_images/rain.png" $
         rain ::: "amount" #
           tFloat .-> tGCM          (tPort $ "rainfall" # tFloat)
-    , item "pump" $
+    , item "pump" "Pump" "path_to_images/pump.png" $
         pump ::: "capacity" #
           tFloat .-> tGCM (tPair   (tPort $ "inflow"   # tFloat)
                                    (tPort $ "outflow"  # tFloat))
-    , item "runoff area" $
+    , item "runoff area" "Runoff" "path_to_images/runOffArea.png" $
         runoffArea ::: "storage capacity" #
           tFloat .-> tGCM (tTuple3 (tPort $ "inflow"   # tFloat)
                                    (tPort $ "outlet"   # tFloat)
                                    (tPort $ "overflow" # tFloat))
     ]
 \end{haskellcode}
+A |Library| has a string representing its id, in this case |"crud"|, followed by
+a list of items. An |Item| contains a component with a type annotation,
+along with strings representing its id, a comment to display when hovering over
+an instance of the corresponding component in the visual editor, and the path to
+an image that can be used to visually represent the component. 
 
+A type annotation for a component looks like the component's type signature
+but with slightly different syntax, namely |:::| instead of |::|, |.->| instead
+of |->|, and a |t| in front of the original type names (i.e. |tPort| to
+represent |Port|). Note also that tuples need special handling, 2-tuples are
+annotated by |tPair| and 3-tuples by |tTuple3|. Type annotations can also have
+tags, where a string id is tagged to a type annotation with a |#| symbol. For
+instance, in line 7 above, the string id |"capacity"| is tagged to the following
+|tFloat| annotation, implying that the |Float| in question has the id
+|capacity|. These type annotations are used to keep track of type information
+when the library components are sent back and forth via JSON.
 
 \section{Example: Vegetable Oil Production}
 
