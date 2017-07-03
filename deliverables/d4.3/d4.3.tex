@@ -153,7 +153,8 @@ representation\footnote{We use \ac{JSON} as an exchange format} of the \ac{GCM}
 to our \ac{DSL} layer, described in deliverable D4.2~\cite{D4.2}, which in turn
 passes on the \ac{GCM} to the \ac{CP} layer. The \ac{DSL} can be regarded as an
 intermediate layer between the visual editor and the \ac{CP} layer, which
-increases modularity and reduces the depency on a particular constraint solver. 
+increases modularity, simplifies the translation, and reduces the depency on a
+particular constraint solver. 
 
 The main challenge for work package 4 is to create a \ac{DSL} that is expressive
 enough to model \acp{GCM} as envisaged by the stakeholders, while still being
@@ -179,48 +180,86 @@ to a constraint program. This translation is done in several stages. First we
 translate a GRACe program to HaskellZinc~\cite{}, which is developed in work
 package 5. In the next stage the program is compiled from the HaskellZinc
 interemediate representation to a particular constraint programming language,
-which in our case is MiniZinc~\cite{MiniZinc}.
+which in our case is MiniZinc~\cite{MiniZinc}. The results from the constraint
+solver are parsed by our \ac{DSL} and returned to the user. 
 
 We start with a small example to explain the syntax and elements of a GRACe
 program. A central element of a GRACe program is a \emph{component}, in fact a
 GRACe program is a collection of components that can be connected to each other.
-The following example defines a component, which represents a pump with a 
-given capacity:
+The general structure of a GRACe component starts with the declaration of its
+ports and parameters, followed by constraints on those, and ends with exposing
+the ports and parameters to other components. The following example defines a
+component, which represents a pump with a given capacity:
 \begin{haskellcode}
-pump :: Int -> Component (Port Int, Param Int)
+pump :: Int -> GCM (Port Int, Port Int, Param Int)
 pump cap = do
-  flow     <- createPort
-  capacity <- createParam cap
-  embed constraints
-  return (flow, capacity)
- where
-  constraints :: CP ()
-  constraints = do
-    f <- value flow
-    c <- value capacity
-    assert $ f `inRange` (0, c)
-    assert $ capacity .< 1000 
+  inPort   <- createPort
+  outPort  <- createPort
+  capParam <- createParam capacity
+
+  constrain $ do
+    inflow   <- value inPort
+    outflow  <- value outPort
+    capacity <- value cap
+  
+    assert $ inflow `inRange` (0, capacity)
+    assert $ inflow === outflow
+  
+  return (inPort, outPort, capParam) 
 \end{haskellcode}
 The pump component is implemented as a Haskell function that takes an integer
-paramter (|cap|) and returns a GRACe component with a one port and one
-parameter. This can be deducted from the type signature on first line in the
-above code snippet. The port and parameter can be connected to other
-components. A port is created with a call to the |createPort| function, and is
-of a particular type, such as the integer port |flow| that we have defined
-above. A GRACe parameter is created with the |createParam| function and can be
-regarded as a port with an initial value. It is important to distinguish between
-normal (Haskell) parameters, such as |cap|, and parameters defined in the GRACe
-DSL, such as |capacity|. Parameters defined in the GRACe DSL can be connected to
-other components, which may influence its value. 
+paramter (|cap|) and returns a GRACe component with two ports, representing the
+inflow and outflow of the pump, and a parameter for limiting the pump's
+capacity. The type signature on first line in the above code snippet reflects
+this. The ports and parameter can be connected to other components, such that
+they can interact with other components in a model. A port is created with a
+call to the |createPort| function, and is of a particular type, such as the
+integer port |flow| defined above. A GRACe parameter is created with the
+|createParam| function and can be regarded as a port with an initial value. It
+is important to distinguish between normal (Haskell) parameters, such as |cap|,
+and parameters defined in the GRACe DSL, such as |capacity|. Parameters defined
+in the GRACe DSL can be connected to other components, which may influence its
+value. 
 
 The ports and parameters are the interface of a component and we use them to
 interact with other components. An important feature of our DSL is that we can
 put \emph{constraints} on those ports and parameters. We use these constraints
 to model the system dynamics of a GRACeFUL Concept Map. The pump component, for
 example, constrains the flow through the pump to be positive and smaller than
-its maximum capacity. Using the |constrain| function we can embed a number of
-constraints in the component. In fact, the |constrain| function takes a 
-representation of a constraint program as argument. A constraint program is The |assert| func. 
+its maximum capacity, and ensures that the inflow is equal to the outflow. Using
+the |constrain| function we can embed constraints in the component. In fact, the
+|constrain| function takes a representation of a constraint program as argument.
+A constraint program can query the value of ports and parameters using the
+|value| function. These values can then be used to express constraints using the
+|assert| function. The |assert| function support many different constraint
+expressions.
+
+
+
+When we run the GRACe translator we get the following MiniZinc code:
+%
+\begin{verbatim}
+  var -10000000..10000000: v1;
+  var -10000000..10000000: v0;
+
+  constraint ((v0) == ((v1) + (1)));
+
+  solve satisfy;
+  output ["{\"a\" : \(v0),\n\"b\" : \(v1)}"];
+\end{verbatim}
+%
+From the output statement on the last line we can see that \texttt{a} has
+been mapped to \texttt{v0} and \texttt{b} to \texttt{v1}.
+%
+In the middle we see the constraint and in the beginning the
+variables' ranges are defined.
+%
+(TODO: The default range can be adjusted by ...)
+
+\todo{Max?: More complex example (connecting 2-3 components) showing parts of the output.}
+
+
+is The |assert| func. 
 
 The The first line of the above code
 snippet 
@@ -255,30 +294,6 @@ storage c = do
 
   return $ Storage inflow outlet overflow capacity
 \end{haskellcode}
-
-
-When we run the GRACe translator we get the following MiniZinc code:
-%
-\begin{verbatim}
-  var -10000000..10000000: v1;
-  var -10000000..10000000: v0;
-
-  constraint ((v0) == ((v1) + (1)));
-
-  solve satisfy;
-  output ["{\"a\" : \(v0),\n\"b\" : \(v1)}"];
-\end{verbatim}
-%
-From the output statement on the last line we can see that \texttt{a} has
-been mapped to \texttt{v0} and \texttt{b} to \texttt{v1}.
-%
-In the middle we see the constraint and in the beginning the
-variables' ranges are defined.
-%
-(TODO: The default range can be adjusted by ...)
-
-\todo{Max?: More complex example (connecting 2-3 components) showing parts of the output.}
-
 
 \section{Software architecture}
 \label{sec:architecture}
