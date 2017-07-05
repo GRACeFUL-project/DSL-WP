@@ -234,18 +234,55 @@ A constraint program can query the value of ports and parameters using the
 |assert| function. The |assert| function support many different constraint
 expressions.
 
+We can group components, such as the |pump| component, in a library. Using such
+a library we can create GRACe DSL programs, which we can analyse with a
+constraint solver. Before we continue and define an example GRACe program, let
+us first create a second component. The following simple component just exposes
+a port with a constant volume of rainfall:
+\begin{haskellcode}
+rainfall :: Int -> GCM (Port Int)
+rainfall volume = do
+  volumePort <- createPort
+  set volumePort volume
+  return volumePort
+\end{haskellcode}
+The |set| primitive is used to constrain the value of a port to a specific value,
+in this case to the |volume| parameter. 
 
+Using the |pump| and |rainfall| components we can create a, somewhat contrived,
+\ac{GCM} program:
+\begin{haskellcode}
+main :: IO ()
+main = putStr =<< runGCM prog
+  where
+    prog :: GCM ()
+    prog = do
+      (inflow, outflow, _) <- pump 100  -- create a pump
+      rain <- rainfall 10               -- let it rain
+      link rain inflow                  -- connect rain to pump
+      output outflow "pump outflow"
+\end{haskellcode}
+The above example creates a DSL program called |prog|, which instantiates two
+components: a pump with a capacity of 100 units, and 10 units of rainfall. The
+|link| DSL function on line 8 takes two arguments, which can a port or a
+parameter, and connects them to each other. The |output| primitive 
 
 When we run the GRACe translator we get the following MiniZinc code:
 %
 \begin{verbatim}
-  var -10000000..10000000: v1;
-  var -10000000..10000000: v0;
+var -10000000..10000000: v3;
+var -10000000..10000000: v2;
+var -10000000..10000000: v1;
+var -10000000..10000000: v0;
 
-  constraint ((v0) == ((v1) + (1)));
+constraint ((v2) == (100));
+constraint (((0) <= (v0)) /\ ((v0) <= (v2)));
+constraint ((v0) == (v1));
+constraint ((v3) == (10));
+constraint ((v3) == (v0));
 
-  solve satisfy;
-  output ["{\"a\" : \(v0),\n\"b\" : \(v1)}"];
+solve satisfy;
+output ["{\"pump outflow\" : \(v1)}"];
 \end{verbatim}
 %
 From the output statement on the last line we can see that \texttt{a} has
@@ -259,41 +296,11 @@ variables' ranges are defined.
 \todo{Max?: More complex example (connecting 2-3 components) showing parts of the output.}
 
 
-is The |assert| func. 
-
-The The first line of the above code
-snippet 
 of both GRACe and
 MiniZinc. The |example| component has two ports, |a| and |b|, whose values are
 constrained (on line 8) to stay one apart. The last two lines decide what we
 want to see as results from the constraint solver.
 
-\begin{haskellcode}
-data Storage = Storage
-  { inflow     :: Port Int
-  , outlet     :: Port Int
-  , overflow   :: Port Int
-  , storageCap :: Param Int
-  }
-
-storage :: Volume -> GCM Storage
-storage c = do
-  inflow   <- createPort
-  outlet   <- createPort
-  overflow <- createPort
-  capacity <- createParam c
-
-  component $ do
-    inf <- value inflow
-    pmp <- value outlet
-    ovf <- value overflow
-    c   <- value capacity
-    assert $ ovf === max' 0 (inf - pmp - c)
-    let sumFlow = ovf + pmp
-    assert $ inf `inRange` (sumFlow, sumFlow + c)
-
-  return $ Storage inflow outlet overflow capacity
-\end{haskellcode}
 
 \section{Software architecture}
 \label{sec:architecture}
