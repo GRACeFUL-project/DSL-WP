@@ -263,11 +263,14 @@ main = putStr =<< runGCM prog
       output outflow "pump outflow"
 \end{haskellcode}
 The above example creates a DSL program called |prog|, which instantiates two
-components: a pump with a capacity of 100 units, and 10 units of rainfall. The
-|link| DSL function on line 8 takes two arguments, which can a port or a
-parameter, and connects them to each other. The |output| primitive 
+components: a pump with a particular capacity, and some rainfall. The |link| DSL
+function on line 8 takes two arguments, which can be a port or a parameter, and
+connects them to each other. The |output| primitive can be used to add the value
+of a port (or parameter) to the return value of the constraint solver. The
+solver is run by calling the |runGCM| function and returns a string as result,
+which we print on the command line.
 
-When we run the GRACe translator we get the following MiniZinc code:
+The above example is translated to the following MiniZinc code:
 %
 \begin{verbatim}
 var -10000000..10000000: v3;
