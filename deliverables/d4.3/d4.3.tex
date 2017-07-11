@@ -42,6 +42,8 @@
 \newminted{haskell}{fontsize=\normalsize,xleftmargin=2mm,mathescape,linenos}
 \newcommand{\haskell}[1]{\mintinline{haskell}|#1|}
 \DefineShortVerb{\|}
+\AtBeginEnvironment{minted}{%
+  \renewcommand{\fcolorbox}[4][]{#4}}
 
 \definecolor{GRACeFULblue}{rgb}{0.20,0.60,0.86}
 
@@ -264,37 +266,47 @@ main = putStr =<< runGCM prog
 \end{haskellcode}
 The above example creates a DSL program called |prog|, which instantiates two
 components: a pump with a particular capacity, and some rainfall. The |link| DSL
-function on line 8 takes two arguments, which can be a port or a parameter, and
-connects them to each other. The |output| primitive can be used to add the value
-of a port (or parameter) to the return value of the constraint solver. The
+function on line 8 takes two arguments, which can be either a port or a parameter, and
+connects them to each other. We explain the semantics of this connection later in
+this section. The |output| primitive can be used to add the value
+of a port (or parameter) to the output returned by the constraint solver. The
 solver is run by calling the |runGCM| function and returns a string as result,
 which we print on the command line.
 
-The above example is translated to the following MiniZinc code:
+Before running the constraint solver, the DSL program is translated to a 
+corresponding MiniZinc program. The MiniZinc representation is saved in a 
+temporary file, which is given to the MiniZinc constraint solver. The example 
+above is translated to the following MiniZinc code:
 %
-\begin{verbatim}
-var -10000000..10000000: v3;
-var -10000000..10000000: v2;
-var -10000000..10000000: v1;
-var -10000000..10000000: v0;
+\begin{minted}{prolog}
+  var -10000000..10000000: v3;
+  var -10000000..10000000: v2;
+  var -10000000..10000000: v1;
+  var -10000000..10000000: v0;
 
-constraint ((v2) == (100));
-constraint (((0) <= (v0)) /\ ((v0) <= (v2)));
-constraint ((v0) == (v1));
-constraint ((v3) == (10));
-constraint ((v3) == (v0));
+  constraint ((v2) == (100));
+  constraint (((0) <= (v0)) /\ ((v0) <= (v2)));
+  constraint ((v0) == (v1));
+  constraint ((v3) == (10));
+  constraint ((v3) == (v0));
 
-solve satisfy;
-output ["{\"pump outflow\" : \(v1)}"];
-\end{verbatim}
+  solve satisfy;
+
+  output ["{\"pump outflow\" : \(v1)}"];
+\end{minted}
 %
+The generated MiniZinc constraint program consists roughly of four parts: some
+variable declarations, constraints on those variables, a strategy how to solve
+the constraints, and the desired output. 
+
+
 From the output statement on the last line we can see that \texttt{a} has
+
 been mapped to \texttt{v0} and \texttt{b} to \texttt{v1}.
 %
 In the middle we see the constraint and in the beginning the
 variables' ranges are defined.
 %
-(TODO: The default range can be adjusted by ...)
 
 \todo{Max?: More complex example (connecting 2-3 components) showing parts of the output.}
 
