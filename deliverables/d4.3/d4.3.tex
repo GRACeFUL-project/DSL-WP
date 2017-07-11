@@ -278,7 +278,7 @@ corresponding MiniZinc program. The MiniZinc representation is saved in a
 temporary file, which is given to the MiniZinc constraint solver. The example 
 above is translated to the following MiniZinc code:
 %
-\begin{minted}{prolog}
+\begin{minted}[linenos]{prolog}
   var -10000000..10000000: v3;
   var -10000000..10000000: v2;
   var -10000000..10000000: v1;
@@ -299,22 +299,41 @@ The generated MiniZinc constraint program consists roughly of four parts: some
 variable declarations, constraints on those variables, a strategy how to solve
 the constraints, and the desired output. 
 
+MiniZinc variables are declared with the keyword |var| followed by its domain
+(in this case a range form -10000000 to 10000000) and then an unique name. These
+variables are generated during the translation from a DSL program to a
+constraint program. All ports and parameters related to a particular constraint
+variable. For example, the |capacity| parameter of the |pump| component is
+mapped to the |v2| constraint variable. In the example program we instantiated
+the |pump| component with a capacity of 100 units, which is used to initialise the
+|capacity| parameter. This initialisation gets translated to a constraint that
+equals the value of the constraint variable of corresponding to the |capacity| 
+parameter to the given argument (100), as we can see on line 6 in the generated
+MiniZinc program.
 
-From the output statement on the last line we can see that \texttt{a} has
-
-been mapped to \texttt{v0} and \texttt{b} to \texttt{v1}.
-%
-In the middle we see the constraint and in the beginning the
-variables' ranges are defined.
-%
-
-\todo{Max?: More complex example (connecting 2-3 components) showing parts of the output.}
+We can restrict the values of ports and parameters by embedding constrains in a
+component. For example, we constrained the value of the |inflow| port of the
+|pump| component to be in the range from 0 to the maximum capacity. These
+embedded constraints are translated to constraints in the generated MiniZinc
+program. On line 7 in the generated MiniZinc program we have a constraint that
+limits the value of |v0|, which is the corresponding constraint variable to the
+|inPort| port of the |pump| component, to be in the given range.
 
 
-of both GRACe and
-MiniZinc. The |example| component has two ports, |a| and |b|, whose values are
-constrained (on line 8) to stay one apart. The last two lines decide what we
-want to see as results from the constraint solver.
+When we link two ports (or parameters), such as on line 8 in the
+example |prog| DSL program, we introduce a constraint in the generated MiniZinc
+program that states that the values of the corresponding constraint values
+are equal to each other. For example, we linked the rainfall to the input of
+the |pump| component, which got translated to the constraint on line 10 in the
+MiniZinc program. Note that the generated constraints have some extra pairs of
+parentheses to make sure we generate valid programs with the correct precedence,
+some of these are superfluous and we may leave them out in the future.
+
+We instruct the constraint solver to search for a solution that fulfils all such
+constraints with the |solve satisfy| instruction. 
+
+\todo{AG: explain output}
+
 
 
 \section{Software architecture}
