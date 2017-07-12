@@ -39,6 +39,8 @@
 %% Max
 \usepackage{minted}
 \usepackage{todonotes}
+
+%% Alex
 \newminted{haskell}{fontsize=\normalsize,xleftmargin=2mm,mathescape,linenos}
 \newcommand{\haskell}[1]{\mintinline{haskell}|#1|}
 \DefineShortVerb{\|}
@@ -177,6 +179,8 @@ report with some concluding remarks in Section~\ref{sec:conclusion}.
 \section{A GRACe-ful translation}
 \label{sec:translate}
 
+\todo{AG: Actions and goals are left out for now. Should mention where HaskellZinc fits in.}
+
 This section covers how a model written in our DSL, called GRACe, is translated
 to a constraint program. This translation is done in several stages. First we
 translate a GRACe program to HaskellZinc~\cite{}, which is developed in work
@@ -184,6 +188,8 @@ package 5. In the next stage the program is compiled from the HaskellZinc
 interemediate representation to a particular constraint programming language,
 which in our case is MiniZinc~\cite{MiniZinc}. The results from the constraint
 solver are parsed by our \ac{DSL} and returned to the user. 
+
+\subsection{A small DSL program}
 
 We start with a small example to explain the syntax and elements of a GRACe
 program. A central element of a GRACe program is a \emph{component}, in fact a
@@ -273,6 +279,8 @@ of a port (or parameter) to the output returned by the constraint solver. The
 solver is run by calling the |runGCM| function and returns a string as result,
 which we print on the command line.
 
+\subsection{Translating to MiniZinc}
+
 Before running the constraint solver, the DSL program is translated to a 
 corresponding MiniZinc program. The MiniZinc representation is saved in a 
 temporary file, which is given to the MiniZinc constraint solver. The example 
@@ -330,10 +338,11 @@ parentheses to make sure we generate valid programs with the correct precedence,
 some of these are superfluous and we may leave them out in the future.
 
 We instruct the constraint solver to search for a solution that fulfils all such
-constraints with the |solve satisfy| instruction. 
-
-\todo{AG: explain output}
-
+constraints with the |solve satisfy| instruction. The last part of the generated
+MiniZinc program, on line 14, instructs the solver how to generate the output.
+The output instructions use corresponding constraint variables instead of port
+names. The output returned by the constraint solver is parsed by the DSL and 
+returned by the |runGCM| function.
 
 
 \section{Software architecture}
