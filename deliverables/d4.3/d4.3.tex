@@ -97,7 +97,7 @@ D4.3\\[1ex]
 \\Partners Contributing:  & KU Leuven
 \\Dissemination Level:    & PU
 \\Document Version:       & Draft
-\\Date of Submission:     & 2017-07-07?
+\\Date of Submission:     & 2017-07-25?
 \\Due Date of Delivery:   & 2017-07-31
 \end{tabular}
 
@@ -108,16 +108,7 @@ D4.3\\[1ex]
 Contributions by: Oskar Abrahamsson, Maximilian Algehed, Sólrún
 Einarsdóttir, Alex Gerdes, and Patrik Jansson.
 
-\vfill
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-
-\vfill
-
-\newpage
-
-\section*{Abstract}\label{abstract}
+\begin{abstract}
 
 This third deliverable (D4.3) of work package 4 presents the
 translation of GRACeFUL concept maps (expressed as GRACe programs) to
@@ -134,21 +125,35 @@ version is available from the Haskell package repository
 %
 The work leading up to this deliverable is within Task 4.3 ``implement
 a middleware for connecting the DSL to the CFP layer'' and the full
-source code of the implementation is available on github.
+source code of the implementation is available on GitHub.
 
+
+\end{abstract}
+
+\vfill
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\vfill
+
+
+\newpage
 
 \section{Introduction}
 
-This report describes the third deliverable (D4.3) of work package 4 of the
-\grace project. The software we present in this document can be downloaded
-from GitHub\footnote{\url{https://github.com/GRACeFUL-project/}}.
+This report describes the third deliverable (D4.3) of work package 4
+of the \grace project. The software we present in this document can be
+downloaded from
+GitHub\footnote{\url{https://github.com/GRACeFUL-project/} in the
+  \texttt{GRACe} repository.}.
 
 The main task of work package 4 is to build a \emph{\ac{DSL}} for \acp{GCM}. A
 \ac{GCM} is a representation of policy analysis that contains the main elements
 of a policy problem definition, such as goals, criteria, and a description of
 the system. It is common practice to simulate a model described by a \ac{GCM},
 however, this process is unfortunately both time consuming and expensive. The
-\grace project tries to aleviate this problem by expressing a \ac{GCM} as a
+\grace project tries to alleviate this problem by expressing a \ac{GCM} as a
 \emph{constraint program}, which should reduce the analysis time considerably.
 
 A \ac{GCM} is created by stakeholders in a so-called \ac{GMB} session using a
@@ -157,47 +162,68 @@ representation\footnote{We use \ac{JSON} as an exchange format} of the \ac{GCM}
 to our \ac{DSL} layer, described in deliverable D4.2~\cite{D4.2}, which in turn
 passes on the \ac{GCM} to the \ac{CP} layer. The \ac{DSL} can be regarded as an
 intermediate layer between the visual editor and the \ac{CP} layer, which
-increases modularity, simplifies the translation, and reduces the depency on a
-particular constraint solver. 
+increases modularity, simplifies the translation, and reduces the dependency on a
+particular constraint solver.
 
 The main challenge for work package 4 is to create a \ac{DSL} that is expressive
 enough to model \acp{GCM} as envisaged by the stakeholders, while still being
 able to translate to a constraint program. A constraint program is a
 collection of (unknown) variables and constraints, for which a constraint solver
 tries to find a solution (values for the unknown variables) that satisfies as
-many of those constraints as possible. 
+many of those constraints as possible.
 
-In this document we explain how we translate a program in terms of our \ac{DSL} 
-to a constraint program using the \ac{CP} interface provided by work package 5, 
-see deliverable~\cite{}. In Section~\ref{sec:translate} we give a short summary
+In this document we explain how we translate a program in terms of our \ac{DSL}
+to a constraint program using the \ac{CP} interface provided by work package 5,
+see deliverable D4.2~\cite{D4.2}. In Section~\ref{sec:translate} we give a short summary
 of our \ac{DSL} and show how the main concepts, such as ports and parameters,
 are expressed in terms of a constraint program. We continue with an explanation
-of the software architecture in Section~\ref{sec:architecture}. We end this 
+of the software architecture in Section~\ref{sec:architecture}. We end this
 report with some concluding remarks in Section~\ref{sec:conclusion}.
 
+We have also written a tutorial on how to create GRACe components as a
+separate document available here:
+\url{https://github.com/GRACeFUL-project/DSL-WP/blob/master/tutorial/pdf/GRACeTutorial.pdf}.
+
+\newpage
 
 \section{A GRACe-ful translation}
 \label{sec:translate}
 
-\todo{AG: Actions and goals are left out for now. Should mention where HaskellZinc fits in.}
+% \todo{AG: Actions and goals are left out for now. Should mention where HaskellZinc fits in.}
 
-This section covers how a model written in our DSL, called GRACe, is translated
-to a constraint program. This translation is done in several stages. First we
-translate a GRACe program to HaskellZinc~\cite{}, which is developed in work
-package 5. In the next stage the program is compiled from the HaskellZinc
-interemediate representation to a particular constraint programming language,
-which in our case is MiniZinc~\cite{MiniZinc}. The results from the constraint
-solver are parsed by our \ac{DSL} and returned to the user. 
+This section covers how a model written in our DSL, called GRACe, is
+translated to a constraint program.
+%
+This translation is done in several stages.
+%
+First we translate a GRACe program to haskelzinc~\cite{D5.1}, which is
+developed in work package 5.
+%
+In the next stage the program is compiled from the haskelzinc
+intermediate representation to a particular constraint programming
+language, which in our case is
+MiniZinc\footnote{\url{http://www.minizinc.org/}}.
+%
+The results from the constraint solver are parsed by our \ac{DSL} and
+returned to the user.
 
 \subsection{A small DSL program}
 
-We start with a small example to explain the syntax and elements of a GRACe
-program. A central element of a GRACe program is a \emph{component}, in fact a
-GRACe program is a collection of components that can be connected to each other.
-The general structure of a GRACe component starts with the declaration of its
-ports and parameters, followed by constraints on those, and ends with exposing
-the ports and parameters to other components. The following example defines a
-component, which represents a pump with a given capacity:
+We start with a small example to explain the syntax and elements of a
+GRACe program.
+%
+A central element of a GRACe program is a \emph{component}.
+%
+In fact, a GRACe program is a collection of components that can be
+connected to each other.
+%
+The general structure of a GRACe component starts with the declaration
+of its ports and parameters, followed by constraints on those, and
+ends with exposing the ports and parameters to other components.
+%
+The following example defines a component which represents a pump with
+a given capacity (|cap|):
+%
 \begin{haskellcode}
 pump :: Int -> GCM (Port Int, Port Int, Param Int)
 pump cap = do
@@ -209,44 +235,82 @@ pump cap = do
     inflow   <- value inPort
     outflow  <- value outPort
     capacity <- value cap
-  
+
     assert $ inflow `inRange` (0, capacity)
     assert $ inflow === outflow
-  
-  return (inPort, outPort, capParam) 
+
+  return (inPort, outPort, capParam)
 \end{haskellcode}
-The pump component is implemented as a Haskell function that takes an integer
-paramter (|cap|) and returns a GRACe component with two ports, representing the
-inflow and outflow of the pump, and a parameter for limiting the pump's
-capacity. The type signature on first line in the above code snippet reflects
-this. The ports and parameter can be connected to other components, such that
-they can interact with other components in a model. A port is created with a
-call to the |createPort| function, and is of a particular type, such as the
-integer port |flow| defined above. A GRACe parameter is created with the
-|createParam| function and can be regarded as a port with an initial value. It
-is important to distinguish between normal (Haskell) parameters, such as |cap|,
-and parameters defined in the GRACe DSL, such as |capacity|. Parameters defined
-in the GRACe DSL can be connected to other components, which may influence its
-value. 
+% $ -- just to get emacs' LaTeX mode back on track
+The pump component is implemented as a Haskell function that takes an
+integer parameter (|cap|) and returns a GRACe component with two
+ports, representing the inflow and outflow of the pump, and a
+parameter for limiting the pump's capacity.
+%
+The type signature on the first line in the above code snippet
+reflects this.
 
-The ports and parameters are the interface of a component and we use them to
-interact with other components. An important feature of our DSL is that we can
-put \emph{constraints} on those ports and parameters. We use these constraints
-to model the system dynamics of a GRACeFUL Concept Map. The pump component, for
-example, constrains the flow through the pump to be positive and smaller than
-its maximum capacity, and ensures that the inflow is equal to the outflow. Using
-the |constrain| function we can embed constraints in the component. In fact, the
-|constrain| function takes a representation of a constraint program as argument.
-A constraint program can query the value of ports and parameters using the
-|value| function. These values can then be used to express constraints using the
-|assert| function. The |assert| function support many different constraint
-expressions.
+The ports and parameter can be connected to other components, so that
+they can interact with other components in a larger model.
+%
+A port is created with a call to the |createPort| function, and is of
+a particular type, such as the integer port |flow| defined above.
+%
+A GRACe parameter is created with the |createParam| function and can
+be regarded as a port with an initial value.
+%
+It is important to distinguish between normal (Haskell) parameters,
+such as |cap|, and parameters defined in the GRACe DSL, such as
+|capacity|.
+%
+Haskell parameters (function arguments) are used to describe families
+of components at model building time.
+%
+A model is ready for constraint solving when all these arguments
+(Haskell parameters) have been supplied.
+%
+Parameters defined in the GRACe DSL can be connected to other
+components, which may influence their values at constraint solving
+time.
 
-We can group components, such as the |pump| component, in a library. Using such
-a library we can create GRACe DSL programs, which we can analyse with a
-constraint solver. Before we continue and define an example GRACe program, let
-us first create a second component. The following simple component just exposes
-a port with a constant volume of rainfall:
+The ports and parameters are the interface of a component and we use
+them to interact with other components.
+%
+An important feature of our DSL is that we can put \emph{constraints}
+on those ports and parameters.
+%
+We use these constraints to model the system dynamics of a GRACeFUL
+Concept Map.
+%
+The pump component, for example, constrains the flow through the pump
+to be positive and smaller than its maximum capacity, and ensures that
+the inflow is equal to the outflow.
+%
+Using the |constrain| function we can embed constraints in the
+component.
+%
+In fact, the |constrain| function takes a representation of a
+constraint program as argument.
+%
+A constraint program can query the value of ports and parameters using
+the |value| function.
+%
+These values can then be used to express constraints using the
+|assert| function.
+%
+The |assert| function support many different constraint expressions.
+
+We can group components, such as the |pump| component, in a library.
+%
+Using such a library we can create GRACe DSL programs, which we can
+analyse with a constraint solver.
+%
+Before we continue and define an example GRACe program, let us first
+create a second component.
+%
+The following simple component just exposes a port with a constant
+volume of rainfall:
+%
 \begin{haskellcode}
 rainfall :: Int -> GCM (Port Int)
 rainfall volume = do
@@ -254,11 +318,13 @@ rainfall volume = do
   set volumePort volume
   return volumePort
 \end{haskellcode}
-The |set| primitive is used to constrain the value of a port to a specific value,
-in this case to the |volume| parameter. 
+%
+The |set| primitive is used to constrain the value of a port to a
+specific value, in this case to the |volume| parameter.
 
-Using the |pump| and |rainfall| components we can create a, somewhat contrived,
-\ac{GCM} program:
+Using the |pump| and |rainfall| components we can create a, somewhat
+contrived, \ac{GCM} program:
+%
 \begin{haskellcode}
 main :: IO ()
 main = putStr =<< runGCM prog
@@ -270,21 +336,31 @@ main = putStr =<< runGCM prog
       link rain inflow                  -- connect rain to pump
       output outflow "pump outflow"
 \end{haskellcode}
-The above example creates a DSL program called |prog|, which instantiates two
-components: a pump with a particular capacity, and some rainfall. The |link| DSL
-function on line 8 takes two arguments, which can be either a port or a parameter, and
-connects them to each other. We explain the semantics of this connection later in
-this section. The |output| primitive can be used to add the value
-of a port (or parameter) to the output returned by the constraint solver. The
-solver is run by calling the |runGCM| function and returns a string as result,
-which we print on the command line.
+%
+The above example creates a DSL program called |prog|, which
+instantiates two components: a pump with a particular capacity, and
+some rainfall.
+%
+The |link| DSL function on line 8 takes two arguments, which can be
+either ports or parameters, and connects them to each other.
+%
+We explain the semantics of this connection later in this section.
+%
+The |output| primitive can be used to include the value of a port (or
+parameter) to the output returned by the constraint solver.
+%
+The solver is run by calling the |runGCM| function and returns a
+string as result, which we print on the command line.
 
 \subsection{Translating to MiniZinc}
 
-Before running the constraint solver, the DSL program is translated to a 
-corresponding MiniZinc program. The MiniZinc representation is saved in a 
-temporary file, which is given to the MiniZinc constraint solver. The example 
-above is translated to the following MiniZinc code:
+Before running the constraint solver, the DSL program is translated to
+a corresponding MiniZinc program.
+%
+The MiniZinc representation is saved in a temporary file, which is
+given to the MiniZinc constraint solver.
+%
+The example above is translated to the following MiniZinc code:
 %
 \begin{minted}[linenos]{prolog}
   var -10000000..10000000: v3;
@@ -303,46 +379,77 @@ above is translated to the following MiniZinc code:
   output ["{\"pump outflow\" : \(v1)}"];
 \end{minted}
 %
-The generated MiniZinc constraint program consists roughly of four parts: some
-variable declarations, constraints on those variables, a strategy how to solve
-the constraints, and the desired output. 
+The generated MiniZinc constraint program consists roughly of four
+parts: some variable declarations, constraints on those variables, a
+strategy how to solve the constraints, and the desired output.
 
-MiniZinc variables are declared with the keyword |var| followed by its domain
-(in this case a range form -10000000 to 10000000) and then an unique name. These
-variables are generated during the translation from a DSL program to a
-constraint program. All ports and parameters related to a particular constraint
-variable. For example, the |capacity| parameter of the |pump| component is
-mapped to the |v2| constraint variable. In the example program we instantiated
-the |pump| component with a capacity of 100 units, which is used to initialise the
-|capacity| parameter. This initialisation gets translated to a constraint that
-equals the value of the constraint variable of corresponding to the |capacity| 
-parameter to the given argument (100), as we can see on line 6 in the generated
-MiniZinc program.
+MiniZinc variables are declared with the keyword |var| followed by its
+domain (in this case a range from |-10000000| to |10000000|) and then
+a unique name.
+%
+These variables are generated during the translation from a GRACe
+program to a constraint program.
+%
+Each port and parameter maps to a particular constraint variable.
+%
+For example, the |capacity| parameter of the |pump| component is
+mapped to the constraint variable |v2|.
+%
+In the example program we instantiated the |pump| component with a
+capacity of 100 units, which is used to initialise the |capacity|
+parameter.
+%
+This initialisation gets translated to a constraint that equals the
+value of the constraint variable of corresponding to the |capacity|
+parameter to the given argument (|100|), as we can see on line 6 in
+the generated MiniZinc program.
 
-We can restrict the values of ports and parameters by embedding constrains in a
-component. For example, we constrained the value of the |inflow| port of the
-|pump| component to be in the range from 0 to the maximum capacity. These
-embedded constraints are translated to constraints in the generated MiniZinc
-program. On line 7 in the generated MiniZinc program we have a constraint that
-limits the value of |v0|, which is the corresponding constraint variable to the
-|inPort| port of the |pump| component, to be in the given range.
+We can restrict the values of ports and parameters by embedding
+constrains in a component.
+%
+For example, we constrained the value of the |inflow| port of the
+|pump| component to be in the range from 0 to the maximum capacity.
+%
+These embedded constraints are translated to constraints in the
+generated MiniZinc program.
+%
+On line 7 in the generated MiniZinc program we have a constraint that
+limits the value of |v0|, which is the corresponding constraint
+variable to the |inPort| port of the |pump| component, to be in the
+given range.
 
 
 When we link two ports (or parameters), such as on line 8 in the
-example |prog| DSL program, we introduce a constraint in the generated MiniZinc
-program that states that the values of the corresponding constraint values
-are equal to each other. For example, we linked the rainfall to the input of
-the |pump| component, which got translated to the constraint on line 10 in the
-MiniZinc program. Note that the generated constraints have some extra pairs of
-parentheses to make sure we generate valid programs with the correct precedence,
-some of these are superfluous and we may leave them out in the future.
+example |prog| DSL program, we introduce a constraint in the generated
+MiniZinc program that states that the values of the corresponding
+constraint values are equal to each other.
+%
+For example, we linked the rainfall to the input of the |pump|
+component, which got translated to the constraint on line 10 in the
+MiniZinc program.
+%
+Note that the generated constraints have some extra pairs of
+parentheses to make sure we generate valid programs with the correct
+precedence.
+%
+Some of these are superfluous and we may leave them out in the future.
 
-We instruct the constraint solver to search for a solution that fulfils all such
-constraints with the |solve satisfy| instruction. The last part of the generated
-MiniZinc program, on line 14, instructs the solver how to generate the output.
-The output instructions use corresponding constraint variables instead of port
-names. The output returned by the constraint solver is parsed by the DSL and 
+We instruct the constraint solver to search for a solution that
+fulfils all such constraints with the |solve satisfy| instruction.
+%
+The last part of the generated MiniZinc program, on line 14, instructs
+the solver how to generate the output.
+%
+The output instructions use corresponding constraint variables instead
+of port names.
+%
+The output returned by the constraint solver is parsed by the DSL and
 returned by the |runGCM| function.
+
+
+% \subsection{Tutorial}
+% \label{sec:tutorial}
+% TODO: Perhaps include selected parts of the tutorial
 
 
 \section{Software architecture}
@@ -351,14 +458,14 @@ returned by the |runGCM| function.
 \input{architecture}
 
 
-\section{Properties and tests}
-
-As a first step towards a testing and verification framework for
-GRACeFUL Rapid Assessment Tools we have instrumented the GRACe
-implementation with properties and tests.
+% \section{Properties and tests}
 %
-
-\todo{explain QuickCheck, Fill in properties and tests, next steps}
+% As a first step towards a testing and verification framework for
+% GRACeFUL Rapid Assessment Tools we have instrumented the GRACe
+% implementation with properties and tests.
+% %
+%
+% \todo{explain QuickCheck, Fill in properties and tests, next steps}
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -367,10 +474,11 @@ We have designed and implemented a translation from the DSL called
 GRACe (describing GRACeFUL concept maps) to the underlying Constraint
 Functional Programming layer.
 %
-We have presented code examples, the software architecture, and
-automatically checked properties of the translation.
-%
-The source code is available on GitHub.
+We have presented code examples, how they are translated, and the
+software architecture.
+%TODO , and automatically checked properties of the translation
+The source code is available on GitHub and installation instructions
+are available in the appendix.
 
 The next actions in work package 4 is
 \begin{itemize}
