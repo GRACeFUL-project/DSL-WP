@@ -123,7 +123,7 @@ for the Constraint Functional Programming Platform'' and the latest
 version is available from the Haskell package repository
 \href{https://hackage.haskell.org/package/haskelzinc}{Hackage}.)
 %
-The work leading up to this deliverable is within Task 4.3 ``implement
+The work leading up to this deliverable is within Task 4.4 ``implement
 a middleware for connecting the DSL to the CFP layer'' and the full
 source code of the implementation is available on GitHub.
 
@@ -282,7 +282,7 @@ on those ports and parameters.
 We use these constraints to model the system dynamics of a GRACeFUL
 Concept Map.
 %
-The pump component, for example, constrains the flow through the pump
+The pump component, for example, constraints the flow through the pump
 to be positive and smaller than its maximum capacity, and ensures that
 the inflow is equal to the outflow.
 %
@@ -400,7 +400,7 @@ capacity of 100 units, which is used to initialise the |capacity|
 parameter.
 %
 This initialisation gets translated to a constraint that equals the
-value of the constraint variable of corresponding to the |capacity|
+value of the constraint variable corresponding to the |capacity|
 parameter to the given argument (|100|), as we can see on line 6 in
 the generated MiniZinc program.
 
