@@ -11,7 +11,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={Patrik Jansson et al.},
-            pdftitle={GRACeFUL D4.3: Translation of GRACeFUL concept maps to the Constraint Functional Programming layer},
+            pdftitle={GRACeFUL D4.3: Concept Maps to System Dynamics},
             colorlinks=true,
             citecolor=blue,
             urlcolor=blue,
@@ -81,10 +81,11 @@ FETPROACT-1-2014 Grant Nº 640954
 \begin{framed}
 \begin{center}
 \Large
+D4.3: Concept Maps to System Dynamics\\[1ex]
+
+\large
 Translation of GRACeFUL concept maps\\
 to the Constraint Functional Programming layer\\[1ex]
-
-D4.3\\[1ex]
 
 \end{center}
 \end{framed}
@@ -113,6 +114,9 @@ Einarsdóttir, Alex Gerdes, and Patrik Jansson.
 This third deliverable (D4.3) of work package 4 presents the
 translation of GRACeFUL concept maps (expressed as GRACe programs) to
 the Constraint Functional Programming (CFP) layer.
+%
+GRACe programs model the system dynamics of GRACeFUL Concept Maps and
+the CFP layer is used to compute model solutions.
 %
 This report builds on the description of GRACe in ``D4.2: A Domain
 Specific Language (DSL) for GRACeFUL Concept Maps'' (delivered in
@@ -282,7 +286,7 @@ on those ports and parameters.
 We use these constraints to model the system dynamics of a GRACeFUL
 Concept Map.
 %
-The pump component, for example, constraints the flow through the pump
+The pump component, for example, constrains the flow through the pump
 to be positive and smaller than its maximum capacity, and ensures that
 the inflow is equal to the outflow.
 %
