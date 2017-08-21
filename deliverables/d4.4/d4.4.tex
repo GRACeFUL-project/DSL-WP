@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={Patrik Jansson et al.},
+            pdftitle={GRACeFUL D4.4: Testing and verification framework},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+%% Cezar
+\usepackage[margin=1.60in]{geometry}
+\usepackage[verbose]{wrapfig}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{framed}
+\usepackage{xspace}
+\usepackage{acronym}
+\usepackage[square,numbers]{natbib}
+
+%% Max
+\usepackage{minted}
+\usepackage{todonotes}
+
+%% Alex
+\newminted{haskell}{fontsize=\normalsize,xleftmargin=2mm,mathescape,linenos}
+\newcommand{\haskell}[1]{\mintinline{haskell}|#1|}
+\DefineShortVerb{\|}
+\AtBeginEnvironment{minted}{%
+  \renewcommand{\fcolorbox}[4][]{#4}}
+
+\definecolor{GRACeFULblue}{rgb}{0.20,0.60,0.86}
+
+\newcommand{\grace}{GRACeFUL\xspace}
+\acrodef{GCM}{\grace Concept Map}
+\acrodef{GMB}{Group Model Building}
+\acrodef{DSL}{Domain Specific Language}
+\acrodef{CFP}{Constraint Functional Program}
+\acrodef{RAT}{Rapid Assessment Tool}
+\acrodef{CRUD}{Climate Resilient Urban Design}
+\acrodef{CLD}{Causal Loop Diagram}
+\acrodef{JSON}{JavaScript Object Notation}
+\acrodef{CP}{Constraint Program}
+\hyphenation{GRACeFUL}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+\includegraphics[width=5cm]{../coverpage/GRACeFULlogo.png}
+
+\textcolor{GRACeFULblue}{Global systems Rapid Assessment tools\\
+through Constraint FUnctional Languages}
+
+\vspace{1cm}
+
+FETPROACT-1-2014 Grant Nº 640954
+
+\end{center}
+
+\begin{framed}
+\begin{center}
+\Large
+D4.4: Testing and verification framework\\[1ex]
+
+\large
+D4.4 Testing and verification framework for RATs\\
+with applications to the CRUD case study\\[1ex]
+
+\end{center}
+\end{framed}
+
+\vspace{1cm}
+
+\noindent
+\begin{tabular}{@{}ll@{}}
+  Lead Participant:       & Chalmers (WP leader: P. Jansson)
+\\Dissemination Level:    & PU
+\\Document Version:       & Draft
+\\Date of Submission:     & 201?-??-??
+\\Due Date of Delivery:   & 2018-01-31
+\end{tabular}
+
+\newpage
+
+\section*{D4.4 Testing and verification framework for RATs with applications to the CRUD case study}
+
+Contributions by: Maximilian Algehed, Sólrún
+Einarsdóttir, Alex Gerdes, and Patrik Jansson.
+
+\begin{abstract}
+
+This fourth deliverable (D4.4) of work package 4 presents a framework for
+testing and verification of RATs...
+%
+The work leading up to this deliverable is within
+Task 4.5 ``Build a testing and verification framework for RATs'' and the full
+source code of the implementation is available on GitHub.
+
+
+\end{abstract}
+
+\vfill
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\vfill
+
+
+\newpage
+
+\section{Introduction}
+\todo{Introduce RATs, our prototype RAT, property based testing, other
+  testing/verification techniques we make use of.}
+
+
+\section{Property based testing of GRACe programs}
+
+\section{Conclusion}
+
+\end{document}
