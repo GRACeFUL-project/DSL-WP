@@ -46,8 +46,14 @@
 *.ind
 *.ist
 
+# minted
+_minted*
+*.pyg
+
 #Backup-files (from emacs)
 *~
+# auto folder when using emacs and auctex
+/auto/*
 
 # vim swap files
 *.swp
@@ -55,3 +61,6 @@
 
 # Some deliverable-specific stuff
 d4.2.pdf
+d4.3.pdf
+d4.4.pdf
+

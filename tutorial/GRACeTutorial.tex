@@ -19,8 +19,12 @@
 %TODO:
 % * How to define a library to send to the visual editor?
 %   (add once the connection to and status of the viseditor is clearer )
-% * Discuss actions and params
+% * Update library format to current
+% * ``step-by-step instructions for the Haskell non-expert to be able to create
+%     a new library component''
+% * More/different examples?
 % * Say something about how to run programs?
+
 
 \noindent
 In this tutorial we introduce the GRACe DSL and demonstrate how to define GRACe
@@ -60,7 +64,7 @@ the |set| command constrains the value of the port |p| to be equal to
 
 The |CP| module of GRACe supports reasoning about integer and floating-point
 arithmetic, Boolean expressions, and arrays. Computations in |CP| can be
-embedded in |GCM| using the |component| primitive. In this way we can embed
+embedded in |GCM| using the |constrain| primitive. In this way we can embed
 constraints on a component's ports in the definition of the component.
 
 Consider a |GCM| component representing a pump parametrised over the maximum
@@ -70,7 +74,7 @@ pump :: Float -> GCM (Port Float, Port Float)
 pump maxCap = do
   inPort  <- createPort
   outPort <- createPort
-  component $ do             -- This is in CP
+  constrain $ do             -- This is in CP
     inflow  <- value inPort
     outflow <- value outPort
     assert $ inflow === outflow                -- no leakage
@@ -93,7 +97,7 @@ runoffArea cap = do
   inflow   <- createPort
   outlet   <- createPort
   overflow <- createPort
-  component $ do
+  constrain $ do
     currentStored <- createVariable
     inf <- value inflow
     out <- value outlet
@@ -135,7 +139,7 @@ after all constraints have been solved.
 Although it is possible to define a GRACeFUL Concept Map directly using the
 GRACe DSL, most users will use the visual editor that is developed in work
 package 2. Using this visual editor users can draw concept maps using a palette
-of predefined components from a particular library. These components are as well
+of predefined components from a particular library. These components are also
 defined using the GRACe DSL. To create a library of components, we need to
 \emph{annotate} them with some information, which is used by the visual editor
 to present the components in a proper way. For example, the |rain|, |pump|, and
@@ -216,7 +220,7 @@ crop (y,w,o) = do
   oilPort   <- createPort
 
   -- Constrain the values at the ports.
-  component $ do
+  constrain $ do
     areaValue  <- value areaPort
     oilValue   <- value oilPort
     waterValue <- value waterPort
@@ -240,7 +244,7 @@ farm :: Area -> Int -> GCM [Port Area]
 farm land numCrops = do
   -- Create a port for each crop.
   areaPorts <- mapM (\_ -> createPort) (take numCrops (repeat 0))
-  component $ do
+  constrain $ do
     areaVals <- sequence [value ap | ap <- areaPorts]
     --  The total area of crops is non-negative and is bounded by the available
     --  farmland. Each crop area is also non-negative.
@@ -257,7 +261,7 @@ reservoir :: Water -> Int -> GCM [Port Water]
 reservoir waterSource numCrops = do
   -- Create a port for each crop.
   waterPorts <- mapM (\_ -> createPort) (take numCrops (repeat 0))
-  component $ do
+  constrain $ do
     waterVals <- sequence [value wp | wp <- waterPorts]
     -- The total amount of water used is non-negative and is bounded by the
     -- available water reservoir. The amount for each crop is also non-negative.
@@ -275,7 +279,7 @@ oilProduction numCrops = do
   -- Create a port for each crop.
   oilCrops <- mapM (\_ -> createPort) (take numCrops (repeat 0))
   oilOut <- createPort
-  component $ do
+  constrain $ do
     oilProduced <- value oilOut
     oilSources <- mapM value oilCrops
     -- The total amount of oil is the sum of the amounts from each crop.
