@@ -12,8 +12,8 @@ a middleware called haskelzinc, and
 %
 a choice of external constraint solver.
 %
-In this section we briefly describe the different layers to explain
-the context.
+In this section we briefly describe the different layers and how testing and
+verification is performed on each layer.
 
 \subsection*{Visual Editor}
 
@@ -31,6 +31,7 @@ The code for the visual editor can be found in the
 repository
 \href{https://github.com/GRACeFUL-project/GRACeFULEditor}{GRACeFULEditor}.
 
+
 \subsection*{Communication with visual editor}
 
 Communication between the visual editor and the GRACe layer takes
@@ -42,6 +43,7 @@ service and handled on both ends.
 The GRACe web service is available as the \texttt{RestAPI} executable in the
 \href{https://github.com/GRACeFUL-project/GRACe}{GRACe} repository.
 
+\todo{Say something about session check stuff.}
 \subsection*{GCM component libraries}
 
 The visual interface allows the user to access a chosen library of GCM
@@ -51,6 +53,8 @@ These components are written in GRACe, and each component has a
 corresponding JSON interface which is sent to the visual editor when
 the user requests the library in question.
 
+\todo{Refer to section on using type systems for testing/verification (and mention our
+typed libraries as an example in that section.)}
 \subsection*{GRACe}
 
 GRACe is a domain specific language embedded in Haskell.
@@ -61,42 +65,16 @@ components.
 GRACe programs representing GCMs are compiled to haskelzinc constraint
 programs, and the resulting solutions are passed back to GRACe.
 
+\todo{Refer to GCMP section}
 \subsection*{Haskelzinc}
 
 Haskelzinc is a Haskell interface to the MiniZinc constraint
 programming language.
 %
-It provides
-\begin{itemize}
-\item a Haskell abstract syntax tree for the MiniZinc language, with
-  which one can represent MiniZinc models in Haskell
-\item a human-friendly DSL for building MiniZinc model representations
-\item a pretty printer to print the representation of a MiniZinc model
-  in MiniZinc
-\item a parser that returns a representation of the solutions obtained
-  by running the MiniZinc model
-\item a set of functions useful for building a custom FlatZinc
-  solutions parser.
-  %
-  An additional module gives the possibility to directly obtain the
-  solutions of a MiniZinc finite domain model.
-  %**TODO explain what that means
-%   Option for interactive interface is provided, as well as choice
-%   between two solvers: the G12/FD built-in solver of FlatZinc and
-%   choco3.
-\end{itemize}
+It provides a Haskell DSL for building MiniZinc model representations and a parser that returns a representation of the solutions obtained
+by running the MiniZinc model.
 
 The latest version of haskelzinc (currently 0.3) is available from
 \url{https://hackage.haskell.org/package/haskelzinc}.
 
-\subsection*{MiniZinc}
-
-MiniZinc is a constraint programming language in which constraint satisfaction
-and optimization problems can be modeled independently of constraint solvers.
-
-MiniZinc models are compiled into FlatZinc, a low-level solver input language.
-There are a variety of solvers that can be used to solve problems stated in
-FlatZinc.
-
-Information on how to install and use MiniZinc is available at
-\url{www.minizinc.org}.
+\todo{Refer to section on inductive testing/backend comparison/ satisfiability testing}
