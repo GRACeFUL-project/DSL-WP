@@ -35,7 +35,8 @@ module contains primitives for constructing constraint programs, which describe
 the behaviour of an individual component.
 
 
-\section{GCM components and ports}
+\section{GCM}
+\subsection{Components and Ports}
 
 We model a |GCM| component by defining the ports it exposes. A |Port| represents
 a value that can be constrained. Two ports can be linked together to describe
@@ -59,6 +60,33 @@ sequential program. The |createPort| command creates a new port, and
 the |set| command constrains the value of the port |p| to be equal to
 |amount|.
 
+\subsection{Goals}\label{goals}
+The command |createGoal| instantiates a |GCM| goal, which the constraint
+solver attempts to maximize.
+
+Defining a helper function |maximize| helps us express goals in a clear way.
+\begin{minted}{haskell}
+maximize :: Port Int -> GCM ()
+maximize p = do
+  g <- createGoal
+  link p g
+\end{minted}
+Using this function we can simply write:
+\begin{minted}{haskell}
+maximize p
+\end{minted}
+to state that we would like to maximize the value at port |p|. Conversely, if
+our goal is to minimize a certain value we can define a similar helper function
+|minimize|:
+\begin{minted}{haskell}
+minimize :: Port Int -> GCM ()
+minimize p = do
+  g <- createGoal
+  linkBy (fun negate) p g
+\end{minted}
+The |link| command asserts that two values must be equal, while the |linkBy|
+command takes a function as a parameter to express a more complex constraint on
+the values.
 
 \section{CP}
 
@@ -133,54 +161,124 @@ The |link| command links two ports together and asserts that their values are
 equal. The |output| command lets us inspect the resulting value at a |Port|
 after all constraints have been solved.
 
-
-\section{Component library}
-
+%\section{Creating a component - step by step}
+\section{Component libraries and connection to visual editor}
+%TODO: update this section, make it more detailed
 Although it is possible to define a GRACeFUL Concept Map directly using the
 GRACe DSL, most users will use the visual editor that is developed in work
-package 2. Using this visual editor users can draw concept maps using a palette
+package 3. Using this visual editor users can draw concept maps using a palette
 of predefined components from a particular library. These components are also
 defined using the GRACe DSL. To create a library of components, we need to
 \emph{annotate} them with some information, which is used by the visual editor
 to present the components in a proper way. For example, the |rain|, |pump|, and
 |runoffArea| defined above, can be annotated as follows:
+
 \begin{haskellcode}
 exampleLib :: Library
 exampleLib = Library "crud"
-    [ item "rain" "Rain" "path_to_images/rain.png" $
-        rain ::: "amount" # tFloat .-> 
-                   tGCM (tPort $ "rainfall" # tFloat)
-    , item "pump" "Pump" "path_to_images/pump.png" $
-        pump ::: "capacity" # tFloat .-> 
-                   tGCM (tPair (tPort $ "inflow"   # tFloat)
-                               (tPort $ "outflow"  # tFloat))
-    , item "runoff area" "Runoff" "path_to_images/runOffArea.png" $
-        runoffArea ::: "storage capacity" # tFloat .-> 
-                         tGCM (tTuple3 (tPort $ "inflow"   # tFloat)
-                                       (tPort $ "outlet"   # tFloat)
-                                       (tPort $ "overflow" # tFloat))
-    ] 
+    [ Item "rain" ["description: Rain", "imgURL: ./data/img/rain.png",
+                   "graphElement: nodal", "layer: domain"] $
+         rain ::: "amount" # tFloat .->
+         tGCM ("rotation: true" # "incomingType: none" # "outgoingType: arbitrary" #
+               "rainfall" # tPort tFloat)
+
+    , Item "pump" ["description: Pump", "imgURL: ./data/img/pump.png",
+                          "graphElement: relational", "layer: domain"] $
+       pump ::: "capacity" # tFloat.->
+       tGCM (tPair ("rotation: true" # "incomingType: single" # "outgoingType: none" #
+                    "inflow" # tPort tFloat)
+                   ("rotation: true" # "incomingType: none" # "outgoingType: single" #
+                    "outflow" # tPort tFloat))
+
+    , Item "runoff area" ["description: Runoff", "imgURL: ./data/img/runOffArea.png",
+                                 "graphElement: nodal", "layer: domain"] $
+       runoffArea ::: "storage capacity" # tFloat .->
+       tGCM (tTuple3 ("rotation: true" # "incomingType: single" # "outgoingType: none" #
+                      "inflow" # tPort tFloat)
+                     ("rotation: true" # "incomingType: none" # "outgoingType: single" #
+                      "outlet" # tPort tFloat)
+                     ("rotation: true" # "incomingType: none" # "outgoingType: single" #
+                      "overflow" # tPort tFloat))
+    ]
 \end{haskellcode}
 The example above creates a library called |exampleLib|. A library consists of
-an identifier, in this case |"crud"|, and a list of component items. Each |Item|
-has an unique identifier, some meta data describing the component, and the
-actual component paired with a type annotation. The meta data is used by the
-visual edtor for textual and visual descriptions, such as hover text.
+an identifier, in this case |"crud"|, and a list of component items. Each
+|Item|
+has an unique identifier, a list of strings which contain meta data describing
+the component,
+and the actual component paired with a type annotation.
+The meta data is used by the
+visual editor for textual and visual descriptions, such as hover text.
+The items above have four meta data annotations, as explained below, but the
+list of strings can be extended with further meta data as is required by the
+front-end. The meta data strings should have the format |"name: value"|
+and will be added to the JSON object representing the library item to the visual
+editor.
+\begin{enumerate}
+\item |description| is a short description which appears as hovertext when the
+  user hovers over the item.
+\item |imgURL| is the location of the image used to represent the item in the
+  visual editor.
+\item |graphElement| has possible values 'nodal' and 'relational', and describes
+which sort of graph element better describes the item. 
+\item |layer| has possible values 'causal' (for elements of the CLD),
+  'domain' (for elements related to the domain knowledge, in our case CRUD),
+  and 'problem' (for elements used to specify the problem the solver). 
+\end{enumerate}
 
-A type annotation of a component resembels a component's type signature, but has
+A type annotation of a component resembles a component's type signature, but has
 a slightly different syntax, namely |:::| instead of |::|, |.->| instead of
 |->|, and a |t| in front of the original type names (i.e. |tPort| to represent
 |Port|). Note that tuples need special handling: 2-tuples are annotated by
-|tPair| and 3-tuples by |tTuple3|. Type annotations can be tagged with a string,
-using the |#| charachter, to give that entity an identifier.  For example, on
+|tPair| and 3-tuples by |tTuple3|.
+
+Type annotations can be tagged with a string,
+using the |#| character, to give that entity an identifier.  For example, on
 line 7 of above code snippet, the identifier |"capacity"| is tagged to the
 |tFloat| type annotation, meaning that the first parameter of the pump component
-is identified by |capacity|. 
+is identified by |capacity|.
+
+The ports can have a number of annotations that
+specify how they should be represented in the visual editor. The ports above
+have three annotations, which are explained below, but annotations with the format
+|"name: value"| can be added as required and will then be added to the JSON
+representation of the port. 
+\begin{enumerate}
+\item |rotation| can be |true| or |false|, For instance if the port is visually
+  represented as an arrow it should be rotated to point in the right direction.
+\item |incomingType| can be |none|, |single|, |multiple| or |arbitrary|, and
+  describes how many incoming connections a port can have, where |multiple|
+  means at least one and |arbitrary| zero or more. 
+\item |outgoingType| is the same as |incomingType|, but for outgoing connections.
+\end{enumerate}
 
 The annotations in a library definition are used to automate the communication
 with the visual editor. These annotations contain all the necessary information
 that our web service needs to offer a library to the visual editor. 
 
+\subsection{Extending and combining libraries}
+Libraries can also be defined based on previously defined libraries, by
+combining such libraries or extending them with new items.
+We can use the functions |combine| and |combineList| to combine libraries and
+the function |insert| to extend them, as shown in the example below:
+
+\begin{haskellcode}
+-- newlib1 has the id "newLib1" and 
+-- contains the items from libraries lib1 and lib2
+newlib1 :: Library
+newLib1 = combine "newLib1" lib1 lib2
+
+-- newlib2 has the id "newLib2" and 
+-- contains the items from libraries lib1, lib2, lib3, and lib4
+newlib2 :: Library
+newLib2 = combineList "newLib2" [lib1, lib2, lib3, lib4]
+
+-- newlib3 is an extension of newlib2.
+-- it has the id "newLib2" and contains the items from newlib2
+-- in addition to the items item1 and item2
+newlib3 :: Library
+newlib3 = insert [item1, item2] newlib2
+\end{haskellcode}
 
 \section{Example: Vegetable Oil Production}
 
@@ -196,9 +294,8 @@ hectare to grow the crop, and how much oil can be produced from one tonne of the
 crop.
 %
 This example has been chosen because it is easy to imagine different
-stakeholders having different interests: one may strive to maximise
+stakeholders having different interests: one may strive to maximize
 production, another may aim to minimize water use, etc.
-
 
 To model this problem in GRACe we define a component for each crop, using these
 parameters, with ports expressing the number of hectares, the oil yield, and the
@@ -286,31 +383,8 @@ oilProduction numCrops = do
     assert $ oilProduced === sum oilSources
   return (oilCrops, oilOut)
 \end{haskellcode}
-Our goal is to maximize the amount of oil produced, and we define the helper
-function |maximize| to help us express this:
-\begin{minted}{haskell}
-maximize :: Port Int -> GCM ()
-maximize p = do
-  g <- createGoal
-  link p g
-\end{minted}
-The command |createGoal| instantiates a |GCM| goal, which the constraint
-solver attempts to maximize. Using this helper function we can simply write:
-\begin{minted}{haskell}
-maximize p
-\end{minted}
-to state that we would like to maximize the value at port |p|. Conversely, if
-our goal is to minimize a certain value we can define a similar helper function
-|minimize|:
-\begin{minted}{haskell}
-minimize :: Port Int -> GCM ()
-minimize p = do
-  g <- createGoal
-  linkBy (fun negate) p g
-\end{minted}
-Where the |link| command asserts that two values must be equal, the |linkBy|
-command takes a function as a parameter to express a more complex constraint on
-the values.
+Our goal is to maximize the amount of oil produced, and we use the helper
+function |maximize|, as described in \ref{goals}, to help us express this.
 
 The full code for the vegetable oil example can be seen in Appendix~\ref{oilcode}.
 

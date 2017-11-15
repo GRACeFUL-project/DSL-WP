@@ -53,7 +53,7 @@ _minted*
 #Backup-files (from emacs)
 *~
 # auto folder when using emacs and auctex
-/auto/*
+auto/*
 
 # vim swap files
 *.swp
