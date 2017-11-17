@@ -17,9 +17,6 @@
 \begin{document}
 \maketitle
 %TODO:
-% * How to define a library to send to the visual editor?
-%   (add once the connection to and status of the viseditor is clearer )
-% * Update library format to current
 % * ``step-by-step instructions for the Haskell non-expert to be able to create
 %     a new library component''
 % * More/different examples?
@@ -88,6 +85,7 @@ The |link| command asserts that two values must be equal, while the |linkBy|
 command takes a function as a parameter to express a more complex constraint on
 the values.
 
+The code for the |GCM| module is at \url{https://github.com/GRACeFUL-project/GRACe/blob/master/src/GCM.hs}.
 \section{CP}
 
 The |CP| module of GRACe supports reasoning about integer and floating-point
@@ -138,6 +136,7 @@ runoffArea cap = do
   return (inflow, outlet, overflow)
 \end{haskellcode}
 
+The code for the |CP| module is in \url{https://github.com/GRACeFUL-project/GRACe/blob/master/src/CP.hs}.
 \section{GRACe programs}
 
 In a GRACe program we define instances of available components and define their
@@ -161,9 +160,7 @@ The |link| command links two ports together and asserts that their values are
 equal. The |output| command lets us inspect the resulting value at a |Port|
 after all constraints have been solved.
 
-%\section{Creating a component - step by step}
 \section{Component libraries and connection to visual editor}
-%TODO: update this section, make it more detailed
 Although it is possible to define a GRACeFUL Concept Map directly using the
 GRACe DSL, most users will use the visual editor that is developed in work
 package 3. Using this visual editor users can draw concept maps using a palette
@@ -214,6 +211,8 @@ list of strings can be extended with further meta data as is required by the
 front-end. The meta data strings should have the format |"name: value"|
 and will be added to the JSON object representing the library item to the visual
 editor.
+
+The annotations for items used by the visual editor as of November 17th 2017 are:
 \begin{enumerate}
 \item |description| is a short description which appears as hovertext when the
   user hovers over the item.
@@ -243,6 +242,8 @@ specify how they should be represented in the visual editor. The ports above
 have three annotations, which are explained below, but annotations with the format
 |"name: value"| can be added as required and will then be added to the JSON
 representation of the port. 
+
+The annotations for ports used by the visual editor as of November 17th 2017 are:
 \begin{enumerate}
 \item |rotation| can be |true| or |false|, For instance if the port is visually
   represented as an arrow it should be rotated to point in the right direction.
@@ -255,6 +256,23 @@ representation of the port.
 The annotations in a library definition are used to automate the communication
 with the visual editor. These annotations contain all the necessary information
 that our web service needs to offer a library to the visual editor. 
+
+\subsection{Connecting a new library to visual editor}
+When the GRACeServer web service starts it looks in the folder |libraries| in
+the GRACe directory for modules that export a function named |library| of type
+|Library|, interpret the library |library| and adds it to the list of available libraries.
+
+To define a new library that can be accessed by the visual editor the library
+files should be located in the |libraries| folder.
+The header of the library file should contain the following lines:
+\begin{haskellcode}
+    module Filename (library) where
+    import Library
+\end{haskellcode}
+and the library itself should have the name |library| and the type signature
+|library :: Library|
+
+See examples of library files at \url{https://github.com/GRACeFUL-project/GRACe/tree/master/libraries}
 
 \subsection{Extending and combining libraries}
 Libraries can also be defined based on previously defined libraries, by
