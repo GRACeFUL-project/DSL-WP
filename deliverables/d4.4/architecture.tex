@@ -15,7 +15,7 @@ a choice of external constraint solver.
 In this section we briefly describe the different layers and how testing and
 verification is performed on each layer.
 
-\subsection*{Visual Editor}
+\subsubsection*{Visual Editor}
 
 The top layer of the software stack is the visual editor.
 %
@@ -31,8 +31,9 @@ The code for the visual editor can be found in the
 repository
 \href{https://github.com/GRACeFUL-project/GRACeFULEditor}{GRACeFULEditor}.
 
-
-\subsection*{Communication with visual editor}
+\todo{Is there anything to say about testing here? Maybe refer to user testing
+  related deliverable/stuff}
+\subsubsection*{Communication with visual editor}
 
 Communication between the visual editor and the GRACe layer takes
 place through a RESTful Web service written in Haskell.
@@ -44,7 +45,7 @@ The GRACe web service is available as the \texttt{RestAPI} executable in the
 \href{https://github.com/GRACeFUL-project/GRACe}{GRACe} repository.
 
 \todo{Say something about session check stuff.}
-\subsection*{GCM component libraries}
+\subsubsection*{GCM component libraries}
 
 The visual interface allows the user to access a chosen library of GCM
 components.
@@ -55,7 +56,7 @@ the user requests the library in question.
 
 \todo{Refer to section on using type systems for testing/verification (and mention our
 typed libraries as an example in that section.)}
-\subsection*{GRACe}
+\subsubsection*{GRACe}
 
 GRACe is a domain specific language embedded in Haskell.
 %
@@ -66,7 +67,7 @@ GRACe programs representing GCMs are compiled to haskelzinc constraint
 programs, and the resulting solutions are passed back to GRACe.
 
 \todo{Refer to GCMP section}
-\subsection*{Haskelzinc}
+\subsubsection*{Haskelzinc}
 
 Haskelzinc is a Haskell interface to the MiniZinc constraint
 programming language.
