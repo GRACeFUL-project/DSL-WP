@@ -8,7 +8,7 @@ the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
 [Keynote by Patrik Jansson](http://www.cse.chalmers.se/~patrikj/talks/Jansson_GSS_Applications_keynote.pdf)
 
-[GRACe presentation by Alex Gerdes](2017-12/GRACe - Brussel 20171212.pdf)
+[GRACe presentation by Alex Gerdes](2017-12/GRACe_Brussels_20171212.pdf)
 
 Information about GRACeFUL-supported [education and training material](EducationTraining.md)
 
