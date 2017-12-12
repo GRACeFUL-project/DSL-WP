@@ -4,6 +4,14 @@ This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
+## 2017-12-11/12: "GSS in H2020 and beyond" event in Brussels
+
+[Keynote by Patrik Jansson](http://www.cse.chalmers.se/~patrikj/talks/Jansson_GSS_Applications_keynote.pdf)
+
+[GRACe presentation by Alex Gerdes](2017-12/GRACe - Brussel 20171212.pdf)
+
+Information about GRACeFUL-supported [education and training material](EducationTraining.md)
+
 ## 2017-07-0?: Deliverable D4.3
 
 **Title**: Translation of concept map descriptions to system dynamics models for the CFP layer
