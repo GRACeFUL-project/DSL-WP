@@ -141,7 +141,47 @@ of the implementation is available on GitHub.
 \section{}
 \todo{Alex: type systems as another testing/verification technique we make use of. TypedValues}
 
-\section{}
+\section{Testing Communicating Systems}
+%
+SessionCheck \cite{SessionCheck} is a tool developed in WP 4 to test distributed systems like
+the GRACeFUL editor.
+%
+The tool is focused on the communication protocols used between the components.
+%
+In the case of the GRACeFUL editor the protocol would be the REST API descirbed in \cite{D4.3}. 
+%
+Typical testing of distrubted systems is done by maintaining a database consisting of hundreds
+or thousands of test-cases each specifying the behaviour of one party in the protocol with
+respect to a specific exchange of messages, a trace.
+%
+This approach is not ideal, as each test case is an artifact on its own which needs to be kept
+in sync with the rest of the software.
+%
+SessionCheck releives developers of the duty of maintaining hundreds of software artifacts with
+the duty of maintaining three, the client, the server, and the SessionCheck specification.
+
+\begin{figure}
+  \begin{minted}{haskell}
+    echo = do
+      s <- send anyString
+      get (is s)
+  \end{minted}
+  \caption{\label{fig:SessionCheck:echo} The \texttt{echo} protocol}
+\end{figure}
+
+See Figure \ref{fig:SessionCheck:echo} for an example of a SessionCheck specfication.
+%
+The specification specifies the \texttt{echo} protocol, in this protocol the client sends
+a single string to the server which replies with the same string.
+%
+We can use this specification to verify that either a client or a server implementation of
+the protocol is correct.
+%
+For example, when testing a faulty server implementation SessionCheck will print the following:
+\begin{verbatim}
+TODO TODO TODO TODO
+\end{verbatim}
+
 \todo{Maximilian: Testing of communicating systems: keeping components and protocols in sync [draft before Jan]}
 
 \todo{Solrun+Maximilian: Testing solvers and backends: challenges and partial solutions}
