@@ -160,6 +160,133 @@ in sync with the rest of the software.
 SessionCheck releives developers of the duty of maintaining hundreds of software artifacts with
 the duty of maintaining three, the client, the server, and the SessionCheck specification.
 
+
+
+\begin{figure}
+  \begin{minted}{Haskell}
+send    :: a :< t => Predicate a -> Spec t a
+get     :: a :< t => Predicate a -> Spec t a
+stop    :: Spec t a
+fail    :: String -> Spec t a
+return  :: a -> Spec t a
+(>>=)   :: Spec t a -> (a -> Spec t b) -> Spec t b
+-- Derived combinators
+choose  :: (Eq a, a :< t) => [a] -> Spec t a
+branch  :: (Eq a, a :< t) => [a] -> Spec t a
+  \end{minted}
+  \caption{\label{fig:SessionCheck:language} The SessionCheck language}
+\end{figure}
+
+To see the SessionCheck specfication language in action, consider a simple protocol between a server and a
+client which requires the client to transmit two positive integers and receive back from the server their sum.
+%
+In SessionCheck, this specification would be written as follows:
+%
+
+\begin{minted}{Haskell}
+protocol :: Spec Int Int
+protocol = do
+  a <- send posInt
+  b <- send posInt
+  get (is (a + b))
+\end{minted}
+
+%
+SessionCheck specifications are written from the point of view of a particular party, in this case the client.
+%
+We may as well have written the same specification from the point of view of the server,
+in which case it would look like this:
+%
+
+\begin{minted}{Haskell}
+protocol' :: Spec Int Int
+protocol' = do
+  a <- get posInt
+  b <- get posInt
+  send (is (a + b))
+\end{minted}
+
+%
+It is no coincidence that the two specifications are very similar, and SessionCheck can work equally well with
+both, as we will see shortly.
+
+The SessionCheck specification language is a domain specific language embedded in the Haskell \cite{Haskell}
+programming language.
+%
+Being an embedded language means that the language primitives in SessionCheck are
+implemented as Haskell data types and functions.
+%
+The language primitives in SessionCheck can be seen in Figure \ref{fig:SessionCheck:language}.
+%
+The type argument \texttt{t} in the type \texttt{Spec t a} denotes the type of messages
+being delivered on the channel on which the system under test is communicating
+with SessionCheck.
+%
+The \texttt{send} and \texttt{get} primitives represent obligations for the respective party to send a message
+which is compliant with the given \texttt{Predicate}, more on this soon.
+%
+The constraint \texttt{a :< t} denotes a subtyping relation between \texttt{a} and \texttt{t}.
+%
+That is, any value of type \texttt{a} can be transformed into value of type \texttt{t}, and it may be
+possible to transform a value of type \texttt{t} into value of type \texttt{a}.
+%
+Included in the interface are also the \texttt{fail} and \texttt{stop} functions.
+%
+The \texttt{stop} primitive specifies that the protocol session is terminated.
+%
+Unlike \texttt{send}, \texttt{get}, and \texttt{stop}, \texttt{fail} does not directly correspond to an action in the protocol.
+%
+Rather it allows the user to specify conditions for when the system being tested by SessionCheck fails
+which are not directly coupled to direct constraints on messages.
+%
+The \texttt{choose} and \texttt{branch} primitives are not actually primitive operations, rather they are derived from
+the rest of the interface.
+%
+The specification \texttt{choose xs} reads "send one of the values in \texttt{xs}", while \texttt{branch xs} reads "get one
+of the values in \texttt{xs}".
+
+The primitives described above do not permit small specifications, like \texttt{send anyInt} and \texttt{get anyBool}, to
+be composed to form more complex specifications.
+%
+For this purpose SessionCheck also supports the standard \texttt{Monad} interface \cite{WadlerMonad}, which contains the
+two primitive operations \texttt{return} and \texttt{(>>=)} (pronounced "bind").
+%
+The bind operator allows specifications to be composed by taking a specification, \texttt{s}, and a function which
+creates a specification from a value, \texttt{f}, and composing them to form the specification \texttt{s >>= f} which means
+"first the protocol behaves like \texttt{s}, then whatever value is produced at the end of \texttt{s} is fed to \texttt{f} to produce
+a new specification to follow".
+%
+As an example, consider the case where \texttt{s = send anyInt} and \texttt{f x = send (greaterThan x)}, here \texttt{s >>= f} is
+a specification which first requires the end-point to send an \texttt{Int} and then to send another \texttt{Int} which is greater
+than the first one.
+%
+The \texttt{do ...} notation in the above examples are syntactic sugar for successive uses of \texttt{(>>=)} and lambda abstraction
+\texttt{\ x -> e}, where the expression \texttt{\ x -> e} denotes a function where the variable \texttt{x} is used to bind the input of
+the function in the output \texttt{e}.
+%
+When written using explicit \texttt{(>>=)} the specification of \texttt{protocol} would look like this:
+%
+
+\begin{minted}{haskell}
+protocol :: Spec Int Int
+protocol =
+  send posInt >>= \ a ->
+  send posInt >>= \ b ->
+  get (is (a + b))
+\end{minted}
+
+
+%
+Supporting the generic \texttt{Monad} interface means that we get several useful combinators "for free", like
+\texttt{(>>) :: Spec t a -> Spec t b -> Spec t b} which sequences two independent specifications, and
+\texttt{forever :: Spec t a -> Spec t b} which repeats a specification indefinitely.
+%
+Finally, the \texttt{return} function simply wraps a value in a specification.
+%
+It represents no obligation on either part of the communication protocol, but rather is part of the standard
+monad interface.
+%
+
 \begin{figure}
   \begin{minted}{haskell}
     echo = do
@@ -183,21 +310,40 @@ For example, when testing a faulty server implementation SessionCheck will print
 TODO TODO TODO TODO
 \end{verbatim}
 
-\begin{figure}
-  \begin{minted}{Haskell}
-    TODO TODO TODO
-  \end{minted}
-  \caption{\label{fig:SessionCheck:language} The SessionCheck language}
-\end{figure}
 
-SessionCheck is an example of an Embedded Domain Specific Language (EDSL) in Haskell.
+To see the SessionCheck language in action we will briefly explore using SessionCheck
+to specify a small book ordering service.
 %
-The language constructs can be seen in Figure \ref{fig:SessionCheck:language}.
+The idea of this protocol is that the client transmits a number of books it wants to order to the
+server, followed by a \texttt{checkout} message, the server then transmits back to the client
+the clients current basket. 
 %
+We hope that this small example is sufficient to see how SessionCheck might be used to
+specify larger protocols.
+%
+We will begin by specifying the type of messages which may be transmitted between the client and the
+server.
+%
+The client will transmit \texttt{Request} messages and the server will reply with \texttt{Reply} messages.
+%
+In this simple example we get the ordinary Haskell types below.
+
+\begin{minted}{Haskell}
+data Request = Order String | Checkout
+
+data Reply = Basket [String]
+\end{minted}
+
+The protocol contains a loop where the client orders books.
+
+\begin{minted}{Haskell}
+
+\end{minted}
 
 \todo{Maximilian: Testing of communicating systems: keeping components and protocols in sync [draft before Jan]}
 
 \todo{Solrun+Maximilian: Testing solvers and backends: challenges and partial solutions}
+\section{Solver Testing}
 \input{solver-testing}
 
 
