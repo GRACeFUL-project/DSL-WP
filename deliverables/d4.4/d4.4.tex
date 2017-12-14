@@ -307,7 +307,12 @@ the protocol is correct.
 For example, when testing a faulty server implementation SessionCheck will print the following:
 %
 \begin{verbatim}
-TODO TODO TODO TODO
+Failed with:
+Bad: get {is ""}
+
+With trace:
+Output {""}
+InputViolates {is ""} "\n\r"
 \end{verbatim}
 
 To see the SessionCheck language in action we will briefly explore using SessionCheck
@@ -353,10 +358,58 @@ Having specified the loop we can put everything together into the final protocol
     get (supersetOf books)
 \end{minted}
 
-\todo{Maximilian: Testing of communicating systems: keeping components and protocols in sync [draft before Jan]}
+So far we have only seen how we can specify and test one part of a protocol.
+%
+However, thanks to something called duality a client specification gives rise
+to a server specification without any effort.
+%
+The key idea of duality is that if a specification specifies one part of a two-party
+protocol, then the same specfication with all instances of \texttt{send} replaced by
+\texttt{get} and vice-verse specifies the other.
+%
+In SessionCheck, duality is implemented as a function \texttt{dual :: Spec t a -> Spec t a}.
+%
+The specification (not implementation) of \texttt{dual} can be seen below.
+\\~\\
 
-\todo{Solrun+Maximilian: Testing solvers and backends: challenges and partial solutions}
+\begin{minipage}{\linewidth}
+\begin{minted}{haskell}
+  dual :: Spec t a -> Spec t a
+  dual (send p)   = get p
+  dual (get p)    = send p
+  dual stop       = stop
+  dual (fail s)   = fail s
+  dual (return a) = return a
+  dual (s >>= f)  = dual s >>= dual . f
+\end{minted}
+\end{minipage}
+
+To see duality in action consider the \texttt{echo} protocol above.
+%
+When written using explicit \texttt{(>>=)} the protocol looks like this
+
+\begin{minted}{haskell}
+  echo = send anyString >>= \ s -> get (is s)
+\end{minted}
+
+the \texttt{dual} of which can be computed to
+
+\begin{minted}{haskell}
+  dual echo = get anyString >>= \ s -> send (is s)
+\end{minted}
+
+Which when written using the more convenient \texttt{do} notation is simply
+
+\begin{minted}{haskell}
+  dual echo = do
+    s <- get anyString
+    send (is s)
+\end{minted}
+
+Which is clearly a specification of an \texttt{echo} server.
+
 \section{Solver Testing}
+\todo{Solrun+Maximilian: Testing solvers and backends: challenges and partial solutions}
 \input{solver-testing}
 
 
