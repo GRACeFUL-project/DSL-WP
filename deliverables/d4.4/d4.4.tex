@@ -310,7 +310,6 @@ For example, when testing a faulty server implementation SessionCheck will print
 TODO TODO TODO TODO
 \end{verbatim}
 
-
 To see the SessionCheck language in action we will briefly explore using SessionCheck
 to specify a small book ordering service.
 %
@@ -337,7 +336,21 @@ data Reply = Basket [String]
 The protocol contains a loop where the client orders books.
 
 \begin{minted}{Haskell}
+  loop :: Request :< t => [String] -> Spec t [String]
+  loop books = do
+    r <- anyRequest
+    case r of
+      Order book -> loop (book:books)
+      Checkout   -> return books
+\end{minted}
 
+Having specified the loop we can put everything together into the final protocol.
+
+\begin{minted}{Haskell}
+  protocol :: (Request :< t, Reply :< t) => Spec t Reply
+  protocol = do
+    books <- loop []
+    get (supersetOf books)
 \end{minted}
 
 \todo{Maximilian: Testing of communicating systems: keeping components and protocols in sync [draft before Jan]}
