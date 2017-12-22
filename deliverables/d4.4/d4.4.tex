@@ -143,24 +143,22 @@ of the implementation is available on GitHub.
 
 \section{Testing Communicating Systems}
 %
-SessionCheck \cite{SessionCheck} is a tool developed in WP 4 to test distributed systems like
+SessionCheck \cite{SessionCheck} is a tool developed in WP4 to test distributed systems like
 the GRACeFUL editor.
 %
 The tool is focused on the communication protocols used between the components.
 %
-In the case of the GRACeFUL editor the protocol would be the REST API descirbed in \cite{D4.3}. 
+In the case of the GRACeFUL editor the protocol would be the REST API described in \cite{D4.3}. 
 %
-Typical testing of distrubted systems is done by maintaining a database consisting of hundreds
-or thousands of test-cases each specifying the behaviour of one party in the protocol with
+Typical testing of distributed systems is done by maintaining a database consisting of hundreds
+or thousands of test-cases, each specifying the behaviour of one party in the protocol with
 respect to a specific exchange of messages, a trace.
 %
 This approach is not ideal, as each test case is an artifact on its own which needs to be kept
 in sync with the rest of the software.
 %
-SessionCheck releives developers of the duty of maintaining hundreds of software artifacts with
-the duty of maintaining three, the client, the server, and the SessionCheck specification.
-
-
+SessionCheck relieves developers of the duty of maintaining hundreds of software
+artifacts, replacing them with only three: the client, the server, and the SessionCheck specification.
 
 \begin{figure}
   \begin{minted}{Haskell}
@@ -242,25 +240,25 @@ which are not directly coupled to direct constraints on messages.
 The \texttt{choose} and \texttt{branch} primitives are not actually primitive operations, rather they are derived from
 the rest of the interface.
 %
-The specification \texttt{choose xs} reads "send one of the values in \texttt{xs}", while \texttt{branch xs} reads "get one
-of the values in \texttt{xs}".
+The specification \texttt{choose xs} reads ``send one of the values in \texttt{xs}'', while \texttt{branch xs} reads ``get one
+of the values in \texttt{xs}''.
 
 The primitives described above do not permit small specifications, like \texttt{send anyInt} and \texttt{get anyBool}, to
 be composed to form more complex specifications.
 %
 For this purpose SessionCheck also supports the standard \texttt{Monad} interface \cite{WadlerMonad}, which contains the
-two primitive operations \texttt{return} and \texttt{(>>=)} (pronounced "bind").
+two primitive operations \texttt{return} and \texttt{(>>=)} (pronounced ``bind'').
 %
 The bind operator allows specifications to be composed by taking a specification, \texttt{s}, and a function which
 creates a specification from a value, \texttt{f}, and composing them to form the specification \texttt{s >>= f} which means
-"first the protocol behaves like \texttt{s}, then whatever value is produced at the end of \texttt{s} is fed to \texttt{f} to produce
-a new specification to follow".
+``first the protocol behaves like \texttt{s}, then whatever value is produced at the end of \texttt{s} is fed to \texttt{f} to produce
+a new specification to follow''.
 %
 As an example, consider the case where \texttt{s = send anyInt} and \texttt{f x = send (greaterThan x)}, here \texttt{s >>= f} is
 a specification which first requires the end-point to send an \texttt{Int} and then to send another \texttt{Int} which is greater
 than the first one.
 %
-The \texttt{do ...} notation in the above examples are syntactic sugar for successive uses of \texttt{(>>=)} and lambda abstraction
+The \texttt{do ...} notation in the above examples is syntactic sugar for successive uses of \texttt{(>>=)} and lambda abstraction
 \texttt{\ x -> e}, where the expression \texttt{\ x -> e} denotes a function where the variable \texttt{x} is used to bind the input of
 the function in the output \texttt{e}.
 %
@@ -277,7 +275,7 @@ protocol =
 
 
 %
-Supporting the generic \texttt{Monad} interface means that we get several useful combinators "for free", like
+Supporting the generic \texttt{Monad} interface means that we get several useful combinators ``for free'', like
 \texttt{(>>) :: Spec t a -> Spec t b -> Spec t b} which sequences two independent specifications, and
 \texttt{forever :: Spec t a -> Spec t b} which repeats a specification indefinitely.
 %
@@ -296,7 +294,7 @@ monad interface.
   \caption{\label{fig:SessionCheck:echo} The \texttt{echo} protocol}
 \end{figure}
 
-See Figure \ref{fig:SessionCheck:echo} for an example of a SessionCheck specfication.
+See Figure \ref{fig:SessionCheck:echo} for an example of a SessionCheck specification.
 %
 The specification specifies the \texttt{echo} protocol, in this protocol the client sends
 a single string to the server which replies with the same string.
