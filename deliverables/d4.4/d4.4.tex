@@ -100,46 +100,33 @@ with applications to the CRUD case study\\[1ex]
 \\Due Date of Delivery:   & 2018-01-31
 \end{tabular}
 
-\newpage
-
-\section*{D4.4 Testing and verification framework for RATs with
-  applications to the CRUD case study}
-
-Contributions by: Maximilian Algehed, Sólrún Einarsdóttir, Alex
-Gerdes, and Patrik Jansson.
+Authors: Maximilian Algehed, Sólrún Einarsdóttir, Alex Gerdes, and
+Patrik Jansson.
 
 \begin{abstract}
 
 This fourth deliverable (D4.4) of work package 4 presents a framework for
-testing and verification of RATs.
+testing and verifying communicating systems.
 %
 The work leading up to this deliverable is within Task 4.5 ``Build a
 testing and verification framework for RATs'' and the full source code
 of the implementation is available on GitHub.
 
-
 \end{abstract}
-
-\vfill
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-
-\vfill
-
-
 \newpage
 
 \section{Introduction}
 
 \input{intro}
 
+\section{Verification through types and tests}
+
+\subsection{Strong types}
+\todo{Alex: type systems as another testing/verification technique we make use of. TypedValues}
+
 \subsection{Property-based testing}
 \todo{Alex: introduce property based testing: [before Jan]}
 \input{intro-property-based-testing}
-
-\section{}
-\todo{Alex: type systems as another testing/verification technique we make use of. TypedValues}
 
 \section{Testing Communicating Systems}
 %
@@ -148,7 +135,7 @@ the GRACeFUL editor.
 %
 The tool is focused on the communication protocols used between the components.
 %
-In the case of the GRACeFUL editor the protocol would be the REST API described in \cite{D4.3}. 
+In the case of the GRACeFUL editor the protocol would be the REST API described in deliverable D4.3. %\cite{D4.3}
 %
 Typical testing of distributed systems is done by maintaining a database consisting of hundreds
 or thousands of test-cases, each specifying the behaviour of one party in the protocol with
@@ -160,33 +147,20 @@ in sync with the rest of the software.
 SessionCheck relieves developers of the duty of maintaining hundreds of software
 artifacts, replacing them with only three: the client, the server, and the SessionCheck specification.
 
-\begin{figure}
-  \begin{minted}{Haskell}
-send    :: a :< t => Predicate a -> Spec t a
-get     :: a :< t => Predicate a -> Spec t a
-stop    :: Spec t a
-fail    :: String -> Spec t a
-return  :: a -> Spec t a
-(>>=)   :: Spec t a -> (a -> Spec t b) -> Spec t b
--- Derived combinators
-choose  :: (Eq a, a :< t) => [a] -> Spec t a
-branch  :: (Eq a, a :< t) => [a] -> Spec t a
-  \end{minted}
-  \caption{\label{fig:SessionCheck:language} The SessionCheck language}
-\end{figure}
-
-To see the SessionCheck specfication language in action, consider a simple protocol between a server and a
-client which requires the client to transmit two positive integers and receive back from the server their sum.
+To see the SessionCheck specfication language in action, consider a
+simple protocol between a server and a client which requires the
+client to transmit two positive integers and receive back from the
+server their sum.
 %
 In SessionCheck, this specification would be written as follows:
 %
 
 \begin{minted}{Haskell}
-protocol :: Spec Int Int
-protocol = do
-  a <- send posInt
-  b <- send posInt
-  get (is (a + b))
+  protocol :: Spec Int Int
+  protocol = do
+    a <- send posInt
+    b <- send posInt
+    get (is (a + b))
 \end{minted}
 
 %
@@ -197,17 +171,35 @@ in which case it would look like this:
 %
 
 \begin{minted}{Haskell}
-protocol' :: Spec Int Int
-protocol' = do
-  a <- get posInt
-  b <- get posInt
-  send (is (a + b))
-\end{minted}
+  protocol' :: Spec Int Int
+  protocol' = do
+    a <- get posInt
+    b <- get posInt
+    send (is (a + b))
+  \end{minted}
 
 %
 It is no coincidence that the two specifications are very similar, and SessionCheck can work equally well with
 both, as we will see shortly.
 
+\begin{figure}[tbp]
+  \begin{minted}{Haskell}
+    data Spec t a   -- SessionCheck spec. for channel type t
+
+    send    ::  a :< t =>  Predicate a ->       Spec t a
+    get     ::  a :< t =>  Predicate a ->       Spec t a
+    stop    ::                                  Spec t a
+    fail    ::  String ->                       Spec t a
+    return  ::  a ->                            Spec t a
+    (>>=)   ::  Spec t a -> (a -> Spec t b) ->  Spec t b
+
+    -- Derived combinators
+    choose  :: (Eq a, a :< t) =>  [a] ->       Spec t a
+    branch  :: (Eq a, a :< t) =>  [a] ->       Spec t a
+  \end{minted}
+  \caption{\label{fig:SessionCheck:language} The SessionCheck language}
+\end{figure}
+%
 The SessionCheck specification language is a domain specific language embedded in the Haskell \cite{Haskell}
 programming language.
 %
@@ -216,88 +208,95 @@ implemented as Haskell data types and functions.
 %
 The language primitives in SessionCheck can be seen in Figure \ref{fig:SessionCheck:language}.
 %
-The type argument \texttt{t} in the type \texttt{Spec t a} denotes the type of messages
+The type argument \mintinline{Haskell}{t} in the type \mintinline{Haskell}{Spec t a} denotes the type of messages
 being delivered on the channel on which the system under test is communicating
 with SessionCheck.
 %
-The \texttt{send} and \texttt{get} primitives represent obligations for the respective party to send a message
-which is compliant with the given \texttt{Predicate}, more on this soon.
+The \mintinline{Haskell}{send} and \mintinline{Haskell}{get} primitives represent obligations for the respective party to send a message
+which is compliant with the given \mintinline{Haskell}{Predicate}, more on this soon.
 %
-The constraint \texttt{a :< t} denotes a subtyping relation between \texttt{a} and \texttt{t}.
+The type constraint \mintinline{Haskell}{a :< t} (for \mintinline{Haskell}{send} and
+\mintinline{Haskell}{get}) denotes a subtyping relation between \mintinline{Haskell}{a} and
+\mintinline{Haskell}{t}.
 %
-That is, any value of type \texttt{a} can be transformed into value of type \texttt{t}, and it may be
-possible to transform a value of type \texttt{t} into value of type \texttt{a}.
+That is, any value of type \mintinline{Haskell}{a} can be transformed into value of type \mintinline{Haskell}{t}, and it may be
+possible to transform a value of type \mintinline{Haskell}{t} into value of type \mintinline{Haskell}{a}.
 %
-Included in the interface are also the \texttt{fail} and \texttt{stop} functions.
+
+Included in the interface are also the \mintinline{Haskell}{stop} and \mintinline{Haskell}{fail} functions.
 %
-The \texttt{stop} primitive specifies that the protocol session is terminated.
+The \mintinline{Haskell}{stop} primitive specifies that the protocol session is terminated.
+%TODO: successfully terminated?, difference from return?
+Unlike \mintinline{Haskell}{send}, \mintinline{Haskell}{get}, and \mintinline{Haskell}{stop}, the \mintinline{Haskell}{fail} primitive does not directly correspond to an action in the protocol.
 %
-Unlike \texttt{send}, \texttt{get}, and \texttt{stop}, \texttt{fail} does not directly correspond to an action in the protocol.
+Rather it allows the user to specify conditions, for when the system being tested by SessionCheck fails,
+which are not directly coupled to constraints on messages.
 %
-Rather it allows the user to specify conditions for when the system being tested by SessionCheck fails
-which are not directly coupled to direct constraints on messages.
-%
-The \texttt{choose} and \texttt{branch} primitives are not actually primitive operations, rather they are derived from
+The \mintinline{Haskell}{choose} and \mintinline{Haskell}{branch} primitives are not actually
+primitive operations, rather they are derived from (implemented using)
 the rest of the interface.
 %
-The specification \texttt{choose xs} reads ``send one of the values in \texttt{xs}'', while \texttt{branch xs} reads ``get one
-of the values in \texttt{xs}''.
+The specification \mintinline{Haskell}{choose xs} reads ``send one of the values in \mintinline{Haskell}{xs}'', while \mintinline{Haskell}{branch xs} reads ``get one
+of the values in \mintinline{Haskell}{xs}''.
 
-The primitives described above do not permit small specifications, like \texttt{send anyInt} and \texttt{get anyBool}, to
-be composed to form more complex specifications.
+The primitives explained so far do not permit small specifications
+(like \mintinline{Haskell}{send anyInt} and \mintinline{Haskell}{get anyBool}) to be composed to
+form more complex specifications.
 %
-For this purpose SessionCheck also supports the standard \texttt{Monad} interface \cite{WadlerMonad}, which contains the
-two primitive operations \texttt{return} and \texttt{(>>=)} (pronounced ``bind'').
+For this purpose SessionCheck also supports the standard \mintinline{Haskell}{Monad} interface~\cite{WadlerMonad}, which contains the
+two primitive operations \mintinline{Haskell}{return} and \mintinline{Haskell}{(>>=)} (pronounced ``bind'').
 %
-The bind operator allows specifications to be composed by taking a specification, \texttt{s}, and a function which
-creates a specification from a value, \texttt{f}, and composing them to form the specification \texttt{s >>= f} which means
-``first the protocol behaves like \texttt{s}, then whatever value is produced at the end of \texttt{s} is fed to \texttt{f} to produce
+The bind operator allows specifications to be composed by taking a specification, \mintinline{Haskell}{s}, and a function which
+creates a specification from a value, \mintinline{Haskell}{f}, and composing them to form the specification \mintinline{Haskell}{s >>= f} which means
+``first the protocol behaves like \mintinline{Haskell}{s}, then whatever value is produced at the end of \mintinline{Haskell}{s} is fed to \mintinline{Haskell}{f} to produce
 a new specification to follow''.
 %
-As an example, consider the case where \texttt{s = send anyInt} and \texttt{f x = send (greaterThan x)}, here \texttt{s >>= f} is
-a specification which first requires the end-point to send an \texttt{Int} and then to send another \texttt{Int} which is greater
+As an example, consider the case where \mintinline{Haskell}{s = send anyInt} and \mintinline{Haskell}{f x = send (greaterThan x)}, here \mintinline{Haskell}{s >>= f} is
+a specification which first requires the end-point to send an \mintinline{Haskell}{Int} and then to send another \mintinline{Haskell}{Int} which is greater
 than the first one.
 %
-The \texttt{do ...} notation in the above examples is syntactic sugar for successive uses of \texttt{(>>=)} and lambda abstraction
-\texttt{\ x -> e}, where the expression \texttt{\ x -> e} denotes a function where the variable \texttt{x} is used to bind the input of
-the function in the output \texttt{e}.
+The \mintinline{Haskell}{do ...} notation in the above examples is syntactic sugar for successive uses of \mintinline{Haskell}{(>>=)} and lambda abstraction
+\mintinline{Haskell}{\ x -> e}, where the expression \mintinline{Haskell}{\ x -> e} denotes a function where the variable \mintinline{Haskell}{x} is used to bind the input of
+the function in the (output) expression \mintinline{Haskell}{e}.
 %
-When written using explicit \texttt{(>>=)} the specification of \texttt{protocol} would look like this:
+When written using explicit \mintinline{Haskell}{(>>=)} the specification of \mintinline{Haskell}{protocol} could look like this:
 %
-
 \begin{minted}{haskell}
 protocol :: Spec Int Int
-protocol =
-  send posInt >>= \ a ->
-  send posInt >>= \ b ->
-  get (is (a + b))
+protocol = send posInt >>= \ a -> send posInt >>= \ b -> get (is (a + b))
 \end{minted}
 
 
 %
-Supporting the generic \texttt{Monad} interface means that we get several useful combinators ``for free'', like
-\texttt{(>>) :: Spec t a -> Spec t b -> Spec t b} which sequences two independent specifications, and
-\texttt{forever :: Spec t a -> Spec t b} which repeats a specification indefinitely.
+Supporting the generic \mintinline{Haskell}{Monad} interface means that we get several useful combinators ``for free'', like
+\mintinline{Haskell}{(>>) :: Spec t a -> Spec t b -> Spec t b} which sequences two independent specifications, and
+\mintinline{Haskell}{forever :: Spec t a -> Spec t b} which repeats a specification indefinitely.
 %
-Finally, the \texttt{return} function simply wraps a value in a specification.
+Finally, the \mintinline{Haskell}{return} function simply wraps a value in a specification.
 %
 It represents no obligation on either part of the communication protocol, but rather is part of the standard
 monad interface.
 %
 
-\begin{figure}
-  \begin{minted}{haskell}
-    echo = do
-      s <- send anyString
-      get (is s)
-  \end{minted}
-  \caption{\label{fig:SessionCheck:echo} The \texttt{echo} protocol}
-\end{figure}
-
-See Figure \ref{fig:SessionCheck:echo} for an example of a SessionCheck specification.
+% \begin{figure}
+%   \begin{minted}{haskell}
+%     echo = do
+%       s <- send anyString
+%       get (is s)
+%   \end{minted}
+%   \caption{\label{fig:SessionCheck:echo} The \mintinline{Haskell}{echo} protocol}
+% \end{figure}
+% %
+As a third example of a SessionCheck specification we can take the \mintinline{Haskell}{echo} protocol:
 %
-The specification specifies the \texttt{echo} protocol, in this protocol the client sends
-a single string to the server which replies with the same string.
+\begin{minted}{haskell}
+  echo = do
+    s <- send anyString
+    get (is s)
+\end{minted}
+%
+In this protocol the client sends a single string to the server which
+replies with the same string.
 %
 We can use this specification to verify that either a client or a server implementation of
 the protocol is correct.
@@ -313,44 +312,48 @@ Output {""}
 InputViolates {is ""} "\n\r"
 \end{verbatim}
 
-To see the SessionCheck language in action we will briefly explore using SessionCheck
-to specify a small book ordering service.
+To see the SessionCheck language in action we will briefly explore
+using SessionCheck to specify a small book ordering service.
 %
-The idea of this protocol is that the client transmits a number of books it wants to order to the
-server, followed by a \texttt{checkout} message, the server then transmits back to the client
-the clients current basket. 
+The idea of this protocol is that the client transmits a number of
+books it wants to order to the server, followed by a
+\mintinline{Haskell}{checkout} message.
 %
-We hope that this small example is sufficient to see how SessionCheck might be used to
-specify larger protocols.
+The server then transmits back to the client the clients current
+basket.
 %
-We will begin by specifying the type of messages which may be transmitted between the client and the
-server.
+We hope that this small example is sufficient to see how SessionCheck
+might be used to specify larger protocols.
 %
-The client will transmit \texttt{Request} messages and the server will reply with \texttt{Reply} messages.
+We start by specifying the type of messages which may be transmitted
+between the client and the server.
+%
+The client will transmit \mintinline{Haskell}{Request} messages and
+the server will reply with \mintinline{Haskell}{Reply} messages.
 %
 In this simple example we get the ordinary Haskell types below.
-
+%
 \begin{minted}{Haskell}
-data Request = Order String | Checkout
+  data Request  =  Order String | Checkout
 
-data Reply = Basket [String]
+  data Reply    =  Basket [String]
 \end{minted}
 
 The protocol contains a loop where the client orders books.
-
+%
 \begin{minted}{Haskell}
-  loop :: Request :< t => [String] -> Spec t [String]
+  loop :: Request :< t =>  [String] -> Spec t [String]
   loop books = do
     r <- anyRequest
     case r of
       Order book -> loop (book:books)
       Checkout   -> return books
 \end{minted}
-
+%
 Having specified the loop we can put everything together into the final protocol.
-
+%
 \begin{minted}{Haskell}
-  protocol :: (Request :< t, Reply :< t) => Spec t Reply
+  protocol :: (Request :< t, Reply :< t) =>  Spec t Reply
   protocol = do
     books <- loop []
     get (supersetOf books)
@@ -358,53 +361,51 @@ Having specified the loop we can put everything together into the final protocol
 
 So far we have only seen how we can specify and test one part of a protocol.
 %
-However, thanks to something called duality a client specification gives rise
+However, thanks to something called duality, a client specification gives rise
 to a server specification without any effort.
 %
-The key idea of duality is that if a specification specifies one part of a two-party
-protocol, then the same specfication with all instances of \texttt{send} replaced by
-\texttt{get} and vice-verse specifies the other.
+The key idea of duality is that if a specification specifies one part
+of a two-party protocol, then the same specfication with all instances
+of \mintinline{Haskell}{send} replaced by \mintinline{Haskell}{get}
+and vice-versa specifies the other.
 %
-In SessionCheck, duality is implemented as a function \texttt{dual :: Spec t a -> Spec t a}.
+In SessionCheck, duality is implemented as a function \mintinline{Haskell}{dual :: Spec t a -> Spec t a}.
 %
-The specification (not implementation) of \texttt{dual} can be seen below.
-\\~\\
-
-\begin{minipage}{\linewidth}
-\begin{minted}{haskell}
-  dual :: Spec t a -> Spec t a
-  dual (send p)   = get p
-  dual (get p)    = send p
-  dual stop       = stop
-  dual (fail s)   = fail s
-  dual (return a) = return a
-  dual (s >>= f)  = dual s >>= dual . f
+The specification (not implementation) of \mintinline{Haskell}{dual} can be seen below.
+%
+\begin{minted}{Haskell}
+  dual :: Spec t a   ->  Spec t a
+  dual    (send p)    =  get p
+  dual    (get p)     =  send p
+  dual    stop        =  stop
+  dual    (fail s)    =  fail s
+  dual    (return a)  =  return a
+  dual    (s >>= f)   =  dual s >>= dual . f
 \end{minted}
-\end{minipage}
-
-To see duality in action consider the \texttt{echo} protocol above.
 %
-When written using explicit \texttt{(>>=)} the protocol looks like this
-
+To see duality in action consider the \mintinline{Haskell}{echo} protocol above.
+%
+When written using explicit \mintinline{Haskell}{(>>=)} the protocol looks like this
+%
 \begin{minted}{haskell}
   echo = send anyString >>= \ s -> get (is s)
 \end{minted}
-
-the \texttt{dual} of which can be computed to
-
+%
+the \mintinline{Haskell}{dual} of which can be computed to
+%
 \begin{minted}{haskell}
   dual echo = get anyString >>= \ s -> send (is s)
 \end{minted}
-
-Which when written using the more convenient \texttt{do} notation is simply
-
+%
+Which when written using the more convenient \mintinline{Haskell}{do} notation is simply
+%
 \begin{minted}{haskell}
   dual echo = do
     s <- get anyString
     send (is s)
 \end{minted}
-
-Which is clearly a specification of an \texttt{echo} server.
+%
+Which is clearly a specification of an \mintinline{Haskell}{echo} server.
 
 \section{Solver Testing}
 \todo{Solrun+Maximilian: Testing solvers and backends: challenges and partial solutions}
@@ -472,7 +473,7 @@ mocking both parties of a two-party protocol using a single specification.
 
 \paragraph{Contracts, Chaperone Contracts, and Monitors}
 %
-Contracts \cite{Contracts} are a way of extending functions to provide runtime 
+Contracts \cite{Contracts} are a way of extending functions to provide runtime
 monitoring of pre- and post-conditions and assigning blame to code which
 violates these conditions.
 %

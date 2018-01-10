@@ -1,10 +1,25 @@
+The GRACeFUL project can be described as a stack of four layers,
+starting with stakeholder interaction (group model building, WP2) at
+the top, then the graphical user interface (GRACeFUL editor, WP3), the
+domain specific language for models and constraints (GRACe DSL, WP4)
+and finally the constraint programming (CP) backend providing
+efficient solution algorithms (WP5).
+%
+The GRACe DSL server communicates both ``upwards'' to the GRACeFUL
+editor and ``downwards'' to the CP layer.
+%
+This deliverable describes our methods for verifying correctness of
+this communication.
 
-\subsection{GRACeFUL software architecture}
-
-\input{architecture}
-% Front-end URL: http://vocol.iais.fraunhofer.de/graceful-rat/static/index.html
-% TODO (after 2017-11-17 when the front end functionality should be more stable): take screen shot(s) showing some model
-
+The division into frontend, server and backend is very common in
+software systems and this means that our results should be applicable
+for a wide range of other systems.
+%
+Our approach to software verification is based on three main parts:
+%
+declarative programming with strong types, property based testing in
+general, and the SessionCheck tool for testing communicating systems
+in particular.
 
 \subsection{Scope and limitations}
 
@@ -14,7 +29,7 @@ and verification of RATs.
 The CRUD RAT evaluation based on stakeholder sessions is reported
 elsewhere [D2.6 Evaluation Report CRUD RATs: m36] as is the
 interactivity and usability of the visual front-end [T3.4, D3.3 VA EDA
-  Tool Prototype (RAT components): m34].
+Tool Prototype (RAT components): m34].
 
 \subsection{Rapid Assessment Tools}
 
@@ -27,5 +42,11 @@ In GRACeFUL the main focus is on Climate Resiliant Urban Design, but
 the software developed in the project could be used for almost any
 Global Systems Science problem.
 
+
+\subsection{GRACeFUL software architecture}
+
+\input{architecture}
+% Front-end URL: http://vocol.iais.fraunhofer.de/graceful-rat/static/index.html
+% TODO (after 2017-11-17 when the front end functionality should be more stable): take screen shot(s) showing some model
 
 \todo{Patrik+Solrun: describe our prototype RAT: screen shot}
