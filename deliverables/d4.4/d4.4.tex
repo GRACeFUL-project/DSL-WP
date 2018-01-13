@@ -137,6 +137,9 @@ The tool is focused on the communication protocols used between the components.
 %
 In the case of the GRACeFUL editor the protocol would be the REST API described in deliverable D4.3. %\cite{D4.3}
 %
+But, as the tool can do more than that, we here give a mini-tutorial
+of how to use SessionCheck in general.
+
 Typical testing of distributed systems is done by maintaining a database consisting of hundreds
 or thousands of test-cases, each specifying the behaviour of one party in the protocol with
 respect to a specific exchange of messages, a trace.
@@ -407,6 +410,15 @@ Which when written using the more convenient \mintinline{Haskell}{do} notation i
 %
 Which is clearly a specification of an \mintinline{Haskell}{echo} server.
 
+To sum up, SessionCheck provides a small DSL, implemented in Haskell,
+for specifying communicating systems.
+%
+It benefits from the strong type system of Haskell, but also extends
+the reach of the specification to a large class of communication
+protocols, including cases when the ``other end'' of the communication
+is not written in Haskell (as in the case of the GRACeFUL visual
+editor).
+
 \section{Solver Testing}
 \todo{Solrun+Maximilian: Testing solvers and backends: challenges and partial solutions}
 \input{solver-testing}
@@ -427,10 +439,11 @@ of how SessionCheck relates to them as well as how we may incorporate some of
 the ideas present in the literature in future work.
 
 \paragraph{Mocking}
+
 Mocking refers to the practice of creating software components specifically
 in order to exercise the functionality of a system under test.
 %
-As an example of a mockup consider testing the functionality of a software
+As an example of a mockup, consider testing the functionality of a software
 component, which we will call |dashboard|, in a vehicle computer which is
 meant to read the speed of a vehicle and update the dashboard display
 appropriately.
@@ -446,13 +459,9 @@ In a notation similar to that of Svenningsson et al. \cite{HughesMocking}
 a mockup which expects the |readSpeed| and |updateDisplay| functions to be
 called sequentially may look like the following:
 %
-
-\begin{minipage}{\linewidth}
-  \begin{minted}{Haskell}
+\begin{minted}{Haskell}
     readSpeed() |-> 5.833 fs updateDisplay(speed, 21) |-> () fs eps
 \end{minted}
-\end{minipage}
-
 %
 This mockup specifies that the call to |readSpeed| will return |5.833| and that
 the subsequent call to |updateDisplay| will be called with the arguments
@@ -471,6 +480,12 @@ both the possibility of checking consistency of specifications as well as
 mocking both parties of a two-party protocol using a single specification.
 %
 
+In the context of GRACeFUL, mocking is useful for testing a single
+layer of the software stack in isolation.
+%
+Specifically, it can be used to test the GRACe server separately from
+the visual editor front-end.
+
 \paragraph{Contracts, Chaperone Contracts, and Monitors}
 %
 Contracts \cite{Contracts} are a way of extending functions to provide runtime
@@ -483,43 +498,32 @@ treat contracts as refinements of ordinary Haskell types.
 As an example consider the partial |head| function which takes a list and
 returns the first element:
 %
-
-\begin{minipage}{\linewidth}
-  \begin{minted}{haskell}
+\begin{minted}{haskell}
   head :: [a] -> a
   head (x:xs) = x
 \end{minted}
-\end{minipage}
-
 %
-In the scheme of Hinze et al. a contract of |head| which specifies that |head|
-may only be called on a non-empty list is specified as:
+In the scheme of Hinze et al.\ a contract of |head| which specifies that |head|
+may only be called on a non-empty list is written as:
 %
-
-\begin{minipage}{\linewidth}
-  \begin{minted}{haskell}
+\begin{minted}{haskell}
   headContract :: Contract ([a] -> a)
-  headContract = prop (\xs -> not (null xs)) ->> true
+  headContract = prop (\xs -> not (null xs))  ->>  true
 \end{minted}
-\end{minipage}
+%
+Here |prop :: (a -> Bool) -> Contract a| takes a predicate and lifts
+it to a contract, |true| is the contract which is always satisfied,
+equivalent to |prop (const True)|, and the infix combinator |(->>)|
+forms a contract for functions.
 
 %
-Where |prop :: (a -> Bool) -> Contract a| takes a predicate and lifts it to a
-contract, |(->>)| combines two contracts to form a contract for functions, and
-|true| is the contract which is always satisfied, equivalent to
-|prop (const True)|.
+Finally, associating |head| with its contract |headContract| is done
+using the function |assert :: Contract a -> a -> a|:
 %
-Finally, associating |head| with its contract |headContract| is done using the
-function |assert :: Contract a -> a -> a|:
-%
-
-\begin{minipage}{\linewidth}
-  \begin{minted}{haskell}
+\begin{minted}{haskell}
   headWithContract :: [a] -> [a]
   headWithContract = assert headContract head
 \end{minted}
-\end{minipage}
-
 %
 When a programmer uses the new |headWithContract| function the input is
 dynamically checked and an error is reported in case the contract is violated,
@@ -529,9 +533,10 @@ Crucially, the programmer can also specify location information for each call to
 |headWithContract|, which will extend contract violations errors with specific
 information about which call to |headWithContract| failed.
 
-Melgratti and Padovani \cite{ChaperoneContracts} introduce Chaperone Contracts,
-as a method for specifying higher-order two-party protocols (protocols which
-include transmitting protocol endpoints over the network).
+Melgratti and Padovani \cite{ChaperoneContracts} introduce ``Chaperone
+Contracts'', as a method for specifying higher-order two-party
+protocols. (Higher-order here means protocols which can transmit
+protocol endpoints over the network.)
 %
 While this work is similar to SessionCheck it does not address the problem
 of mocking protocol end points.
@@ -543,24 +548,26 @@ monadic.
 Rather, specifications need to be explicitly sequenced using the
 |(@@) :: Spec -> Spec -> Spec| combinator.
 %
-As a result of this dependent contracts, where the constraints in |send| and
+As a result of, this dependent contracts, where the constraints in |send| and
 |get| depend on previous sent and received values, are specified using
 special |send_d :: (a -> Bool) -> (a -> Spec) -> Spec| and
 |get_d :: (a -> Bool) -> (a -> Spec) -> Spec| combinators.
 %
-This introduces additional syntactic noise by making dependency more explicit
-than it already is.
+This introduces additional syntactic noise by making dependency more
+explicit than it already is.
 
-One important benefit of Melgratti and Padovani's work over ours is the ability
-to write higher order specifications, that is to say specifications where protocol
-end-points, themselves having associated specifications, may be transmitted
+One important benefit of Melgratti and Padovani's work over ours is
+their ability to write higher order specifications, where protocol
+end-points (including associated specifications), may be transmitted
 on the communication channels.
-
-We also believe that modest extensions to SessionCheck would allow us to use
-our specifications as contracts in a way similar to Melgratti and Padovani.
 %
-Doing this would effectively provide a more convenient (monadic) language for
-specifying contracts for the subset of protocols which are first order.
+We believe that modest extensions to SessionCheck would allow us to
+use our specifications as contracts in a way similar to Melgratti and
+Padovani.
+%
+Doing this would effectively provide a more convenient (monadic)
+language for specifying contracts for the subset of protocols which
+are first order.
 %
 
 \paragraph{The Scribble Specification Language}
@@ -584,7 +591,7 @@ SessionCheck is focused on testing and simulating protocols, while the language
 leverages as much of the Haskell host language as possible, making the implementation
 simple and succinct.
 %
-The SessionCheck language being embedded means generating skeleton code from a
+The SessionCheck language being embedded, means generating skeleton code from a
 specification is more difficult.
 %
 However, we have techniques in mind for a version of SessionCheck which can handle
