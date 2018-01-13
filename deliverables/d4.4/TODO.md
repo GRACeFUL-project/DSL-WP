@@ -5,8 +5,6 @@ Start off with:
 * Alex: Finish writing
   * intro about property-based testing and
   * section about type systems as a verification technique.
-* Patrik:
-  * Finish writing section 1.3 "Rapid Assessment Tools" / describe our prototype RAT
 * Sólrún: Look into actually using SessionCheck to test our system, what needs to be implemented?
 * Max:
   * Help Sólrún figure out how to use SessionCheck.
