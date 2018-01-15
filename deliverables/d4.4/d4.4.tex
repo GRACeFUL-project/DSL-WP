@@ -96,7 +96,7 @@ with applications to the CRUD case study\\[1ex]
   Lead Participant:       & Chalmers (WP leader: P. Jansson)
 \\Dissemination Level:    & PU
 \\Document Version:       & Draft
-\\Date of Submission:     & 201?-??-??
+\\Date of Submission:     & 2018-0?-??
 \\Due Date of Delivery:   & 2018-01-31
 \end{tabular}
 
@@ -548,7 +548,7 @@ monadic.
 Rather, specifications need to be explicitly sequenced using the
 |(@@) :: Spec -> Spec -> Spec| combinator.
 %
-As a result of, this dependent contracts, where the constraints in |send| and
+As a result of this, dependent contracts, where the constraints in |send| and
 |get| depend on previous sent and received values, are specified using
 special |send_d :: (a -> Bool) -> (a -> Spec) -> Spec| and
 |get_d :: (a -> Bool) -> (a -> Spec) -> Spec| combinators.
@@ -591,7 +591,7 @@ SessionCheck is focused on testing and simulating protocols, while the language
 leverages as much of the Haskell host language as possible, making the implementation
 simple and succinct.
 %
-The SessionCheck language being embedded, means generating skeleton code from a
+The SessionCheck language being embedded means generating skeleton code from a
 specification is more difficult.
 %
 However, we have techniques in mind for a version of SessionCheck which can handle
