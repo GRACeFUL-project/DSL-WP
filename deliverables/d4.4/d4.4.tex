@@ -228,9 +228,12 @@ possible to transform a value of type \mintinline{Haskell}{t} into value of type
 
 Included in the interface are also the \mintinline{Haskell}{stop} and \mintinline{Haskell}{fail} functions.
 %
-The \mintinline{Haskell}{stop} primitive specifies that the protocol session is terminated.
-%TODO: successfully terminated?, difference from return?
-Unlike \mintinline{Haskell}{send}, \mintinline{Haskell}{get}, and \mintinline{Haskell}{stop}, the \mintinline{Haskell}{fail} primitive does not directly correspond to an action in the protocol.
+The \mintinline{Haskell}{stop} primitive specifies that the protocol session is successfully terminated.
+%
+The behaviour of \mintinline{Haskell}{stop} is specified by the equation \mintinline{Haskell}{stop >>= f = stop}.
+%
+Unlike \mintinline{Haskell}{send}, \mintinline{Haskell}{get}, and \mintinline{Haskell}{stop},
+the \mintinline{Haskell}{fail} primitive does not directly correspond to an action in the protocol.
 %
 Rather it allows the user to specify conditions, for when the system being tested by SessionCheck fails,
 which are not directly coupled to constraints on messages.
@@ -239,7 +242,8 @@ The \mintinline{Haskell}{choose} and \mintinline{Haskell}{branch} primitives are
 primitive operations, rather they are derived from (implemented using)
 the rest of the interface.
 %
-The specification \mintinline{Haskell}{choose xs} reads ``send one of the values in \mintinline{Haskell}{xs}'', while \mintinline{Haskell}{branch xs} reads ``get one
+The specification \mintinline{Haskell}{choose xs} reads ``send one of the values in \mintinline{Haskell}{xs}'',
+while \mintinline{Haskell}{branch xs} reads ``get one
 of the values in \mintinline{Haskell}{xs}''.
 
 The primitives explained so far do not permit small specifications
@@ -409,6 +413,67 @@ Which when written using the more convenient \mintinline{Haskell}{do} notation i
 \end{minted}
 %
 Which is clearly a specification of an \mintinline{Haskell}{echo} server.
+
+\paragraph{Using SessionCheck to Test GRACe-like Tools}
+
+We will briefly turn our attention to how SessionCheck could be employed
+to test tools like the GRACeFUL RAT.
+%
+There are multiple communicating components in the GRACeFUL software architecture.
+%
+The two primary components are the visual editor, running as a client in a web browser,
+and the GRACe server.
+%
+The GRACe server itself consists of two components, a front end which communicates with
+the visual editor, and a back end with communicates the the MiniZinc solver.
+%
+Both these avenues of communication could possibly be tested by SessionCheck.
+%
+
+To test the communication between the GRACe server and the visual editor we can model
+the API calls between the client and the server as
+two data types \mintinline{Haskell}{ClientRequest} and \mintinline{Haskell}{ServerResponse}.
+%
+\begin{minted}{Haskell}
+data ClientRequest =
+    AskLibraries
+  | SubmitProgram LibraryName ProgramRepresentation
+
+data ServerResponse =
+    Libraries   [Library]
+  | Assignments [(VariableName, Value)]
+  | Error503
+\end{minted}
+
+The specification needs to makes use of external knowledge about the system
+being specified and tested.
+%
+The specific piece of knowledge required is what libraries the server has access
+to.
+%
+The specification is written to be parametric in this information:
+
+\begin{minted}{Haskell}
+spec :: (ClientRequest :< t, ServerResponse :< t)
+     => [Library] -> Spec t ()
+spec allLibraries = do
+  req <- get anyClientRequest
+  case req of
+    AskLibraries -> send (is $ Libraries allLibraries)
+    SubmitProgram libName progRep -> send (validAssignments libName allLibraries progRep)
+  spec allLibraries
+\end{minted}
+%stopzone
+%stopzone is a vim hack, dont remove
+
+We omit the definition of the predicate
+\mintinline{Haskell}{validAssignments :: LibraryName -> [Library] -> ProgramRepresentation -> Predicate ServerResponse}
+in the interest of brevity.
+%
+Writing the predicates in this specifiation is not necessarily a simple task.
+%
+To describe the client we would need to define what a correct program representation is
+and come up with a way to generate such a representation.
 
 To sum up, SessionCheck provides a small DSL, implemented in Haskell,
 for specifying communicating systems.
