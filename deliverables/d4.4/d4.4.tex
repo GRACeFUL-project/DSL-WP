@@ -119,10 +119,60 @@ of the implementation is available on GitHub.
 
 \input{intro}
 
+
 \section{Verification through types and tests}
 
+Rapid Assessment Tools are used to evaluate plans for problems in Global System
+Sciences, such as Climate Resilient Urban Design. The evaluation output that is
+our produced by the tools, which we have developed in the GRACeFUL project,
+should be reliable. This implies that the software that we have developed should
+ideally be free of errors. It is well known that this is an utopia and not
+realistic. We can, however, do our best to keep the number of errors as low as
+possible. In this section we describe the two approaches to software
+verification that we have used in this project: type systems and property-based
+testing. 
+
 \subsection{Strong types}
-\todo{Alex: type systems as another testing/verification technique we make use of. TypedValues}
+Type systems can be regarded as the most used formal verification. It is of course
+a ligth weigth kind of formal verificiaton, but nevertheless very 
+
+it is unintrusive, types can be infered and easy to use.
+
+Haskell prog lang we use, has strong types
+
+We communicate witht the untyped outside world, where we lose type information
+
+We use Typed Values to circumvent this problem
+
+\begin{haskellcode}
+data Type t where
+  Int   :: Type Int
+  Bool  :: Type Bool
+  List  :: Type t -> Type [t]
+  (:->) :: Type a -> Type b -> Type (a -> b)
+\end{haskellcode}
+
+\begin{haskellcode}
+data a :~: b where
+  Refl :: a :~: a
+
+(?=) :: Type a -> Type b -> Maybe (a :~: b)
+Int          ?= Int        = return Refl
+Bool         ?= Bool       = return Refl
+(List t)     ?= (List t')  = do
+  Refl <- t ?= t'
+  return Refl
+(t0 :-> t1)  ?= (t0' :-> t1') = do
+  Refl <- t0 ?= t0'
+  Refl <- t1 ?= t1'
+  return Refl
+\end{haskellcode}
+
+\begin{haskellcode}
+data TypedValue where
+  (:::) :: a -> Type a -> TypedValue
+\end{haskellcode}
+
 
 \subsection{Property-based testing}
 A traditional way of testing software is using so-called unit tests. An unit
