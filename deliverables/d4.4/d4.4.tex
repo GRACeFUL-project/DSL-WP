@@ -425,14 +425,15 @@ The two primary components are the visual editor, running as a client in a web b
 and the GRACe server.
 %
 The GRACe server itself consists of two components, a front end which communicates with
-the visual editor, and a back end with communicates the the MiniZinc solver.
+the visual editor, and a back end which communicates with the the MiniZinc solver.
 %
 Both these avenues of communication could possibly be tested by SessionCheck.
 %
 
 To test the communication between the GRACe server and the visual editor we can model
 the API calls between the client and the server as
-two data types \mintinline{Haskell}{ClientRequest} and \mintinline{Haskell}{ServerResponse}.
+two data types \mintinline{Haskell}{ClientRequest} and
+\mintinline{Haskell}{ServerResponse}, defined as follows:
 %
 \begin{minted}{Haskell}
 data ClientRequest =
@@ -467,7 +468,10 @@ spec allLibraries = do
 %stopzone is a vim hack, dont remove
 
 We omit the definition of the predicate
-\mintinline{Haskell}{validAssignments :: LibraryName -> [Library] -> ProgramRepresentation -> Predicate ServerResponse}
+\begin{minted}{Haskell}
+validAssignments :: LibraryName -> [Library] -> ProgramRepresentation 
+                 -> Predicate ServerResponse}
+\end{minted}
 in the interest of brevity.
 %
 Writing the predicates in this specifiation is not necessarily a simple task.
