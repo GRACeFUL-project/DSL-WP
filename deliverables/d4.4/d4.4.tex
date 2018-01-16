@@ -116,6 +116,7 @@ of the implementation is available on GitHub.
 \newpage
 
 \section{Introduction}
+\label{sec:intro}
 
 \input{intro}
 
@@ -129,29 +130,50 @@ should be reliable. This implies that the software that we have developed should
 ideally be free of errors. It is well known that this is an utopia and not
 realistic. We can, however, do our best to keep the number of errors as low as
 possible. In this section we describe the two approaches to software
-verification that we have used in this project: type systems and property-based
+verification that we have used in this project: types and property-based
 testing. 
 
 \subsection{Strong types}
-Type systems can be regarded as the most used formal verification. It is of course
-a ligth weigth kind of formal verificiaton, but nevertheless very 
 
-it is unintrusive, types can be infered and easy to use.
+Types are not only used in computer science to generate code, but also as a
+\emph{specification} of parts of a program, such as functions and expressions. A
+type checker, normally part of a compiler, checks if the declared types match
+with the expected ones. A programmer can use a type checker to (semi-)formally
+verify the given specification, in the form of type declarations and
+annotations. In this sense, type systems can be regarded as the most used
+formal verification. It is of course a light-weight kind of formal verification,
+but nevertheless very useful. 
 
-Haskell prog lang we use, has strong types
+We have used types extensively in the GRACeFUL project, in particular in our
+domain specific language GRACe, the GRACeServer, and in Haskelzinc, the
+interface to the constraint programming layer. Our DSL for GRACeFUL concept maps
+is embedded in Haskell, which is a strongly typed functional programming
+language. Using Haskell's type system we can prevent a DSL user of making
+mistakes.
 
-We communicate witht the untyped outside world, where we lose type information
+An end user of the GRACeFUL tool chain is most likely not programming directly
+in Haskell using our GRACe DSL, but using the Visual Editor from Work Package 2
+instead. This poses a problem since the communication the Visual Editor goes via
+an untyped channel. An additional problem is that we want to group GCM
+components, which we mentioned in Section~\ref{sec:intro}, in a library, which
+is a challenge if you want to do this in a type safe manner. GCM components can
+have many different types, which makes it hard to collect them in a data type,
+such as a list.
 
-We use Typed Values to circumvent this problem
-
+We have addressed the above issues with \emph{Typed Values}, which are related
+to the |Typeable| and |Dynamic| Haskell libraries~\cite{DataDynamic}. We give a
+short description of Typed Values, leaving out many implementation details. The
+key idea behind Typed Values is to combine a value with its \emph{type
+representation}. A type representation can be encoded as follows in Haskell:
 \begin{haskellcode}
 data Type t where
   Int   :: Type Int
   Bool  :: Type Bool
+  Tag   :: String -> Type t -> Type t
   List  :: Type t -> Type [t]
   (:->) :: Type a -> Type b -> Type (a -> b)
 \end{haskellcode}
-
+The above GADT 
 \begin{haskellcode}
 data a :~: b where
   Refl :: a :~: a
@@ -159,6 +181,7 @@ data a :~: b where
 (?=) :: Type a -> Type b -> Maybe (a :~: b)
 Int          ?= Int        = return Refl
 Bool         ?= Bool       = return Refl
+Tag t        ?= Tag t'     = t ?= t'
 (List t)     ?= (List t')  = do
   Refl <- t ?= t'
   return Refl
@@ -190,10 +213,10 @@ data. Property-based testing uses generated random input data to test such
 properties. Properties are powerful: a good property gives a strong
 specification for a large set of test data. 
 
-QuickCheck is a well known implementation of property-based testing, and is
-available in many programming languages.  QuickCheck verifies properties by
-generating a large number of random test cases, and reports test cases for which
-the property fails. 
+QuickCheck~\cite{QuickCheck} is a well known implementation of property-based
+testing, and is available in many programming languages.  QuickCheck verifies
+properties by generating a large number of random test cases, and reports test
+cases for which the property fails. 
 
 For example, a property of the |reverse| function from the Haskell standard
 library (the |Prelude|) is that if reverse a list twice, we end up with the same
