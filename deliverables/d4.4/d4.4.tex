@@ -125,8 +125,44 @@ of the implementation is available on GitHub.
 \todo{Alex: type systems as another testing/verification technique we make use of. TypedValues}
 
 \subsection{Property-based testing}
-\todo{Alex: introduce property based testing: [before Jan]}
-\input{intro-property-based-testing}
+A traditional way of testing software is using so-called unit tests. An unit
+test case specifies some input data along with the expected output. We use these
+test cases to assure that the software is behaving as expected. For real-life
+sized software projects, however, there are many test cases needed to get a
+decent test coverage, which makes maintenance more difficult. Moreover, it is
+hard to think of all the corner cases that may be present in the software.
+
+An alternative approach is \emph{property-based testing}, which verifies
+software against particular properties that the software should have. A property
+can be regarded as an abstraction over many unit tests. These properties should
+hold for \emph{all} input and, as a consequence, we can \emph{generate} input
+data. Property-based testing uses generated random input data to test such
+properties. Properties are powerful: a good property gives a strong
+specification for a large set of test data. 
+
+QuickCheck is a well known implementation of property-based testing, and is
+available in many programming languages.  QuickCheck verifies properties by
+generating a large number of random test cases, and reports test cases for which
+the property fails. 
+
+For example, a property of the |reverse| function from the Haskell standard
+library (the |Prelude|) is that if reverse a list twice, we end up with the same
+list. This can be expressed in Haskell QuickCheck as follows:
+\begin{haskellcode}
+propTwice :: [Int] -> Bool
+propTwice = \ xs -> xs == reverse (reverse xs)
+\end{haskellcode}
+We can validate such a property by calling |quickCheck|:
+\begin{minted}{shell}
+> quickCheck propTwice
++++ OK, passed 100 tests.
+\end{minted}
+The above evaluation shows that the |reverse| function most likely adheres to
+the |propTwice| property. When QuickCheck finds a failing test case, a so-called
+counterexample, it shrinks the failing test case automatically, by searching for
+similar, but smaller test cases that fail as well. The result of shrinking is a
+minimal failing test case simplifying the debugging process. 
+
 
 \section{Testing Communicating Systems}
 %
