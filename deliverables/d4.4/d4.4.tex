@@ -40,7 +40,7 @@
 \usepackage{todonotes}
 
 %% Alex
-\newminted{haskell}{fontsize=\normalsize,xleftmargin=2mm,mathescape,linenos}
+\newminted{haskell}{fontsize=\normalsize,xleftmargin=2mm,mathescape}
 \newcommand{\haskell}[1]{\mintinline{haskell}|#1|}
 \DefineShortVerb{\|}
 \AtBeginEnvironment{minted}{%
@@ -164,40 +164,75 @@ We have addressed the above issues with \emph{Typed Values}, which are related
 to the |Typeable| and |Dynamic| Haskell libraries~\cite{DataDynamic}. We give a
 short description of Typed Values, leaving out many implementation details. The
 key idea behind Typed Values is to combine a value with its \emph{type
-representation}. A type representation can be encoded as follows in Haskell:
+representation}. A type representation can be implemented as follows in Haskell:
 \begin{haskellcode}
 data Type t where
-  Int   :: Type Int
-  Bool  :: Type Bool
+  -- Base types
+  TInt   :: Type Int
+  TBool  :: Type Bool
+  -- Annotations
   Tag   :: String -> Type t -> Type t
+  -- Lists
   List  :: Type t -> Type [t]
+  -- Functions
   (:->) :: Type a -> Type b -> Type (a -> b)
 \end{haskellcode}
-The above GADT 
+We use the above GADT to encode a type representation. The constructor |TInt|,
+for example, represents the |Int| type. The constructor for the list type
+representation takes another type representation as argument. So, the |List TBool| 
+value represents the list of boolean type. The |Tag| constructor is used
+to annotate types representation and leaves the represented type untouched. We
+can use such annotations for various purposes, for example to add meta-data.
+Finally, the |(:->)| constructor can be used to represent function types. 
+
+We use the type representation |Type t| to create a Typed Value, implemented
+with the following GADT:
+\begin{haskellcode}
+data TypedValue where
+  (:::) :: a -> Type a -> TypedValue
+\end{haskellcode}
+Note that type variable |a| does not appear in the result type. We combine a
+value, of type |a|, with its type representation, of type |Type a|. Using this
+data type we can hide the type of a value, and turn it into an untyped value. 
+We can, for instance, put values of different type into a list of Typed Values.
+This addresses one the issues we identified above. It is important the type 
+representation is part of a Typed Value; it allows us to extract the (typed)
+value, of type |a|, from a |TypedValue|, that is we can go back to the typed 
+realm in a type safe manner! 
+
+This is, unfortunately, not as easy as it may seem. We need to have a way to
+convince GHC\footnote{The de facto standard Haskell compiler} that two 
+type representations encode the \emph{same} type. The following data type and
+type equality function does this:
 \begin{haskellcode}
 data a :~: b where
   Refl :: a :~: a
 
 (?=) :: Type a -> Type b -> Maybe (a :~: b)
-Int          ?= Int        = return Refl
-Bool         ?= Bool       = return Refl
+TInt         ?= TInt       = return Refl
+TBool        ?= TBool      = return Refl
 Tag t        ?= Tag t'     = t ?= t'
 (List t)     ?= (List t')  = do
-  Refl <- t ?= t'
+  Refl <- t  ?= t'
   return Refl
 (t0 :-> t1)  ?= (t0' :-> t1') = do
   Refl <- t0 ?= t0'
   Refl <- t1 ?= t1'
   return Refl
 \end{haskellcode}
+The actual implementation of Typed Values is much more involved, but in essence
+the same to the code showed above. We use these Typed Values to create libraries
+of |GCM| components, and to communicate with the untyped outside world. Using
+these Typed Values we can enjoy the benefits of types as long as possible. 
 
-\begin{haskellcode}
-data TypedValue where
-  (:::) :: a -> Type a -> TypedValue
-\end{haskellcode}
-
+Using a strongly typed programming language, such as Haskell, and making good
+use of the types allows programmers to be more confident about their code and
+catches many mistakes. Alas, it does not prevent all mistakes and it is
+necessary to test our implementation, to even further increase our confidence.
+The next section explains the type of testing we have used in this project.
 
 \subsection{Property-based testing}
+
 A traditional way of testing software is using so-called unit tests. An unit
 test case specifies some input data along with the expected output. We use these
 test cases to assure that the software is behaving as expected. For real-life
@@ -235,6 +270,8 @@ the |propTwice| property. When QuickCheck finds a failing test case, a so-called
 counterexample, it shrinks the failing test case automatically, by searching for
 similar, but smaller test cases that fail as well. The result of shrinking is a
 minimal failing test case simplifying the debugging process. 
+
+\todo{Refer to section where we explain testing of GRACe programs}
 
 
 \section{Testing Communicating Systems}
