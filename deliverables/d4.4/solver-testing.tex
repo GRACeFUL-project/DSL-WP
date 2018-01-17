@@ -1,8 +1,0 @@
-% Some notes on things we've found out so far
-Sometimes the two backends return different solutions, this seems to be due to
-the output minizinc code having a different ordering of variable declaration.
-(see https://github.com/GRACeFUL-project/GRACe/tree/master/examples/multi)
-
-When optimizing minizinc/the underlying solver only returns the first optimal solution found, if you ask for more solutions you get intermediate solutions found before the first optimal one.
-The way to get all optimal solutions is to get the first optimal one and add it as a constraint for the variable being optimized, then running with solve satisfy and outputting all solutions.
-(See pg 29-30 here http://www.minizinc.org/downloads/doc-latest/minizinc-tute.pdf)

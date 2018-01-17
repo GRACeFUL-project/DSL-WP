@@ -224,7 +224,8 @@ library = Library "crud"
 \end{haskellcode}
 The example library makes use of Typed Values, which are explained in
 Section~\ref{sec:verification}.
-\todo[inline]{Refer to GCMP section}
+We have implemented tools for property-based testing of GRACe components,
+described in Section~\ref{sec:GCMP}.
 
 \subsubsection*{Communication with visual editor}
 
@@ -242,8 +243,11 @@ Notation} as the exchange format. The server offers the following webservices:
 \end{quote}
 The visual editor, developed in work package 3, communicates with the GRACeServer
 by making service calls. The GRACeServer is available as the \texttt{RestAPI} 
-executable in the \href{https://github.com/GRACeFUL-project/GRACe}{GRACe} repository.
-\todo[inline]{Say something about session check stuff.}
+executable in the \href{https://github.com/GRACeFUL-project/GRACe}{GRACe}
+repository.
+
+We have developed the tool SessionCheck, described in
+Section~\ref{sec:SessionCheck}, to test the communication of systems such as this.
 
 \subsubsection*{Haskelzinc}
 
@@ -408,10 +412,12 @@ counterexample, it shrinks the failing test case automatically, by searching for
 similar, but smaller test cases that fail as well. The result of shrinking is a
 minimal failing test case simplifying the debugging process. 
 
-\todo[inline]{Refer to section where we explain testing of GRACe programs}
-
-
+In Section~\ref{sec:GCMP} we describe our property-based testing of GRACe programs. 
+Our tool SessionCheck, described in
+Section~\ref{sec:SessionCheck}, also utilizes ideas from property-based testing
+to test communicating systems.
 \section{Testing Communicating Systems}
+\label{sec:SessionCheck}
 %
 SessionCheck \cite{SessionCheck} is a tool developed in WP4 to test distributed systems like
 the GRACeFUL editor.
@@ -772,6 +778,7 @@ is not written in Haskell (as in the case of the GRACeFUL visual
 editor).
 
 \section{Property based testing of GRACe programs}
+\label{sec:GCMP}
 
 We use the |GCMP| type to define properties of GRACe components and programs to
 test.

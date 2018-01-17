@@ -2,11 +2,10 @@ Deliverable 4.4 todos 2018-01-16
 ========================================
 Ongoing
 -----------------
-* Sólrún: Write about GCMP, add some more properties to test using it.
+* Sólrún: Write more about GCMP, fix code so we can use it, add some more properties to test using it.
 
 TODO
 -----
-* Do we need to say more about SessionCheck in the context of our software?
 * Write something in Solver Testing section (could just be about how we use unit tests to test our whole software stack).
 * Write something about unit tests / our test suite. 
 * Related work - currently we have a related work section about SessionCheck, if we're going to have a related work section it should contain more stuff. 
