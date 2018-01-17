@@ -3,12 +3,10 @@ Deliverable 4.4 todos 2018-01-16
 Ongoing
 -----------------
 * Sólrún: Write more about GCMP, fix code so we can use it, add some more properties to test using it.
-
+* Max: Connecting SessionCheck to property-based testing and other things he made note of.
 TODO
 -----
-* Write something in Solver Testing section (could just be about how we use unit tests to test our whole software stack).
-* Write something about unit tests / our test suite. 
-* Related work - currently we have a related work section about SessionCheck, if we're going to have a related work section it should contain more stuff. 
+* Write something about unit tests / our test suite? 
 {-
 From Y2 review: ``We suggest that deliverables consisting of software
 products also contain a written document that includes motivations,
