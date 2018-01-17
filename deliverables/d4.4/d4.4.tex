@@ -641,11 +641,19 @@ editor).
 
 \section{Property based testing of GRACe programs}
 
+We use the |GCMP| type to define properties of GRACe components and programs to
+test.
+%
+With the help of QuickCheck generators we can generate GRACe programs with
+random parameter values and test whether a given |GCMP| property holds in all
+cases.
+%
+This allows us to test whether a GRACe component has been implemented correctly.
+
+\todo{Add example}
+\todo{What more is there to say here?}
 Maximilian: Tell the story about bugs fixed in the compiler?
 
-\todo{Solrun: try out sessioncheck before Jan.}
-
-\todo{Max: fill in more based on using Jan.}
 
 \section{Related Work}
 
