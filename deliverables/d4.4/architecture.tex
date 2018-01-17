@@ -22,8 +22,8 @@ The top layer of the software stack is the visual editor.
 It provides a graphical user interface where the user can build GCMs
 as a graphical map from available components.
 %
-The visual editor is implemented in the untyped functional language
-JavaScript, using the Data Driven Documents library (D3.js).
+The visual editor is implemented in the programming language JavaScript, using
+the Data Driven Documents library (D3.js).
 %
 
 The code for the visual editor can be found in the
@@ -33,24 +33,32 @@ repository
 
 \todo{Is there anything to say about testing here? Maybe refer to user testing
   related deliverable/stuff}
+\todo{AG: mention the evaluation with stakeholders here?}
 
-The visual editor is described in deliverabe D3.3 including how it can
-be
+The visual editor is described in deliverabe D3.3 including how it can be
 accessed\footnote{\url{http://vocol.iais.fraunhofer.de/graceful-rat/static/}},
-how it can be used and more details on how it is implemented.
+how it can be used, and more details on how it is implemented.
 
 \subsubsection*{Communication with visual editor}
 
-Communication between the visual editor and the GRACe layer takes
-place through a RESTful Web service written in Haskell.
-%
-JSON objects are sent between the two layers via requests to this
-service and handled on both ends.
-
-The GRACe web service is available as the \texttt{RestAPI} executable in the
-\href{https://github.com/GRACeFUL-project/GRACe}{GRACe} repository.
+The GRACeServer provides a RESTful API and uses JSON\footnote{JavaScript Object
+Notation} as the exchange format. The server offers the following webservices:
+\begin{quote}
+\begin{description}
+\item [\haskell{libraries}] returns a list with the available component libraries
+\item [\haskell{library (id)}] has a library identifier parameter and returns 
+  a list with a description (in JSON) of the all library components
+\item [\haskell{submit (gcm)}] takes a GRACeFUL Concept Map description as
+  argument, which is translated to a GRACe DSL program, and returns the result 
+  of the constraint solver
+\end{description}
+\end{quote}
+The visual editor, developed in work package 3, communicates with the GRACeServer
+by making service calls. The GRACeServer is available as the \texttt{RestAPI} 
+executable in the \href{https://github.com/GRACeFUL-project/GRACe}{GRACe} repository.
 
 \todo{Say something about session check stuff.}
+
 \subsubsection*{GCM component libraries}
 
 The visual interface allows the user to access a chosen library of GCM
