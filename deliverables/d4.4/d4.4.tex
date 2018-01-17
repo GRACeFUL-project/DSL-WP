@@ -887,8 +887,11 @@ cases.
 We test this by compiling the program to a MiniZinc model, running the model through
 a constraint solver , and checking whether
 the solution found by the solver satisfies the property.
-%
-This allows us to test whether a GRACe component has been implemented correctly.
+
+This allows us to test whether a GRACe component has been implemented correctly,
+by defining properties that describe its expected behavior and checking whether
+those properties hold for all generated cases.
+
 \todo[inline]{More detailed explanation of how this works}
 
 \todo[inline]{Add example}
