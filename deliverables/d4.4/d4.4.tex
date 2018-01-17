@@ -83,7 +83,7 @@ FETPROACT-1-2014 Grant Nº 640954
 D4.4: Testing and verification framework\\[1ex]
 
 \large
-D4.4 Testing and verification framework for RATs\\
+Testing and verification framework for RATs\\
 with applications to the CRUD case study\\[1ex]
 
 \end{center}
@@ -118,7 +118,143 @@ of the implementation is available on GitHub.
 \section{Introduction}
 \label{sec:intro}
 
-\input{intro}
+The GRACeFUL project can be described as a stack of four layers,
+starting with stakeholder interaction (group model building, WP2) at
+the top, then the graphical user interface (GRACeFUL editor, WP3), the
+domain specific language for models and constraints (GRACe DSL, WP4)
+and finally the constraint programming (CP) backend providing
+efficient solution algorithms (WP5).
+%
+In addition to the GRACe DSL, WP4 has developed a RESTful server around our DSL,
+called GRACeServer, for handling webservice requests. The server communicates
+both ``upwards'' to the GRACeFUL editor and ``downwards'' to the CP layer.
+%
+This deliverable describes our methods for verifying correctness of
+this communication.
+
+The division into frontend, server and backend is very common in
+software systems and this means that our results should be applicable
+for a wide range of other systems.
+%
+Our approach to software verification is based on three main parts:
+%
+declarative programming with strong types, property based testing in
+general, and the SessionCheck tool for testing communicating systems
+in particular.
+
+\subsection{Scope and limitations}
+
+This deliverable (D4.4) covers the software technology side of testing
+and verification of RATs.
+%
+The CRUD RAT evaluation based on stakeholder sessions is reported
+elsewhere [D2.6 Evaluation Report CRUD RATs: m36] as is the
+interactivity and usability of the visual front-end [T3.4, D3.3 VA EDA
+Tool Prototype (RAT components): m34].
+
+\subsection{Rapid Assessment Tools}
+
+Rapid assessment tools are used in large organisations like the World
+Bank and the United Nations to assess risks and needs and to make
+plans for improvement.
+% http://www.wahooas.org/mshdvd2/assess_tools_MWL_Eng.htm
+% http://www.fao.org/docrep/015/i2495e/i2495e06.pdf
+In GRACeFUL the main focus is on Climate Resiliant Urban Design, but
+the software developed in the project could be used for almost any
+Global Systems Science problem.
+
+
+\subsection{GRACeFUL software architecture}
+In this section we briefly describe the different layers of
+the GRACeFUL software stack and how testing and
+verification is performed on each layer.
+
+\subsubsection*{Visual Editor}
+
+The top layer of the software stack is the visual editor.
+%
+It provides a graphical user interface where the user can build GCMs
+as a graphical map from available components.
+%
+The visual editor is implemented in the programming language JavaScript, using
+the Data Driven Documents library (D3.js).
+%
+
+The code for the visual editor can be found in the
+\href{https://github.com/GRACeFUL-project}{GRACeFUL-project} GitHub
+repository
+\href{https://github.com/GRACeFUL-project/GRACeFULEditor}{GRACeFULEditor}.
+
+The visual editor was evaluated by stakeholders in November 2017, details can be
+found in deliverable D2.6. 
+
+The visual editor is described in deliverabe D3.3 including how it can be
+accessed\footnote{\url{http://vocol.iais.fraunhofer.de/graceful-rat/static/}},
+how it can be used, and more details on how it is implemented.
+
+\subsubsection*{GRACe}
+
+GRACe is a domain specific language embedded in Haskell. It is used to express
+GRACeFUL concept maps (GCMs) and GCM library components. GRACe programs
+representing GCMs are compiled to haskelzinc constraint programs, and the
+resulting solutions are passed back to GRACe. The DSL is described in deliverable
+D4.2.
+
+\subsubsection*{GCM component libraries}
+
+The visual editor allows users to create a GRACeFUL Concept Map with components
+of a chosen library. Components are written in GRACe and are grouped in a
+library, for example a library with CRUD components. The visual editor can query
+the components available in a library using its identifier. A JSON
+representation of the components are sent to the visual editor.
+
+The following code shows an example CRUD library, where |rain| and |pump| are
+|GCM| components:
+\begin{haskellcode}
+library :: Library
+library = Library "crud"
+    [ item "rain" $
+        rain ::: "amount" #
+          tFloat .-> tGCM          (tPort $ "rainfall" # tFloat)
+    , item "pump" $
+        pump ::: "capacity" #
+          tFloat .-> tGCM (tPair   (tPort $ "inflow"   # tFloat)
+                                   (tPort $ "outflow"  # tFloat))
+    ]
+\end{haskellcode}
+The example library makes use of Typed Values, which are explained in
+Section~\ref{sec:verification}.
+\todo[inline]{Refer to GCMP section}
+
+\subsubsection*{Communication with visual editor}
+
+The GRACeServer provides a RESTful API and uses JSON\footnote{JavaScript Object
+Notation} as the exchange format. The server offers the following webservices:
+\begin{quote}
+\begin{description}
+\item [\haskell{libraries}] returns a list with the available component libraries
+\item [\haskell{library (id)}] has a library identifier parameter and returns 
+  a list with a description (in JSON) of the all library components
+\item [\haskell{submit (gcm)}] takes a GRACeFUL Concept Map description as
+  argument, which is translated to a GRACe DSL program, and returns the result 
+  of the constraint solver
+\end{description}
+\end{quote}
+The visual editor, developed in work package 3, communicates with the GRACeServer
+by making service calls. The GRACeServer is available as the \texttt{RestAPI} 
+executable in the \href{https://github.com/GRACeFUL-project/GRACe}{GRACe} repository.
+\todo[inline]{Say something about session check stuff.}
+
+\subsubsection*{Haskelzinc}
+
+Haskelzinc is a Haskell interface to the MiniZinc constraint
+programming language.
+%
+It provides a Haskell DSL for building MiniZinc model representations and a parser that returns a representation of the solutions obtained
+by running the MiniZinc model.
+
+The latest version of haskelzinc (currently 0.3) is available from
+\url{https://hackage.haskell.org/package/haskelzinc}.
 
 
 \section{Verification through types and tests}
@@ -272,7 +408,7 @@ counterexample, it shrinks the failing test case automatically, by searching for
 similar, but smaller test cases that fail as well. The result of shrinking is a
 minimal failing test case simplifying the debugging process. 
 
-\todo{Refer to section where we explain testing of GRACe programs}
+\todo[inline]{Refer to section where we explain testing of GRACe programs}
 
 
 \section{Testing Communicating Systems}
@@ -635,11 +771,6 @@ protocols, including cases when the ``other end'' of the communication
 is not written in Haskell (as in the case of the GRACeFUL visual
 editor).
 
-\section{Solver Testing}
-\todo{Solrun+Maximilian: Testing solvers and backends: challenges and partial solutions}
-\input{solver-testing}
-
-
 \section{Property based testing of GRACe programs}
 
 We use the |GCMP| type to define properties of GRACe components and programs to
@@ -650,9 +781,10 @@ random parameter values and test whether a given |GCMP| property holds in all
 cases.
 %
 This allows us to test whether a GRACe component has been implemented correctly.
+\todo[inline]{More detailed explanation of how this works}
 
-\todo{Add example}
-\todo{What more is there to say here?}
+\todo[inline]{Add example}
+
 Maximilian: Tell the story about bugs fixed in the compiler?
 
 
