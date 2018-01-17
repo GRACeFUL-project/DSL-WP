@@ -867,7 +867,26 @@ Maximilian: Tell the story about bugs fixed in the compiler?
 
 \section{Related Work}
 
-This section presents a brief overview of related work and provides accounts
+This section presents a brief overview of related work on the main topics in this
+document: Typed Values and SessionCheck. For related work on property-based 
+testing we refer to the original paper about QuickCheck~\cite{QuickCheck}. 
+
+\subsection{Typed Values}
+
+Our implementation of Typed Values are related to the |Typeable| and |Dynamic|
+libraries in Haskell~\cite{DataDynamic}, as mentioned before in
+Section~\ref{sec:verification}. These libraries also offer the possibility to
+hide the type of a value and to go back and forth from the untyped world. The
+main difference is that our implementation is able to \emph{annotate} a type
+representation, using the |Tag| constructor. We need this functionality to add
+meta-data to a type representation of |GCM| parameters, of which we have showed an 
+example in Section~\ref{sec:intro}. The implementation of |Typeable| and 
+|Dynamic| is unfortunately closed, which means it is not possible to add a 
+|Tag|-like construct.
+
+
+\subsection{SessionCheck}
+and provides accounts
 of how SessionCheck relates to them as well as how we may incorporate some of
 the ideas present in the literature in future work.
 
