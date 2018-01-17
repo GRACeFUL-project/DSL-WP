@@ -186,7 +186,7 @@ repository
 \href{https://github.com/GRACeFUL-project/GRACeFULEditor}{GRACeFULEditor}.
 
 The visual editor was evaluated by stakeholders in November 2017, details can be
-found in deliverable D2.6. 
+found in deliverable D2.6.
 
 The visual editor is described in deliverabe D3.3 including how it can be
 accessed\footnote{\url{http://vocol.iais.fraunhofer.de/graceful-rat/static/}},
@@ -234,15 +234,15 @@ Notation} as the exchange format. The server offers the following webservices:
 \begin{quote}
 \begin{description}
 \item [\haskell{libraries}] returns a list with the available component libraries
-\item [\haskell{library (id)}] has a library identifier parameter and returns 
+\item [\haskell{library (id)}] has a library identifier parameter and returns
   a list with a description (in JSON) of the all library components
 \item [\haskell{submit (gcm)}] takes a GRACeFUL Concept Map description as
-  argument, which is translated to a GRACe DSL program, and returns the result 
+  argument, which is translated to a GRACe DSL program, and returns the result
   of the constraint solver
 \end{description}
 \end{quote}
 The visual editor, developed in work package 3, communicates with the GRACeServer
-by making service calls. The GRACeServer is available as the \texttt{RestAPI} 
+by making service calls. The GRACeServer is available as the \texttt{RestAPI}
 executable in the \href{https://github.com/GRACeFUL-project/GRACe}{GRACe}
 repository.
 
@@ -264,48 +264,82 @@ The latest version of haskelzinc (currently 0.3) is available from
 \section{Verification through types and tests}
 \label{sec:verification}
 
-Rapid Assessment Tools are used to evaluate plans for problems in Global System
-Sciences, such as Climate Resilient Urban Design. The evaluation output that is
-our produced by the tools, which we have developed in the GRACeFUL project,
-should be reliable. This implies that the software that we have developed should
-ideally be free of errors. It is well known that this is an utopia and not
-realistic. We can, however, do our best to keep the number of errors as low as
-possible. In this section we describe the two approaches to software
-verification that we have used in this project: types and property-based
-testing. 
+Rapid Assessment Tools are used to evaluate plans for problems in
+Global System Science, such as Climate Resilient Urban Design.
+%
+The evaluation output that is produced by the GRACeFUL tools should be
+reliable.
+%
+This implies that the software behind the tools that we have developed
+should ideally be free of errors.
+%
+It is well known that this is an utopia and not realistic.
+%
+We can, however, do our best to keep the number of errors as low as
+possible.
+%
+In this section we describe the two approaches to software
+verification that we have used in this project: types and
+property-based testing.
 
 \subsection{Strong types}
 
-Types are not only used in computer science to generate code, but also as a
-\emph{specification} of parts of a program, such as functions and expressions. A
-type checker, normally part of a compiler, checks if the declared types match
-with the expected ones. A programmer can use a type checker to (semi-)formally
-verify the given specification, in the form of type declarations and
-annotations. In this sense, type systems can be regarded as the most used
-formal verification. It is of course a light-weight kind of formal verification,
-but nevertheless very useful. 
+Types are used to help the programmer to write code which doesn't "go
+wrong" and helps the compiler generate efficient code.
+%
+But types can also be seen as \emph{specifications} of parts of a
+program, such as functions and expressions.
+%
+A type checker, normally part of a compiler, checks if the declared
+types match with the expected ones.
+%
+A programmer can use a type checker to (semi-)formally verify the
+given specification, in the form of type declarations and
+annotations.
+%
+In this sense, type systems can be regarded as the most used formal
+verification.
+%
+It is of course a light-weight kind of formal verification, but
+nevertheless very useful.
 
-We have used types extensively in the GRACeFUL project, in particular in our
-domain specific language GRACe, the GRACeServer, and in Haskelzinc, the
-interface to the constraint programming layer. Our DSL for GRACeFUL concept maps
-is embedded in Haskell, which is a strongly typed functional programming
-language. Using Haskell's type system we can prevent a DSL user of making
+We have used types extensively in the GRACeFUL project, in particular
+in our domain specific language GRACe, the GRACeServer, and in
+Haskelzinc, the interface to the constraint programming layer.
+%
+Our DSL for GRACeFUL concept maps is embedded in Haskell, which is a
+strongly typed functional programming language.
+%
+Using Haskell's type system, we can prevent a DSL user from making
 mistakes.
 
-An end user of the GRACeFUL tool chain is most likely not programming directly
-in Haskell using our GRACe DSL, but using the Visual Editor from Work Package 3
-instead. This poses a problem since the communication the Visual Editor goes via
-an untyped channel. An additional problem is that we want to group |GCM|
-components, which we mentioned in Section~\ref{sec:intro}, in a library, which
-is a challenge if you want to do this in a type safe manner. |GCM| components can
-have many different types, which makes it hard to collect them in a data type,
-such as a list.
+An end user of the GRACeFUL tool chain is most likely not programming
+directly in Haskell using our GRACe DSL, but using the Visual Editor
+from Work Package 3 instead.
+%
+This poses a problem since the communication the Visual Editor goes
+via an untyped channel.
+%
+An additional problem is that we want to group |GCM| components, which
+we mentioned in Section~\ref{sec:intro}, in a library, which is a
+challenge if you want to do this in a type safe manner.
+%
+|GCM| components can have many different types, which makes it hard to
+collect them in a data type, such as a list.
 
-We have addressed the above issues with \emph{Typed Values}, which are related
-to the |Typeable| and |Dynamic| Haskell libraries~\cite{DataDynamic}. We give a
-short description of Typed Values, leaving out many implementation details. The
-key idea behind Typed Values is to combine a value with its \emph{type
-representation}. A type representation can be implemented as follows in Haskell:
+We have addressed the above issues with \emph{Typed Values}, which are
+related to the |Typeable| and |Dynamic| Haskell
+libraries~\cite{DataDynamic}.
+%
+We give a short description of Typed Values, leaving out many
+implementation details (which can be found in the GRACeFUL code
+repository on github).
+%
+The key idea behind Typed Values is to combine a value with its
+\emph{type representation}.
+%
+A type representation can be implemented as follows in Haskell:
+%
 \begin{haskellcode}
 data Type t where
   -- Base types
@@ -318,33 +352,60 @@ data Type t where
   -- Functions
   (:->) :: Type a -> Type b -> Type (a -> b)
 \end{haskellcode}
-We use the above GADT to encode a type representation. The constructor |TInt|,
-for example, represents the |Int| type. The constructor for the list type
-representation takes another type representation as argument. So, the |List TBool| 
-value represents the list of boolean type. The |Tag| constructor is used
-to annotate types representation and leaves the represented type untouched. We
-can use such annotations for various purposes, for example to add meta-data.
-Finally, the |(:->)| constructor can be used to represent function types. 
+%
+We use the above Generalised Algebraic DataType (GADT) to encode a
+type representation.
+%
+The constructor |TInt|, for example, represents the |Int| type.
+%
+The constructor for the list type representation takes another type
+representation as argument.
+%
+So, the |List TBool| value represents the type ``list of boolean''.
+%
+The |Tag| constructor is used to annotate a type's representation and
+leaves the represented type untouched.
+%
+We can use such annotations to add meta-data (visual appearance in the
+editor, for example).
+%
+Finally, the |(:->)| constructor can be used to represent function
+types.
 
-We use the type representation |Type t| to create a Typed Value, implemented
-with the following GADT:
+We use the type representation |Type t| to create a Typed Value,
+implemented with the following GADT:
+%
 \begin{haskellcode}
 data TypedValue where
   (:::) :: a -> Type a -> TypedValue
 \end{haskellcode}
-Note that type variable |a| does not appear in the result type. We combine a
-value, of type |a|, with its type representation, of type |Type a|. Using this
-data type we can hide the type of a value, and turn it into an untyped value. 
-We can, for instance, put values of different type into a list of Typed Values.
-This addresses one the issues we identified above. It is important the type 
-representation is part of a Typed Value; it allows us to extract the (typed)
-value, of type |a|, from a |TypedValue|, that is we can go back to the typed 
-realm in a type safe manner! 
+%
+Note that type variable |a| does not appear in the result type.
+%
+We combine a value, of type |a|, with its type representation, of type
+|Type a|.
+%
+Using this data type we can hide the type of a value, and turn it into
+an untyped value.
+%
+We can, for instance, put values of different type into a list of
+Typed Values.
+%
+This addresses one the issues we identified above.
+%
+It is important the type representation is part of a Typed Value;
+%
+it allows us to extract the (typed) value, of type |a|, from a
+|TypedValue|, that is we can go back to the typed realm in a type safe
+manner!
 
-This is, unfortunately, not as easy as it may seem. We need to have a way to
-convince GHC\footnote{The de facto standard Haskell compiler} that two 
-type representations encode the \emph{same} type. The following data type and
-type equality function does this:
+This is, unfortunately, not as easy as it may seem.
+%
+We need to have a way to convince the Haskell compiler that two type
+representations encode the \emph{same} type.
+%
+The following data type and type equality function does this:
+%
 \begin{haskellcode}
 data a :~: b where
   Refl :: a :~: a
@@ -361,16 +422,25 @@ Tag t        ?= Tag t'     = t ?= t'
   Refl <- t1 ?= t1'
   return Refl
 \end{haskellcode}
-The actual implementation of Typed Values is much more involved, but in essence
-the same to the code showed above. We use these Typed Values to create libraries
-of |GCM| components, and to communicate with the untyped outside world. Using
-these Typed Values we can enjoy the benefits of types as long as possible. 
+%
+The actual implementation of Typed Values is much more involved, but
+in essence the same as the code showed above.
+%
+We use these Typed Values to create libraries of |GCM| components, and
+to communicate with the untyped outside world.
+%
+Using these Typed Values we can enjoy the benefits of types as long as
+possible.
 
-Using a strongly typed programming language, such as Haskell, and making good
-use of the types allows programmers to be more confident about their code and
-catches many mistakes. Alas, it does not prevent all mistakes and it is
-necessary to test our implementation, to even further increase our confidence.
-The next section explains the type of testing we have used in this project.
+Using a strongly typed programming language, such as Haskell, and
+making good use of the types allows programmers to be more confident
+about their code and catches many mistakes.
+%
+Alas, it does not prevent all mistakes and it is necessary to test our
+implementation, to even further increase our confidence.
+%
+The next section explains the type of testing we have used in this
+project.
 
 \subsection{Property-based testing}
 
@@ -387,12 +457,12 @@ can be regarded as an abstraction over many unit tests. These properties should
 hold for \emph{all} input and, as a consequence, we can \emph{generate} input
 data. Property-based testing uses generated random input data to test such
 properties. Properties are powerful: a good property gives a strong
-specification for a large set of test data. 
+specification for a large set of test data.
 
 QuickCheck~\cite{QuickCheck} is a well known implementation of property-based
 testing, and is available in many programming languages.  QuickCheck verifies
 properties by generating a large number of random test cases, and reports test
-cases for which the property fails. 
+cases for which the property fails.
 
 For example, a property of the |reverse| function from the Haskell standard
 library (the |Prelude|) is that if reverse a list twice, we end up with the same
@@ -410,9 +480,9 @@ The above evaluation shows that the |reverse| function most likely adheres to
 the |propTwice| property. When QuickCheck finds a failing test case, a so-called
 counterexample, it shrinks the failing test case automatically, by searching for
 similar, but smaller test cases that fail as well. The result of shrinking is a
-minimal failing test case simplifying the debugging process. 
+minimal failing test case simplifying the debugging process.
 
-In Section~\ref{sec:GCMP} we describe our property-based testing of GRACe programs. 
+In Section~\ref{sec:GCMP} we describe our property-based testing of GRACe programs.
 Our tool SessionCheck, described in
 Section~\ref{sec:SessionCheck}, also utilizes ideas from property-based testing
 to test communicating systems.
@@ -758,7 +828,7 @@ spec allLibraries = do
 
 We omit the definition of the predicate
 \begin{minted}{Haskell}
-validAssignments :: LibraryName -> [Library] -> ProgramRepresentation 
+validAssignments :: LibraryName -> [Library] -> ProgramRepresentation
                  -> Predicate ServerResponse}
 \end{minted}
 in the interest of brevity.
@@ -822,8 +892,8 @@ In a notation similar to that of Svenningsson et al. \cite{HughesMocking}
 a mockup which expects the |readSpeed| and |updateDisplay| functions to be
 called sequentially may look like the following:
 %
-\begin{minted}{Haskell}
-    readSpeed() |-> 5.833 fs updateDisplay(speed, 21) |-> () fs eps
+\begin{minted}[escapeinside=++,mathescape=true]{Haskell}
+    readSpeed() |-> 5.833 . updateDisplay(speed, 21) |-> () . +$\varepsilon$+
 \end{minted}
 %
 This mockup specifies that the call to |readSpeed| will return |5.833| and that
