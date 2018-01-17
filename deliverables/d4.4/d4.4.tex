@@ -196,8 +196,11 @@ be found in deliverable D2.6.
 GRACe is a domain specific language embedded in Haskell. It is used to express
 GRACeFUL concept maps (GCMs) and GCM library components. GRACe programs
 representing GCMs are compiled to haskelzinc constraint programs, and the
-resulting solutions are passed back to GRACe. The DSL is described in deliverable
-D4.2.
+resulting solutions are passed back to GRACe. The DSL is described in detail in
+deliverable D4.2. We use different test approaches to validate the correctness
+of our DSL implementation. In Section~\ref{sec:verification} we explain how we
+use strong types and property-based testing. In addition to these two approaches, 
+we also have a set of unit test cases, which test the entire software stack.
 
 \subsubsection*{GCM component libraries}
 
