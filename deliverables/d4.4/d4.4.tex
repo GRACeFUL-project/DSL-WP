@@ -109,8 +109,8 @@ This fourth deliverable (D4.4) of work package 4 presents a framework for
 testing and verifying communicating systems.
 %
 The work leading up to this deliverable is within Task 4.5 ``Build a
-testing and verification framework for RATs'' and the full source code
-of the implementation is available on GitHub.
+testing and verification framework for Rapid Assessment Tools (RATs)''
+and the full source code of the implementation is available on GitHub.
 
 \end{abstract}
 \newpage
@@ -142,7 +142,7 @@ declarative programming with strong types, property-based testing in
 general, and the SessionCheck tool for testing communicating systems
 in particular.
 
-\subsection{Scope and limitations}
+\paragraph{Scope and limitations}
 
 This deliverable (D4.4) covers the software technology side of testing
 and verification of RATs.
@@ -152,11 +152,11 @@ elsewhere [D2.6 Evaluation Report CRUD RATs: m36] as is the
 interactivity and usability of the visual front-end [T3.4, D3.3 VA EDA
 Tool Prototype (RAT components): m34].
 
-\subsection{Rapid Assessment Tools}
+\paragraph{Rapid Assessment Tools}
 
-Rapid assessment tools are used in large organisations like the World
-Bank and the United Nations to assess risks and needs and to make
-plans for improvement.
+RATs are used in large organisations like the World Bank and the
+United Nations to assess risks and needs and to make plans for
+improvement.
 % http://www.wahooas.org/mshdvd2/assess_tools_MWL_Eng.htm
 % http://www.fao.org/docrep/015/i2495e/i2495e06.pdf
 In GRACeFUL the main focus is on Climate Resiliant Urban Design, but
@@ -164,7 +164,7 @@ the software developed in the project could be used for almost any
 Global Systems Science problem.
 
 
-\subsection{GRACeFUL software architecture}
+\section{GRACeFUL software architecture}
 In this section we briefly describe the different layers of
 the GRACeFUL software stack and how testing and
 verification is performed on each layer.
@@ -176,21 +176,20 @@ The top layer of the software stack is the visual editor.
 It provides a graphical user interface where the user can build GCMs
 as a graphical map from available components.
 %
-The visual editor is implemented in the programming language JavaScript, using
-the Data Driven Documents library (D3.js).
+The visual editor is implemented in the programming language
+JavaScript, using the Data Driven Documents library (D3.js).
 %
-
 The code for the visual editor can be found in the
 \href{https://github.com/GRACeFUL-project}{GRACeFUL-project} GitHub
 repository
 \href{https://github.com/GRACeFUL-project/GRACeFULEditor}{GRACeFULEditor}.
 
-The visual editor was evaluated by stakeholders in November 2017, details can be
-found in deliverable D2.6.
-
 The visual editor is described in deliverabe D3.3 including how it can be
 accessed\footnote{\url{http://vocol.iais.fraunhofer.de/graceful-rat/static/}},
 how it can be used, and more details on how it is implemented.
+%
+The editor was evaluated by stakeholders in November 2017, details can
+be found in deliverable D2.6.
 
 \subsubsection*{GRACe}
 
@@ -223,7 +222,9 @@ library = Library "crud"
     ]
 \end{haskellcode}
 The example library makes use of Typed Values, which are explained in
-Section~\ref{sec:verification}.
+Section~\ref{sec:verification} (the syntax |"text" #| is used to tag
+ports with their names).
+%
 We have implemented tools for property-based testing of GRACe components,
 described in Section~\ref{sec:GCMP}.
 
@@ -367,7 +368,7 @@ The |Tag| constructor is used to annotate a type's representation and
 leaves the represented type untouched.
 %
 We can use such annotations to add meta-data (visual appearance in the
-editor, for example).
+editor, like port names and icons).
 %
 Finally, the |(:->)| constructor can be used to represent function
 types.
@@ -899,8 +900,8 @@ those properties hold for all generated cases.
 \section{Related Work}
 
 This section presents a brief overview of related work on the main topics in this
-document: Typed Values and SessionCheck. For related work on property-based 
-testing we refer to the original paper about QuickCheck~\cite{QuickCheck}. 
+document: Typed Values and SessionCheck. For related work on property-based
+testing we refer to the original paper about QuickCheck~\cite{QuickCheck}.
 
 \subsection{Typed Values}
 
@@ -910,9 +911,9 @@ Section~\ref{sec:verification}. These libraries also offer the possibility to
 hide the type of a value and to go back and forth from the untyped world. The
 main difference is that our implementation is able to \emph{annotate} a type
 representation, using the |Tag| constructor. We need this functionality to add
-meta-data to a type representation of |GCM| parameters, of which we have showed an 
-example in Section~\ref{sec:intro}. The implementation of |Typeable| and 
-|Dynamic| is unfortunately closed, which means it is not possible to add a 
+meta-data to a type representation of |GCM| parameters, of which we have showed an
+example in Section~\ref{sec:intro}. The implementation of |Typeable| and
+|Dynamic| is unfortunately closed, which means it is not possible to add a
 |Tag|-like construct.
 
 
