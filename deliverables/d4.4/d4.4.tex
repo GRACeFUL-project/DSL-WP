@@ -159,7 +159,7 @@ United Nations to assess risks and needs and to make plans for
 improvement.
 % http://www.wahooas.org/mshdvd2/assess_tools_MWL_Eng.htm
 % http://www.fao.org/docrep/015/i2495e/i2495e06.pdf
-In GRACeFUL the main focus is on Climate Resiliant Urban Design, but
+In GRACeFUL the main focus is on Climate Resilient Urban Design, but
 the software developed in the project could be used for almost any
 Global Systems Science problem.
 
@@ -199,7 +199,7 @@ representing GCMs are compiled to haskelzinc constraint programs, and the
 resulting solutions are passed back to GRACe. The DSL is described in detail in
 deliverable D4.2. We use different test approaches to validate the correctness
 of our DSL implementation. In Section~\ref{sec:verification} we explain how we
-use strong types and property-based testing. In addition to these two approaches, 
+use strong types and property-based testing. In addition to these two approaches,
 we also have a set of unit test cases, which test the entire software stack.
 
 \subsubsection*{GCM component libraries}
@@ -321,7 +321,7 @@ An end user of the GRACeFUL tool chain is most likely not programming
 directly in Haskell using our GRACe DSL, but using the Visual Editor
 from Work Package 3 instead.
 %
-This poses a problem since the communication the Visual Editor goes
+This poses a problem since the communication with the Visual Editor goes
 via an untyped channel.
 %
 An additional problem is that we want to group |GCM| components, which
@@ -395,7 +395,7 @@ an untyped value.
 We can, for instance, put values of different type into a list of
 Typed Values.
 %
-This addresses one the issues we identified above.
+This addresses one of the issues we identified above.
 %
 It is important the type representation is part of a Typed Value;
 %
@@ -850,8 +850,9 @@ spec :: (ClientRequest :< t, ServerResponse :< t)
 spec allLibraries = do
   req <- get anyClientRequest
   case req of
-    AskLibraries -> send (is $ Libraries allLibraries)
-    SubmitProgram libName progRep -> send (validAssignments libName allLibraries progRep)
+    AskLibraries  -> send (is $ Libraries allLibraries)
+    SubmitProgram libName progRep
+                  -> send (validAssignments libName allLibraries progRep)
   spec allLibraries
 \end{minted}
 %stopzone
@@ -860,7 +861,7 @@ spec allLibraries = do
 We omit the definition of the predicate
 \begin{minted}{Haskell}
 validAssignments :: LibraryName -> [Library] -> ProgramRepresentation
-                 -> Predicate ServerResponse}
+                 -> Predicate ServerResponse
 \end{minted}
 in the interest of brevity.
 %
@@ -881,6 +882,8 @@ editor).
 \section{Property-based testing of GRACe programs}
 \label{sec:GCMP}
 
+\todo[inline]{Spell out GCMP at first use}
+%
 We use the |GCMP| type to define properties of GRACe components and programs to
 test.
 %
@@ -921,14 +924,16 @@ example in Section~\ref{sec:intro}. The implementation of |Typeable| and
 
 
 \subsection{SessionCheck}
-and provides accounts
-of how SessionCheck relates to them as well as how we may incorporate some of
-the ideas present in the literature in future work.
+
+This subsection describes research related to SessionCheck and how we
+may incorporate some of the ideas present in the literature in future
+work.
 
 \paragraph{Mocking}
 
-Mocking refers to the practice of creating software components specifically
-in order to exercise the functionality of a system under test.
+Mocking refers to the practice of simulating the behaviour of the
+environment in order to exercise the functionality of a system under
+test.
 %
 As an example of a mockup, consider testing the functionality of a software
 component, which we will call |dashboard|, in a vehicle computer which is
@@ -1087,7 +1092,22 @@ up to speed with Scribble.
 %
 
 \section{Conclusion}
-\todo[inline]{Write (brief) conclusion!}
+
+The GRACeFUL testing and verification framework is based on three
+parts: declarative programming with strong types (in Haskell),
+property-based testing in general (using QuickCheck), and the
+SessionCheck tool for testing communicating systems in particular.
+%
+The strong type system of Haskell and the property-based testing tool
+QuickCheck are off-the-shelf techniques developed by others but
+adapted for GRACeFUL by WP4.
+%
+The main new contributions were Typed Values (described in
+Section~\ref{sec:verification}) and SessionCheck (described in
+Section~\ref{sec:SessionCheck}).
+%
+%TODO: perhaps also add GCMP \ref{sec:GCMP}
+% The full source code is available on github.
 
 \bibliographystyle{plain}
 
