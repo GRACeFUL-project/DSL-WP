@@ -165,6 +165,7 @@ Global Systems Science problem.
 
 
 \section{GRACeFUL software architecture}
+\label{sec:architecture}
 In this section we briefly describe the different layers of
 the GRACeFUL software stack and how testing and
 verification is performed on each layer.
@@ -217,11 +218,11 @@ library :: Library
 library = Library "crud"
     [ item "rain" $
         rain ::: "amount" #
-          tFloat .-> tGCM          (tPort $ "rainfall" # tFloat)
+          tFloat .-> tGCM          (tPort $ "rainfall" # tInt)
     , item "pump" $
         pump ::: "capacity" #
-          tFloat .-> tGCM (tPair   (tPort $ "inflow"   # tFloat)
-                                   (tPort $ "outflow"  # tFloat))
+          tFloat .-> tGCM (tPair   (tPort $ "inflow"   # tInt)
+                                   (tPort $ "outflow"  # tInt))
     ]
 \end{haskellcode}
 The example library makes use of Typed Values, which are explained in
@@ -882,26 +883,62 @@ editor).
 \section{Property-based testing of GRACe programs}
 \label{sec:GCMP}
 
-\todo[inline]{Spell out GCMP at first use}
-%
-We use the |GCMP| type to define properties of GRACe components and programs to
-test.
+We use the |GCMP| (GRACeFUL Concept Map Property) type to define properties of
+GRACe components and programs to test.
 %
 With the help of QuickCheck generators we can generate GRACe programs with
-random parameter values and test whether a given |GCMP| property holds in all
+random parameter values and then test whether a given |GCMP| property holds in all
 cases.
 %
 We test this by compiling the program to a MiniZinc model, running the model through
-a constraint solver , and checking whether
-the solution found by the solver satisfies the property.
+a constraint solver, and checking whether the solution found by the solver
+satisfies the specified property.
 
-This allows us to test whether a GRACe component has been implemented correctly,
-by defining properties that describe its expected behavior and checking whether
+We can test whether a GRACe component has been implemented correctly
+by defining |GCMP| properties that describe its expected behavior and checking whether
 those properties hold for all generated cases.
+%
+The user defines |GCMP| properties in a syntax similar to that used to define |GCM|
+components and programs.
 
-\todo[inline]{More detailed explanation of how this works}
+The following example code defines |GCMP| properties for the |pump| component from
+the CRUD component library shown in section~\ref{sec:architecture}.
+\begin{minted}{Haskell}
+prop_pump :: GCMP ()
+prop_pump = do
+  -- Generate arbitrary parameter
+  k   <- forall (fmap abs QC.arbitrary)
+  -- Pump with arbitrary parameter
+  (iflow, oflow) <- liftGCM $ pump k
+  
+  -- These properties should hold for the pump
+  property "Inflow within capacity" $
+    portVal iflow .<= lit k
+  property "Outflow equal to inflow" $
+    portVal oflow === portVal iflow
+\end{minted}
 
-\todo[inline]{Add example}
+We can test these properties using our testing framework. If they hold for all
+generated test cases (currently set to 100) we get the following output:
+\begin{verbatim}
+Testing Pump...
++++++ Test passed! +++++
+\end{verbatim}
+
+If the properties do not always hold, the output will show the first failing
+test case.
+For example, suppose there is an error in the implementation of the pump such
+that the outflow is not always equal to the inflow. Then the second property
+should fail for some test cases, and the following output will appear, showing
+that in the first failing test case the first property held but the second one
+did not:
+\begin{verbatim}
+Testing Pump...
+Failing test case: 
+("prop_0 Inflow within capacity",True)
+("prop_1 Outflow equal to inflow",False)
+----- Test failed! -----
+\end{verbatim}
 
 \section{Related Work}
 
@@ -1106,7 +1143,7 @@ The main new contributions were Typed Values (described in
 Section~\ref{sec:verification}) and SessionCheck (described in
 Section~\ref{sec:SessionCheck}).
 %
-%TODO: perhaps also add GCMP \ref{sec:GCMP}
+% TODO: perhaps also add GCMP \ref{sec:GCMP}
 % The full source code is available on github.
 
 \bibliographystyle{plain}
