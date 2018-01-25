@@ -95,8 +95,8 @@ with applications to the CRUD case study\\[1ex]
 \begin{tabular}{@{}ll@{}}
   Lead Participant:       & Chalmers (WP leader: P. Jansson)
 \\Dissemination Level:    & PU
-\\Document Version:       & Draft
-\\Date of Submission:     & 2018-0?-??
+\\Document Version:       & Final
+\\Date of Submission:     & 2018-01-25
 \\Due Date of Delivery:   & 2018-01-31
 \end{tabular}
 
@@ -910,7 +910,7 @@ prop_pump = do
   k   <- forall (fmap abs QC.arbitrary)
   -- Pump with arbitrary parameter
   (iflow, oflow) <- liftGCM $ pump k
-  
+
   -- These properties should hold for the pump
   property "Inflow within capacity" $
     portVal iflow .<= lit k
@@ -935,7 +935,7 @@ that in the first failing test case the first property held but the second one
 did not:
 \begin{verbatim}
 Testing Pump...
-Failing test case: 
+Failing test case:
 ("prop_0 Inflow within capacity",True)
 ("prop_1 Outflow equal to inflow",False)
 ----- Test failed! -----
@@ -1143,7 +1143,7 @@ adapted for GRACeFUL by WP4.
 %
 The main new contributions were Typed Values (described in
 Section~\ref{sec:verification}), SessionCheck (described in
-Section~\ref{sec:SessionCheck}), and property-based testing of GRACe programs 
+Section~\ref{sec:SessionCheck}), and property-based testing of GRACe programs
 (described in Section~\ref{sec:GCMP}).
 %
 % The full source code is available on github.
