@@ -1,6 +1,6 @@
 default: d4.4.pdf
 
-d4.4.pdf: $(wildcard *.tex)
+d4.4.pdf: $(wildcard *.tex) main.bib
 	latexmk -pdf --shell-escape d4.4
 
 clean:

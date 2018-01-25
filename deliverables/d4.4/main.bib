@@ -1,17 +1,14 @@
 @article{Haskell,
-  title =	 {Report on the programming language Haskell: a
-    non-strict, purely functional language version 1.2},
-  author =	 {Hudak, Paul and Peyton Jones, Simon and Wadler,
-    Philip and Boutel, Brian and Fairbairn, Jon and
-      Fasel, Joseph and Guzm{\'a}n, Mar{\'\i}a M and
-      Hammond, Kevin and Hughes, John and Johnsson, Thomas
-      and others},
-  journal =	 {ACM SigPlan notices},
-  volume =	 27,
-  number =	 5,
-  pages =	 {1--164},
-  year =	 1992,
-  publisher =	 {ACM}
+  author =	 {Simon {Peyton Jones} and others},
+  title =	 {The {Haskell} 98 Language and Libraries: The Revised
+                  Report},
+  journal =	 {Journal of Functional Programming},
+  volume =	 13,
+  number =	 1,
+  pages =	 {i--xii,1--255},
+  month =	 {Jan},
+  year =	 2003,
+  note =	 {\url{http://www.haskell.org/definition/}},
 }
 
 @article{FEAT,
@@ -166,23 +163,29 @@
   organization={ACM}
 }
 
-@article{QuickCheck,
-  author = {Claessen, Koen and Hughes, John},
-  title = {QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs},
-  journal = {SIGPLAN Not.},
-  issue_date = {Sept. 2000},
-  volume = {35},
-  number = {9},
-  month = sep,
-  year = {2000},
-  issn = {0362-1340},
-  pages = {268--279},
-  numpages = {12},
-  url = {http://doi.acm.org/10.1145/357766.351266},
-  doi = {10.1145/357766.351266},
-  acmid = {351266},
-  publisher = {ACM},
-  address = {New York, NY, USA},
+@inproceedings{QuickCheck,
+  author =	 {Koen Claessen and John Hughes},
+  title =	 {{QuickCheck:} a lightweight tool for random testing
+                  of {Haskell} programs},
+  shorttitle =	 {{QuickCheck}},
+  abstract =	 {Quick Check is a tool which aids the Haskell
+                  programmer in formulating and testing properties of
+                  programs. Properties are described as Haskell
+                  functions, and can be automatically tested on random
+                  input, but it is also possible to define custom test
+                  data generators. We present a number of case
+                  studies, in which the tool was successfully used,
+                  and also point out some pitfalls to avoid. Random
+                  testing is especially suitable for functional
+                  programs because properties can be stated at a fine
+                  grain. When a function is built from separately
+                  tested components, then random testing suffices to
+                  obtain good coverage of the definition under test.},
+  booktitle =	 {Proc. of the fifth {ACM} {SIGPLAN} international
+                  conference on Funct. Prog.},
+  publisher =	 {{ACM}},
+  year =	 2000,
+  pages =	 {268--279}
 }
 
 @inproceedings{HughesMocking,
@@ -201,7 +204,7 @@
 }
 
 @misc{GoogleMock,
-  title = {Google C++ mocking framework},
+  title = {Google {C++} mocking framework},
   howpublished = "\url{http://code.google.com/p/googlemock}"
 }
 
@@ -237,24 +240,24 @@
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }
 
-@article{WadlerSessionTypes,
-  author = {Wadler, Philip},
-  title = {Propositions As Sessions},
-  journal = {SIGPLAN Not.},
-  issue_date = {September 2012},
-  volume = {47},
-  number = {9},
-  month = sep,
-  year = {2012},
-  issn = {0362-1340},
-  pages = {273--286},
-  numpages = {14},
-  url = {http://doi.acm.org/10.1145/2398856.2364568},
-  doi = {10.1145/2398856.2364568},
-  acmid = {2364568},
-  publisher = {ACM},
-  address = {New York, NY, USA},
-  keywords = {lambda calculus, linear logic, pi calculus},
+@inproceedings{WadlerSessionTypes,
+  author =	 {Wadler, Philip},
+  title =	 {Propositions As Sessions},
+  booktitle =	 {Proceedings of the 17th ACM SIGPLAN International
+                  Conference on Functional Programming},
+  series =	 {ICFP '12},
+
+  year =	 2012,
+  isbn =	 {978-1-4503-1054-3},
+  pages =	 {273--286},
+  location =	 {Copenhagen, Denmark},
+  numpages =	 14,
+  url =		 {http://doi.acm.org/10.1145/2398856.2364568},
+  doi =		 {10.1145/2398856.2364568},
+  acmid =	 2364568,
+  publisher =	 {ACM},
+  address =	 {New York, NY, USA},
+  keywords =	 {lambda calculus, linear logic, pi calculus},
 }
 
 @misc{JSON,
@@ -596,23 +599,20 @@
 }
 
 @Inbook{DataDynamic,
-author="Peyton Jones, Simon
-and Weirich, Stephanie
-and Eisenberg, Richard A.
-and Vytiniotis, Dimitrios",
-editor="Lindley, Sam
-and McBride, Conor
-and Trinder, Phil
-and Sannella, Don",
-title="A Reflection on Types",
-bookTitle="A List of Successes That Can Change the World: Essays Dedicated to Philip Wadler on the Occasion of His 60th Birthday",
-year="2016",
-publisher="Springer International Publishing",
-address="Cham",
-pages="292--317",
-isbn="978-3-319-30936-1",
-doi="10.1007/978-3-319-30936-1_16",
-url="https://doi.org/10.1007/978-3-319-30936-1_16"
+  author =	 "Peyton Jones, Simon and Weirich, Stephanie and
+                  Eisenberg, Richard A.  and Vytiniotis, Dimitrios",
+  editor =	 "Lindley, Sam and McBride, Conor and Trinder, Phil
+                  and Sannella, Don",
+  title =	 "A Reflection on Types",
+  bookTitle =	 "A List of Successes That Can Change the World:
+                  Essays Dedicated to Philip Wadler on the Occasion of
+                  His 60th Birthday",
+  year =	 "2016",
+  publisher =	 "Springer International Publishing",
+  pages =	 "292--317",
+  isbn =	 "978-3-319-30936-1",
+  doi =		 "10.1007/978-3-319-30936-1_16",
+  url =		 "https://doi.org/10.1007/978-3-319-30936-1_16"
 }
 
 @book{Java,
