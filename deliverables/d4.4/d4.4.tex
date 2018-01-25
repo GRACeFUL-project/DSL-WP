@@ -887,7 +887,7 @@ We use the |GCMP| (GRACeFUL Concept Map Property) type to define properties of
 GRACe components and programs to test.
 %
 With the help of QuickCheck generators we can generate GRACe programs with
-random parameter values and then test whether a given |GCMP| property holds in all
+random parameter values and then test whether a given |GCMP| property holds for all
 cases.
 %
 We test this by compiling the program to a MiniZinc model, running the model through
@@ -918,15 +918,16 @@ prop_pump = do
     portVal oflow === portVal iflow
 \end{minted}
 
-We can test these properties using our testing framework. If they hold for all
+We can test these properties using our |GCMP| testing framework. If they hold for all
 generated test cases (currently set to 100) we get the following output:
 \begin{verbatim}
 Testing Pump...
 +++++ Test passed! +++++
 \end{verbatim}
 
-If the properties do not always hold, the output will show the first failing
-test case.
+If one of the properties does not hold, the output gives an overview of all
+properties and stating if they passed or failed.
+%
 For example, suppose there is an error in the implementation of the pump such
 that the outflow is not always equal to the inflow. Then the second property
 should fail for some test cases, and the following output will appear, showing
@@ -940,7 +941,6 @@ Failing test case:
 ----- Test failed! -----
 \end{verbatim}
 
-\todo[inline]{Add concluding sentence here}
 
 \section{Related Work}
 
