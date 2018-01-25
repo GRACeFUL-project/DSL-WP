@@ -4,6 +4,29 @@ This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
+## Deliverable D4.4: Testing and verification framework
+
+The fourth deliverable (D4.4) of work package 4 presents a framework
+for testing and verifying communicating systems. The work leading up
+to this deliverable is within Task 4.5 ``Build a testing and
+verification framework for Rapid Assessment Tools (RATs)''.
+
+The GRACeFUL testing and verification framework is based on three
+parts: declarative programming with strong types (in Haskell),
+property-based testing in general (using QuickCheck), and the
+SessionCheck tool for testing communicating systems in particular.
+The strong type system of Haskell and the property-based testing tool
+QuickCheck are off-the-shelf techniques developed by others but
+adapted for GRACeFUL by WP4.  The main new contributions were Typed
+Values (described in Section~\ref{sec:verification}), SessionCheck
+(described in Section~\ref{sec:SessionCheck}), and property-based
+testing of GRACe programs (described in Section~\ref{sec:GCMP}).
+
+TODO: Change section references to links to the software components.
+
+
+
+
 ## 2017-12-11/12: "GSS in H2020 and beyond" event in Brussels
 
 [Keynote by Patrik Jansson](http://www.cse.chalmers.se/~patrikj/talks/Jansson_GSS_Applications_keynote.pdf)
