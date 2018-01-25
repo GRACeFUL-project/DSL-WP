@@ -6,6 +6,8 @@ the EU-project [GRACeFUL](https://www.graceful-project.eu/).
 
 ## Deliverable D4.4: Testing and verification framework
 
+Links: [PDF](deliverables/d4.4.pdf), [Text source](deliverables/d4.4/)
+
 The fourth deliverable (D4.4) of work package 4 presents a framework
 for testing and verifying communicating systems. The work leading up
 to this deliverable is within Task 4.5 ``Build a testing and
@@ -24,9 +26,6 @@ testing of GRACe programs (described in Section~\ref{sec:GCMP}).
 
 TODO: Change section references to links to the software components.
 
-
-
-
 ## 2017-12-11/12: "GSS in H2020 and beyond" event in Brussels
 
 [Keynote by Patrik Jansson](http://www.cse.chalmers.se/~patrikj/talks/Jansson_GSS_Applications_keynote.pdf)
@@ -35,11 +34,14 @@ TODO: Change section references to links to the software components.
 
 Information about GRACeFUL-supported [education and training material](EducationTraining.md)
 
-## 2017-07-0?: Deliverable D4.3
+## 2017-07-25: Deliverable D4.3
 
 **Title**: Translation of concept map descriptions to system dynamics models for the CFP layer
 
+[PDF](deliverables/d4.3.pdf)
+
 [Source](deliverables/d4.3/)
+
 
 ## 2017-07-01: Current GRACeFUL team at Chalmers
 
