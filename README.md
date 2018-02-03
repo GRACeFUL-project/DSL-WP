@@ -2,7 +2,8 @@
 
 This repository contains open source material related to the
 workpackage "Domain-Specific Languages for System Dynamics Models" in
-the EU-project [GRACeFUL](https://www.graceful-project.eu/).
+the EU-project [GRACeFUL](https://www.graceful-project.eu/)
+(2015-02-01 / 2018-01-31).
 
 ## Deliverable D4.4: Testing and verification framework
 
@@ -10,8 +11,8 @@ Links: [PDF](deliverables/d4.4.pdf), [Text source](deliverables/d4.4/)
 
 The fourth deliverable (D4.4) of work package 4 presents a framework
 for testing and verifying communicating systems. The work leading up
-to this deliverable is within Task 4.5 ``Build a testing and
-verification framework for Rapid Assessment Tools (RATs)''.
+to this deliverable is within Task 4.5 "Build a testing and
+verification framework for Rapid Assessment Tools (RATs)".
 
 The GRACeFUL testing and verification framework is based on three
 parts: declarative programming with strong types (in Haskell),
@@ -20,19 +21,27 @@ SessionCheck tool for testing communicating systems in particular.
 The strong type system of Haskell and the property-based testing tool
 QuickCheck are off-the-shelf techniques developed by others but
 adapted for GRACeFUL by WP4.  The main new contributions were Typed
-Values (described in Section~\ref{sec:verification}), SessionCheck
-(described below), and property-based
-testing of GRACe programs (described in Section~\ref{sec:GCMP}).
+Values, SessionCheck, and property-based testing of GRACe programs.
 
-TODO: Change section references to links to the software components.
+### Typed Values
+
+TODO: add links to code
+
+* [Short description in D4.4, Section 3](deliverables/d4.4.pdf)
 
 ### SessionCheck
 
 SessionCheck was developed by Maximilian Algehed as part of his MSc in Computer Science at Chalmers U. of Tech.
 
-* [MSc thesis (PDF)](http://www.cse.chalmers.se/~algehed/papers/MSc.pdf)
+* [Short description in D4.4, Section 4](deliverables/d4.4.pdf)
+* [Full MSc thesis (PDF)](http://www.cse.chalmers.se/~algehed/papers/MSc.pdf)
 * [GitHub repository](https://github.com/MaximilianAlgehed/SessionCheck)
 
+### Property-based testing of GRACe programs (GCMP)
+
+TODO: add links to code
+
+* [Short description in D4.4, Section 5](deliverables/d4.4.pdf)
 
 ## 2017-12-11/12: "GSS in H2020 and beyond" event in Brussels
 
