@@ -1,15 +1,9 @@
-## Upcoming meetings:
+## Past meetings
 
 * Thu 2016-12-15/16 at 9.00-17.00 in EDIT-8103: [DSL + CFP work sprint (Chalmers)](../2016-12/)
-
-TODO AlGe (by 2016-12-15): Fill in Jan-Feb GRACeFUL Chalmers meeting slots
-TODO(after that): book meeting rooms
-
 * ? Wed 2017-01-11 at 10:00 in EDIT-8103: Monthly GRACeFUL telcon
 * 2016-01-17?
 * 2016-02-02/03: [GRACeFUL Year 2 meeting](../2017-02/) (at Chalmers)
-
-## Past meetings
 * Thu 2016-12-08 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
     * Dry-runs of DSL+CFP work sprint presentations / demos
 * Thu 2016-12-01 at 15:00 in EDIT-6128: Weekly Chalmers GRACeFUL
