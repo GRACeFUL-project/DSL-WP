@@ -142,7 +142,7 @@ We have worked mainly on T4.2 and T4.3 of the DSL work package:
 
 This resulted in one deliverable which was handed in on time:
 
-* [D4.2](deliverables/d4.2/): A Domain Specific Language (DSL) for GRACeFUL Concept Maps
+* [D4.2](../../deliverables/d4.2/): A Domain Specific Language (DSL) for GRACeFUL Concept Maps
 
 and associated
 [open source code on GitHub](https://github.com/GRACeFUL-project/GRACe) including

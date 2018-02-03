@@ -49,7 +49,7 @@ scalability, verifiability and correctness of the models.
         * a short introduction to Functional Programming and DSLs,
         * an explanation of GRACeFUL as computer aided policy analysis,
         * and a formalisation of the core concepts in Haskell.
-* 2015-08: [ACCFun: Algorithmic Calculi for Constraint Functional Programming](ACCFun.md)
+* 2015-08: [ACCFun: Algorithmic Calculi for Constraint Functional Programming](../ACCFun)
     * A 5-day "by invitation only"-workshop in the GRACeFUL project.
     * 4 participants from GRACeFUL: Patrik, Cezar, Irene, Tom Schrijvers
     * 28 participants in total

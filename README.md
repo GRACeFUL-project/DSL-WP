@@ -47,7 +47,7 @@ TODO: add links to code
 
 [Keynote by Patrik Jansson](http://www.cse.chalmers.se/~patrikj/talks/Jansson_GSS_Applications_keynote.pdf)
 
-[GRACe presentation by Alex Gerdes](2017-12/GRACe_Brussels_20171212.pdf)
+[GRACe presentation by Alex Gerdes](events/2017-12/GRACe_Brussels_20171212.pdf)
 
 Information about GRACeFUL-supported [education and training material](EducationTraining.md)
 
@@ -102,17 +102,17 @@ Sólrún, Oskar and Björn hold three 20% positions as student research assistan
 (Swedish: amanuens) in the GRACeFUL project (in parallel with
 university studies).
 
-[Meetings/](Meetings/)
+[Meetings/](events/Meetings/)
 
 ## 2016-09-12: Deadline for application to become "Student research assistant"
 
-[Archived text from the advertisment](amanuens_2016-10.md)
+[Archived text from the advertisment](ref/Amanuens/amanuens_2016-10.md)
 
 http://www.chalmers.se/en/about-chalmers/vacancies/Pages/default.aspx?rmpage=job&rmjob=4292)
 
 
 
-## 2016-06-20/22: [DSL work sprint at Chalmers](2016-06)
+## 2016-06-20/22: [DSL work sprint at Chalmers](events/2016-06)
 
 
 ## 201-06-01: Maximilian Algehed starts working for GRACeFUL at Chalmers
@@ -128,13 +128,13 @@ Invited presentation at [Alan Turing Institute](https://turing.ac.uk/) [Symposiu
 
 ## 2016-03-10: GRACeFUL 1-year review meeting in Brussels
 
-See [2016-03/](2016-03) for the source code and
+See [2016-03/](events/2016-03) for the source code and
 [WP4_DSL_Y1_review.pdf](http://www.cse.chalmers.se/~patrikj/talks/GRACeFUL_WP4_DSL_Y1_review.pdf)
 for the actual presentation.
 
 ## 2016-01-25/26: GRACeFUL 12-month meeting
 
-See [2016-01/](2016-01) for source code and
+See [2016-01/](events/2016-01) for source code and
 [WP4_DSL_Y1.pdf](http://www.cse.chalmers.se/~patrikj/talks/GRACeFUL_WP4_DSL_Y1.pdf)
 for the actual presentation.
 
@@ -143,7 +143,7 @@ for the actual presentation.
 
 The GRACeFUL project develops connections between functional and constraint programming, requiring a unified expression of programs, constraints, traditional numerical mathematical models and qualitative models. The members of the IFIP Working Group 2.1 on Algorithmic Languages and Calculi have developed a large body of expertise in the design of notations for calculating programs from specifications, covering all programming paradigms. Such a notation could provide the glue between functional and constraint programming, required in GRACeFUL. On the other hand, the various programs developed in GRACeFUL can provide a test-bed for the notation and suggest extensions or improvements to it. The aim of this workshop is to create a close connection between GRACeFUL and IFIP2.1. The workshop is co-located with the 73rd IFIP WG 2.1 meeting organised in Göteborg.
 
-[List of talks](ACCFun.md)
+[List of talks](events/ACCFun/)
 
 ## From the Grant Agreement
 (reformatted)

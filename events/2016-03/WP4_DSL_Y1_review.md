@@ -99,7 +99,7 @@ reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℝ
 
 ## ACCFun: the main event of the DSL work package in Y1
 
-* 2015-08: [ACCFun: Algorithmic Calculi for Constraint Functional Programming](ACCFun.md)
+* 2015-08: [ACCFun: Algorithmic Calculi for Constraint Functional Programming](../ACCFun)
     * A 5-day "by invitation only"-workshop in the GRACeFUL project.
     * 4 participants from GRACeFUL: Patrik, Cezar, Irene, Tom Schrijvers
     * 28 in total: researchers in software technology and programming languages
