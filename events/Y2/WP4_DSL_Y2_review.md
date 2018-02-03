@@ -1,6 +1,6 @@
 ## Going "behind the scenes" of the VisualEditor demo
 
-![Demo screenshot: Javascript, GRACe, Haskell, MiniZinc, ...](../img/visualeditor.png)
+![Demo screenshot: Javascript, GRACe, Haskell, MiniZinc, ...](../../img/visualeditor.png)
 
 ## Software architecture
 
@@ -43,7 +43,7 @@ rain amount = do
 
 ## Runoff example structure
 
-![Runoff example structure](../deliverables/d4.2/fig/RunoffExample.png)
+![Runoff example structure](../../deliverables/d4.2/fig/RunoffExample.png)
 
 ## Deliverable 4.2: glue code for the runoff example
 
@@ -129,7 +129,7 @@ runoffArea cap = do
     * Maximilian Algehed; Sólrún Einarsdóttir, Oskar Abrahamsson
 * (PhD student: Irene Lobo Valbuena, until 2016-05.)
 
-![GRACeFUL Chalmers team](../img/GRACeFUL_Chalmers_2017-03.jpg)
+![GRACeFUL Chalmers team](../../img/GRACeFUL_Chalmers_2017-03.jpg)
 
 # Extra slides
 

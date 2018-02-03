@@ -4,7 +4,7 @@
 * PhD student: Irene Lobo Valbuena (started 2015-08-01, 80%)
 * Site leader: Patrik Jansson, working 20% for GRACeFUL
 
-![GRACeFUL discussion at the ACCFun workshop](../img/GRACeFUL_crop.jpg)
+![GRACeFUL discussion at the ACCFun workshop](../../img/GRACeFUL_crop.jpg)
 
 ## Main tasks of WP4 (the DSL work package)
 
@@ -37,11 +37,11 @@ scalability, verifiability and correctness of the models.
     * T4.4 implement a middleware for connecting the DSL to the CFP layer
     * T4.5 build a testing and verification framework for RATs
 
-* [Deliverables](../deliverables/)
-    * [D4.1](../deliverables/d4.1/) **Done**: Formal description of concept map elements needed for CRUD case study (m6)
-    * [D4.2](../deliverables/d4.2/) **DSL for description of concept maps, with formal semantics (m24)**
-    * [D4.3](../deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
-    * [D4.4](../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
+* [Deliverables](../../deliverables/)
+    * [D4.1](../../deliverables/d4.1/) **Done**: Formal description of concept map elements needed for CRUD case study (m6)
+    * [D4.2](../../deliverables/d4.2/) **DSL for description of concept maps, with formal semantics (m24)**
+    * [D4.3](../../deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
+    * [D4.4](../../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
 
 ## Relation to the state of the art
 
@@ -55,7 +55,7 @@ scalability, verifiability and correctness of the models.
 
 ## Deliverable D4.1
 
-* 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../deliverables/d4.1/)
+* 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../../deliverables/d4.1/)
     * The work towards the first WP4 deliverable helped clarifying the underlying theoretical basis and the terminology.
     * It contains
         * a short introduction to Functional Programming and DSLs,
@@ -107,7 +107,7 @@ reward  : (t : ℕ) -> (x : X t) -> (y : Y t x) -> X (S t) -> ℝ
         * unified expression of programs, constraints and qualitative models.
         * notations for calculating programs from specifications
 
-![Cezar](../img/Cezar_crop.jpg)
+![Cezar](../../img/Cezar_crop.jpg)
 
 ## Next actions (in year 2)
 
@@ -134,7 +134,7 @@ Related work:
 
 \begin{center} \LARGE{Questions?} \end{center}
 
-![ACCFun venue (near Marstrand, Sweden)](../img/Marstrand-PANO.jpg)
+![ACCFun venue (near Marstrand, Sweden)](../../img/Marstrand-PANO.jpg)
 
 
 ## Extra slides: Irene's Individual PhD Study Plan:
@@ -173,8 +173,8 @@ road map."
 
 ## Extra slides: Tom
 
-![Tom](../img/Tom.jpg)
+![Tom](../../img/Tom.jpg)
 
 ## Extra slides: Patrik
 
-![Patrik](../img/Patrik_crop.jpg)
+![Patrik](../../img/Patrik_crop.jpg)

@@ -6,7 +6,7 @@
     * Maximilian Algehed; Sólrún Einarsdóttir, Oskar Abrahamsson
 * 2017-07-01: Sólrún at 100%, Maximilian at 50%, Oskar -> PhD in other proj.
 
-![GRACeFUL Chalmers team](../img/GRACeFUL_Chalmers_2017-03.jpg)
+![GRACeFUL Chalmers team](../../img/GRACeFUL_Chalmers_2017-03.jpg)
 
 ## Tasks
 
@@ -37,15 +37,15 @@ scalability, verifiability and correctness of the models.
     * **T4.4 implement a middleware for connecting the DSL to the CFP layer**
     * **T4.5 build a testing and verification framework for RATs**
 
-* [Deliverables](../deliverables/)
-    * [D4.1](../deliverables/d4.1/) **Done**: Formal description of concept map elements needed for CRUD case study (m6)
-    * [D4.2](../deliverables/d4.2/) **Done**: DSL for description of concept maps, with formal semantics (m24)
-    * [D4.3](../deliverables/d4.3/) **Translation of concept map descriptions to system dynamics models for the CFP layer (m30)**
-    * [D4.4](../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
+* [Deliverables](../../deliverables/)
+    * [D4.1](../../deliverables/d4.1/) **Done**: Formal description of concept map elements needed for CRUD case study (m6)
+    * [D4.2](../../deliverables/d4.2/) **Done**: DSL for description of concept maps, with formal semantics (m24)
+    * [D4.3](../../deliverables/d4.3/) **Translation of concept map descriptions to system dynamics models for the CFP layer (m30)**
+    * [D4.4](../../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
 
 ## Recent activity: Y2 review VisualEditor demo
 
-![Demo screenshot: Javascript, GRACe, Haskell, MiniZinc, ...](../img/visualeditor.png)
+![Demo screenshot: Javascript, GRACe, Haskell, MiniZinc, ...](../../img/visualeditor.png)
 
 ## Recent: Software technology used in demo
 
@@ -76,7 +76,7 @@ GRACe summary
 
 ## Recent: GRACe tutorial
 We have created a tutorial on how to use the GRACe DSL, where we explain the following:
- 
+
 * What are GRACe components, how are they defined
 * How to write GRACe programs written using predefined components
 * How to define component libraries to send to the VisualEditor frontend
@@ -87,7 +87,7 @@ We will continue to improve the documentation for GRACe to make it more usable.
 * Translation of GCM models written in GRACe to constraint programs
 
  Status:
- 
+
 * Writing work is ongoing, soon-to-be complete
 * Draft version will be sent out to GRACeFul partners for comments soon (within the next week)
 * On track to be handed in before end-of-July deadline

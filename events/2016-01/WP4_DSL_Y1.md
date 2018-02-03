@@ -33,17 +33,17 @@ scalability, verifiability and correctness of the models.
     * T4.4 implement a middleware for connecting the DSL to the CFP layer
     * T4.5 build a testing and verification framework for RATs
 
-* [Deliverables](../deliverables/)
-    * [D4.1](../deliverables/d4.1/) **Done**: Formal description of concept map elements needed for CRUD case study (m6)
-    * [D4.2](../deliverables/d4.2/) **DSL for description of concept maps, with formal semantics (m24)**
-    * [D4.3](../deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
-    * [D4.4](../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
+* [Deliverables](../../deliverables/)
+    * [D4.1](../../deliverables/d4.1/) **Done**: Formal description of concept map elements needed for CRUD case study (m6)
+    * [D4.2](../../deliverables/d4.2/) **DSL for description of concept maps, with formal semantics (m24)**
+    * [D4.3](../../deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer (m30)
+    * [D4.4](../../deliverables/d4.4/) Testing and verification framework for RATs with applications to the CRUD case study (m36)
 
 ## Events and dissemination
 
 * 2015-02: GRACeFUL kick-off
     * Chalmers was represented by Cezar Ionescu
-* 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../deliverables/d4.1/)
+* 2015-07: [D4.1: Formal description of concept map elements needed for CRUD case study (m6)](../../deliverables/d4.1/)
     * The work towards the first WP4 deliverable helped clarifying the underlying theoretical basis and the terminology.
     * It contains
         * a short introduction to Functional Programming and DSLs,

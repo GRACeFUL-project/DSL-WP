@@ -1,7 +1,7 @@
 2015-11-02: Preparation for the WP4+5 meeting in Belgium
 
 # Chalmers site activities:
-* Spring 2015: Deliverable [D4.1](../deliverables/d4.1/) Formal description of concept map elements needed for CRUD case study (m6)
+* Spring 2015: Deliverable [D4.1](../../deliverables/d4.1/) Formal description of concept map elements needed for CRUD case study (m6)
 * Summer 2015: Hand-over from Cezar Ionescu to Irene Lobo Valbuena
 * August 2015: [ACCFun: Algorithmic Calculi for Constraint Functional Programming](../ACCFun.md) workshop near Gothenburg
 * Autumn 2015: Introduction of IrLoVa, Individual Study Plan, etc.

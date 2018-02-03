@@ -48,7 +48,7 @@ Relevant sub-tasks:
 * T4.5 build a testing and verification framework for RATs
 
 Next deliverable (for WP4):
-* [D4.2](../deliverables/d4.2/) DSL for description of concept maps, with formal semantics (m24 = 2017-01-31)
+* [D4.2](../../deliverables/d4.2/) DSL for description of concept maps, with formal semantics (m24 = 2017-01-31)
 
 ## Schedule
 
