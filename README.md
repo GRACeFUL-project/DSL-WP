@@ -21,10 +21,18 @@ The strong type system of Haskell and the property-based testing tool
 QuickCheck are off-the-shelf techniques developed by others but
 adapted for GRACeFUL by WP4.  The main new contributions were Typed
 Values (described in Section~\ref{sec:verification}), SessionCheck
-(described in Section~\ref{sec:SessionCheck}), and property-based
+(described below), and property-based
 testing of GRACe programs (described in Section~\ref{sec:GCMP}).
 
 TODO: Change section references to links to the software components.
+
+### SessionCheck
+
+SessionCheck was developed by Maximilian Algehed as part of his MSc in Computer Science at Chalmers U. of Tech.
+
+* [MSc thesis (PDF)](http://www.cse.chalmers.se/~algehed/papers/MSc.pdf)
+* [GitHub repository](https://github.com/MaximilianAlgehed/SessionCheck)
+
 
 ## 2017-12-11/12: "GSS in H2020 and beyond" event in Brussels
 
