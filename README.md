@@ -25,9 +25,9 @@ Values, SessionCheck, and property-based testing of GRACe programs.
 
 ### Typed Values
 
-TODO: add links to code
-
 * [Short description in D4.4, Section 3](deliverables/d4.4.pdf)
+* [Source code](https://github.com/GRACeFUL-project/GRACe/blob/master/src/Types.hs)
+* [Example use of Typed Values](https://github.com/GRACeFUL-project/GRACe/blob/master/examples/Deliverable.hs)
 
 ### SessionCheck
 
