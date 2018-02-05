@@ -39,9 +39,10 @@ SessionCheck was developed by Maximilian Algehed as part of his MSc in Computer 
 
 ### Property-based testing of GRACe programs (GCMP)
 
-TODO: add links to code
-
 * [Short description in D4.4, Section 5](deliverables/d4.4.pdf)
+* [Source code](https://github.com/GRACeFUL-project/GRACe/tree/master/src/TestFW)
+* [Example of property definitions](https://github.com/GRACeFUL-project/GRACe/blob/master/libraries/CrudProperties.hs)
+* [Example executable](https://github.com/GRACeFUL-project/GRACe/blob/master/test/TestLibraries.hs)
 
 ## 2017-12-11/12: "GSS in H2020 and beyond" event in Brussels
 
