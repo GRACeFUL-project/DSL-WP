@@ -1,8 +1,8 @@
-# GRACeFUL DSL Work Package Year 3 review
+# GRACeFUL DSL Work Package Final review
 
 Presented by Patrik Jansson, 2018-03-07.
 
-## Technical achievements w.r.t. WP objectives and tasks,
+## Technical achievements w.r.t.\ WP objectives and tasks,
 
 We have worked mainly on T4.4 and T4.5 of the DSL work package:
 
@@ -14,27 +14,46 @@ This resulted in two deliverables which were both handed in on time:
 * [D4.3](../../deliverables/d4.3/): Translation of concept map descriptions to system dynamics models for the CFP layer
 * [D4.4](../../deliverables/d4.4/): Testing and verification framework for RATs with applications to the CRUD case study
 
-and associated
-[open source code on GitHub](https://github.com/GRACeFUL-project/GRACe) including
-examples and install instructions (through a Docker image).
+Dissemination:
+
+* Reports, tools, and associated [open source code on GitHub](https://github.com/GRACeFUL-project/GRACe) including examples and install instructions (through a Docker image).
+* Scientific papers: four published in 2017, one under review
+* Lecture notes: for BSc course "Domain Specific Languages of Mathematics"
+
+# GSS: Domain Specific Languages as "tools for thinking"
+
+* a \href{https://twitter.com/patrikja/status/299857568392704001}{``tweet-sized GSS definition'' (from 2013)}:
+\begin{quote}
+GSS is about developing systems, theories, languages and tools for
+computer-aided policy making with potentially global implications.
+\end{quote}
+
+* In GRACeFUL we do several levels of "tools for thinking"
+    * Editor: facilitate group model building (using the GRACeFUL tool): to build trust, mutual understanding, shared view
+    * DSL: get computer feedback on model building blocks & combinations which "make sense"
+        * Types: cannot connect a Boolean port with a Number port
+        * Constraints: cannot reuse the same area as park and parking
+    * Test: test & verification of the software and communication layers
+        * Ultimately intended to build trust in the software tools
 
 # Deliverable D4.4: Testing and verification framework
 
+* D4.4 presents a framework for testing and verifying *communicating
+  systems*.
+* This framework is based on three parts:
+    * declarative programming with strong types (in Haskell),
+    * property-based testing in general (using QuickCheck), and
+    * the SessionCheck tool for testing communicating systems in particular.
+* The strong type system of Haskell and the property-based testing
+  tool QuickCheck are off-the-shelf techniques developed by others but
+  adapted for GRACeFUL by WP4.
+* The main new contributions were
+    * Typed Values (for communication betwen GRACe and the front-end),
+    * SessionCheck (specifying and testing communicating systems), and
+    * property-based testing of GRACe programs (connecting to the solver backend) .
+
 Links: [PDF](deliverables/d4.4.pdf), [Text source](deliverables/d4.4/)
 
-The fourth deliverable (D4.4) of work package 4 presents a framework
-for testing and verifying communicating systems. The work leading up
-to this deliverable is within Task 4.5 "Build a testing and
-verification framework for Rapid Assessment Tools (RATs)".
-
-The GRACeFUL testing and verification framework is based on three
-parts: declarative programming with strong types (in Haskell),
-property-based testing in general (using QuickCheck), and the
-SessionCheck tool for testing communicating systems in particular.
-The strong type system of Haskell and the property-based testing tool
-QuickCheck are off-the-shelf techniques developed by others but
-adapted for GRACeFUL by WP4.  The main new contributions were Typed
-Values, SessionCheck, and property-based testing of GRACe programs.
 
 # Deliverable D4.4: Testing and verification framework, cont.
 
@@ -61,13 +80,28 @@ SessionCheck was developed by Maximilian Algehed as part of his MSc in Computer 
 
 # Research publications (progress beyond state-of-the-art)
 
-Five GRACeFUL-relevant papers were published in 2017, see details in Appendix 1:
+Five GRACeFUL-relevant papers were published or submitted in 2017, see details in Appendix 1:
 
 * Paper A was accepted to LMCS in Oct. 2016 and published in March 2017.
 * Paper B was accepted for publication in JFP 2017-09-20, published online 2017-10-24.
 * Paper C was published and presented at FHPC 2017.
 * Paper D was published and presented at PLAS 2017.
 * Paper E is under review for Earth System Dynamics.
+
+# Lecture notes: "Domain Specific Languages of Mathematics"
+
+* BSc level course developed in parallell with GRACeFUL
+* Patrik Jansson and Cezar Ionescu
+* Lecture notes: 150 pages
+
+"... encourage the students to approach mathematical
+  domains from a functional programming perspective:
+
+    * to identify the main functions and types involved and, when necessary, to introduce new abstractions;
+    * to give calculational proofs;
+    * to pay attention to the syntax of the mathematical expressions;
+    * and, finally, to organize the resulting functions and types in domain-specific languages.
+
 
 # Organization and personnel
 
