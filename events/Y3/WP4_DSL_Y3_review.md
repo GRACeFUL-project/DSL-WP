@@ -94,9 +94,8 @@ Five GRACeFUL-relevant papers were published or submitted in 2017, see details i
 * Patrik Jansson and Cezar Ionescu
 * Lecture notes: 150 pages
 
-"... encourage the students to approach mathematical
+* From the abstract: "... encourage the students to approach mathematical
   domains from a functional programming perspective:
-
     * to identify the main functions and types involved and, when necessary, to introduce new abstractions;
     * to give calculational proofs;
     * to pay attention to the syntax of the mathematical expressions;
@@ -108,9 +107,16 @@ Five GRACeFUL-relevant papers were published or submitted in 2017, see details i
 * Site leader: Prof. Patrik Jansson, working 20% for GRACeFUL
 * Lecturer: Dr. Alex Gerdes, working 40% for GRACeFUL from 2017-01
 * Project assistants  (100% from 2017-07; 50% from 2017-07.)
-  * Sólrún Einarsdóttir; Maximilian Algehed
+    * Sólrún Einarsdóttir; Maximilian Algehed
 * Student research assistants (at 20% each, until 2017-03; until 2017-07):
-  * Björn Norgren; Oskar Abrahamsson, Sólrún Einarsdóttir, Maximilian Algehed
+    * Björn Norgren; Oskar Abrahamsson, Sólrún Einarsdóttir, Maximilian Algehed
+
+Good starting point for early stage researchers:
+
+* C. Ionescu: now Assoc. Prof in Oxford
+* A. Gerdes: now Lecturer at UGOT
+* O. Abrahamsson, M. Algehed: now PhD students at Chalmers
+* S. Einarsdóttir: now ProjAss at Chalmers
 
 # Meetings and events
 
@@ -126,6 +132,29 @@ Five GRACeFUL-relevant papers were published or submitted in 2017, see details i
 * 2017-12: Patrik and Alex participated in "GSS in H2020 and beyond" (the GRACeFUL final event) in Brussels.
     * Keynote by Patrik Jansson, and presentation by Alex Gerdes
 * 2018-01: Patrik teaching the BSc course "Domain Specific Languages of Mathematics", using lecture notes developed with support from GRACeFUL
+
+
+# Summary / Questions?
+
+Deliverables:
+
+* [D4.3](../../deliverables/d4.3/): Translation of concept map descriptions to system dynamics models for the CFP layer
+* [D4.4](../../deliverables/d4.4/): Testing and verification framework for RATs with applications to the CRUD case study
+
+Dissemination:
+
+* Reports, tools, and associated [open source code on GitHub](https://github.com/GRACeFUL-project/GRACe) including examples and install instructions (through a Docker image).
+* Scientific papers: four published in 2017, one under review
+* Lecture notes: for BSc course "Domain Specific Languages of Mathematics"
+
+GSS: Domain Specific Languages as "tools for thinking"
+
+* a \href{https://twitter.com/patrikja/status/299857568392704001}{``tweet-sized GSS definition'' (from 2013)}:
+\begin{quote}
+GSS is about developing systems, theories, languages and tools for
+computer-aided policy making with potentially global implications.
+\end{quote}
+* GRACeFUL editor, GRACe DSL, SessionCheck for test & verification
 
 ----------------------------------------------------------------
 # Appendix 1: publication details
