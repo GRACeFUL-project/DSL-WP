@@ -5,6 +5,18 @@ workpackage "Domain-Specific Languages for System Dynamics Models" in
 the EU-project [GRACeFUL](https://www.graceful-project.eu/)
 (2015-02-01 / 2018-01-31).
 
+## Main achievements of WP4 in GRACeFUL:
+
+The main task of WP4 was to build a DSL for translating the concept maps developed and manipulated during GMB sessions to system dynamics models adequate for the CFP layer. To this end we developed the GRACe DSL for concept maps, after identifying the key underlying concepts needed for the CRUD case study. We provided a semantics for GRACe in terms of the types and functions in its Haskell implementation. In collaboration with WP5 we implemented a middleware connecting the GRACe DSL to the CFP layer via the haskelzinc DSL. Finally, we developed a testing and verification framework for RATs, based on three parts: declarative programming with strong types (in Haskell), property-based testing in general (using QuickCheck), and the SessionCheck tool for testing communicating systems in particular.
+In connection with these tasks, WP4 was responsible for the completion of four deliverables. Six papers written by members of WP4 in connection with their work on the GRACeFUL have been accepted for publication so far, with at least three more currently in the pipeline. Three of the six accepted papers are journal publications while the other three were presented at peer-reviewed workshops.
+
+Below are more details about the work during 2015--2018 (starting with the most recent work) with links to further material.
+
+* [D4.4](deliverables/d4.4/) Testing and verification framework
+* [D4.3](deliverables/d4.3/) Translation of concept map descriptions to system dynamics models for the CFP layer
+* [D4.2](deliverables/d4.2/) A Domain Specific Language (DSL) for GRACeFUL Concept Maps
+* [D4.1](deliverables/d4.1/) Formal Concept Maps Elements Descriptions
+
 ## Deliverable D4.4: Testing and verification framework
 
 Links: [PDF](deliverables/d4.4.pdf), [Text source](deliverables/d4.4/)
